@@ -1,6 +1,6 @@
 //PLEASE FOLLOW THE FORMAT OF THIS FILE.
 
-import { faGithubAlt, faLinkedinIn, faMediumM, faFacebook, faTwitter, faInstagram, faYoutube, faBehance, faWhatsapp, faPhone } from "@fortawesome/free-brands-svg-icons"
+import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
 
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.
@@ -15,7 +15,7 @@ export const userinfo = {
         { type: 'Facebook', link: 'https://www.facebook.com/centrocomercialwilde/?locale=es_LA', icon: faFacebook },
         { type: 'Instagram', link: 'https://www.instagram.com/wildecentrocomercial/', icon: faInstagram },
         { type: 'WhatsApp', link:'https://api.whatsapp.com/send?phone=5491131635166', icon: faWhatsapp },
-        { type: 'Phone', link:'https://api.whatsapp.com/send?phone=5491138498249', icon: faPhone },  
+        { type: 'Phone', link:'https://api.whatsapp.com/send?phone=5491138498249' },  
     ],
     banner:{
         title:'CENTRO COMERCIAL WILDE',
