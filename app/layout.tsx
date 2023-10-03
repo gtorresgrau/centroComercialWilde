@@ -1,7 +1,7 @@
 import './globals.css';
 import Navbar from './components/Navbar/index';
 import Footer from './components/Footer/Footer';
-
+import ButtonWsp from './Components//Whatsapp/ButtonWsp';
 
 export const metadata = {
   title: 'Centro Comercial Wilde',
@@ -19,6 +19,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <ButtonWsp />
       </body>
     </html>
   )
