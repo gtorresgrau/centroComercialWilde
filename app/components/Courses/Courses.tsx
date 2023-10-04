@@ -1,6 +1,7 @@
 "use client"
 import * as React from "react";
 import { useState } from "react";
+import local from '../../Constants/locales.json'
 import { GlobeAltIcon, DevicePhoneMobileIcon, CircleStackIcon, CloudIcon } from '@heroicons/react/24/outline';
 
 
@@ -126,6 +127,16 @@ const names: Name[] = [
         category: 'cloudcomputing'
     }
 ];
+
+const rubros = local.map((r) => r.rubro); //traigo todos los rubros del json
+const uniqueRubros = Array.from(new Set(rubros)); // filtro todos los rubros y lo convierto en array
+
+const rubrosk = uniqueRubros.map((rubroItem) => { //los convierto en un par:key
+  return { name: 'rubro', value: rubroItem };
+});
+
+console.log('uniqueRubros_Banner:', uniqueRubros);
+console.log('rubrosk_Banner:', rubrosk);
 
 const NamesList = () => {
 
