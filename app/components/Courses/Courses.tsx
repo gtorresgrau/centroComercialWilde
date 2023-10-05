@@ -1,6 +1,7 @@
 "use client"
 import * as React from "react";
 import { useState } from "react";
+import {rubrosk} from '../../Utils/rubros'
 import local from '../../Constants/locales.json'
 import { GlobeAltIcon, DevicePhoneMobileIcon, CircleStackIcon, CloudIcon } from '@heroicons/react/24/outline';
 
@@ -128,21 +129,22 @@ const names: Name[] = [
     }
 ];
 
-const rubros = local.map((r) => r.rubro); //traigo todos los rubros del json
-const uniqueRubros = Array.from(new Set(rubros)); // filtro todos los rubros y lo convierto en array
-
-const rubrosk = uniqueRubros.map((rubroItem) => { //los convierto en un par:key
-  return { name: 'rubro', value: rubroItem };
-});
-
-console.log('uniqueRubros_Banner:', uniqueRubros);
-console.log('rubrosk_Banner:', rubrosk);
 
 const NamesList = () => {
+    let select:any = rubrosk.map(r=> r.value);
 
-    const [selectedButton, setSelectedButton] = useState<'mobiledevelopment' | 'webdevelopment' | 'datascience' | 'cloudcomputing' | 'all' | null>('webdevelopment');
+    console.log('0-select:', select)
 
+    const [selectedButton, setSelectedButton] = useState('Bazar');
+    //const [selectedButton, setSelectedButton] = useState(rubrosk)
+    
+    console.log('1-selectedButon:',selectedButton)
+
+    const diferentes = local.filter(r=>r.rubro)
+    console.log('diferentes:',diferentes)
     const mobileDevelopment = names.filter((name) => name.category === 'mobiledevelopment');
+    console.log('3-mobiledev:',mobileDevelopment)
+
     const webDevelopment = names.filter((name) => name.category === 'webdevelopment');
     const dataScience = names.filter((name) => name.category === 'datascience');
     const cloudComputing = names.filter((name) => name.category === 'cloudcomputing');
@@ -158,6 +160,8 @@ const NamesList = () => {
     } else if (selectedButton === 'cloudcomputing') {
         selectedNames = cloudComputing
     }
+    
+    console.log('4-selectednames:',selectedNames)
 
 
     const nameElements = selectedNames.map((name, index) => (
@@ -222,13 +226,6 @@ const NamesList = () => {
                     <button onClick={() => setSelectedButton('mobiledevelopment')} className={"bg-white " + (selectedButton === 'mobiledevelopment' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Mobile Development</button>
                     <button onClick={() => setSelectedButton('datascience')} className={"bg-white " + (selectedButton === 'datascience' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Data Science</button>
                     <button onClick={() => setSelectedButton('cloudcomputing')} className={"bg-white " + (selectedButton === 'cloudcomputing' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Cloud Computing</button>
-
-                    {/* FOR MOBILE VIEW */}
-                    <GlobeAltIcon onClick={() => setSelectedButton('webdevelopment')} width={70} height={70} className={"bg-white " + (selectedButton === 'webdevelopment' ? 'border-b-2 border-orange fill-orange' : '') + " pb-2 block sm:hidden"} />
-                    <DevicePhoneMobileIcon onClick={() => setSelectedButton('mobiledevelopment')} width={70} height={70} className={"bg-white " + (selectedButton === 'mobiledevelopment' ? 'border-b-2 border-orange fill-orange' : '') + " pb-2 block sm:hidden"} />
-                    <CircleStackIcon onClick={() => setSelectedButton('datascience')} width={70} height={70} className={"bg-white " + (selectedButton === 'datascience' ? 'border-b-2 border-orange fill-orange' : '') + " pb-2 block sm:hidden"} />
-                    <CloudIcon onClick={() => setSelectedButton('cloudcomputing')} width={70} height={70} className={"bg-white " + (selectedButton === 'cloudcomputing' ? 'border-b-2 border-orange fill-orange' : '') + " pb-2 block sm:hidden"} />
-
                 </div>
 
                 <div>
