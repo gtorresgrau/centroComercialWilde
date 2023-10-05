@@ -164,39 +164,33 @@ const NamesList = () => {
     console.log('4-selectednames:',selectedNames)
 
 
-    const nameElements = selectedNames.map((name, index) => (
+    const nameElements = local.map((name, index) => (
 
         <div key={index}>
             <div className=" text-lg sm:text-sm py-5 lg:py-0">
                 <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                     <img
-                        src={name.imageSrc}
-                        alt={name.imageSrc}
+                        src={name.imagen}
+                        alt={name.imagen}
                         className="h-full w-full object-cover object-center"
                     />
                 </div>
                 <div className='flex justify-between'>
                     <div className="mt-6 block font-normal text-gray-900">
-                        {name.course}
+                        {name.rubro}
                     </div>
                     <div className="mt-6 block text-lg font-semibold text-green border-solid border-2 border-green rounded-md px-1">
-                        ${name.price}
+                        ${name.n_local}
                     </div>
                 </div>
-                <p aria-hidden="true" className="mt-2 mb-5 text-2xl font-semibold ">
-                    {name.profession}
-                </p>
+                <p aria-hidden="true" className="mt-2 mb-5 text-2xl font-semibold ">Local: {name.n_local}</p>
 
                 <div className='flex justify-between border-solid border-2 border-grey500 rounded-md p-2'>
-                    <p>12 Classes</p>
+                    <p>{name.celular}</p>
                     <div className='flex flex-row space-x-4'>
                         <div className='flex'>
                             <img src={'/assets/courses/account.svg'} alt="circle" />
-                            <p className='text-lightgrey ml-1'>120</p>
-                        </div>
-                        <div className='flex'>
-                            <img src={'/assets/courses/Star.svg'} alt="star" />
-                            <p className='ml-1'>4.5</p>
+                            <p className='text-lightgrey ml-1'>{name.redes_sociales}</p>
                         </div>
                     </div>
                 </div>
@@ -207,21 +201,24 @@ const NamesList = () => {
 
 
     return (
-        <div>
+        <>
             <div id='courses-section' className="mx-auto max-w-2xl py-16 px-4 sm:py-36 sm:px-6 lg:max-w-7xl lg:px-8">
-
                 <div className='sm:flex justify-between items-center pb-12'>
-                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Popular Courses</h2>
-                    <div>
+                    <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Locales CCW</h2>
+                    <>
                         <button className="bg-transparent hover:bg-purple text-purple font-medium hover:text-white py-3 px-4 border border-purple hover:border-transparent rounded">
-                            Explore Classes
+                            Ver Todos
                         </button>
-                    </div>
+                    </>
                 </div>
-
-                <div className='flex nowhitespace space-x-5 rounded-xl bg-white p-1 overflow-x-auto'>
-
+                {/* <>
+                {rubrosk.map((r)=>{
+                    <button key={r.value} onClick={() => setSelectedButton('webdevelopment')} className={"bg-white " + (selectedButton === 'webdevelopment' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>{r.value}</button>
+                })}
+                </> */}
                     {/* FOR DESKTOP VIEW */}
+            <div className='flex nowhitespace space-x-5 rounded-xl bg-white p-1 overflow-x-auto'>
+                    
                     <button onClick={() => setSelectedButton('webdevelopment')} className={"bg-white " + (selectedButton === 'webdevelopment' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Web Development</button>
                     <button onClick={() => setSelectedButton('mobiledevelopment')} className={"bg-white " + (selectedButton === 'mobiledevelopment' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Mobile Development</button>
                     <button onClick={() => setSelectedButton('datascience')} className={"bg-white " + (selectedButton === 'datascience' ? 'text-black border-b-2 border-orange' : 'text-lightgrey') + " pb-2 text-lg hidden sm:block"}>Data Science</button>
@@ -243,7 +240,7 @@ const NamesList = () => {
                 </div>
 
             </div>
-        </div>
+        </>
     );
 }
 
