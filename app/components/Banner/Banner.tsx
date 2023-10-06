@@ -17,7 +17,7 @@ const Banner = () => {
                 </article> 
                 {/* DROPDOWN BUTTONS */}
                 <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow"> 
-                    <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
+                    <div className="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
                         <div className="col-span-4"><Dropdownone /></div>
                         {/* <div className="col-span-3"><Dropdowntwo /></div> */}
                         <div className="col-span-3 sm:col-span-2 mt-2">

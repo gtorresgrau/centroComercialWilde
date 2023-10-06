@@ -7,7 +7,7 @@
         "ubicacion": "PB",
         "rubro": "Bazar",
         "horarios": "09-13 y 17-19.30",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1rUaECgo4st27lFrf-mUhiGDC2Dw39RGD",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526993/CCW/20231002_102442_-_Monica_Santaniello_r7lgxc.jpg",
         "redes_sociales": "Santaniello.Monica"
     },
     {
@@ -18,7 +18,7 @@
         "ubicacion": "PB",
         "rubro": "Ropa bebe - arreglos de ropa en gral",
         "horarios": "10 a 13 y 17.30 a 20",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1syAPRsn0gV_JqXoVhEXVztJtPbRX5lRh",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526994/CCW/IMG_20231003_104411_-_Ana_Maria_Molla_hz2iyl.jpg",
         "redes_sociales": "Instagram/Facebook"
     },
     {
@@ -29,7 +29,8 @@
         "ubicacion": "Afuera",
         "rubro": "Limpieza",
         "horarios": "09-13 y 17-20",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1vCF7mAQ-vf3_GeWtTVzOUK1ELft3j_SS"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526993/CCW/16963667831425903740668617122934_-_19sebastian81_llfpct.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "clarita141428@hotmail.com",
@@ -39,7 +40,8 @@
         "ubicacion": "Afuera",
         "rubro": "Ropa bebes",
         "horarios": "10-13 y 17-20",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1wRON5vusCOUMbzI_8Ued0Ok6nKhYSMeJ"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526992/CCW/IMG_20220804_140024_432_-_Clara_Beatriz_Gimenez_rlildm.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "tinchomb_5@hotmail.com",
@@ -49,7 +51,8 @@
         "ubicacion": "PB",
         "rubro": "Agencia de Loteria",
         "horarios": "9:30 a 14 y 16:30 a 20:30",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1au5z7dN4Zbk73pMd-dCR7UGx7aDMR4z0"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526866/CCW/Loteria-de-la-Provincia-de-Buenos-Aires-Logo-Vector_-_Martin_Arrieta_iwcg4p.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "rolando_velasquez_@hotmail.com",
@@ -59,7 +62,7 @@
         "ubicacion": "Afuera",
         "rubro": "Peluqueria",
         "horarios": "10 a 21 hs",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1mPfaJsa2ooWbB2_3MJX7En_oyFeTIdpj",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526993/CCW/20230927_203010_2_-_rolando_velasquez_p8wqxw.jpg",
         "redes_sociales": "Instagram: Neonflow_barber"
     },
     {
@@ -70,6 +73,7 @@
         "ubicacion": "PB",
         "rubro": "Optica",
         "horarios": "10-13 17-19",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696527234/CCW/Optica_jevwdp.png",
         "redes_sociales": "@laboratorioopticoparks"
     },
     {
@@ -80,7 +84,7 @@
         "ubicacion": "2 piso",
         "rubro": "Papelera",
         "horarios": "de 8 a 13 y de 17 a 21",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=15yi47KfuWaogIqWY8IBiOorGHpdOESn4",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526995/CCW/Logo_-_Papelera_De_Fatima_ed2npr.png",
         "redes_sociales": "@papeleradefatima en fb e ig"
     },
     {
@@ -91,7 +95,8 @@
         "ubicacion": "Afuera",
         "rubro": "Fiambreria - Almacen",
         "horarios": "09.30/13.00----17.00/20.30",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=17rKjftoKJ3oSqLHCnciIxQeZELo0dBmo"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526997/CCW/IMG_20201212_123125_-_D_C_rj664t.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "Ccwcomputacion@gmail.com",
@@ -101,7 +106,7 @@
         "ubicacion": "PB",
         "rubro": "Computacion",
         "horarios": "9-13 y 16 a 20",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1AFte3g2sNVN7MxselacbBZaBQLgrwXkY",
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526988/CCW/1649976913041_-_Fernando_Mack_hxyw0t.jpg",
         "redes_sociales": "Instargram"
     },
     {
@@ -112,6 +117,7 @@
         "ubicacion": "PB",
         "rubro": "Peluqueria",
         "horarios": "10 a 18",
-        "imagen": "https://drive.google.com/u/0/open?usp=forms_web&id=1c5upBzWHxOxJvxYh-EOeX41YZSB8r5ai"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526991/CCW/20231004_121449_-_Claudia_Claudia_dqiowh.jpg",
+        "redes_sociales": ""
     }
 ]
