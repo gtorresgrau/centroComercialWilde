@@ -1,6 +1,7 @@
 //PLEASE FOLLOW THE FORMAT OF THIS FILE.
 
 import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
+import casa_analia from '../../public/assets/slickCompany/casa_analia.svg'
 
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.
@@ -24,6 +25,23 @@ export const userinfo = {
         button:'BUSCAR'
     }
 }
+
+export const carrusel = [
+    {
+        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
+    },
+    {
+        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696613606/CCW/grillo_tey5n2.svg'
+    },
+    {
+        imgSrc: "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg"
+    },
+    {
+        imgSrc: "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696613606/CCW/grillo_tey5n2.svg"
+    }
+]
+
+
 export const residencia = {
         //this text goes on your landing page
         tab1: 'Residencia', 

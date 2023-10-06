@@ -1,33 +1,12 @@
 "use client"
 import React, { Component } from "react";
 import Slider from "react-slick";
+import { carrusel } from "@/app/Constants/userinfo";
 
 // IMAGES DATA FOR CAROUSEL
-interface Data {
+interface carrusel {
     imgSrc: string;
 }
-
-const data: Data[] = [
-    {
-        imgSrc: "/assets/slickCompany/airbnb.svg"
-    },
-    {
-        imgSrc: "/assets/slickCompany/hubspot.svg"
-    },
-    {
-        imgSrc: "/assets/slickCompany/microsoft.svg"
-    },
-    {
-        imgSrc: "/assets/slickCompany/google.svg"
-    },
-    {
-        imgSrc: "/assets/slickCompany/walmart.svg"
-    },
-    {
-        imgSrc: "/assets/slickCompany/fedex.svg"
-    },
-]
-
 
 // CAROUSEL SETTINGS
 export default class MultipleItems extends Component {
@@ -74,22 +53,18 @@ export default class MultipleItems extends Component {
         };
 
         return (
-
-            <div className='text-center bg-lightpink' >
-                <div className="mx-auto max-w-2xl py-16 px-4s sm:px-6 lg:max-w-7xl lg:px-8">
-                    <h2 className="text-lg my-10 text-lightgrey">Trusted by companies of all sizes</h2>
-                    <div>
+            <section className='text-center bg-lightpink' >
+                <article className="mx-auto max-w-2xl py-10 px-4s sm:px-6 lg:max-w-7xl lg:px-6">
+                    <h2 className="text-lg my-4 text-lightgrey">Locales que encontraras a lo largo de nuestro paseo de compras</h2>
                         <Slider {...settings}>
-                            {data.map((item, i) =>
+                            {carrusel.map((item, i) =>
                                 <div key={i}>
                                     <img src={item.imgSrc} alt={item.imgSrc} />
                                 </div>
                             )}
                         </Slider>
-                    </div>
-                </div>
-            </div>
-
+                </article>
+            </section>
         )
     }
 }

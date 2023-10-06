@@ -29,7 +29,8 @@
         "ubicacion": "Afuera",
         "rubro": "Limpieza",
         "horarios": "09-13 y 17-20",
-        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526993/CCW/16963667831425903740668617122934_-_19sebastian81_llfpct.jpg"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526993/CCW/16963667831425903740668617122934_-_19sebastian81_llfpct.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "clarita141428@hotmail.com",
@@ -39,7 +40,8 @@
         "ubicacion": "Afuera",
         "rubro": "Ropa bebes",
         "horarios": "10-13 y 17-20",
-        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526992/CCW/IMG_20220804_140024_432_-_Clara_Beatriz_Gimenez_rlildm.jpg"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526992/CCW/IMG_20220804_140024_432_-_Clara_Beatriz_Gimenez_rlildm.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "tinchomb_5@hotmail.com",
@@ -49,7 +51,8 @@
         "ubicacion": "PB",
         "rubro": "Agencia de Loteria",
         "horarios": "9:30 a 14 y 16:30 a 20:30",
-        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526866/CCW/Loteria-de-la-Provincia-de-Buenos-Aires-Logo-Vector_-_Martin_Arrieta_iwcg4p.jpg"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526866/CCW/Loteria-de-la-Provincia-de-Buenos-Aires-Logo-Vector_-_Martin_Arrieta_iwcg4p.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "rolando_velasquez_@hotmail.com",
@@ -92,7 +95,8 @@
         "ubicacion": "Afuera",
         "rubro": "Fiambreria - Almacen",
         "horarios": "09.30/13.00----17.00/20.30",
-        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526997/CCW/IMG_20201212_123125_-_D_C_rj664t.jpg"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526997/CCW/IMG_20201212_123125_-_D_C_rj664t.jpg",
+        "redes_sociales": ""
     },
     {
         "email": "Ccwcomputacion@gmail.com",
@@ -113,6 +117,7 @@
         "ubicacion": "PB",
         "rubro": "Peluqueria",
         "horarios": "10 a 18",
-        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526991/CCW/20231004_121449_-_Claudia_Claudia_dqiowh.jpg"
+        "imagen": "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696526991/CCW/20231004_121449_-_Claudia_Claudia_dqiowh.jpg",
+        "redes_sociales": ""
     }
 ]
