@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import styles from './contact.module.css';
+import styles from './Contact.module.css';
 import { FaWhatsapp } from "react-icons/fa";
 
 interface ButtonWspProps {
