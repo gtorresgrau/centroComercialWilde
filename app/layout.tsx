@@ -1,3 +1,5 @@
+"use client";
+
 import './globals.css';
 import Navbar from './components/Navbar/index';
 import Footer from './components/Footer/Footer';
