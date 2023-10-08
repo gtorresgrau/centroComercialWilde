@@ -7,7 +7,6 @@ import { carrusel } from "@/app/Constants/userinfo";
 interface carrusel {
     imgSrc: string;
 }
-
 // CAROUSEL SETTINGS
 export default class MultipleItems extends Component {
     render() {
@@ -51,7 +50,7 @@ export default class MultipleItems extends Component {
                 }
             ]
         };
-
+        console.log('carrusel:',carrusel)
         return (
             <section className='text-center bg-lightpink' >
                 <article className="mx-auto max-w-2xl py-10 px-4s sm:px-6 lg:max-w-7xl lg:px-6">
