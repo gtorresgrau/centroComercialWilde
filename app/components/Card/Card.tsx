@@ -18,8 +18,8 @@ interface CardProps {
   const Card: React.FC<CardProps> = ({ product }) => {
   const { imagen, redes_sociales, ubicacion, contacto } = product;
   return (
-    <div key={contacto} className="group relative">
-      <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+    <div key={contacto} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg">
+      <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 ">
         <img
           src={imagen}
           alt={`Product Image: ${ubicacion}`}
