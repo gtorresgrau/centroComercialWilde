@@ -16,7 +16,7 @@ interface local {
     redes_sociales: string;
 }
 
-const Mentor = () => {
+const Locales = () => {
     return (
         <section id="mentors-section" className="mx-auto max-w-2xl pb-16 px-4 sm:py-20 sm:px-6 lg:max-w-7xl lg:px-8">
             <article className='sm:flex justify-between items-center mb-12'>
@@ -36,4 +36,4 @@ const Mentor = () => {
     )
 }
 
-export default Mentor;
+export default Locales;
