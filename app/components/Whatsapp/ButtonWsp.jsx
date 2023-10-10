@@ -1,14 +1,10 @@
-"use client"
-import Link from "next/link";
 import React, { useState } from "react";
+import Link from "next/link";
 import styles from './contact.module.css';
 import { FaWhatsapp } from "react-icons/fa";
 
-interface ButtonWspProps {
-  text?: string;
-}
 
-function ButtonWsp({ text = 'ADMINISTRACION' }: ButtonWspProps) {
+const ButtonWsp = ({ text = 'ADMINISTRACION' }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -40,4 +36,5 @@ function ButtonWsp({ text = 'ADMINISTRACION' }: ButtonWspProps) {
 }
 
 export default ButtonWsp;
+
 
