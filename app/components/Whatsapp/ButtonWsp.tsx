@@ -1,7 +1,6 @@
-"use client"
 import Link from "next/link";
 import React, { useState } from "react";
-import styles from './Contact.module.css';
+import styles from './contact.module.css';
 import { FaWhatsapp } from "react-icons/fa";
 
 interface ButtonWspProps {
@@ -27,8 +26,9 @@ function ButtonWsp({ text = 'ADMINISTRACION' }: ButtonWspProps) {
           className={styles.buttonWspDesign}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          aria-label="Contactar por WhatsApp"
+          aria-label="Contact via WhatsApp"
           role="button"
+          data-client={true}
         >
           <FaWhatsapp className={styles.iconWhatsApp} />
           {isHovered && <h2 className={styles.textWhatsApp}>{text}</h2>}
