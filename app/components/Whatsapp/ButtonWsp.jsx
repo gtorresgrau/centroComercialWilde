@@ -1,8 +1,8 @@
+"use client"
 import React, { useState } from "react";
 import Link from "next/link";
 import styles from './contact.module.css';
 import { FaWhatsapp } from "react-icons/fa";
-
 
 const ButtonWsp = ({ text = 'ADMINISTRACION' }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -36,5 +36,3 @@ const ButtonWsp = ({ text = 'ADMINISTRACION' }) => {
 }
 
 export default ButtonWsp;
-
-
