@@ -4,7 +4,12 @@ import Link from "next/link";
 import '../../globals.css';
 import { FaWhatsapp } from "react-icons/fa";
 
-const ButtonWsp = ({ text = 'ADMINISTRACION' }) => {
+interface ButtonWspProps {
+  text?: string;
+  contact?: string;
+}
+
+const ButtonWsp = ({ text , contact }: ButtonWspProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -15,9 +20,11 @@ const ButtonWsp = ({ text = 'ADMINISTRACION' }) => {
     setIsHovered(false);
   };
 
+  const enviar = `https://api.whatsapp.com/send?phone=54${contact}`
+
   return (
     <article className="buttonWspPosition">
-      <Link href="https://api.whatsapp.com/send?phone=5491131635166" passHref>
+      <Link href={enviar} passHref>
         <button
           rel="noopener noreferrer"
           className='buttonWspDesign'

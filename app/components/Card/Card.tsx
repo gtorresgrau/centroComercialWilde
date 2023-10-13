@@ -1,5 +1,6 @@
 // Locales DATA
 import React from 'react';
+import ButtonWsp from '../Whatsapp/ButtonWsp';
 
 interface CardProps {
     product: {
@@ -15,8 +16,9 @@ interface CardProps {
     };
   }
 
+
   const Card: React.FC<CardProps> = ({ product }) => {
-  const { imagen, redes_sociales, ubicacion, contacto } = product;
+  const { imagen, redes_sociales, ubicacion, contacto, celular } = product;
   return (
     <div key={contacto} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg">
       <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 ">
@@ -27,20 +29,14 @@ interface CardProps {
         />
       </div>
       <div className="mt-4 flex justify-center">
-        <div>
-          <div className="border border-white rounded-lg -mt-8 bg-white p-2 mentorShadow">
-            <h3 className="text-sm text-gray-700 text-center">
-              <a href={redes_sociales}>
-                <span aria-hidden="true" className="absolute inset-0" />
-                {ubicacion}
-              </a>
-            </h3>
-          </div>
-          <p className="mt-3 text-2xl font-semibold text-offblack text-center">
-            {contacto}
-          </p>
-        </div>
+            <div className="border border-white rounded-lg -mt-8 bg-white p-2 mentorShadow">
+              <h2 className="text-sm text-gray-700 text-center">
+                <a href={redes_sociales}>{ubicacion}</a>
+              </h2>
+              <p className="mt-3 text-2xl font-semibold text-offblack text-center">{contacto}</p>
+            </div>
       </div>
+      <ButtonWsp text='contacto' contact={`+54${celular}`} />
     </div>
   );
 };

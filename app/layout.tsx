@@ -19,7 +19,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <ButtonWsp />
+        <ButtonWsp text='ADMINISTRACION' contact={`1131635166`}/>
       </body>
     </html>
   )

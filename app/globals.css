@@ -104,7 +104,7 @@ html:not([data-scroll="0"]) .navbar {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  z-index: 50;
+  z-index: 100;
 }
 
 .buttonWspDesign{
