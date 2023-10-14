@@ -1,8 +1,11 @@
+'use client'
 // Locales DATA
 
 import React from 'react';
 import local from '../../Constants/locales.json'
 import Card from '../Card/Card'
+import Dropdownone from '../Banner/Dropdownone';
+import { useState } from 'react';
 
 interface local {
     email: string;
@@ -16,19 +19,33 @@ interface local {
     redes_sociales: string;
 }
 
+
+
+
 const Locales = () => {
+    const [rubroo,setRubro]=useState('All')
+    
+const rubro= (data:any)=>{
+        console.log('esta es la data ',data)
+        setRubro(data)
+        console.log('rubro estado',rubroo)
+    }
+
     return (
         <section id="mentors-section" className="mx-auto max-w-2xl pb-16 px-4 sm:py-20 sm:px-6 lg:max-w-7xl lg:px-8">
-            <article className='sm:flex justify-between items-center mb-12'>
-                <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Conocenos</h2>
-                <div>
-                    <button className="bg-transparent hover:bg-purple text-purple font-medium hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">
-                        Ver todos los Locales
-                    </button>
-                </div>
-            </article>
+                <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow"> 
+                    <div className="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
+                        <div className="col-span-8"><Dropdownone selectRubro={rubro} /></div>
+                        {/* <div className="col-span-3"><Dropdowntwo /></div> */}
+                       
+                    </div>
+                </article>
                 <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    {local.map((product, index) => (
+                    { rubroo==='All' ?
+                    local.map((product, index) => (
+                        <Card product={product} key={index}/>
+                      )) :
+                    local.filter((l)=>l.rubro===rubroo).map((product, index) => (
                         <Card product={product} key={index}/>
                       ))}
                 </article>
