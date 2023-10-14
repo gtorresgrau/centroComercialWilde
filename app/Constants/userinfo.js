@@ -2,6 +2,7 @@
 
 import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
 import casa_analia from '../../public/assets/slickCompany/casa_analia.svg'
+import grillo from '../../public/assets/slickCompany/grillo.svg'
 
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.
@@ -31,30 +32,21 @@ export const carrusel = [
         imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
     },
     {
-        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696613606/CCW/grillo_tey5n2.svg'
+        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
+    },
+    {
+        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
     },
     {
         imgSrc: "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg"
     },
-    {
-        imgSrc: "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696613606/CCW/grillo_tey5n2.svg"
-    }
 ]
 
-
-export const residencia = {
+export const news = {
         //this text goes on your landing page
-        tab1: 'Residencia', 
-        title: 'Residencia Estudiantil (Durante el Año):',
-        parr1: 'Residencia Salomon durante el año, hospeda estudiantes universitarios en habitaciones y espacios compartidos.',
-        parr2: 'Contamos con una ubicación estratégica respecto a las distintas intituciones educativas y zonas de interés. ',
-    }
-
-export const temporada = {
-        tab2: 'Temporada',
-        title: "Temporada de Verano:",
-        parr1: 'En esta modalidad podes, alquilar tu habitacion privada con un somier de 2 plazas con opcion a incorporar un somier de 1 plaza o cama cucheta en caso de que se aloje con niños, la residencia se encuentra a 2 cuadras de la Av. Juan B. Justo, reconocida avenida de compras, y a 15 minutos de las playas mas reconocidas de la ciudad. Podes disfrutar de los espacios compartidos con nosotros y otros inquilinos.',
-        items: ['Ubicación céntrica','Espacio con Parrilla','Salon living-comedor','Hogar a leña']
+        title: 'Join Our Newsletter', 
+        subTitle: 'Subscribe our newsletter for discounts, promo and many more.',
+        btn: 'Subscribe',
     }
     
 
