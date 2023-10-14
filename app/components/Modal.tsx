@@ -46,7 +46,7 @@ export default function Modal(props:any) {
                   <img className='rounded shadow-lg ' src={props.product.imagen} alt="" />
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      lore
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo iste nisi aliquam similique suscipit tenetur autem velit nesciunt nemo mollitia assumenda ratione voluptate maxime magni quod excepturi quae, impedit consequuntur?
                     </p>
                   </div>
 
