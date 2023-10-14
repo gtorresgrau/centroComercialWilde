@@ -15,7 +15,7 @@ const Dropdown = (props:any) => {
   }
   
   return (
-    <div className=" grid grid-rows-2 grid-cols-2 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded lg:grid-cols-4 grid-rows-1 " >
+    <div className="  grid grid-cols-2 lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded"> 
       <div className='w-full col-span-2' >
         <Listbox value={selected} onChange={(newValue) => {setSelected(newValue)}}>
           <h2 className='text-lg text-lightgrey'>¿Que estas buscando?</h2>
