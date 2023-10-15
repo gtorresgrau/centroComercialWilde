@@ -1,8 +1,6 @@
 //PLEASE FOLLOW THE FORMAT OF THIS FILE.
 
 import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
-import casa_analia from '../../public/assets/slickCompany/casa_analia.svg'
-import grillo from '../../public/assets/slickCompany/grillo.svg'
 
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.

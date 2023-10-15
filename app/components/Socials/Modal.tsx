@@ -1,7 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import ButtonWsp from '../components/Whatsapp/ButtonWsp'
 import RedesSociales from './RedesSociales'
+import ButtonWsp from './ButtonWsp'
+
+
 export default function Modal(props:any) {
   let [isOpen, setIsOpen] = useState(true)
 
@@ -44,23 +46,15 @@ export default function Modal(props:any) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <img className='rounded shadow-lg ' src={props.product.imagen} alt="" />
+                  <img className='rounded shadow-lg ' src={props.product.fotoLocal} alt={props.product.local} />
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis autem alias voluptatem nisi exercitationem quasi quis dolore error molestias, voluptatibus illum amet placeat neque distinctio dolorem eos blanditiis nostrum quibusdam?
-                    </p>
+                    <p className="text-sm text-gray-500">Somos todos los locales del Centro Comercial Wilde?</p>
                   </div>
-
                   <div className="grid grid-cols-2 mt-4">
-                    <button
-                      type="button"
-                      className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded "
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                <RedesSociales />
+                    <button type="button" className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={closeModal}>VOLVER</button>
+                  <RedesSociales instagram={props.product.instagram} facebook={props.product.facebook}/>
                   </div>
+                  <ButtonWsp text={props.product.contacto} contact={props.product.celular}/>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

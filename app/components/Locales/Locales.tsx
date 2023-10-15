@@ -2,7 +2,7 @@
 // Locales DATA
 
 import React from 'react';
-import local from '../../Constants/locales.json'
+import local from '../../Constants/data.json'
 import Card from '../Card/Card'
 import Dropdownone from '../Banner/Dropdownone';
 import { useState } from 'react';
