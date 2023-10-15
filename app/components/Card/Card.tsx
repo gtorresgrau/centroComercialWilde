@@ -1,6 +1,8 @@
 // Locales DATA
 import React,{useState} from 'react';
 import Modal from '../Modal';
+import RedesSociales from '../RedesSociales';
+import { FaFacebookSquare, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export interface CardProps {
     product: {
@@ -44,11 +46,11 @@ const [modal, setModal] = useState(false)
               <p className="mt-3 text-2xl font-semibold text-offblack text-center">{contacto}</p>
             </div>
       </div>
-      <div>
-        <button className=" bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
+      <div className='grid grid-cols-2'>
+         <RedesSociales />
+        <button className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
+        </div>      
         { modal && <Modal  product={product} modal={mod}/> }
-        
-      </div>
     </div>
   );
 };
