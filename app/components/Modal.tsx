@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import ButtonWsp from '../components/Whatsapp/ButtonWsp'
+import RedesSociales from './RedesSociales'
 export default function Modal(props:any) {
   let [isOpen, setIsOpen] = useState(true)
 
@@ -46,19 +47,19 @@ export default function Modal(props:any) {
                   <img className='rounded shadow-lg ' src={props.product.imagen} alt="" />
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo iste nisi aliquam similique suscipit tenetur autem velit nesciunt nemo mollitia assumenda ratione voluptate maxime magni quod excepturi quae, impedit consequuntur?
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis autem alias voluptatem nisi exercitationem quasi quis dolore error molestias, voluptatibus illum amet placeat neque distinctio dolorem eos blanditiis nostrum quibusdam?
                     </p>
                   </div>
 
-                  <div className="mt-4">
+                  <div className="grid grid-cols-2 mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded "
                       onClick={closeModal}
                     >
                       Got it, thanks!
                     </button>
-                <ButtonWsp/>
+                <RedesSociales />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

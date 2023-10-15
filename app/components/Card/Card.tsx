@@ -46,7 +46,7 @@ const [modal, setModal] = useState(false)
               <p className="mt-3 text-2xl font-semibold text-offblack text-center">{contacto}</p>
             </div>
       </div>
-      <div className='grid grid-cols-2'>
+      <div className='grid grid-cols-2 mt-1 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg'>
          <RedesSociales />
         <button className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
         </div>      
