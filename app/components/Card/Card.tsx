@@ -1,8 +1,6 @@
 // Locales DATA
 import React,{useState} from 'react';
 import Modal from '../Socials/Modal';
-import RedesSociales from '../Socials/RedesSociales';
-import { FaFacebookSquare, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export interface CardProps {
     product: {

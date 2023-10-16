@@ -1,7 +1,7 @@
 "use client"
 import React, { Component } from "react";
 import Slider from "react-slick";
-import { carrusel } from "@/app/Constants/userinfo";
+import { carrusel } from "./carrusel";
 
 // IMAGES DATA FOR CAROUSEL
 interface carrusel {

@@ -4,23 +4,21 @@ import Link from 'next/link';
 import React from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
-import Signdialog from "./Signdialog";
-import Registerdialog from "./Registerdialog";
 import Contactus from "./Contactus";
+import logo from '../../../public/assets/logo/administración.png'
+import Image from 'next/image';
 
 
 interface NavigationItem {
     name: string;
-    href: string;
+    href: any;
     current: boolean;
 }
 
 const navigation: NavigationItem[] = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'Courses', href: '#courses-section', current: false },
-    { name: 'Mentors', href: '#mentors-section', current: false },
+    { name: 'Home', href: '#courses-section', current: true },
+    { name: 'Locales', href: '#mentors-section', current: false },
     { name: 'Testimonial', href: '#testimonial-section', current: false },
-    { name: 'Join', href: '#join-section', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -41,16 +39,20 @@ const Navbar = () => {
                             {/* LOGO */}
 
                             <div className="flex flex-shrink-0 items-center">
-                                <img
-                                    className="block h-30px w-30px lg:hidden"
-                                    src={'/assets/logo/Logo.svg'}
-                                    alt="Cemtro Comercial Logo"
-                                />
-                                <img
-                                    className="hidden h-48px w-48px lg:block"
-                                    src={'/assets/logo/Logo.svg'}
-                                    alt="Cemtro Comercial Logo"
-                                />
+                                <Image
+                                        className="block h-30px w-30px lg:hidden"
+                                        src={logo}
+                                        alt="Centro Comercial Logo"
+                                        width={30} // Ancho deseado
+                                        height={30} // Alto deseado
+                                    />
+                                    <Image
+                                        className="hidden h-48px w-48px lg:block"
+                                    src={logo}
+                                        alt="Centro Comercial Logo"
+                                        width={48} // Ancho deseado
+                                        height={48} // Alto deseado
+                                    />
                             </div>
 
                             {/* LINKS */}
@@ -74,17 +76,6 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* SIGNIN DIALOG */}
-
-                        <Signdialog />
-
-
-                        {/* REGISTER DIALOG */}
-
-                        <Registerdialog />
-
-
                         {/* DRAWER FOR MOBILE VIEW */}
 
                         {/* DRAWER ICON */}

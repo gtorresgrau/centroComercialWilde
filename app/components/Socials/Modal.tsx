@@ -1,7 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import RedesSociales from './RedesSociales'
-import ButtonWsp from './ButtonWsp'
 
 
 export default function Modal(props:any) {
@@ -52,9 +51,8 @@ export default function Modal(props:any) {
                   </div>
                   <div className="grid grid-cols-2 mt-4">
                     <button type="button" className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={closeModal}>VOLVER</button>
-                  <RedesSociales instagram={props.product.instagram} facebook={props.product.facebook}/>
+                    <RedesSociales instagram={props.product.instagram} facebook={props.product.facebook} contact={props.product.celular}/>
                   </div>
-                  <ButtonWsp text={props.product.contacto} contact={props.product.celular}/>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

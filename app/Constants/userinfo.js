@@ -25,21 +25,6 @@ export const userinfo = {
     }
 }
 
-export const carrusel = [
-    {
-        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
-    },
-    {
-        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
-    },
-    {
-        imgSrc: 'https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg'
-    },
-    {
-        imgSrc: "https://res.cloudinary.com/dd4lvbjsy/image/upload/v1696608071/CCW/casa_analia_hw5l5r.svg"
-    },
-]
-
 export const news = {
         //this text goes on your landing page
         title: 'Join Our Newsletter', 

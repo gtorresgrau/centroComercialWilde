@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from 'next/image';
+import logo from '../../../public/assets/logo/administracion2.png'
 
 // MIDDLE LINKS DATA
 interface ProductType {
@@ -29,8 +31,8 @@ const footer = () => {
                     {/* COLUMN-1 */}
 
                     <div className='col-span-4'>
-                        <img src={'/assets/logo/Logo2.svg'} alt="logo" className='pb-4' />
-                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-20'> Level up your skills, and get dream <br /> job with passion. </h3>
+                        <Image className="hidden h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
+                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-20'>Que encuentres todo lo que deseas <br />es nuestra pasion</h3>
                         <div className='flex gap-4'>
                             <Link href="/"><img src={'/assets/footer/insta.svg'} alt="instagram" className='footer-icons' /></Link>
                             <Link href="/"><img src={'/assets/footer/dribble.svg'} alt="dribble" className='footer-icons' /></Link>
@@ -74,7 +76,7 @@ const footer = () => {
             {/* All Rights Reserved */}
 
             <div className='pb-24 px-4'>
-                <h3 className='text-center text-offwhite'>@2023 - All Rights Reserved by <Link href="https://adminmart.com/" target="_blank"> Adminmart.com</Link></h3>
+                <h3 className='text-center text-offwhite'>2023 - Creado por PROGRAMUNDO</h3>
             </div>
 
         </div>
