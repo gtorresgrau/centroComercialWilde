@@ -1,5 +1,5 @@
 
-export const carrusel = [
+export const dataCarrusel = [
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431794/BGerase/R_v_dupu4k_jnq0bc.png' },
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431792/BGerase/Paula_Zeruffo_eh789s.png' },
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431790/BGerase/Papelera_De_Fatima_soqmyt.png' },

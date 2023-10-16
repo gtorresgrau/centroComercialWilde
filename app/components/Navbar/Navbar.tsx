@@ -34,31 +34,31 @@ const Navbar = () => {
             <>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="relative flex h-20 items-center justify-between">
-                        <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
+                        <div className="flex flex-1 md:items-center sm:items-stretch sm:justify-start">
 
                             {/* LOGO */}
 
                             <div className="flex flex-shrink-0 items-center">
-                                <Image
+                                    <Image
                                         className="block h-30px w-30px lg:hidden"
                                         src={logo}
                                         alt="Centro Comercial Logo"
-                                        width={30} // Ancho deseado
-                                        height={30} // Alto deseado
+                                        width={70} 
+                                        height={70}
                                     />
                                     <Image
                                         className="hidden h-48px w-48px lg:block"
-                                    src={logo}
+                                        src={logo}
                                         alt="Centro Comercial Logo"
-                                        width={48} // Ancho deseado
-                                        height={48} // Alto deseado
+                                        width={70}
+                                        height={70} 
                                     />
                             </div>
 
                             {/* LINKS */}
 
                             <div className="hidden sm:ml-14 md:block">
-                                <div className="flex space-x-4">
+                                <div className="flex space-x-4 md:align-middle">
                                     {navigation.map((item) => (
                                         <Link
                                             key={item.name}
