@@ -58,7 +58,7 @@ export default class MultipleItems extends Component {
                         <Slider {...settings}>
                             {dataCarrusel.map((item, i) =>
                                 <div key={i}>
-                                    <Image src={item.imgSrc} alt={item.imgSrc} width={150} height={150}/>
+                                    <Image src={item.imgSrc} alt={item.imgSrc} width={250} height={250}/>
                                 </div>
                             )}
                         </Slider>
