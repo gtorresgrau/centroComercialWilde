@@ -7,3 +7,5 @@ const uniqueRubros = Array.from(new Set(rubros)); // filtro todos los rubros y l
 export const rubrosk = uniqueRubros.map((rubroItem) => { //los convierto en un par:key
   return { name: 'rubro', value: rubroItem };
 });
+
+rubrosk.sort((a, b) => a.value.localeCompare(b.value));

@@ -5,7 +5,7 @@ import { dataCarrusel } from "./dataCarrusel";
 import Image from "next/image";
 
 // IMAGES DATA FOR CAROUSEL
-interface carrusel {
+interface dataCarrusel {
     imgSrc: string;
 }
 // CAROUSEL SETTINGS
@@ -14,7 +14,7 @@ export default class MultipleItems extends Component {
         const settings = {
             dots: false,
             infinite: true,
-            slidesToShow: 4,
+            slidesToShow: 5,
             slidesToScroll: 1,
             arrows: false,
             autoplay: true,
@@ -53,11 +53,10 @@ export default class MultipleItems extends Component {
         };
         return (
             <section className='text-center bg-lightpink' >
-                <article className="mx-auto max-w-2xl py-6 px-4s sm:px-6 lg:max-w-7xl lg:px-6">
-                    <h2 className="text-lg my-4 text-lightgrey">Locales que encontraras a lo largo de nuestro paseo de compras</h2>
-                        <Slider {...settings} className='item-center'>
+                <article className="mx-auto max-w-2xl py-8 px-4s sm:px-6 lg:max-w-[90%] lg:px-6">
+                        <Slider {...settings} className='flex items-center justify-center'>
                             {dataCarrusel.map((item, i) =>
-                                <div key={i}>
+                                <div key={i} className='flex items-center justify-center'>
                                     <Image src={item.imgSrc} alt={item.imgSrc} width={200} height={200}/>
                                 </div>
                             )}

@@ -17,8 +17,6 @@ export default function Modal(props:any) {
   console.log(props)
   return (
     <>
-      
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -44,8 +42,8 @@ export default function Modal(props:any) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <img className='rounded shadow-lg ' src={props.product.fotoLocal} alt={props.product.local} />
+                <Dialog.Panel className="flex flex-col justify-center items-center w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <img className='jello-vertical rounded-xl shadow-lg' style={{ maxHeight: '500px' }}  src={props.product.fotoLocal} alt={props.product.local} />
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">Somos todos los locales del Centro Comercial Wilde?</p>
                   </div>
