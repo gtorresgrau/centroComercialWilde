@@ -111,7 +111,7 @@ html:not([data-scroll="0"]) .navbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #34D399;
+  background-color: #25D366;
   color: #ffffff;
   font-weight: bold;
   padding: 1rem;
@@ -119,7 +119,7 @@ html:not([data-scroll="0"]) .navbar {
 }
 
 .buttonWspDesign:hover {
-  background-color: #34D399;
+  background-color: #25D366;
   cursor: pointer;
 }
 

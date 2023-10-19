@@ -1,6 +1,6 @@
 // Locales DATA
 import React,{useState} from 'react';
-import Modal from '../Socials/Modal';
+import Modal from '../Carrusel/Modal';
 import Image from 'next/image';
 
 export interface CardProps {
@@ -16,6 +16,7 @@ export interface CardProps {
       horarios: string,
       logoLocal: string,
       fotoLocal: string,
+      texto?: string,
     };
   }
   
@@ -33,7 +34,7 @@ const [modal, setModal] = useState(false)
 
   return (
     <div key={n_local} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-xl" >
-      <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80  md:aspect-none md:h-80 ">
+      <div className="min-h-80 aspect-w-1 aspect-h-1  w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 sm:aspect-none sm:h-80 ">
         <Image
           src={logoLocal}
           width={500}
@@ -49,7 +50,7 @@ const [modal, setModal] = useState(false)
             </div>
       </div>
       <div className='flex justify-center mt-1 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg'>
-        <button className=" px-8 bg-transparent hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
+        <button className=" bg-transparent hover:bg-purple text-purple font-medium hover:text-white py-0 px-6 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
       </div>      
         { modal && <Modal  product={product} modal={mod}/> }
     </div>

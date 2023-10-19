@@ -47,7 +47,7 @@ export default class MultipleItems extends Component {
                         slidesToScroll: 1,
                         infinite: true,
                         dots: false
-                    }
+                    },
                 }
             ]
         };

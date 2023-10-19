@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import RedesSociales from './RedesSociales'
+import RedesSociales from '../Socials/RedesSociales'
 
 
 export default function Modal(props:any) {
@@ -14,7 +14,13 @@ export default function Modal(props:any) {
   function openModal() {
     setIsOpen(true)
   }
-  console.log(props)
+
+  const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto } = props.product;
+
+  const sector = ubicacion === 'Afuera'? 'en la galeria externa':'en '+ ubicacion;
+  const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien tenemos ' + rubroSecundario;
+  const fraseUsuario = texto || null;
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -43,13 +49,15 @@ export default function Modal(props:any) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="flex flex-col justify-center items-center w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <img className='jello-vertical rounded-xl shadow-lg' style={{ maxHeight: '500px' }}  src={props.product.fotoLocal} alt={props.product.local} />
+                  <img className='jello-vertical rounded-xl shadow-lg' style={{ maxHeight: '350px' }}  src={fotoLocal} alt={local} />
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">Somos todos los locales del Centro Comercial Wilde?</p>
+                    {fraseUsuario
+                      ?fraseUsuario
+                      :(<div><p className="text-sm text-gray-500">El local {local} esta ubicado {sector} con el numero de local {n_local}. Abre sus puertas de {horarios}. {frase} </p><p className="text-sm text-gray-500">Mi email es: {email}</p></div>)}
                   </div>
                   <div className="grid grid-cols-2 mt-4">
                     <button type="button" className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={closeModal}>VOLVER</button>
-                    <RedesSociales instagram={props.product.instagram} facebook={props.product.facebook} contact={props.product.celular}/>
+                    <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
