@@ -49,8 +49,8 @@ const [modal, setModal] = useState(false)
               <h3 className="text-sm md:text-lg text-gray-700 text-center">{ubicacion}</h3>
             </div>
       </div>
-      <div className='flex justify-center items-center mt-1 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg'>
-        <button className=" bg-transparent hover:bg-purple text-purple font-medium hover:text-white py-0 px-6 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
+      <div className='flex justify-center items-center transform hover:scale-110 mt-1 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-lg'>
+        <button className=" bg-transparent hover:bg-purple  text-purple font-medium hover:text-white py-0 px-6 m-3 outline outline-1  outeline- bg-purple rounded " onClick={handleModal}>Ver detalle</button>
       </div>      
         { modal && <Modal  product={product} modal={mod}/> }
     </div>
