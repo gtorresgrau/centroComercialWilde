@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({ product }) => {
   return (
     <div
       key={n_local}
-      className="group relative shadow-md bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg"
+      className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg"
     >
       <div className="w-full h-80 overflow-hidden rounded-t-lg bg-gray-200">
         <Image
