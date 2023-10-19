@@ -49,7 +49,7 @@ const Card: React.FC<CardProps> = ({ product }) => {
         <h3 className="text-sm text-gray-700 text-center mb-4">{ubicacion}</h3>
         <div className="flex justify-center">
           <button
-            className="bg-[#a855f7] text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110"
+            className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110"
             onClick={handleModal}
           >
             Ver detalle
