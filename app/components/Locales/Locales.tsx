@@ -35,14 +35,14 @@ const rubro= (data:any)=>{
                         <div className="col-span-8"><Dropdownone selectRubro={rubro} /></div>                       
                     </div>
                 </article>
-                <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                    { rubroo === 'All' ?
-                    local.map((product, index) => (
-                        <Card product={product} key={index}/>
-                      )) :
-                    local.filter((l)=>l.rubro===rubroo).map((product, index) => (
-                        <Card product={product} key={index}/>
-                      ))}
+                <article className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                    {rubroo === 'All' ?
+                        local.slice().sort((a, b) => a.local.localeCompare(b.local))
+                        .map((product, index) => <Card product={product} key={index} />)
+                        :
+                        local.filter((l) => l.rubro === rubroo)
+                        .map((product, index) => <Card product={product} key={index} />)
+                    }
                 </article>
         </section>
     )
