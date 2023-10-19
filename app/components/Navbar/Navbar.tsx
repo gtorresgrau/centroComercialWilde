@@ -64,12 +64,12 @@ const Navbar = () => {
                                             key={item.name}
                                             href={item.href}
                                             className={classNames(
-                                                item.current ? ' text-purple' : 'hover:text-purple',
-                                                'px-3 py-4 text-15px font-medium space-links'
+                                                item.current ? ' text-purple' : 'hover:text-purple-600',
+                                                'px-3 py-4 text-20px font-large space-links'
                                             )}
                                             aria-current={item.href ? 'page' : undefined}
                                         >
-                                            {item.name}
+                                            {item.name.toUpperCase()}
                                         </Link>
                                     ))}
                                     <Contactus />

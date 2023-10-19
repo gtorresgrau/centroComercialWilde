@@ -44,10 +44,10 @@ const Contactusform = () => {
         <>
             <div className=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0">
                 <div className='md:hidden'>
-                    <button type="button" className='text-15px font-medium' onClick={openModal}>Contacto</button>
+                    <button type="button" className='text-15px font-medium' onClick={openModal}>CONTACTO</button>
                 </div>
                 <div className='hidden md:block'>
-                    <button type="button" className='text-15px font-medium space-links' onClick={openModal}>Contacto</button>
+                    <button type="button" className='text-15px font-medium space-links' onClick={openModal}>CONTACTO</button>
                 </div>
             </div>
 
@@ -85,10 +85,10 @@ const Contactusform = () => {
                                             alt="Centro Comercial Logo"
                                             width={100} 
                                             height={100} 
-                                        />
+                                        />                                        
                                         <p className="mb-8 lg:mb-16 mt-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Escribinos por aca, o hablanos por Whatsapp</p>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
-                                            <div>
+                                        <div>
                                                 <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
                                                 <input
                                                     id="text"
@@ -131,14 +131,8 @@ const Contactusform = () => {
                                                 onClick={handleClick}
                                                 disabled={isDisabled}
                                                 className="py-3 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
-
                                         </form>
-
-                                    </div>
-                                    <div className='flex justify-end'>
-                                        <button type="button"
-                                            onClick={closeModal}
-                                            className="py-3 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
+                                        <button type="button" onClick={closeModal} className="py-3 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
