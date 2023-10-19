@@ -33,7 +33,7 @@ const [modal, setModal] = useState(false)
   }
 
   return ( 
-    <div key={n_local} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-xl flex flex-col justify-center items-center" >
+    <div key={n_local} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] rounded-xl flex flex-col justify-center items-center transform hover:scale-105" >
       <div className="min-h-80 aspect-w-1 aspect-h-1  w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80 sm:aspect-none sm:h-80 ">
         <Image
           src={logoLocal}
