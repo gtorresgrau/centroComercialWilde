@@ -1,7 +1,7 @@
 import Banner from './components/Banner/Banner';
 import Carrusel from './components/Carrusel/Carrusel';
 import Locales from './components/Locales/Locales';
-import Students from './components/Students/Students';
+import Comentarios from './components/Comentarios/Comentarios';
 import Newsletter from './components/Newsletter/Newsletter';
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <Banner />
       <Carrusel />
       <Locales />
-      <Students />
+      <Comentarios />
       <Newsletter />
     </main>
   )

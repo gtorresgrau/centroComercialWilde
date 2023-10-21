@@ -1,3 +1,4 @@
+// Locales DATA
 import React, { useState } from 'react';
 import Modal from '../Locales/Modal';
 import Image from 'next/image';

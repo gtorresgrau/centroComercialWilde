@@ -18,7 +18,7 @@ interface NavigationItem {
 const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home', current: true },
     { name: 'Locales', href: '#locales', current: false },
-    { name: 'Testimonial', href: '#testimonial-section', current: false },
+    { name: 'Comentarios', href: '#testimonial-section', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -30,9 +30,9 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
-        <Disclosure as="nav" className="bg-lightpink navbar">
+        <Disclosure as="nav" className="bg-lightpink navbar relative z-50">
             <>
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-50">
                     <div className="relative flex h-20 items-center justify-between">
                         <div className="flex flex-1 md:items-center sm:items-stretch sm:justify-start">
 
