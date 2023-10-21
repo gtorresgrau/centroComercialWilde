@@ -2,7 +2,7 @@ import { news } from "@/app/Constants/userinfo";
 
 const Newsletter = () => {
     return (
-        <section id="join-section" className='-mt-32 relative z-10'>
+        <section id="join-section" className='-mt-32 relative z-5'>
             <div className="mx-auto max-w-2xl py-16 md:py-24 px-4 sm:px-6 md:max-w-7xl lg:px-24 bg-orange rounded-lg bg-newsletter">
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:gap-x-8">
                     {/* COLUMN-1 */}

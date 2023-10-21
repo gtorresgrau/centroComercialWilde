@@ -52,21 +52,19 @@ export default class MultipleItems extends Component {
 
 
         return (
-            <div id="testimonial-section" className='bg-bgpink'>
-                <div className="mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
+            <section id="testimonial-section" className=' bg-bgpink'>
+                <div className="items-center mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
                     <div className='sm:flex justify-between items-center pb-6'>
                         <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Algunas Opiniones<br /> de nuestra comunidad</h2>
-                        <div>
-                            <Link href='https://g.page/r/CU6sSa1t1sIcEBM/review' target="_blank" rel="noopener noreferrer">
-                                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">Dejanos un mensaje!</button>
-                            </Link>
-                        </div>
+                        <Link href='https://g.page/r/CU6sSa1t1sIcEBM/review' target="_blank" rel="noopener noreferrer">
+                            <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">Dejanos un mensaje!</button>
+                        </Link>
                     </div>
-                    <p className='text-lg font-medium pb-12'>Tu opinion nos hace ser mejores</p>
+                    <p className='text-lg font-medium pb-6'>Tu opinion nos hace ser mejores</p>
                     <Slider {...settings}>
                         {postData.map((items, i) => (
-                            <div key={i}>
-                                <div className='bg-white m-4 pt-8 px-12 pb-10 text-center rounded-lg'>
+                            <article key={i}>
+                                <div className='flex flex-col justify-center bg-white m-4 pt-8 px-12 pb-10 text-center rounded-lg'>
                                     <div className='relative'>
                                         <img src={items.imgSrc} alt="gaby" className="inline-block h-16 w-16 m-auto rounded-full ring-2 ring-white" />
                                         <img src={'/assets/students/greenpic.svg'} alt="greenbg" className=" absolute inline-block h-6 w-6 position-green" />
@@ -76,11 +74,11 @@ export default class MultipleItems extends Component {
                                     <img src={items.starimg} alt="stars-img" className='m-auto pb-6' />
                                     <p className='text-lg font-medium leading-9'>{items.detail}</p>
                                 </div>
-                            </div>
+                            </article>
                         ))}
                     </Slider>
                 </div>
-            </div>
+            </section>
         );
     }
 }
