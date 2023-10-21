@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({ product }) => {
       key={n_local}
       className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg"
     >
-      <div className="w-full p-2 h-80 overflow-hidden rounded-t-lg bg-gray-200">
+      <div className="w-full p-2 h-80 overflow-hidden rounded-lg bg-gray-200">
         <Image
           src={logoLocal}
           width={500}
@@ -44,8 +44,8 @@ const Card: React.FC<CardProps> = ({ product }) => {
           className="object-cover w-full h-full"
         />
       </div>
-      <div className="p-4 ">
-        <div className=" border border-black rounded-lg -mt-8 bg-white">
+      <div className="p-2 relative bottom-2 ">
+        <div className="sm:w-3/4 md:w-3/4  mx-auto   border border-white rounded-lg -mt-4 bg-white p-2 ">
         <h2 className="text-xl font-semibold text-offblack text-center mb-2">{local}</h2>
         <h3 className="text-sm text-gray-700 text-center mb-4">{ubicacion}</h3>
         </div>
