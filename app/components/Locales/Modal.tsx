@@ -56,7 +56,7 @@ export default function Modal(props:any) {
                       :(<div><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector} con el numero de local {n_local}. Abre sus puertas de {horarios}. {frase} </p><p className="text-sm text-gray-500">Mi email es: {email}</p></div>)}
                   </div>
                   <div className="grid grid-cols-2 mt-4">
-                    <button type="button" className="col-span-1 bg-transparent  hover:bg-purple text-purple font-medium hover:text-white py-0 px-3 m-3 outline outline-1  outeline- bg-purple rounded " onClick={closeModal}>VOLVER</button>
+                    <button type="button" className="col-span-1 bg-lightgrey hover:bg-purple text-white font-medium hover:text-white py-0 px-3 m-3 outline outline-1 rounded-full transition-transform transform hover:scale-110 " onClick={closeModal}>VOLVER</button>
                     <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
                   </div>
                 </Dialog.Panel>
