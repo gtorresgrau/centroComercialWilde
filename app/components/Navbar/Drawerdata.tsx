@@ -32,7 +32,7 @@ const Data = () => {
                   item.current ? 'bg-gray-900 text-purple' : 'text-black hover:bg-gray-700 hover:text-purple',
                   'block  py-2 rounded-md text-base font-medium'
                 )} aria-current={item.current ? 'page' : undefined}>
-                {item.name}
+                {item.name.toUpperCase()}
               </Link>
             ))}
             <Contactus />
