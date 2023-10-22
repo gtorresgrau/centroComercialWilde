@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = ({ product }) => {
         />
       </div>
       <div className="p-2 relative bottom-2 ">
-        <div className="sm:w-3/4 md:w-3/4  mx-auto   border border-white rounded-lg -mt-4 bg-white p-2 ">
+        <div className="w-5/6 sm:w-3/4 mx-auto border border-white rounded-lg -mt-6 bg-white p-2 ">
         <h2 className="text-xl font-semibold text-offblack text-center mb-2">{local}</h2>
         <h3 className="text-sm text-gray-700 text-center mb-4">{ubicacion}</h3>
         </div>

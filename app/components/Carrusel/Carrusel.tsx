@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import { dataCarrusel } from "./dataCarrusel";
+import { userinfo} from '../../Constants/userinfo';
 import Image from "next/image";
 
 // IMAGES DATA FOR CAROUSEL
@@ -56,11 +57,12 @@ export default class MultipleItems extends Component {
                 <article className="mx-auto max-w-2xl py-8 px-4s sm:px-6 lg:max-w-[90%] lg:px-6">
                         <Slider {...settings} className='flex items-center justify-center'>
                             {dataCarrusel.map((item, i) =>
-                                <div key={i} className='flex items-center justify-center'>
-                                    <Image src={item.imgSrc} alt={item.imgSrc} width={200} height={200}/>
+                                <div key={i} className='flex items-center justify-center m-4'>
+                                    <Image src={item.imgSrc} alt={item.imgSrc} width={150} height={150}/>
                                 </div>
                             )}
                         </Slider>
+                        <p className="m-6 text-lg leading-8 text-black">{userinfo.banner.slogan}!</p>
                 </article>
             </section>
         )

@@ -8,6 +8,5 @@ export const dataCarrusel = [
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431781/BGerase/Fernando_Mack_dq0e8v.png' },
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431780/BGerase/Claudia_Claudia_aonf6k.png' },
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431778/BGerase/Ana_Maria_Molla_cmucqw.png' },
-    { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431776/BGerase/Adriana_Pentito_sp8i5a.png' },
     { imgSrc: 'https://res.cloudinary.com/drp1ws8hy/image/upload/v1697431775/BGerase/Administraci%C3%B3n_l8mnij.png' },
 ];
