@@ -79,9 +79,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number)=>{
                         .map((product, index) => <Card product={product} key={index} />)
                     }
                 </article>
-                <article className='flex justify-center p-2 m-2'>
-                    <Pagination count={pages} page={page} onChange={handleChange} color='secondary'/>
-                </article>
         </section>
     )
 }
