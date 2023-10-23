@@ -88,6 +88,7 @@ module.exports = {
       lineHeight: {
         '4px': '85px',
       },
+      
     },
   },
   plugins: [],

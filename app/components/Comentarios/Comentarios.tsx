@@ -5,16 +5,6 @@ import Link from "next/link";
 import postData from '../../Constants/comentarios.json';
 
 
-interface DataType {
-    profession: string;
-    name: string;
-    imgSrc: string;
-    starimg: string;
-    detail: string;
-}
-
-
-
 export default class MultipleItems extends Component {
 
     render() {

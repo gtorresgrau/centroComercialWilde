@@ -52,19 +52,20 @@ export default class MultipleItems extends Component {
                 }
             ]
         };
+
         return (
-            <section className='text-center bg-lightpink' >
-                <article className="mx-auto max-w-2xl py-8 px-4s sm:px-6 lg:max-w-[90%] lg:px-6">
-                        <Slider {...settings} className='flex items-center justify-center'>
-                            {dataCarrusel.map((item, i) =>
-                                <div key={i} className='flex items-center justify-center m-4'>
-                                    <Image src={item.imgSrc} alt={item.imgSrc} width={150} height={150}/>
-                                </div>
-                            )}
-                        </Slider>
-                        <p className="m-6 text-lg leading-8 text-black">{userinfo.banner.slogan}!</p>
-                </article>
-            </section>
-        )
+            <article className='text-center'>
+              <div className="mx-auto max-w-2xl py-6 px-4s sm:px-6 md:max-w-[98%] lg:px-6 relative">
+                <Slider {...settings} className='flex items-center justify-center'>
+                  {dataCarrusel.map((item, i) =>
+                    <div key={i} className='flex items-center justify-center m-4 md:bg-lightpink'>
+                      <Image src={item.imgSrc} alt={item.imgSrc} width={165} height={165} />
+                    </div>
+                  )}
+                </Slider>
+                <p className="m-6 text-lg leading-8 text-black transparent-bg">{userinfo.banner.slogan}!</p>
+              </div>
+            </article>
+          );
     }
 }
