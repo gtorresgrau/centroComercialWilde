@@ -7,8 +7,8 @@ const Newsletter = () => {
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <div>
-                        <h2 className="text-5xl font-bold mb-3">{news.title}</h2>
-                        <h3 className="text-lg font-medium mb-7">{news.subTitle}</h3>
+                        <h2 className="text-5xl text-white font-bold mb-3 drop-shadow-md">{news.title}</h2>
+                        <h3 className="text-lg text-white font-medium mb-7 drop-shadow-md">{news.subTitle}</h3>
                         <div className="flex gap-2">
                             <input type="Email address" name="q" className="py-4 text-sm w-full text-black bg-white rounded-md pl-4" placeholder="Enter your email" autoComplete="off" />
                             <button className="bg-purple hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">{news.btn}</button>
