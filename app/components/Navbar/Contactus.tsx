@@ -26,11 +26,29 @@ const Contactusform = () => {
     // FORM SUBMIT
     const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        // handle form submission
-    };
+        
+        fetch('/Utils/contact', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json, text/plain, */*',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(inputValues)
+              }).then((res) => {
+                console.log('Response received')
+                if (res.status === 200) {
+                  console.log('Response succeeded!')
+                  setInputValues({
+                      input1: '',
+                      input2: '',
+                      input3: ''})
+                 
+                }
+            })    
+            
+        };
 
     const isDisabled = Object.values(inputValues).some((value) => value === '');
-
 
     const closeModal = () => {
         setIsOpen(false)
@@ -77,7 +95,6 @@ const Contactusform = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-
                                     <div className="py-8 lg:py-8 px-4 mx-auto max-w-screen-md">
                                         <Image
                                             className="hidden h-48px w-48px lg:block"
@@ -88,15 +105,13 @@ const Contactusform = () => {
                                         />                                        
                                         <p className="mb-8 lg:mb-16 mt-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Escribinos por aca, o hablanos por Whatsapp</p>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
-                                        <div>
+                                            <div>
                                                 <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
                                                 <input
                                                     id="text"
-
                                                     name="input1"
                                                     value={inputValues.input1}
                                                     onChange={handleChange}
-
                                                     type="text"
                                                     autoComplete="current-password"
                                                     required
