@@ -1,7 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image';
 import logo from '../../../public/assets/logo/administración.png'
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react';
+import axios from 'axios';
 
 
 const Contactusform = () => {
@@ -24,29 +25,23 @@ const Contactusform = () => {
     }
 
     // FORM SUBMIT
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = async (event:any) => {
         event.preventDefault();
-        
-        fetch('/Utils/contact', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json, text/plain, */*',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(inputValues)
-              }).then((res) => {
-                console.log('Response received')
-                if (res.status === 200) {
-                  console.log('Response succeeded!')
-                  setInputValues({
-                      input1: '',
-                      input2: '',
-                      input3: ''})
-                 
-                }
-            })    
-            
-        };
+
+        try {
+            const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
+            console.log('Response received', response.data);
+            if (response.status === 200) {
+                setInputValues({
+                    input1: '',
+                    input2: '',
+                    input3: '',
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     const isDisabled = Object.values(inputValues).some((value) => value === '');
 
