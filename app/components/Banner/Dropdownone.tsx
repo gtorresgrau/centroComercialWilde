@@ -12,6 +12,7 @@ const Dropdown = (props:any) => {
   }
   const handleAll = ()=>{
     props.selectRubro('All')
+    setSelected(rubrosk[0])
   }
   
   return (
