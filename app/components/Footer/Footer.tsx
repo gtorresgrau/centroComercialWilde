@@ -13,12 +13,7 @@ const products: ProductType[] = [
     {
         id: 1,
         section: "Company",
-        link: ['About us', 'Blog', 'Contact us', 'Pricing', 'Testimonials'],
-    },
-    {
-        id: 2,
-        section: "Support",
-        link: ['Help center', 'Terms of service', 'Legal', 'Privacy Policy', 'Status']
+        link: ['Home', 'Locales', 'Comentarios', 'Contacto'],
     }
 ]
 
@@ -32,12 +27,11 @@ const footer = () => {
 
                     <div className='col-span-4'>
                         <Image className="hidden h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
-                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-20'>Que encuentres todo lo que deseas <br />es nuestra pasion</h3>
+                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-10 mt-10'>Que encuentres todo lo que deseas <br />es nuestra pasion</h3>
                         <div className='flex gap-4'>
-                            <Link href="/"><img src={'/assets/footer/insta.svg'} alt="instagram" className='footer-icons' /></Link>
-                            <Link href="/"><img src={'/assets/footer/dribble.svg'} alt="dribble" className='footer-icons' /></Link>
-                            <Link href="/"><img src={'/assets/footer/twitter.svg'} alt="twitter" className='footer-icons' /></Link>
-                            <Link href="/"><img src={'/assets/footer/youtube.svg'} alt="youtube" className='footer-icons' /></Link>
+                            <Link href="https://www.instagram.com/wildecentrocomercial"><img src={'/assets/footer/insta.svg'} alt="instagram" className='footer-icons' /></Link>
+                            <Link href="https://www.facebook.com/centrocomercialwilde"><img src={'/assets/footer/dribble.svg'} alt="facebook" className='footer-icons' /></Link>
+                            <Link href="https://api.whatsapp.com/send?phone=541138498249"><img src={'/assets/footer/twitter.svg'} alt="twitter" className='footer-icons' /></Link>
                         </div>
                     </div>
 
@@ -49,7 +43,7 @@ const footer = () => {
                             <ul>
                                 {product.link.map((link: string, index: number) => (
                                     <li key={index} className='mb-5'>
-                                        <Link href="/" className="text-offwhite text-sm font-normal mb-6 space-links">{link}</Link>
+                                        <Link href={`#${link.toLowerCase()}`} className="text-offwhite text-sm font-normal mb-6 space-links">{link}</Link>
                                     </li>
                                 ))}
                             </ul>

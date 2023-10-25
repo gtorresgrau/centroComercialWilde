@@ -42,7 +42,7 @@ export default class MultipleItems extends Component {
 
 
         return (
-            <section id="testimonial-section" className=' bg-bgpink'>
+            <section id="comentarios" className=' bg-bgpink'>
                 <div className="items-center mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
                     <div className='sm:flex justify-between items-center pb-6'>
                         <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Algunas Opiniones<br /> de nuestra comunidad</h2>

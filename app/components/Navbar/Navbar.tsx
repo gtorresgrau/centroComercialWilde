@@ -18,7 +18,8 @@ interface NavigationItem {
 const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home', current: true },
     { name: 'Locales', href: '#locales', current: false },
-    { name: 'Comentarios', href: '#testimonial-section', current: false },
+    { name: 'Comentarios', href: '#comentarios', current: false },
+    { name: 'Contacto', href:'#home', current: false },
 ]
 
 function classNames(...classes: string[]) {
@@ -60,6 +61,7 @@ const Navbar = () => {
                             <div className="hidden sm:ml-14 md:block">
                                 <div className="flex space-x-4 md:align-middle">
                                     {navigation.map((item) => (
+                                        item.name!=='Contacto'?
                                         <Link
                                             key={item.name}
                                             href={item.href}
@@ -70,9 +72,9 @@ const Navbar = () => {
                                             aria-current={item.href ? 'page' : undefined}
                                         >
                                             {item.name.toUpperCase()}
-                                        </Link>
+                                        </Link>:
+                                        <Contactus/>
                                     ))}
-                                    <Contactus />
                                 </div>
                             </div>
                         </div>
