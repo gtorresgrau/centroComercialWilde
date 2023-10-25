@@ -17,7 +17,7 @@ const Contactusform = () => {
 
     const alert = () => {
         Swal.fire({
-        title: `${inputValues.input1},tu mensaje ha sido enviado correctamente`,
+        title: `${inputValues.input1},tu mensaje ha sido enviado correctamente.`,
         text: `Pronto se comunicarán contigo al siguiente email, ${inputValues.input2} `,
         icon: "success",
         confirmButtonText: "Ok",
