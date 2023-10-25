@@ -13,7 +13,7 @@ const Newsletter = () => {
     const alert = () => {
         Swal.fire({
         title: `Hola, tu email ha sido enviado correctamente.`,
-        text: `Solo enviaremos informacion de los proximos eventos al email: ${inputValues.newsletter}`,
+        text: `Solo enviaremos informacion sobre proximos eventos al email: ${inputValues.newsletter}`,
         icon: "success",
         confirmButtonText: "Ok",
         })  };
