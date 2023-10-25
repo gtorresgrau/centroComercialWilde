@@ -3,6 +3,7 @@ import Image from 'next/image';
 import logo from '../../../public/assets/logo/administración.png'
 import { Fragment, useState } from 'react';
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 
 const Contactusform = () => {
@@ -14,13 +15,21 @@ const Contactusform = () => {
         input3: ''
     });
 
+    const alert = () => {
+        Swal.fire({
+        title: `${inputValues.input1},tu mensaje ha sido enviado correctamente`,
+        text: `Pronto se comunicarán contigo al siguiente email, ${inputValues.input2} `,
+        icon: "success",
+        confirmButtonText: "Ok",
+        })  };
+
     const handleChange = (e: { target: { name: string; value: string; }; }) => {
         const { name, value } = e.target;
         setInputValues(prevState => ({ ...prevState, [name]: value }));
     }
 
     const handleClick = () => {
-        alert(`Name: ${inputValues.input1}, Email-address: ${inputValues.input2}, Message: ${inputValues.input3}`);
+        alert();
         setIsOpen(false)
     }
 
