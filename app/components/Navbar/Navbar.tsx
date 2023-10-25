@@ -73,7 +73,7 @@ const Navbar = () => {
                                         >
                                             {item.name.toUpperCase()}
                                         </Link>:
-                                        <Contactus/>
+                                        <Contactus key={item.name} />
                                     ))}
                                 </div>
                             </div>
