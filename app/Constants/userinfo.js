@@ -20,7 +20,7 @@ export const userinfo = {
     banner:{
         title:'CENTRO COMERCIAL WILDE',
         subTitle:'Tu paseo de compras favorito',
-        slogan:'Todo lo que necesitas esta aca!',
+        slogan:'Todo lo que necesitas está acá!',
         button:'BUSCAR'
     }
 }

@@ -19,7 +19,7 @@ export default function Modal(props:any) {
   const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto } = props.product;
 
   const sector = ubicacion === 'Afuera'? 'en la galeria externa':'en '+ ubicacion;
-  const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien tenemos ' + rubroSecundario;
+  const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien posee ' + rubroSecundario + '.' ;
   const fraseUsuario = texto || null;
 
   return (
@@ -54,7 +54,7 @@ export default function Modal(props:any) {
                   <div className="mt-2">
                     {fraseUsuario
                       ?fraseUsuario
-                      :(<div><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector} con el numero de local {n_local}. Abre sus puertas de {horarios}. {frase} </p><p className="text-sm text-gray-500">Mi email es: {email}</p></div>)}
+                      :(<div><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector}, en el local número {n_local}. El horario de atención es de {horarios} hs. {frase} </p><p className="text-sm text-gray-500">El email de contacto es: {email}</p></div>)}
                   </div>
                   <div className="grid grid-cols-2 mt-4">
                     <button type="button" className="col-span-1 bg-lightgrey hover:bg-purple text-white font-medium hover:text-white py-0 px-3 m-3 outline outline-1 rounded-full transition-transform transform hover:scale-110 " onClick={closeModal}>VOLVER</button>

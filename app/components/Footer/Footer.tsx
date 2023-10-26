@@ -27,7 +27,7 @@ const footer = () => {
 
                     <div className='col-span-4'>
                         <Image className="hidden h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
-                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-10 mt-10'>Que encuentres todo lo que deseas <br />es nuestra pasion</h3>
+                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-10 mt-10'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
                         <div className='flex gap-4'>
                             <Link href="https://www.instagram.com/wildecentrocomercial"><img src={'/assets/footer/insta.svg'} alt="instagram" className='footer-icons' /></Link>
                             <Link href="https://www.facebook.com/centrocomercialwilde"><img src={'/assets/footer/dribble.svg'} alt="facebook" className='footer-icons' /></Link>
