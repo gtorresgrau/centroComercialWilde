@@ -49,8 +49,8 @@ const Newsletter = () => {
                 <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <form onSubmit={handleSubmit} >
-                        <h2 className="text-5xl text-white font-bold mb-3 drop-shadow-md">{news.title}</h2>
-                        <h3 className="text-lg text-white font-medium mb-7 drop-shadow-md">{news.subTitle}</h3>
+                        <h2 className="text-5xl text-white font-bold mb-3 text-shadow">{news.title}</h2>
+                        <h3 className="text-lg text-white font-medium mb-7 text-shadow">{news.subTitle}</h3>
                         <div className="flex gap-2">
                             <input 
                                  id="email"

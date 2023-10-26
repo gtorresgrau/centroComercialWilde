@@ -136,3 +136,7 @@ html:not([data-scroll="0"]) .navbar {
 .transparent-bg {
   background-color: transparent;
 }
+
+.text-shadow {
+  text-shadow: 4px 4px 10px rgba(59, 7, 50, 0.8);
+}
