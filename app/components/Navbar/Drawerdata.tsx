@@ -35,7 +35,7 @@ const Data = () => {
                 {item.name.toUpperCase()}
               </Link>
             ))}
-            <Contactus />
+            <Contactus/>
           </div>
         </div>
       </div>

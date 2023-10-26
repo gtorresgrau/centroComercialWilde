@@ -1,79 +1,56 @@
 import Link from "next/link";
 import Image from 'next/image';
-import logo from '../../../public/assets/logo/administracion2.png'
+import logo from '../../../public/assets/logo/administracion2.png';
+import Contactus from '../Navbar/Contactus';
+import RedesSociales from "../Socials/RedesSociales";
 
 // MIDDLE LINKS DATA
-interface ProductType {
-    id: number;
-    section: string;
-    link: string[];
+interface NavigationItem {
+    name: string;
+    href: any;
+    current: boolean;
 }
 
-const products: ProductType[] = [
-    {
-        id: 1,
-        section: "Centro Comercial Wilde",
-        link: ['Home', 'Locales', 'Comentarios', 'Contacto'],
-    }
+const navigation: NavigationItem[] = [
+    { name: 'Home', href: '#home', current: true },
+    { name: 'Locales', href: '#locales', current: false },
+    { name: 'Comentarios', href: '#comentarios', current: false },
 ]
+
+const instagram = "https://www.instagram.com/wildecentrocomercial";
+const facebook = "https://www.facebook.com/centrocomercialwilde";
+const celular = 1138498249;
 
 const footer = () => {
     return (
-        <div className="bg-bgpurple -mt-64" id="first-section">
+        <footer className="bg-bgpurple -mt-64" id="first-section">
             <div className="mx-auto max-w-2xl pt-64 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
-
                     {/* COLUMN-1 */}
-
-                    <div className='col-span-4'>
-                        <Image className="hidden h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
-                        <h3 className='text-white text-lg font-medium leading-9 mb-4 lg:mb-10 mt-10'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
-                        <div className='flex gap-4'>
-                            <Link href="https://www.instagram.com/wildecentrocomercial"><img src={'/assets/footer/insta.svg'} alt="instagram" className='footer-icons' /></Link>
-                            <Link href="https://www.facebook.com/centrocomercialwilde"><img src={'/assets/footer/dribble.svg'} alt="facebook" className='footer-icons' /></Link>
-                            <Link href="https://api.whatsapp.com/send?phone=541138498249"><img src={'/assets/footer/twitter.svg'} alt="twitter" className='footer-icons' /></Link>
-                        </div>
+                    <div className='flex flex-col col-span-4 items-center '>
+                        <Image className=" h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
+                        <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
                     </div>
-
                     {/* CLOUMN-2/3 */}
-
-                    {products.map((product) => (
-                        <div key={product.id} className="group relative col-span-2">
-                            <p className="text-white text-xl font-semibold mb-9">{product.section}</p>
-                            <ul>
-                                {product.link.map((link: string, index: number) => (
-                                    <li key={index} className='mb-5'>
-                                        <Link href={`#${link.toLowerCase()}`} className="text-offwhite text-sm font-normal mb-6 space-links">{link}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-
-                    {/* CLOUMN-4 */}
-
-                    <div className='col-span-4'>
-                        <h3 className='text-white text-xl font-semibold mb-6'>Mantente actualizado</h3>
-                        <div className="relative text-white focus-within:text-white flex flex-row-reverse">
-                            <input type="Email address" name="q" className="py-4 text-sm w-full text-white bg-gray-900 rounded-md pl-4 focus:outline-none bg-emailbg focus:text-white" placeholder="Your email address" autoComplete="off" />
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2">
-                                <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
-                                    <img src={'/assets/footer/inputIcon.svg'} alt="inputicon" />
-                                </button>
-                            </div>
+                    <div className=" flex flex-col group relative col-span-4 items-center">
+                        <p className="text-white text-xl font-semibold mb-9 w-fit">Centro Comercial Wilde</p>
+                        <div className="flex flex-col items-center md:items-baseline text-offwhite text-sm font-normal space-links">
+                            {navigation.map((item) => (
+                                <div key={item.name} className="text-offwhite text-sm font-normal mb-6 space-links">
+                                    <Link href={item.href} aria-current={item.current ? 'page' : undefined}>{item.name.toUpperCase()}</Link>
+                                </div>
+                            ))}
+                            <Contactus />
                         </div>
                     </div>
-
                 </div>
             </div>
-
             {/* All Rights Reserved */}
-
-            <div className='pb-24 px-4'>
+            <div className='pb-20 px-4'>
                 <h3 className='text-center text-offwhite'>2023 - Creado por PROGRAMUNDO</h3>
             </div>
-
-        </div>
+        </footer>
     )
 }
 
