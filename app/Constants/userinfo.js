@@ -28,7 +28,7 @@ export const userinfo = {
 export const news = {
         //this text goes on your landing page
         title: 'Sumate al Newsletter', 
-        subTitle: 'Anotate para conocer los proximos eventos.',
+        subTitle: 'Anotate para conocer los próximos eventos.',
         btn: 'Suscribirme',
     }
     

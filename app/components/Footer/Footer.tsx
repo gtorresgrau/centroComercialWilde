@@ -12,7 +12,7 @@ interface ProductType {
 const products: ProductType[] = [
     {
         id: 1,
-        section: "Company",
+        section: "Centro Comercial Wilde",
         link: ['Home', 'Locales', 'Comentarios', 'Contacto'],
     }
 ]
@@ -53,7 +53,7 @@ const footer = () => {
                     {/* CLOUMN-4 */}
 
                     <div className='col-span-4'>
-                        <h3 className='text-white text-xl font-semibold mb-6'>Stay up to date</h3>
+                        <h3 className='text-white text-xl font-semibold mb-6'>Mantente actualizado</h3>
                         <div className="relative text-white focus-within:text-white flex flex-row-reverse">
                             <input type="Email address" name="q" className="py-4 text-sm w-full text-white bg-gray-900 rounded-md pl-4 focus:outline-none bg-emailbg focus:text-white" placeholder="Your email address" autoComplete="off" />
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2">
