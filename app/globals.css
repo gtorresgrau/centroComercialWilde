@@ -40,12 +40,6 @@ html:not([data-scroll="0"]) .navbar {
   background-size: cover;
 }
 
-@media screen and (max-width: 640px) {
-  .banner-image {
-    background-image: none !important;
-    background-color: #FCF5EF;
-  }
-}
 
 .bg-newsletter {
   background-image: url('/assets/newsletter/portada.png');
@@ -68,12 +62,6 @@ html:not([data-scroll="0"]) .navbar {
 
 .bannerBorder {
   border-left: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-@media screen and (max-width: 640px) {
-  .bannerBorder {
-    border-left: none !important;
-  }
 }
 
 .nowhitespace {
@@ -139,4 +127,15 @@ html:not([data-scroll="0"]) .navbar {
 
 .text-shadow {
   text-shadow: 4px 4px 10px rgba(59, 7, 50, 0.8);
+}
+
+@media screen and (max-width: 640px) {
+  .banner-image {
+    background-image: none !important;
+    background-color: #FCF5EF;
+  }
+  
+  .bannerBorder {
+    border-left: none !important;
+  }
 }
