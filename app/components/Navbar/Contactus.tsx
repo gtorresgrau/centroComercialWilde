@@ -100,15 +100,17 @@ const Contactusform = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <div className="py-8 lg:py-8 px-4 mx-auto max-w-screen-md">
+                                    <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
+                                        <div className="flex flex-col items-center">
                                         <Image
-                                            className="hidden h-48px w-48px lg:block"
+                                            className="h-48px w-48px lg:block"
                                             src={logo}
                                             alt="Centro Comercial Logo"
                                             width={100} 
                                             height={100} 
                                         />                                        
-                                        <p className="mb-8 lg:mb-16 mt-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Escribinos por aca, o hablanos por Whatsapp</p>
+                                        <p className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Deja un comentario a la administracion por aca o comunicate por Whatsapp</p>
+                                        </div>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
                                                 <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
@@ -150,9 +152,11 @@ const Contactusform = () => {
                                             <button type="submit"
                                                 onClick={handleClick}
                                                 disabled={isDisabled}
-                                                className="py-3 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
+                                                className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
                                         </form>
-                                        <button type="button" onClick={closeModal} className="py-3 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
+                                        <div className="flex flex-col items-center">
+                                            <button type="button" onClick={closeModal} className="py-2 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
+                                        </div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
