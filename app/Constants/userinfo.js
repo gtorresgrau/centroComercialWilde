@@ -20,7 +20,8 @@ export const userinfo = {
     banner:{
         title:'CENTRO COMERCIAL WILDE',
         subTitle:'Tu paseo de compras favorito',
-        slogan:'Todo lo que necesitas está acá!',
+        slogan1:'Paseo de Compras Multimarca,',
+        slogan2:'Todo lo que necesitas está acá!',
         button:'BUSCAR'
     }
 }
@@ -32,26 +33,3 @@ export const news = {
         btn: 'Suscribirme',
     }
     
-
-export const headings = {
-    //you can customise all the headings here.
-    workHomePage: 'Habitaciones',
-    workMainPage: 'Nuestro Hostel',
-    capabilities: 'Servicios',
-    about: 'Nosotros',
-    education: 'Sitios de Interés',
-    experience: 'Experiencias',
-    blogs: 'BLOG!',
-    contact: 'Contacto',
-    residencia: 'Residencia / Temporada',
-}
-
-export const ctaTexts = {
-    //you can customise all the cta texts here.
-    btn1: 'Residencia / Temporada',
-    workCTA: 'Ver todos',
-    capabCTA: 'Estamos en contacto',
-    educationCTA: 'Escribime',
-    resumeCTA: 'Inicio',
-    submitBTN: 'Enviar'
-}

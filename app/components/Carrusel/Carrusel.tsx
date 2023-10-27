@@ -63,7 +63,7 @@ export default class MultipleItems extends Component {
                     </div>
                   )}
                 </Slider>
-                <p className="m-6 text-lg leading-8 text-black transparent-bg">{userinfo.banner.slogan}!</p>
+                <p className="m-6 text-lg leading-8 text-black transparent-bg">{userinfo.banner.slogan1}<br/>{userinfo.banner.slogan2}</p>
               </div>
             </article>
           );
