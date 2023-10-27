@@ -1,19 +1,17 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import RedesSociales from '../Socials/RedesSociales'
 import Image from 'next/image'
+import Loading from '../Loading'
 
 
 export default function Modal(props:any) {
   let [isOpen, setIsOpen] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(true);
 
   function closeModal() {
     setIsOpen(false)
     props.modal(false)
-  }
-
-  function openModal() {
-    setIsOpen(true)
   }
 
   const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto } = props.product;
@@ -21,6 +19,10 @@ export default function Modal(props:any) {
   const sector = ubicacion === 'Afuera'? 'en la galeria externa':'en '+ ubicacion;
   const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien posee ' + rubroSecundario + '.' ;
   const fraseUsuario = texto || null;
+
+  const handleImageLoad = () => {
+    setImageLoaded(false);
+  };
 
   return (
     <>
@@ -50,16 +52,18 @@ export default function Modal(props:any) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="flex flex-col justify-center items-center w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Image src={fotoLocal} alt={local} className='rounded-xl shadow-lg'style={{ maxHeight: '350px', width:'auto'}} width={500} height={350} />
+                {imageLoaded && <Loading />}
+                <Image src={fotoLocal} alt={local} className='rounded-xl shadow-lg' style={{ maxHeight: '350px', width:'auto'}} width={500} height={350} onLoad={handleImageLoad}/> 
+                
                   <div className="mt-2">
-                    {fraseUsuario
-                      ?fraseUsuario
-                      :(<div><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector}, en el local número {n_local}. El horario de atención es de {horarios} hs. {frase} </p><p className="text-sm text-gray-500">El email de contacto es: {email}</p></div>)}
+                      {fraseUsuario
+                        ?fraseUsuario
+                        :(<><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector}, en el local número {n_local}. El horario de atención es de {horarios} hs. {frase} </p><p className="text-sm text-gray-500">El email de contacto es: {email}</p></>)}
                   </div>
                   <div className="grid grid-cols-2 mt-4">
-                    <button type="button" className="col-span-1 bg-lightgrey hover:bg-purple text-white font-medium hover:text-white py-0 px-3 m-3 outline outline-1 rounded-full transition-transform transform hover:scale-110 " onClick={closeModal}>VOLVER</button>
-                    <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
-                  </div>
+                        <button type="button" className="col-span-1 bg-lightgrey hover:bg-purple text-white font-medium hover:text-white py-0 px-3 m-3 outline outline-1 rounded-full transition-transform transform hover:scale-110 " onClick={closeModal}>VOLVER</button>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
+                   </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
