@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react'
 import RedesSociales from '../Socials/RedesSociales'
 import Image from 'next/image'
 import Loading from '../Loading'
+import zIndex from '@mui/material/styles/zIndex'
 
 
 export default function Modal(props:any) {
@@ -27,7 +28,7 @@ export default function Modal(props:any) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative" style={{zIndex:100}} onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

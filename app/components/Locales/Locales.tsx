@@ -7,6 +7,7 @@ import Card from '../Card/Card'
 import Pagination from '@mui/material/Pagination'
 import Dropdownone from '../Banner/Dropdownone';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface local {
     email: string;
@@ -57,11 +58,17 @@ const Locales = () => {
             </article>
           <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
             {locales
-              .slice((page - 1) * localPage, page * localPage).sort((a, b) => a.local.localeCompare(b.local))
-              .map((product, index) => (
+            .sort((a, b) => a.local.localeCompare(b.local))
+            .slice((page - 1) * localPage, page * localPage)
+            .map((product, index) => (
                 <Card product={product} key={index} />
               ))
             }
+          </article>
+          <article className='flex justify-center p-2 m-2'>
+            <Link href={'#locales'} >
+                <Pagination count={pages} page={page} onChange={handleChange} color='secondary'/>
+            </Link >
           </article>
         </section>
       );
