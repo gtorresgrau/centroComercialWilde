@@ -85,7 +85,7 @@ const Contactusform = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-black bg-opacity-75" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -100,6 +100,7 @@ const Contactusform = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                        <button type="button" onClick={closeModal} className="absolute top-1 right-3 py-2 px-4 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">X</button>
                                     <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                         <Image
@@ -155,7 +156,7 @@ const Contactusform = () => {
                                                 className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
                                         </form>
                                         <div className="flex flex-col items-center">
-                                            <button type="button" onClick={closeModal} className="py-2 px-5 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cerrar</button>
+                                            
                                         </div>
                                     </div>
                                 </Dialog.Panel>
