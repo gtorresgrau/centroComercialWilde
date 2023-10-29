@@ -29,7 +29,7 @@ export default function Modal(props:any) {
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative" style={{zIndex:100}} onClose={closeModal}>
-        <div className="fixed inset-0 bg-black opacity-60"></div>
+        <div className="fixed inset-0"></div>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -39,7 +39,7 @@ export default function Modal(props:any) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -55,7 +55,7 @@ export default function Modal(props:any) {
               >
                 <Dialog.Panel className="flex flex-col justify-center items-center w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 {imageLoaded && <Loading />}
-                <Image src={fotoLocal} alt={local} className='rounded-xl shadow-lg' style={{ maxHeight: '350px', width:'auto'}} width={500} height={350} onLoad={handleImageLoad}/> 
+                <Image src={fotoLocal} alt={local} className='rounded-xl shadow-lg' style={{ maxHeight: '350px', width:'370px'}} width={500} height={350} onLoad={handleImageLoad}/> 
                 
                   <div className="mt-2">
                       {fraseUsuario

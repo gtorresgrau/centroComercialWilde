@@ -44,13 +44,15 @@ export default class MultipleItems extends Component {
         return (
             <section id="comentarios" className=' bg-bgpink'>
                 <div className="items-center mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
-                    <div className='sm:flex justify-between items-center pb-6'>
-                        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Algunas Opiniones<br /> de nuestra comunidad</h2>
+                    <div className='sm:flex justify-around items-center pb-6'>
+                        <div>
+                            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 my-4">Algunas Opiniones<br /> de nuestra comunidad</h2>
+                            <p className='text-lg font-medium pb-6'>Tu opinion nos hace ser mejores</p>
+                        </div>
                         <Link href='https://g.page/r/CU6sSa1t1sIcEBM/review' target="_blank" rel="noopener noreferrer">
                             <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">Dejanos un mensaje!</button>
                         </Link>
                     </div>
-                    <p className='text-lg font-medium pb-6'>Tu opinion nos hace ser mejores</p>
                     <Slider {...settings}>
                         {postData.map((items, i) => (
                             <article key={i}>
