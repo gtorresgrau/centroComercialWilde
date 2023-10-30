@@ -56,7 +56,8 @@ export default class MultipleItems extends Component {
                     <Slider {...settings}>
                         {postData.map((items, i) => (
                             <article key={i}>
-                                <div className='flex flex-col justify-center bg-white m-4 pt-8 px-12 pb-10 text-center rounded-lg'>
+                                <div className='flex flex-col justify-start bg-white m-4 pt-8 px-12 pb-10 text-center rounded-lg'style={{minHeight:'500px', height:'auto'}}>
+                                    <div>
                                     <div className='relative'>
                                         <img src={items.imgSrc} alt="gaby" className="inline-block h-16 w-16 m-auto rounded-full ring-2 ring-white" />
                                         <img src={'/assets/students/greenpic.svg'} alt="greenbg" className=" absolute inline-block h-6 w-6 position-green" />
@@ -65,6 +66,7 @@ export default class MultipleItems extends Component {
                                     <h2 className='text-2xl font-semibold pb-3'>{items.name}</h2>
                                     <img src={items.starimg} alt="stars-img" className='m-auto pb-6' />
                                     <p className='text-lg font-medium leading-9'>{items.detail}</p>
+                                    </div>
                                 </div>
                             </article>
                         ))}
