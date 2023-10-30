@@ -59,7 +59,7 @@ const Newsletter = () => {
                                  onChange={handleChange}
                                  type="email"
                                  className="py-4 text-sm w-full text-black bg-white rounded-md pl-4" 
-                                 placeholder="Enter your email"
+                                 placeholder="Ingrese su email"
                                  autoComplete="off"
                             />
                             <button type="submit" onClick={handleClick} className="bg-purple hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">{news.btn}</button>

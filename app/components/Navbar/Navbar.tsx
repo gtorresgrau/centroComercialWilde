@@ -37,25 +37,14 @@ const Navbar = () => {
                     <div className="relative flex h-20 items-center justify-between">
                         <div className="flex flex-1 md:items-center sm:items-stretch sm:justify-start">
 
-                            {/* LOGO */}
+                        {/* DRAWER FOR MOBILE VIEW */}
 
-                            <div className="flex flex-shrink-0 items-center">
-                                    <Image
-                                        className="block h-30px w-30px lg:hidden"
-                                        src={logo}
-                                        alt="Centro Comercial Logo"
-                                        width={70} 
-                                        height={70}
-                                    />
-                                    <Image
-                                        className="hidden h-48px w-48px lg:block"
-                                        src={logo}
-                                        alt="Centro Comercial Logo"
-                                        width={70}
-                                        height={70} 
-                                    />
-                            </div>
+                        {/* DRAWER ICON */}
 
+                        <div className='block md:hidden'>
+                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" onClick={() => setIsOpen(true)} />
+                        </div>
+                        
                             {/* LINKS */}
 
                             <div className="hidden sm:ml-14 md:block">
@@ -78,13 +67,25 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* DRAWER FOR MOBILE VIEW */}
 
-                        {/* DRAWER ICON */}
+                            {/* LOGO */}
 
-                        <div className='block md:hidden'>
-                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" onClick={() => setIsOpen(true)} />
-                        </div>
+                            <div className="flex flex-shrink-0 items-center">
+                                    <Image
+                                        className="block h-30px w-30px lg:hidden"
+                                        src={logo}
+                                        alt="Centro Comercial Logo"
+                                        width={70} 
+                                        height={70}
+                                    />
+                                    <Image
+                                        className="hidden h-48px w-48px lg:block"
+                                        src={logo}
+                                        alt="Centro Comercial Logo"
+                                        width={70}
+                                        height={70} 
+                                    />
+                            </div>
 
                         {/* DRAWER LINKS DATA */}
 

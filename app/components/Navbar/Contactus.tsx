@@ -112,7 +112,7 @@ const Contactusform = () => {
                                             width={100} 
                                             height={100} 
                                         />                                        
-                                        <p className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Deja un comentario a la administracion por aca o comunicate por Whatsapp</p>
+                                        <p className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Deja un comentario a la administración por aca o comunicate por Whatsapp</p>
                                         </div>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
