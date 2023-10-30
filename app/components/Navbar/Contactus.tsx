@@ -5,6 +5,8 @@ import logo from '../../../public/assets/logo/administración.png'
 import { Fragment, useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { IoClose } from 'react-icons/io5';
+
 
 
 const Contactusform = () => {
@@ -100,7 +102,7 @@ const Contactusform = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                        <button type="button" onClick={closeModal} className="absolute top-1 right-3 py-2 px-4 mt-2 text-sm font-medium w-50 text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">X</button>
+                        <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{color:'gray'}}/></button>
                                     <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                         <Image
