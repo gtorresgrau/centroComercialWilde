@@ -3,6 +3,7 @@ import { news } from "@/app/Constants/userinfo";
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import Loading from "../Loading";
 
 const Newsletter = () => {
 
@@ -12,11 +13,19 @@ const Newsletter = () => {
 
     const alert = () => {
         Swal.fire({
-        title: `Hola, tu email ha sido enviado correctamente.`,
+        title: `Ha sido enviado correctamente.`,
         text: `Solo enviaremos información sobre próximos eventos al email: ${inputValues.newsletter}`,
         icon: "success",
         confirmButtonText: "Ok",
-        })  };
+        })  
+    };
+
+    const alertLoading = () => {
+        Swal.fire({
+        title: `Hola, tu email se esta enviando....`,
+        showConfirmButton: false,
+        });  
+    };
 
     const handleClick = () => {
         console.log('News:',inputValues.newsletter)
@@ -30,8 +39,10 @@ const Newsletter = () => {
         const handleSubmit = async (event:any) => {
             event.preventDefault();
             try {
+                alertLoading();
                 const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
-                console.log('Response received', response.data);
+                console.log('Response received: ', response.data);
+                Swal.close();
                 if (response.status === 200) {
                     alert();
                     setInputValues({

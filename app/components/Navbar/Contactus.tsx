@@ -24,7 +24,15 @@ const Contactusform = () => {
         text: `Pronto se comunicarán contigo al siguiente email, ${inputValues.input2} `,
         icon: "success",
         confirmButtonText: "Ok",
-        })  };
+        })  
+    };
+
+    const alertLoading = () => {
+        Swal.fire({
+        title: `Hola, tu email se esta enviando....`,
+        showConfirmButton: false,
+        });  
+    };
 
     const handleChange = (e: { target: { name: string; value: string; }; }) => {
         const { name, value } = e.target;
@@ -41,9 +49,12 @@ const Contactusform = () => {
         event.preventDefault();
 
         try {
+            alertLoading();
             const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
             console.log('Response received', response.data);
+            Swal.close();
             if (response.status === 200) {
+                alert();
                 setInputValues({
                     input1: '',
                     input2: '',
