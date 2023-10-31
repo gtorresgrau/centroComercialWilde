@@ -21,8 +21,7 @@ export default function (req, res) {
     from: SENDER,
     to: TO,
     subject: 'newsletter' in req.body? `Centro Comercial Wilde - Newsletter`: `Message From Centro Comercial Wilde Website`,
-    html: 'newsletter' in req.body? `<p>El email: ${req.body.newsletter} esta interesado en que le envien informacion de los proximos eventos.</p>`:`<p>Nombre: ${req.body.input1}</p><p>Email: ${req.body.input2}</p><p>mensaje: ${req.body.input3}</p>`,
-    text: 'newsletter' in req.body? `<p>El email: ${req.body.newsletter} esta interesado en que le envien informacion de los proximos eventos.</p>`:"Nombre: " + req.body.input1 + "mensaje: " + req.body.input3 + " | Enviado por: " + req.body.input2,
+    html: 'newsletter' in req.body? `<p>El email: ${req.body.newsletter} esta interesado en que le envien informacion de los proximos eventos.</p>`:`<p>La Persona ha hecho contacto desde el sitio web:</p><p>Nombre: ${req.body.input1}</p><p>Email: ${req.body.input2}</p><p>mensaje: ${req.body.input3}</p>`,
   }
 
   transporter.sendMail(mailData, function (err, info) {

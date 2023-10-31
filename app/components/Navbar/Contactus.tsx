@@ -29,7 +29,7 @@ const Contactusform = () => {
 
     const alertLoading = () => {
         Swal.fire({
-        title: `Hola, tu email se esta enviando....`,
+        title: `Hola, tu mensaje se esta enviando....`,
         showConfirmButton: false,
         });  
     };

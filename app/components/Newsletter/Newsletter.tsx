@@ -22,7 +22,7 @@ const Newsletter = () => {
 
     const alertLoading = () => {
         Swal.fire({
-        title: `Hola, tu email se esta enviando....`,
+        title: `Hola, tu email se esta enviando a nuestra base de datos`,
         showConfirmButton: false,
         });  
     };
