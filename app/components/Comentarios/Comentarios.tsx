@@ -1,9 +1,8 @@
 "use client"
 import Slider from "react-slick";
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Link from "next/link";
 import postData from '../../Constants/comentarios.json';
-
 
 export default class MultipleItems extends Component {
 
@@ -40,7 +39,6 @@ export default class MultipleItems extends Component {
             ]
         };
 
-
         return (
             <section id="comentarios" className=' bg-bgpink'>
                 <div className="items-center mx-auto max-w-2xl px-4 pt-16 pb-64 sm:pt-32 lg:max-w-7xl lg:px-8">
@@ -53,9 +51,9 @@ export default class MultipleItems extends Component {
                             <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">Dejanos un mensaje!</button>
                         </Link>
                     </div>
-                    <Slider {...settings}>
+                    <Slider {...settings} >
                         {postData.map((items, i) => (
-                            <article key={i}>
+                            <article key={i} >
                                 <div className='flex flex-col justify-start bg-white m-4 pt-8 px-12 pb-10 text-center rounded-lg'style={{minHeight:'500px', height:'auto'}}>
                                     <div>
                                     <div className='relative'>
