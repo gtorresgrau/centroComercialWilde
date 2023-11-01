@@ -63,7 +63,7 @@ export default class MultipleItems extends Component {
                     </div>
                   )}
                 </Slider>
-                <h3 className="m-6 my-12 mb-16 text-lg leading-8 text-black transparent-bg">{userinfo.banner.slogan1}<br/>{userinfo.banner.slogan2}</h3>
+                <h3 className="m-6 mb-20 text-lg leading-8 text-black transparent-bg">{userinfo.banner.slogan1}<br/>{userinfo.banner.slogan2}</h3>
               </div>
             </article>
           );
