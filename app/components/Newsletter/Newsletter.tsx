@@ -14,7 +14,7 @@ const Newsletter = () => {
     const alert = () => {
         Swal.fire({
         title: `Ha sido enviado correctamente.`,
-        text: `Solo enviaremos información sobre próximos eventos al email: ${inputValues.newsletter}`,
+        text: `Sólo enviaremos información sobre próximos eventos al email: ${inputValues.newsletter}`,
         icon: "success",
         confirmButtonText: "Ok",
         })  
