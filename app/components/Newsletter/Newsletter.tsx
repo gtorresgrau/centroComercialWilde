@@ -39,14 +39,25 @@ const Newsletter = () => {
         const handleSubmit = async (event:any) => {
             event.preventDefault();
             try {
+                const emailPattern = /^[\w\.-]+@[\w\.-]+\.\w+/; // Expresión regular para validar un correo electrónico
+        
+                if (!inputValues.newsletter.match(emailPattern)) {
+                    // Si el correo electrónico no cumple con el patrón, muestra un mensaje de error
+                    console.error('Correo electrónico no válido');
+                    // Puedes mostrar una alerta al usuario o realizar cualquier otra acción
+                    return;
+                }
+        
+                // El correo electrónico es válido, realiza la solicitud POST
                 alertLoading();
-                const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
+                const response = await axios.post('/api/contact', inputValues);
                 console.log('Response received: ', response.data);
                 Swal.close();
                 if (response.status === 200) {
                     alert();
                     setInputValues({
                         newsletter: '',
+                        // Asegúrate de limpiar otros campos si es necesario
                     });
                 }
             } catch (error) {
