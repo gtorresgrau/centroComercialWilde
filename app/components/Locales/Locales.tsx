@@ -61,7 +61,7 @@ const Locales = () => {
             .sort((a, b) => a.local.localeCompare(b.local))
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
-                <Card product={product} key={index} />
+                <Card  product={product} key={index} data-aos="fade-right" />
               ))
             }
           </article>
