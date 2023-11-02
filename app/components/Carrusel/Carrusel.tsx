@@ -55,7 +55,7 @@ export default class MultipleItems extends Component {
 
         return (
             <article className='text-center'>
-              <div className="mx-auto max-w-2xl p-6 mt-6 md:max-w-[100%] xxl:py-12 relative">
+              <div className="mx-auto max-w-2xl py-6 mt-6 md:max-w-[100%] xxl:py-12 relative">
                 <Slider {...settings} className='flex items-center justify-center'>
                   {dataCarrusel.map((item, i) =>
                     <div key={i} className='flex items-center justify-center m-2 md:bg-lightpink'>
