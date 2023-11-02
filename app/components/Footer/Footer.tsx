@@ -15,6 +15,7 @@ const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home', current: true },
     { name: 'Locales', href: '#locales', current: false },
     { name: 'Comentarios', href: '#comentarios', current: false },
+    { name: 'Newsletter', href:'#newsletter', current: false },
 ]
 
 const instagram = "https://www.instagram.com/wildecentrocomercial";
