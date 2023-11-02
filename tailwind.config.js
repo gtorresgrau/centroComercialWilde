@@ -9,6 +9,11 @@ module.exports = {
     "./centroComercialWilde/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
+      screens: {
+        'xxl': '1600px',
+      },
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
