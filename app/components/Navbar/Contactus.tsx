@@ -29,8 +29,17 @@ const Contactusform = () => {
 
     const alertLoading = () => {
         Swal.fire({
-        title: `Hola, tu mensaje se esta enviando....`,
+        title:'Aguarde un momento',
+        text: `Tu mensaje se esta enviando...`,
         showConfirmButton: false,
+        });  
+    };
+
+    const alertError = () => {
+        Swal.fire({
+        text: `${inputValues.input2}, No es un correo electronico Valido`,
+        icon: "error",
+        confirmButtonText: "Ok",
         });  
     };
 
@@ -40,29 +49,33 @@ const Contactusform = () => {
     }
 
     const handleClick = () => {
-        alert();
-        setIsOpen(false)
     }
 
     // FORM SUBMIT
     const handleSubmit = async (event:any) => {
         event.preventDefault();
-
-        try {
-            alertLoading();
-            const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
-            console.log('Response received', response.data);
-            Swal.close();
-            if (response.status === 200) {
-                alert();
-                setInputValues({
-                    input1: '',
-                    input2: '',
-                    input3: '',
-                });
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!inputValues.input2.match(emailPattern)) {
+            console.error('Correo electrónico no válido');
+            alertError()
+        }else{
+            try {
+                alertLoading();
+                const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
+                console.log('Response received', response.data);
+                Swal.close();
+                if (response.status === 200) {
+                    alert();
+                    setInputValues({
+                        input1: '',
+                        input2: '',
+                        input3: '',
+                    });
+                setIsOpen(false)
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
         }
     };
 

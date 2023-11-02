@@ -3,7 +3,6 @@ import { news } from "@/app/Constants/userinfo";
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
-import Loading from "../Loading";
 
 const Newsletter = () => {
 
@@ -22,8 +21,17 @@ const Newsletter = () => {
 
     const alertLoading = () => {
         Swal.fire({
-        title: `Hola, tu email se esta enviando a nuestra base de datos`,
+        title:'Aguarde un momento',
+        text: `Tu email se esta enviando a nuestra base de datos...`,
         showConfirmButton: false,
+        });  
+    };
+
+    const alertError = () => {
+        Swal.fire({
+        text: `${inputValues.newsletter}, No es un correo electronico Valido`,
+        icon: "error",
+        confirmButtonText: "Ok",
         });  
     };
 
@@ -39,31 +47,27 @@ const Newsletter = () => {
         const handleSubmit = async (event:any) => {
             event.preventDefault();
             try {
-                const emailPattern = /^[\w\.-]+@[\w\.-]+\.\w+/; // Expresión regular para validar un correo electrónico
-        
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (!inputValues.newsletter.match(emailPattern)) {
-                    // Si el correo electrónico no cumple con el patrón, muestra un mensaje de error
                     console.error('Correo electrónico no válido');
-                    // Puedes mostrar una alerta al usuario o realizar cualquier otra acción
-                    return;
-                }
-        
-                // El correo electrónico es válido, realiza la solicitud POST
-                alertLoading();
-                const response = await axios.post('/api/contact', inputValues);
-                console.log('Response received: ', response.data);
-                Swal.close();
-                if (response.status === 200) {
-                    alert();
-                    setInputValues({
-                        newsletter: '',
-                        // Asegúrate de limpiar otros campos si es necesario
-                    });
-                }
-            } catch (error) {
+                    alertError();
+                }else{
+                    alertLoading();
+                    const response = await axios.post('/api/contact', inputValues);
+                    console.log('Response received: ', response.data);
+                    Swal.close();
+                    if (response.status === 200) {
+                        alert();
+                        setInputValues({
+                            newsletter: '',
+                        });
+                    }
+                };
+            }
+            catch (error) {
                 console.error('Error:', error);
             }
-        };
+        }
 
     return (
         <section id="join-section" className='-mt-32 relative z-5'>
