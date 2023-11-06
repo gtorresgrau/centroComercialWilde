@@ -10,6 +10,7 @@ export interface CardProps {
     email: string;
     contacto: string;
     celular: number;
+    linea?: number;
     ubicacion: string;
     rubro: string;
     rubroSecundario: string;
