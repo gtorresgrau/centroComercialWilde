@@ -5,6 +5,7 @@
     "email": "Ccwcomputacion@gmail.com",
     "contacto": "FERNANDO MACK",
     "celular": 1131635166,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Computacion",
     "rubroSecundario": "No tengo",
@@ -21,6 +22,7 @@
     "email": "paulamzeruffo@gmail.com",
     "contacto": "Mariela Zeruffo",
     "celular": 1126280831,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Tienda Holistica",
     "rubroSecundario": "No tengo",
@@ -28,7 +30,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950854/LOGOS%20CCW/IMG_20220818_235239_988_-_Paula_Zeruffo_j6jd6g.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354575/LOCAL%20CCW/IMG-20220817-WA0107_-_Paula_Zeruffo_kezogi.jpg",
     "instagram": "Https://www.instagram.com/mandragorastore._",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "9 lunas pasteleria",
@@ -36,6 +39,7 @@
     "email": "9lunasporcelana@gmail.com",
     "contacto": "Maria florencia lagalla",
     "celular": 1130455230,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Pasteleria",
     "rubroSecundario": "Catering y eventos",
@@ -43,7 +47,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697428659/LOGOS%20CCW/20230625_174100_-_maria_lagalla_cxcxvg_e7yakw.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697428747/LOCAL%20CCW/30701-180722-maria-lagalla-wmnb8u_yfvfmh.png",
     "instagram": "Https://www.instagram.com/9lunaspasteleria",
-    "facebook":  "https://www.facebook.com/9lunasporcelana"
+    "facebook":  "https://www.facebook.com/9lunasporcelana",
+    "texto": ""
   },
   {
     "local": "El Galpón Indumentaria",
@@ -51,6 +56,7 @@
     "email": "gabialemanno@gmail.com",
     "contacto": "Gabriela Alemanno",
     "celular": 1134302879,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Ropa Hombre",
     "rubroSecundario": "Ropa juvenil",
@@ -58,7 +64,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950855/LOGOS%20CCW/IMG_20231009_103425_-_Gabi_Alem_oegnct.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354578/LOCAL%20CCW/IMG_20230925_125711_-_Gabi_Alem_recbyj.jpg",
     "instagram": "HTTPS://www.instagram.com/el.galpon.indumentaria",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Feria Americana Matilda ",
@@ -66,6 +73,7 @@
     "email": "pregogabriela210@gmail.com",
     "contacto": "Gabriela Prego ",
     "celular": 1164712101,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Ropa Americana",
     "rubroSecundario": "No tengo",
@@ -73,7 +81,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950855/LOGOS%20CCW/IMG_20231004_164307_770_-_Gabriela_Prego_amaeeg.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354579/LOCAL%20CCW/IMG_20231004_164217_470_-_Gabriela_Prego_qtlhqi.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "UPA MAPACHE",
@@ -81,6 +90,7 @@
     "email": "anmariaracing@gmail.com",
     "contacto": "Ana Maria Molla",
     "celular": 1157546308,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Ropa Bebe",
     "rubroSecundario": "Arreglos ropa en gral",
@@ -88,7 +98,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950856/LOGOS%20CCW/IMG_20231009_103902_-_Ana_Maria_Molla_ea8afk.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354579/LOCAL%20CCW/IMG_20231009_103700_-_Ana_Maria_Molla_zeag9y.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Celumania",
@@ -96,6 +107,7 @@
     "email": "info@celumania.com.ar",
     "contacto": "Alejandro",
     "celular": 1160921212,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Venta Celulares",
     "rubroSecundario": "Reparacion Celulares",
@@ -103,7 +115,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950856/LOGOS%20CCW/Logo_-_Gonzalo_torres_grau_ivjqeu.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354573/LOCAL%20CCW/002_-_Gonzalo_torres_grau_nlcr28.png",
     "instagram": "https://www.instagram.com/celumania.com.ar/",
-    "facebook": "https://www.facebook.com/celumaniawilde"
+    "facebook": "https://www.facebook.com/celumaniawilde",
+    "texto": ""
   },
   {
     "local": "La Folie Peluqueria",
@@ -111,6 +124,7 @@
     "email": "clauforce@hotmail.com.ar",
     "contacto": "Claudia Forcelledo",
     "celular": 1135954320,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Peluqueria",
     "rubroSecundario": "No tengo",
@@ -118,7 +132,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950857/LOGOS%20CCW/Screenshot_20231009_214117_WhatsApp_-_Claudia_Claudia_m5zits.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354575/LOCAL%20CCW/20231004_121449_-_Claudia_Claudia_bjazt1.jpg",
     "instagram": "https://instagram.com/lafolie.peluqueria",
-    "facebook": "https://www.facebook.com/lafolieremake"
+    "facebook": "https://www.facebook.com/lafolieremake",
+    "texto": ""
   },
   {
     "local": "Administración",
@@ -126,6 +141,7 @@
     "email": "ccawilde@gmail.com",
     "contacto": "Sebastián",
     "celular": 1138498249,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Administración ",
     "rubroSecundario": "No tengo",
@@ -133,7 +149,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950854/LOGOS%20CCW/6DA3CE14-CF5C-44EC-89B4-31CDF01952D4_-_CCW_Administraci%C3%B3n_mvurii.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354575/LOCAL%20CCW/image_-_CCW_Administraci%C3%B3n_l9f7il.jpg",
     "instagram": "https://www.instagram.com/wildecentrocomercial",
-    "facebook": "https://www.facebook.com/centrocomercialwilde"
+    "facebook": "https://www.facebook.com/centrocomercialwilde",
+    "texto": ""
   },
   {
     "local": "Frutillitas",
@@ -141,6 +158,7 @@
     "email": "sebadiez19@gmail.com",
     "contacto": "Sebastián Díez ",
     "celular": 1134691696,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Verdulería",
     "rubroSecundario": "Almacén ",
@@ -148,7 +166,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354580/LOCAL%20CCW/IMG_20231010_102640164_-_Seba_10_betpaj.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354580/LOCAL%20CCW/IMG_20231010_102640164_-_Seba_10_betpaj.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Papelera de Fatima",
@@ -156,6 +175,7 @@
     "email": "papeleradefatima@gmail.com",
     "contacto": "Carolina Hoyos Fernandez",
     "celular": 1160160601,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Descartables",
     "rubroSecundario": "No tengo",
@@ -163,7 +183,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950856/LOGOS%20CCW/Logo_-_Papelera_De_Fatima_wvuxse.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354580/LOCAL%20CCW/WhatsApp_Image_2023-10-10_at_10.38.48_-_Papelera_De_Fatima_jrlx6s.jpg",
     "instagram": "https://www.instagram.com/papeleradefatima",
-    "facebook": "https://www.facebook.com/papeleradefatima"
+    "facebook": "https://www.facebook.com/papeleradefatima",
+    "texto": ""
   },
   {
     "local": "Neon Flow Barber",
@@ -171,6 +192,7 @@
     "email": "rolando_velasquez_@hotmail.com",
     "contacto": "Rolando velasquez",
     "celular": 1140789433,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Peluqueria",
     "rubroSecundario": "Barberia",
@@ -178,7 +200,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1696950858/LOGOS%20CCW/Picsart_23-10-10_10-14-50-131_-_R_v_dupu4k.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354573/LOCAL%20CCW/20230927_203010_2_-_R_v_ghvxhd.jpg",
     "instagram": "https://instagram.com/neonflow_barber/",
-    "facebook": "https://instagram.com/neonflow_barber/"
+    "facebook": "https://instagram.com/neonflow_barber/",
+    "texto": ""
   },
   {
     "local": "Giselle",
@@ -186,6 +209,7 @@
     "email": "libreriagiselle@gmail.com",
     "contacto": "Jorge Zoryez ",
     "celular": 1123955269,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Librería",
     "rubroSecundario": "Juguetería y Cotillon",
@@ -193,7 +217,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354630/LOGOS%20CCW/IMG_20211221_191125_969_-_Adriana_Pentito_bdgpiu.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354577/LOCAL%20CCW/IMG-20231010-WA0008_-_Adriana_Pentito_giuxh3.jpg",
     "instagram": "https://instagram.com/neonflow_barber/Libreríagiselleccw",
-    "facebook": "ttps://www.facebook.com/LibreríaGiselle"
+    "facebook": "ttps://www.facebook.com/LibreríaGiselle",
+    "texto": ""
   },
   {
     "local": "Donato",
@@ -201,6 +226,7 @@
     "email": "mariaalejandradamico@gmail.com",
     "contacto": "Alejandra Damico",
     "celular": 1155918142,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Pizzeria",
     "rubroSecundario": "No tengo",
@@ -208,7 +234,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354631/LOGOS%20CCW/Screenshot_20231011-195713_WhatsApp_-_Maria_Alejandra_D_Amico_n9z3c8.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354576/LOCAL%20CCW/IMG-20231010-WA0007_-_Maria_Alejandra_D_Amico_qj7rjy.jpg",
     "instagram": "https://instagram.com/pizzeria_donato_wilde",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Lu'Jo kids",
@@ -216,6 +243,7 @@
     "email": "luucibelen@gmail.com",
     "contacto": "Lucía Mendez",
     "celular": 1122517669,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ropa Infantil",
     "rubroSecundario": "No tengo",
@@ -223,7 +251,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354631/LOGOS%20CCW/InShot_20230818_183827990_-_Jose_Merino_lqo7az.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1697354576/LOCAL%20CCW/IMG-20230316-WA0124_-_Jose_Merino_errskd.jpg",
     "instagram": "https://instagram.com/lujo.kids",
-    "facebook": "https://www.facebook.com/lujo.kids.9"
+    "facebook": "https://www.facebook.com/lujo.kids.9",
+    "texto": ""
   },
   {
     "local": "Mis pepis pet shop",
@@ -231,6 +260,7 @@
     "email": "peticha_83@hotmail.com",
     "contacto": "Noe",
     "celular": 1166098857,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Pet Shop",
     "rubroSecundario": "Balanceado accesorios remedios juguetes",
@@ -238,7 +268,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/IMG_20230423_113152_906_-_Noe_Figueros_k7dpth.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416935/LOCAL%20CCW/IMG_20230423_113057_763_-_Noe_Figueros_nz0q6a.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Loteria - LLAMERA",
@@ -246,6 +277,7 @@
     "email": "tinchomb_5@hotmail.com",
     "contacto": "Martin LLamera",
     "celular": 1,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Entretenimiento",
     "rubroSecundario": "No tengo",
@@ -253,7 +285,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416631/LOGOS%20CCW/loteria-de-la-provincia-de-buenos-aires-logo-41F235FAB6-seeklogo.com_-_Martin_Arrieta_ptfefo.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698417134/LOCAL%20CCW/loteria-de-la-provincia-de-buenos-aires-logo-41F235FAB6-seeklogo.com_-_Martin_Arrieta_wkujto.png",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Caprichosa",
@@ -261,6 +294,7 @@
     "email": "caprichosawildeind@gmail.com",
     "contacto": "Florencia acuña",
     "celular": 51055794,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ropa Dama",
     "rubroSecundario": "No tengo",
@@ -268,7 +302,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416932/LOCAL%20CCW/774EF8C7-6860-411A-8252-D9DCD6823DF4_-_Florencia_Acu%C3%B1a_s1ztxd.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416932/LOCAL%20CCW/774EF8C7-6860-411A-8252-D9DCD6823DF4_-_Florencia_Acu%C3%B1a_s1ztxd.jpg",
     "instagram": "https://www.instagram.com/caprichosainsta/",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Casa Analía",
@@ -276,6 +311,7 @@
     "email": "ventacasaanalia@gmail.com",
     "contacto": "Analia",
     "celular": 1161408254,
+    "linea": 0,
     "ubicacion": "1 Piso",
     "rubro": "Perfumería y Art. de Limpieza.",
     "rubroSecundario": "Bazar - Pañalera",
@@ -283,7 +319,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/logo_casaanalia_jpg_-_Casa_Anal%C3%ADa_xp3baw.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416933/LOCAL%20CCW/Frente_Local_18-10-2023_-_Casa_Anal%C3%ADa_apxiwh.jpg",
     "instagram": "https://instagram.com/casaanaliaok",
-    "facebook": "https://www.facebook.com/casaanaliaok"
+    "facebook": "https://www.facebook.com/casaanaliaok",
+    "texto": ""
   },
   {
     "local": "DEYSI",
@@ -291,6 +328,7 @@
     "email": "rdaycia@gmail.com",
     "contacto": "Dayci Rocha",
     "celular": 1154890697,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Ropa Dama",
     "rubroSecundario": "No tengo",
@@ -298,7 +336,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/20231018_195832_-_Daycia_Rocha_dlkwxv.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416930/LOCAL%20CCW/20231018_195832_-_Daycia_Rocha_r7rxwh.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "La cabaña",
@@ -306,6 +345,7 @@
     "email": "flornicolai@gmail.com",
     "contacto": "Luis",
     "celular": 1136704588,
+    "linea": 0,
     "ubicacion": "2 Piso",
     "rubro": "Carniceria",
     "rubroSecundario": "Granja, congelados, especias",
@@ -313,7 +353,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/IMG-20231019-WA0053_-_Florencia_Nicolai_vespm6.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416934/LOCAL%20CCW/IMG-20231010-WA0078_-_Florencia_Nicolai_fxcexn.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Ortopédicos Alper",
@@ -321,6 +362,7 @@
     "email": "ortopedicos_alper@hotmail.com",
     "contacto": "LILIANA ALLER",
     "celular": 1167561707,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ortopedia",
     "rubroSecundario": "No tengo",
@@ -328,7 +370,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/IMG-20231018-WA0029_2_-_Luis_Alberto_Perez_wyz7qi.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416934/LOCAL%20CCW/IMG-20231018-WA0033_-_Luis_Alberto_Perez_f39bxk.jpg",
     "instagram": "https://www.instagram.com/ortopedicosalper/",
-    "facebook": "https://www.facebook.com/a.alper.11/"
+    "facebook": "https://www.facebook.com/a.alper.11/",
+    "texto": ""
   },
   {
     "local": "Grilli Gustavo - Asesor de Seguros",
@@ -336,6 +379,7 @@
     "email": "grilliseguros@gmail.com",
     "contacto": "Gustavo Grilli",
     "celular": 1165299167,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Seguros",
     "rubroSecundario": "No tengo",
@@ -343,7 +387,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416630/LOGOS%20CCW/Grilli_G_logo_-_Gustavo_Grilli_qdyyny.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698416932/LOCAL%20CCW/Gustavo_Grilli_3_-_Gustavo_Grilli_x4krzx.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "El Económico",
@@ -351,6 +396,7 @@
     "email": "curti.sebastian@gmail.com",
     "contacto": "Sebastian Curti",
     "celular": 1149721963,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Perfumería y Art. de Limpieza.",
     "rubroSecundario": "No tengo",
@@ -358,7 +404,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/16963667831425903740668617122934_-_19sebastian81_hjxowa.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/16963667831425903740668617122934_-_19sebastian81_hjxowa.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Ártico",
@@ -366,6 +413,7 @@
     "email": "modasartico@gmail.com",
     "contacto": "Florencia Rodríguez ",
     "celular": 1126587072,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ropa Dama",
     "rubroSecundario": "No tengo",
@@ -373,7 +421,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773221/LOGOS%20CCW/Business_Card_Front_-_Artico_empresa_nuklxu.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/IMG_20230919_183632_702_-_Artico_empresa_kl2djj.webp",
     "instagram": "https://www.instagram.com/artico_wildeoficial/",
-    "facebook": "https://www.facebook.com/articoAvellaneda"
+    "facebook": "https://www.facebook.com/articoAvellaneda",
+    "texto": ""
   },
   {
     "local": "Nueva fantasía ",
@@ -381,6 +430,7 @@
     "email": "nuevafantasia07@gmail.com",
     "contacto": "Alejandra sayago",
     "celular": 1134057439,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Merceria",
     "rubroSecundario": "No tengo",
@@ -388,7 +438,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773222/LOGOS%20CCW/IMG-20231030-WA0012_-_Carolina_Hoyos_bnsdzq.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/IMG-20231030-WA0011_-_Carolina_Hoyos_dlx0np.jpg",
     "instagram": "https//www.instagram.com/nuevafantasia",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Granja y fiambrería NyV ",
@@ -396,6 +447,7 @@
     "email": "valentinacrispien9@gmail.com",
     "contacto": "Valentina ",
     "celular": 1127220096,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Fiambreria",
     "rubroSecundario": "Granja",
@@ -403,7 +455,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773223/LOGOS%20CCW/Screenshot_20231028-110039_-_Valentina_Crispien_ywdeb3.png",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/Screenshot_20231028-110039_-_Valentina_Crispien_wzlxbb.png",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Nacha",
@@ -411,6 +464,7 @@
     "email": "romeroha@hotmail.com",
     "contacto": "Hernán Romero",
     "celular": 1135596087,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ropa Dama",
     "rubroSecundario": "Accesorios",
@@ -418,7 +472,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773223/LOGOS%20CCW/20231030_104900_-_Romero_Hernan_onu4n2.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/IMG-20231030-WA0028_-_Romero_Hernan_bwapmy.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Quiero Ser Grande",
@@ -426,6 +481,7 @@
     "email": "romeroha@hotmail.com",
     "contacto": "Hernán Romero",
     "celular": 1135596087,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Ropa Infantil",
     "rubroSecundario": "Ropa Bebe",
@@ -433,7 +489,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773224/LOGOS%20CCW/IMG-20210424-WA0015_-_Romero_Hernan_gsn5jq.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773194/LOCAL%20CCW/IMG-20231030-WA0030_-_Romero_Hernan_pgb1e3.jpg",
     "instagram": "https://www.instagram.com/quierosergrande_/",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "F&M",
@@ -441,6 +498,7 @@
     "email": "carmen.local137@gmail.com",
     "contacto": "Maria del Carmen ",
     "celular": 1164816215,
+    "linea": 0,
     "ubicacion": "Planta Baja",
     "rubro": "Jugueteria",
     "rubroSecundario": "Ropa niños",
@@ -448,7 +506,8 @@
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773228/LOGOS%20CCW/IMG-20231030-WA0008_-_Carmen_Fernandez_fllqih.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773195/LOCAL%20CCW/IMG-20231030-WA0007_-_Carmen_Fernandez_t2kzhc.jpg",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "facebook": "No tengo",
+    "texto": ""
   },
   {
     "local": "Estudio Contable Gladys Martin",
@@ -456,13 +515,168 @@
     "email": "gladysmartyn@yahoo.com.ar",
     "contacto": "Gladys Martin",
     "celular": 1163366151,
+    "linea": 0,
     "ubicacion": "Afuera",
     "rubro": "Estudio Contable ",
     "rubroSecundario": "No tengo",
     "horarios": "10:30 a 16:30",
     "logoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773229/LOGOS%20CCW/IMG-20231013-WA0011_-_Gladys_Noemi_Martin_l0rxbq.jpg",
     "fotoLocal": "https://res.cloudinary.com/drp1ws8hy/image/upload/v1698773196/LOCAL%20CCW/IMG-20231013-WA0012_-_Gladys_Noemi_Martin_wvs7c1.jpg",
+    "Link de perfil Facebook": "No tengo",
+    "facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "Terra Bazar",
+    "n_local": 156,
+    "email": "santaniellomonica@hotmail.com",
+    "contacto": "Santaniello monica ",
+    "celular": 1166459150,
+    "linea": 0,
+    "ubicacion": "PB",
+    "rubro": "Bazar",
+    "rubroSecundario": "No tengo",
+    "horarios": "9 a 13 y 16 a 19",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1CB2l8zgya4NLePanPUXthn2mADhs7TKo",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1KHtmP3n0nqL-A-OVF4fDxDfuZ9DVttOA",
+    "instagram": "monica santaniello, terra bazar",
+    "Link de perfil Facebook": "monica santaniello terra bazar",
+    "texto": ""
+  },
+  {
+    "local": "La Mascota Mimada ",
+    "n_local": 315,
+    "email": "veronika.molina@gmail.com",
+    "contacto": "Veronica Molina",
+    "celular": 1135747415,
+    "linea": 0,
+    "ubicacion": "2",
+    "rubro": "Pet Shop",
+    "rubroSecundario": "Peluqueria Canina ",
+    "horarios": "10 a 20 ",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1qWmHwr29jNwqVYriroulDJC--S9471UN",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1V6G0y-nHDuwtfSwbS1WqSiXi7G-9GRk2",
+    "instagram": "La Mascota Mimada ",
+    "Link de perfil Facebook": "La Mascota Mimada ",
+    "texto": ""
+  },
+  {
+    "local": "Óptica Parks",
+    "n_local": 146,
+    "email": "mflorama@hotmail.com",
+    "contacto": "Florencia Amado ",
+    "celular": 1151447370,
+    "linea": 0,
+    "ubicacion": "PB",
+    "rubro": "Optica",
+    "rubroSecundario": "No tengo",
+    "horarios": "Lun a Vier 10 a 13 y 17 a 19  sábado 10 a 13",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1kmnuV5cwQ2V5rV3Tx9760vIawIiGvd2w",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=11ruj8ButWFGFoEQM23ayZP2HIx-udXf4",
+    "instagram": "https://www.instagram.com/laboratorioopticoparks/",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "VERDULERIA \"EL PLAYON\"",
+    "n_local": 115,
+    "email": "lucasm.acosta@hotmail.com",
+    "contacto": "Lucas Acosta",
+    "celular": 1124724557,
+    "linea": 0,
+    "ubicacion": "Afuera",
+    "rubro": "Verdulería",
+    "rubroSecundario": "Almacen",
+    "horarios": "09.30 a 13.30 y 17 a 21",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1RgT9CxtIQ9siLPktEE5bEQ4LQ_3RcZLb",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1hN8LgiUStlFGfiM2K29k9o8TV-vx6b4q",
     "instagram": "No tengo",
-    "facebook": "No tengo"
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "VERDULERIA \"EL PLAYON II\"",
+    "n_local": 215,
+    "email": "lucasm.acosta@hotmail.com",
+    "contacto": "Lucas Acosta",
+    "celular": 1124724557,
+    "linea": 0,
+    "ubicacion": "2",
+    "rubro": "Verdulería",
+    "rubroSecundario": "No tengo",
+    "horarios": "9 a 1330 y 17 a 21",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1BEJDaj2uweGIdGcDz_7ijqzOomPtl-D0",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1PFtiNEUE0hQgajVWBGmEwRKzrXFz3QyD",
+    "instagram": "No tengo",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": " Blanqueria y colchonería stella maris",
+    "n_local": 106,
+    "email": "stellaaiello177@gmail.com",
+    "contacto": "Stella Maris Aiello",
+    "celular": 1151017467,
+    "linea": 0,
+    "ubicacion": "PB",
+    "rubro": "Ropa Blanca",
+    "rubroSecundario": "Colchoneria",
+    "horarios": "9:30 a 13:30 y 16:30 a 20:30",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=187759O7MFaAQcHeNyetc2abuhsI5Zbp_",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1D2x9LnjbOalQTpk-D_dtf37jWGyt84h3",
+    "instagram": "@stellamblanqueria",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "Consultorios médicos odontológicos de HOY",
+    "n_local": 321,
+    "email": "emiliano_rey@live.com",
+    "contacto": "Consultorios de hoy",
+    "celular": 1,
+    "linea": 0,
+    "ubicacion": "2",
+    "rubro": "Consultorio Odontologico",
+    "rubroSecundario": "Cardiólogia ,  Psicología  Dermatologia",
+    "horarios": "Lunes a viernes de 9..30 a 19 hs",
+    "logoLocal": "",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1gdJI6g7v-JuuX4ik3Pt831c9GhIFE9z6",
+    "instagram": "No tengo",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "Marino Brimer estudio jurídico inmobiliario ",
+    "n_local": 135,
+    "email": "marinobrimer@gmail.com",
+    "contacto": "Andrea Brimer ",
+    "celular": 1138519718,
+    "linea": 0,
+    "ubicacion": "PB",
+    "rubro": "Inmobiliaria",
+    "rubroSecundario": "Estudio jurídico ",
+    "horarios": "9 a 13 y 16.30 a 19 ",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1IkC7McUTgyCYY9FmMIvDucu-QEeDwa3_",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1gY6hr1CArt1mWZ-Evs_NDvIKJYXQAhkQ",
+    "instagram": "https://www.instagram.com/marinobrimer/",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
+  },
+  {
+    "local": "Su Quinta y más ",
+    "n_local": 214,
+    "email": "autoserviciosuquinta@gmail.com",
+    "contacto": "Natalia Barés ",
+    "celular": 1128805260,
+    "linea": 0,
+    "ubicacion": "1",
+    "rubro": "Almacen",
+    "rubroSecundario": "Fiambreria ",
+    "horarios": "9 a 13:30 y 17 a 21",
+    "logoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=16E9vlrjn03KRXNYyXeH2gWkyBh_ITwRH",
+    "fotoLocal": "https://drive.google.com/u/0/open?usp=forms_web&id=1gp3fctvdVUSSMcnMi1wHs_mMN8-VolsO",
+    "instagram": "https://instagram.com/suquintaymas?igshid=NzZlODBkYWE4Ng==",
+    "Link de perfil Facebook": "No tengo",
+    "texto": ""
   }
  ]
