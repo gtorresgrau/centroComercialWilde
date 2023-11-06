@@ -3,7 +3,6 @@ import { Fragment, useEffect, useState } from 'react'
 import RedesSociales from '../Socials/RedesSociales'
 import Image from 'next/image'
 import Loading from '../Loading'
-import zIndex from '@mui/material/styles/zIndex'
 
 
 export default function Modal(props:any) {
@@ -15,7 +14,7 @@ export default function Modal(props:any) {
     props.modal(false)
   }
 
-  const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto } = props.product;
+  const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto, linea } = props.product;
 
   const sector = ubicacion === 'Afuera'? 'en la galeria externa':'en '+ ubicacion;
   const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien posee ' + rubroSecundario + '.' ;
@@ -65,7 +64,7 @@ export default function Modal(props:any) {
                   </div>
                   <div className="grid grid-cols-2 mt-4">
                         <button type="button" className="col-span-1 bg-lightgrey hover:bg-purple text-white font-medium hover:text-white py-0 px-3 m-3 outline outline-1 rounded-full transition-transform transform hover:scale-110 " onClick={closeModal}>VOLVER</button>
-                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular}/>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea}/>
                    </div>
                 </Dialog.Panel>
               </Transition.Child>
