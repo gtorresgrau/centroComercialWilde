@@ -20,6 +20,7 @@ const navigation: NavigationItem[] = [
     { name: 'Locales', href: '#locales', current: false },
     { name: 'Comentarios', href: '#comentarios', current: false },
     { name: 'Newsletter', href:'#newsletter', current: false },
+    { name: 'Ubicacion', href:'#ubicacion', current: false },
     { name: 'Contacto', href:'#home', current: false },
 ]
 
@@ -52,17 +53,7 @@ const Navbar = () => {
                                 <div className="flex space-x-4 md:align-middle">
                                     {navigation.map((item) => (
                                         item.name!=='Contacto'?
-                                        <Link
-                                            key={item.name}
-                                            href={item.href}
-                                            className={classNames(
-                                                item.current ? ' text-purple' : 'hover:text-purple-600',
-                                                'px-3 py-4 text-20px font-large space-links'
-                                            )}
-                                            aria-current={item.href ? 'page' : undefined}
-                                        >
-                                            {item.name.toUpperCase()}
-                                        </Link>:
+                                        <Link key={item.name} href={item.href} className={classNames(item.current ? ' text-purple' : 'hover:text-purple-600', 'px-3 py-4 lg:text-20px md:text-15px font-large space-links' )} aria-current={item.href ? 'page' : undefined} >{item.name.toUpperCase()}</Link>:
                                         <Contactus key={item.name} />
                                     ))}
                                 </div>

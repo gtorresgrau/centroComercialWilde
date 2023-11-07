@@ -13,6 +13,7 @@ const navigation: NavigationItem[] = [
   { name: 'Locales', href: '#locales', current: false },
   { name: 'Comentarios', href: '#comentarios', current: false },
   { name: 'Newsletter', href:'#newsletter', current: false },
+  { name: 'Ubicacion', href:'#ubicacion', current: false },
 ]
 
 function classNames(...classes: string[]) {
