@@ -22,6 +22,7 @@ const navigation: NavigationItem[] = [
 const instagram = "https://www.instagram.com/wildecentrocomercial";
 const facebook = "https://www.facebook.com/centrocomercialwilde";
 const celular = 1138498249;
+const linea = 0
 
 const footer = () => {
     return (
@@ -32,7 +33,7 @@ const footer = () => {
                     <div className='flex flex-col col-span-6 items-center '>
                         <Image className=" h-48px w-48px lg:block rounded-xl" src={logo} alt="Centro Comercial Logo" width={100} height={100} />
                         <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
-                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={1}/>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea}/>
                     </div>
                     {/* CLOUMN-2/3 */}
                     <div className=" flex flex-col group relative col-span-6 items-center">
