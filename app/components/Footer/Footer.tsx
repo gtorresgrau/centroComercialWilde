@@ -50,8 +50,9 @@ const footer = () => {
                 </div>
             </div>
             {/* All Rights Reserved */}
-            <div className='pb-20 px-4'>
-                <h3 className='text-center text-offwhite'>2023 - Creado por PROGRAMUNDO</h3>
+            <div className='pb-20 px-4 flex-col md:flex-row' style={{ display: 'flex', justifyContent:'center', alignItems: 'center' }}>
+                    <h3 className='text-center text-offwhite'>2023 - Creado por</h3>
+                    <a href="https://programundo.dev"><img src="assets/footer/PROGRAMUNDO.png" alt="Programundo"  style={{ width: '200px', marginLeft: '10px' }} /></a>
             </div>
         </footer>
     )
