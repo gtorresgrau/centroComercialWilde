@@ -1,5 +1,5 @@
 "use client"
-import { news } from "@/app/Constants/userinfo";
+import { news } from './../../Constants/userinfo'
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";

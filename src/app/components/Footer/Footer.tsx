@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from 'next/image';
-import logo from '../../../public/assets/logo/administracion2.png';
+import logo from '../../../../public/assets/logo/administración.png'
 import Contactus from '../Navbar/Contactus';
 import RedesSociales from "../Socials/RedesSociales";
 
