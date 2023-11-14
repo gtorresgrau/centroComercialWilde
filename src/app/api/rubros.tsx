@@ -1,9 +1,9 @@
 require('dotenv').config();
-import {connectDB} from '../../../lib/db';
+// import {connectDB} from '../../../lib/db';
 
-connectDB();
+// connectDB();
 
-console.log('connectDB:',connectDB)
+// console.log('connectDB:',connectDB)
 
 import local from '../Constants/data.json'
 
