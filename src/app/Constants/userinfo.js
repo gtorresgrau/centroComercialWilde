@@ -1,5 +1,3 @@
-//PLEASE FOLLOW THE FORMAT OF THIS FILE.
-
 import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
 
 export const userinfo = {

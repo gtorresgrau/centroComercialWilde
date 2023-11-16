@@ -1,9 +1,8 @@
-import './globals.css';
-import Navbar from './components/Navbar/index';
-import Footer from './components/Footer/Footer';
-import ButtonWsp from './components/Socials/ButtonWsp';
-import AOS from "aos";
-import "aos/dist/aos.css";
+"use client"
+import '../styles/globals.css';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
+import ButtonWsp from '../components/Socials/ButtonWsp';
 
 export const metadata = {
   title: 'Centro Comercial Wilde',
