@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/aos": "^3.0.6",
+    "@types/mongoose": "^5.11.97",
     "@types/react-slick": "^0.23.10",
     "css-loader": "^6.8.1",
     "style-loader": "^3.3.3"

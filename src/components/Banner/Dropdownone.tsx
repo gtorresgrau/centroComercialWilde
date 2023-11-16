@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-import {rubrosk} from '../../../server/pages/utils/rubros'
+import {rubrosk} from '../../../server/utils/rubros'
 import { userinfo } from '../../components/../app/Constants/userinfo'
 
 const Dropdown = (props:any) => {

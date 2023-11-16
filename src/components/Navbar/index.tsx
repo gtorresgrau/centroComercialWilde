@@ -1,4 +1,5 @@
-import Navbar from './Navbar';
+"use client"
+import Navbar from '../Navbar/Navbar';
 import React, { useEffect } from 'react';
 
 const Navbarin: React.FC = () => {
@@ -20,9 +21,7 @@ const Navbarin: React.FC = () => {
     }, [])
     
     return (
-        <>
             <Navbar />
-        </>
     );
 }
 

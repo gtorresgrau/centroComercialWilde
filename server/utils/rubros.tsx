@@ -1,4 +1,4 @@
-import local from '../../../src/app/Constants/data.json'
+import local from '../../src/app/Constants/data.json'
 
 
 const rubros = local.map((r) => r.rubro); //traigo todos los rubros del json
