@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image';
-import logo from '../../../../public/assets/logo/administración.png'
+import logo from '../../../public/assets/logo/administración.png'
 import { Fragment, useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";

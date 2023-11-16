@@ -28,11 +28,7 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "mongodb": "^6.2.0",
-<<<<<<< HEAD
-    "mongoose": "^8.0.0",
-=======
     "mongoose": "^8.0.1",
->>>>>>> f7f4d4635713478e0a66c933ffeadbfc18216857
     "next": "13.4.2",
     "nodemailer": "^6.9.7",
     "postcss": "8.4.23",

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import logo from '../../../../public/assets/logo/administración.png'
+import logo from '../../../public/assets/logo/administración.png'
 import Image from 'next/image';
 import { XMarkIcon } from '@heroicons/react/24/outline'
 

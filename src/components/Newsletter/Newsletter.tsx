@@ -1,9 +1,6 @@
 "use client"
-<<<<<<<< HEAD:src/app/components/Newsletter/Newsletter.tsx
-import { news } from './../../Constants/userinfo'
-========
+
 import { news } from "../../components/../app/Constants/userinfo";
->>>>>>>> f7f4d4635713478e0a66c933ffeadbfc18216857:src/components/Newsletter/Newsletter.tsx
 import { useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";

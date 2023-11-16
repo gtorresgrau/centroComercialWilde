@@ -1,13 +1,8 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-<<<<<<<< HEAD:src/app/components/Banner/Dropdownone.tsx
-import {rubrosk} from './../../api/rubros'
-import { userinfo } from './../../Constants/userinfo'
-========
 import {rubrosk} from '../../../server/pages/utils/rubros'
 import { userinfo } from '../../components/../app/Constants/userinfo'
->>>>>>>> f7f4d4635713478e0a66c933ffeadbfc18216857:src/components/Banner/Dropdownone.tsx
 
 const Dropdown = (props:any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
