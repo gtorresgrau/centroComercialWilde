@@ -1,8 +1,8 @@
-import './globals.css';
-import Navbar from './components/Navbar/index';
-import Footer from './components/Footer/Footer';
-import ButtonWsp from './components/Socials/ButtonWsp';
-import AOS from "aos";
+import React from 'react';
+import '../styles/globals.css';
+import Navbar from '../components/Navbar/index';
+import Footer from '../components/Footer/Footer';
+import ButtonWsp from '../components/Socials/ButtonWsp';
 import "aos/dist/aos.css";
 
 export const metadata = {
