@@ -19,8 +19,9 @@ const ButtonWsp = ({ text , contact }: ButtonWspProps) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+  const textoPredefinido = 'Hola, te escribo desde la web del CCW.';
 
-  const enviar = `https://api.whatsapp.com/send?phone=54${contact}`
+  const enviar = `https://wa.me/54${contact}?text=${encodeURIComponent(textoPredefinido)}`;
 
   return (
     <article className="buttonWspPosition">
