@@ -1,4 +1,6 @@
-import './globals.css';
+'use client'
+import React from 'react';
+import '../styles/globals.css';
 import Navbar from '../components/Navbar/index';
 import Footer from '../components/Footer/Footer';
 import ButtonWsp from '../components/Socials/ButtonWsp';
