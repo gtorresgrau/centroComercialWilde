@@ -55,7 +55,7 @@ const footer = () => {
             <div className='pb-20 px-4 flex-col md:flex-row' style={{ display: 'flex', justifyContent:'center', alignItems: 'center' }}>
                 <a href="https://programundo.dev">
                     <h3 className='text-center text-offwhite'>2023 - Creado por</h3>
-                    <Image src="assets/footer/PROGRAMUNDO.png" alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} />
+                    <Image src={programundo} alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} />
                 </a>
             </div>
         </footer>
