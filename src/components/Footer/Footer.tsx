@@ -4,6 +4,7 @@ import Image from 'next/image';
 import logo from '../../../public/assets/logo/administracion2.png'
 import Contactus from '../Navbar/Contactus';
 import RedesSociales from "../Socials/RedesSociales";
+import programundo from '../../../public/assets/footer/PROGRAMUNDO.png'
 
 // MIDDLE LINKS DATA
 interface NavigationItem {
@@ -52,8 +53,10 @@ const footer = () => {
             </div>
             {/* All Rights Reserved */}
             <div className='pb-20 px-4 flex-col md:flex-row' style={{ display: 'flex', justifyContent:'center', alignItems: 'center' }}>
+                <a href="https://programundo.dev">
                     <h3 className='text-center text-offwhite'>2023 - Creado por</h3>
-                    <a href="https://programundo.dev"><img src="assets/footer/PROGRAMUNDO.png" alt="Programundo"  style={{ width: '200px', marginLeft: '10px' }} /></a>
+                    <Image src="assets/footer/PROGRAMUNDO.png" alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} />
+                </a>
             </div>
         </footer>
     )
