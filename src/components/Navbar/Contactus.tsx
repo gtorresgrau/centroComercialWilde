@@ -180,9 +180,6 @@ const Contactusform = () => {
                                                 disabled={isDisabled}
                                                 className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
                                         </form>
-                                        <div className="flex flex-col items-center">
-                                            
-                                        </div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
