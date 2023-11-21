@@ -32,6 +32,6 @@ newsletterSchema.statics.delete = async function (id) {
 };
 
 
-const NewsletterModel = mongoose.models.NewsletterModel ||  mongoose.model("NewsletterModel", newsletterSchema);
+const NewsletterModel = mongoose.model("NewsletterModel", newsletterSchema);
 
 export default NewsletterModel;

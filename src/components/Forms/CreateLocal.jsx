@@ -6,6 +6,7 @@ import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { IoClose } from 'react-icons/io5';
+import axios from 'axios';
 
 const CreateLocal =()=> {
 
@@ -32,10 +33,7 @@ const CreateLocal =()=> {
     
     const [formData, setFormData] = useState (localesData);
     const [isOpen, setIsOpen] = useState(false)
-
-    //const isDisabled = Object.values(localesData).some((value) => value === '');
-
-    const isDisabled = false;
+    const router = useRouter();
 
     const closeModal = () => {setIsOpen(false)}
     const openModal = () => {setIsOpen(true)}
@@ -45,7 +43,18 @@ const CreateLocal =()=> {
         setFormData(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('submite');
+        console.log('formData:', formData);        
+        const res = await axios.post('/api/create', formData );
+        if(!res.data.success){
+            throw new Error('Error al crear un nuevo local.');
+        }else{
+            console.log('el local se creo perfecto');           
+        }    
+        router.refresh();
+        router.push('/admin');
         setFormData(
             {
                 local: '',
@@ -74,16 +83,10 @@ const CreateLocal =()=> {
 
 
   return (
-        <>
-        <div className=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0">
-            <div className='md:hidden'>
-                <button type="button" className='text-15px font-medium' onClick={openModal}>+</button>
+        <article>
+            <div>
+                <button onClick={openModal} className="bg-white hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrey hover:border-transparent rounded">ADD + </button>
             </div>
-            <div className='hidden md:block'>
-                <button type="button" className='text-15px font-medium space-links' onClick={openModal}>+</button>
-            </div>
-        </div>
-
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={closeModal}>
                 <Transition.Child
@@ -167,7 +170,6 @@ const CreateLocal =()=> {
                                         </div>
                                         <button type="submit"
                                             onClick={handleClick}
-                                            disabled={isDisable}
                                             className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-purple  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Enviar</button>
                                     </form>
                                 </div>
@@ -177,7 +179,7 @@ const CreateLocal =()=> {
                 </div>
             </Dialog>
         </Transition>
-    </>
+    </article>
   )
 }
 

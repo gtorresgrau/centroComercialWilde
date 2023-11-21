@@ -1,15 +1,23 @@
 // next.config.js
 module.exports = {
-    images: {
-      domains: ['res.cloudinary.com'],
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
+  experimental: {
+    api: {
+      externalResolver: true,
     },
-    async rewrites() {
-      return [
-        {
-          source: '/api/:path*',
-          destination: '/api/contact', // Asegúrate de que coincida con la ruta de tu archivo
-        },
-      ];
-    },
-  };
-  
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/contact/:path*',
+        destination: '/api/contact/:path*',
+      },
+      {
+        source: '/api/create/:path*',
+        destination: '/api/create/:path*',
+      },
+    ];
+  },
+};

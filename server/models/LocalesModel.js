@@ -1,7 +1,7 @@
 import mongoose, {Schema} from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI
-console.log('mongodb:',MONGODB_URI)
+console.log('Model - mongodb:',MONGODB_URI)
 
 mongoose.connect(MONGODB_URI);
 mongoose.Promise = global.Promise;
@@ -36,6 +36,8 @@ const localesSchema = new Schema(
     }
 );
 
-const LocalesModel = mongoose.model.LocalesModel || mongoose.model("LocalesModel", localesSchema);
+console.log('localmodel:');
+
+const LocalesModel = mongoose.model("LocalesModel", localesSchema);
 
 export default LocalesModel;
