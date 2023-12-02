@@ -1,6 +1,9 @@
 'use client'
+<<<<<<< HEAD
 import CreateLocal from '../Forms/createLocal'
 import { useState } from "react"
+=======
+>>>>>>> a9d4d80c73282e0f2b165cfbbb04f476a623e114
 
 const admin = () => {
   
@@ -10,6 +13,7 @@ const admin = () => {
 
 
   return (
+<<<<<<< HEAD
     <section id="comentarios" className=' bg-bgpink'>
         <article className='sm:flex justify-around items-center pb-6'>
             <div>
@@ -18,6 +22,13 @@ const admin = () => {
         </article>
         <CreateLocal />
     </section>
+=======
+    <>
+        <h1>administradores</h1>
+        <h2>Suma un nuevo local</h2>
+
+    </>
+>>>>>>> a9d4d80c73282e0f2b165cfbbb04f476a623e114
   )
 }
 
