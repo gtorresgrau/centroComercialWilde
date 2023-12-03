@@ -5,7 +5,7 @@ import React from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Contactus from "./Contactus";
-import logo from '../../../public/assets/logo/administración.png'
+import logo from '../../../public/assets/logo/administracion.webp'
 import Image from 'next/image';
 
 

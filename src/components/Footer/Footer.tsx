@@ -1,10 +1,10 @@
 "use client"
 import Link from "next/link";
 import Image from 'next/image';
-import logo from '../../../public/assets/logo/administracion2.png'
+import logo from '../../../public/assets/logo/administracion2.webp'
 import Contactus from '../Navbar/Contactus';
 import RedesSociales from "../Socials/RedesSociales";
-import programundo from '../../../public/assets/footer/PROGRAMUNDO.png'
+import programundo from '../../../public/assets/footer/programundo.webp'
 
 // MIDDLE LINKS DATA
 interface NavigationItem {

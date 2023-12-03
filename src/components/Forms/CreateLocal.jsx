@@ -1,7 +1,6 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import logo from '../../../public/assets/logo/administración.png';
+import logo from '../../../public/assets/logo/administracion.webp';
 import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -32,8 +31,6 @@ const CreateLocal =()=> {
     
     const [formData, setFormData] = useState (localesData);
     const [isOpen, setIsOpen] = useState(false)
-
-    //const isDisabled = Object.values(localesData).some((value) => value === '');
 
     const isDisabled = false;
 

@@ -35,14 +35,14 @@ html:not([data-scroll="0"]) .navbar {
 }
 
 .banner-image {
-  background-image: url('/assets/banner/background.png');
+  background-image: url('/assets/banner/background.webp');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 
 .bg-newsletter {
-  background-image: url('/assets/newsletter/portada.png');
+  background-image: url('/assets/newsletter/portada.webp');
   background-position: right;
   background-repeat: no-repeat;
   background-size: cover;
