@@ -7,7 +7,6 @@ class MyDocument extends Document {
         <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-        <title>Centro Comercial Wilde</title>
         <meta name='description' content='Paseo de Compras Multimarca' />
         <link rel="preload" href='/favicon.ico' as="image"/>
         </Head>
