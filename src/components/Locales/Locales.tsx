@@ -3,7 +3,7 @@ import React from 'react';
 import local from '../../components/../app/Constants/data.json'
 import Card from '../Card/Card'
 import Pagination from '@mui/material/Pagination'
-import Dropdownone from '../Banner/Dropdownone';
+import Dropdownone from './Dropdownone';
 import { useState } from 'react';
 import Link from 'next/link';
 
