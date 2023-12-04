@@ -1,11 +1,12 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
-import {rubrosk} from '../../../server/utils/rubros'
+import {rubrosk, rubrosGral} from '../../../server/utils/rubros'
 import { userinfo } from '../../app/Constants/userinfo'
 
 const Dropdown = (props:any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
+  const [gral,setGral] = useState(rubrosGral[0])
 
   const handleRubro = ()=>{
     props.selectRubro(selected.value)
@@ -14,9 +15,13 @@ const Dropdown = (props:any) => {
     props.selectRubro('All')
     setSelected(rubrosk[0])
   }
+
+  console.log('rubrosOk:',rubrosk)
+  console.log('rubrosGral:',rubrosGral)
+
   
   return (
-    <div className="  grid grid-cols-2 lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded"> 
+    <section className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded"> 
       <div className='w-full col-span-2' >
         <Listbox value={selected} onChange={(newValue) => {setSelected(newValue)}}>
           <h2 className='text-lg text-lightgrey'>¿Que estas buscando?</h2>
@@ -54,16 +59,13 @@ const Dropdown = (props:any) => {
           </div>
         </Listbox>
       </div>
-      
-        
       <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
         <button onClick={handleRubro} className="bg-purple w-full hover:bg-pruple text-white font-bold py-4 px-3 rounded">{userinfo.banner.button}</button>
       </div>
       <div className=" col-span-1 mt-2 lg:col-span-1 ">
         <button onClick={handleAll} className="bg-transparent  w-full hover:bg-purple text-purple font-medium hover:text-white py-4 px-5 outline outline-1  outeline- bg-purple rounded">Ver Todos</button>
       </div>
-      
-    </div>
+    </section>
   )
 }
 
