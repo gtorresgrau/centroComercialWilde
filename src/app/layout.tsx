@@ -10,7 +10,6 @@ export const metadata = {
   description: 'Paseo de Compras Multimarca',
 }
 
-//1138498249
 
 export default function RootLayout({
   children,
