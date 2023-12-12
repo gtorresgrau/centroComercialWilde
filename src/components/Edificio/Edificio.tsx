@@ -19,6 +19,7 @@ const images = [
             dots: true,
             infinite: true,
             slidesToShow: 4,
+            centerMode:true,
             slidesToScroll: 4,
             arrows: true,
             autoplay: false,
@@ -48,7 +49,7 @@ const images = [
                 {
                     breakpoint: 400,
                     settings: {
-                        slidesToShow: 1.5,
+                        slidesToShow: 1.01,
                         slidesToScroll: 1,
                         arrows: true,
                         infinite: true,
