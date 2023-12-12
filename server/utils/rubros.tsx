@@ -20,7 +20,7 @@ export const categorias = [
   {categoria:'Hogar y Oficina',locales:['Bazar','Descartables','Articulos de Limpieza','Ropa Blanca','Tienda Holistica','Libreria',]},
   {categoria:'Servicio',locales:['Consultorios','Estudio Contable', 'Inmobiliaria','Optica','Ortopedia','Seguros']},
   {categoria:'Entretenimiento',locales:['Loteria','Jugueteria']},
-  {categoria:'Cuidado Personal',locales:['Peluqieria','Perfumería y Art. de Limpieza.']},
+  {categoria:'Cuidado Personal',locales:['Peluqueria','Perfumería y Art. de Limpieza.']},
   {categoria:'Indumentaria',locales:['Merceria','Ropa Americana','Ropa Bebe','Ropa Dama','Ropa Hombre','Ropa Infantil']},
   {categoria:'Pet Shop',locales:['Pet Shop']}
 ]

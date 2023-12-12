@@ -7,6 +7,7 @@ import { userinfo } from '../../app/Constants/userinfo'
 const Dropdown = (props:any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
   const [category,setCategory] = useState(categorias[0])
+  
   const handleRubro = ()=>{
     props.selectRubro(category.categoria)
   }
