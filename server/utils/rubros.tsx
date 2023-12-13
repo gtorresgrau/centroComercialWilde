@@ -17,7 +17,7 @@ export const categorias = [
   {categoria:'Comida',locales:['Almacen','Carniceria','Fiambreria','Verduleria']},
   {categoria:'Comidas preparadas',locales:['Pasteleria','Pizzeria','Heladeria']},
   {categoria:'Hogar y Oficina',locales:['Bazar','Descartables','Articulos de Limpieza','Ropa Blanca','Tienda Holistica','Libreria',]},
-  {categoria:'Servicio / Consultorios',locales:['Consultorios','Estudio Contable', 'Inmobiliaria','Optica','Ortopedia','Seguros']},
+  {categoria:'Servicios / Consultorios',locales:['Consultorios','Estudio Contable', 'Inmobiliaria','Optica','Ortopedia','Seguros']},
   {categoria:'Entretenimiento',locales:['Loteria','Jugueteria']},
   {categoria:'Cuidado Personal',locales:['Peluqueria','Perfumeria']},
   {categoria:'Indumentaria',locales:['Merceria','Ropa Americana','Ropa Bebe','Ropa Dama','Ropa Hombre','Ropa Infantil']},
