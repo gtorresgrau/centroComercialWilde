@@ -1,6 +1,5 @@
 import local from '../../src/app/Constants/data.json'
 
-
 const rubros = local.map((r) => r.rubro); //traigo todos los rubros del json
 const uniqueRubros = Array.from(new Set(rubros)); // filtro todos los rubros y lo convierto en array
 
@@ -8,7 +7,7 @@ export const rubrosk = uniqueRubros.map((rubroItem) => { //los convierto en un p
   return { name: 'rubro', value: rubroItem };
 });
 
-rubrosk.sort((a, b) => a.value.localeCompare(b.value));
+ rubrosk.sort((a, b) => a.value.localeCompare(b.value));
 
 
 
@@ -22,5 +21,5 @@ export const categorias = [
   {categoria:'Entretenimiento',locales:['Loteria','Jugueteria']},
   {categoria:'Cuidado Personal',locales:['Peluqueria','Perfumeria']},
   {categoria:'Indumentaria',locales:['Merceria','Ropa Americana','Ropa Bebe','Ropa Dama','Ropa Hombre','Ropa Infantil']},
-  {categoria:'Pet Shop',locales:['Pet Shop']}
+  {categoria:'Mascotas',locales:['Pet Shop']}
 ]

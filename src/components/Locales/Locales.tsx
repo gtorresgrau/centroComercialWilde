@@ -6,6 +6,7 @@ import Pagination from '@mui/material/Pagination'
 import Dropdownone from './Dropdownone';
 import { useState } from 'react';
 import Link from 'next/link';
+import { filterCat } from '@/server/utils/filters';
 
 interface local {
     email: string;
@@ -27,7 +28,7 @@ const Locales = () => {
   
     const locales = rubros === 'All'
       ? local
-      : local.filter((l) => l.rubro === rubros);
+      : filterCat(rubros)
   
     const pages = Math.ceil(locales.length / localPage);
   

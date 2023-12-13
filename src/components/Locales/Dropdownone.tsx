@@ -8,9 +8,10 @@ const Dropdown = (props:any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
   const [category,setCategory] = useState(categorias[0])
   
-  const handleRubro = ()=>{
+  const handleRubro = async ()=>{
     props.selectRubro(category.categoria)
   }
+
   const handleAll = ()=>{
     props.selectRubro('All')
     setSelected(rubrosk[0])
@@ -60,13 +61,10 @@ const Dropdown = (props:any) => {
           </div>
         </Listbox>
         
-      {/* si categorias.locales que es un array es mayor a 1 renderiza checkbox, sino no.
-          si renderiza checkbox,
-          si no hay check renderiza todos los rubros
-           */}
-
-
-
+      {/*Checkbox */}
+      {
+        <div><input type='checkbox'  value='hola'/><label>Hola</label></div>
+      }
 
       </div>
       <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
