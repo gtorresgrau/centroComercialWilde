@@ -60,11 +60,6 @@ const Dropdown = (props:any) => {
             </Transition>
           </div>
         </Listbox>
-        
-      {/*Checkbox */}
-      {
-        <div><input type='checkbox'  value='hola'/><label>Hola</label></div>
-      }
 
       </div>
       <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
@@ -73,6 +68,13 @@ const Dropdown = (props:any) => {
       <div className=" col-span-1 mt-2 lg:col-span-1 ">
         <button onClick={handleAll} className="bg-transparent  w-full hover:bg-purple text-purple font-medium hover:text-white py-4 px-5 outline outline-1  outeline- bg-purple rounded">Ver Todos</button>
       </div>
+      {/*Checkbox */}
+      {category.locales.length > 1 ? (
+        category.locales.map((rubro, key) => (
+          <div key={key}>
+            <label><input type='checkbox' value={rubro} name={rubro} defaultChecked={false} /> {rubro}</label>
+          </div>
+        ))) : (null)}
     </section>
   )
 }
