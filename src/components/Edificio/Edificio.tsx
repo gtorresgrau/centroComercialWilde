@@ -20,7 +20,7 @@ const images = [
             infinite: true,
             slidesToShow: 4,
             slidesToScroll: 4,
-            arrows: true,
+            arrows: false,
             autoplay: false,
             autoplaySpeed: 2000,
             cssEase: "linear",
@@ -30,7 +30,6 @@ const images = [
                     settings: {
                         slidesToShow: 3,
                         slidesToScroll: 3,
-                        arrows: true,
                         infinite: true,
                         dots: true
                     }
@@ -40,7 +39,6 @@ const images = [
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 2,
-                        arrows: true,
                         infinite: true,
                         dots: true
                     }
@@ -51,7 +49,6 @@ const images = [
                         centerMode:true,
                         slidesToShow: 1.01,
                         slidesToScroll: 1,
-                        arrows: true,
                         infinite: true,
                         dots: true
                     }
@@ -59,9 +56,9 @@ const images = [
             ]
         };
     return (
-      <section id='edificio' className="mx-8">
+      <section id='edificio'>
         <h2 className="flex flex-row justify-center items-center text-2xl sm:text-5xl font-bold tracking-tight text-gray-900 m-8">Bienvenidos!!</h2> 
-        <p className="p-2 text-lg font-medium leading-9">El centro comercial es un paseo de tres pisos y una galeria externa llena de locales.<br/>Ademas, en el corazon del Hall central te espera un acogedor espacio de CoWorking. Equipado con enchufes, conexión wifi, café y mucha buena onda.<br/>¡Te invitamos a sumergirte en la energía positiva de nuestro centro comercial y disfrutar de todas las comodidades que ofrecemos!</p>
+        <p className="p-2 text-lg font-medium leading-9 mx-8">El centro comercial es un paseo de tres pisos y una galeria externa llena de locales.<br/>Ademas, en el corazon del Hall central te espera un acogedor espacio de CoWorking. Equipado con enchufes, conexión wifi, café y mucha buena onda.<br/>¡Te invitamos a sumergirte en la energía positiva de nuestro centro comercial y disfrutar de todas las comodidades que ofrecemos!</p>
         <Slider {...settings} >
             {images.map((img, i) => (
                 <article key={i} className="p-2 rounded-xl shadow-xl" >

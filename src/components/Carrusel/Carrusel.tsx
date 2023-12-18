@@ -17,7 +17,7 @@ export default class MultipleItems extends Component {
             infinite: true,
             slidesToShow: 5,
             slidesToScroll: 1,
-            arrows: true,
+            arrows: false,
             autoplay: true,
             speed: 2000,
             autoplaySpeed: 2000,
