@@ -16,7 +16,7 @@ const Drawer = ({ children, isOpen, setIsOpen }: DrawerProps) => {
             <section className={"w-340px max-w-lg left-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform " + (isOpen ? "translate-x-0" : "-translate-x-full")}>
                  <article className="relative w-340px max-w-lg pb-10 flex flex-col space-y-6 h-full">
                     <header className="p-4 flex items-center justify-between">
-                        <Image className="block h-30px w-30px lg:hidden" src={logo} alt="Centro Comercial Logo" width={70} height={70} onClick={() => {setIsOpen(false)}}/>
+                        <Image className="block h-30px w-30px lg:hidden" src={logo} alt="Centro Comercial Logo" width={70} height={70} onClick={() => {setIsOpen(false)}} priority/>
                         <XMarkIcon className="block h-6 w-6" onClick={() => {setIsOpen(false)}} />
                     </header>
                     <div onClick={() => {setIsOpen(false)}}>{children}</div>

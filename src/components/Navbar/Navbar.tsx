@@ -69,6 +69,7 @@ const Navbar = () => {
                                         alt="Centro Comercial Logo"
                                         width={70} 
                                         height={70}
+                                        priority
                                     />
                                     <Image
                                         className="hidden h-48px w-48px lg:block"
@@ -76,6 +77,7 @@ const Navbar = () => {
                                         alt="Centro Comercial Logo"
                                         width={70}
                                         height={70} 
+                                        priority
                                     />
                             </div>
 
