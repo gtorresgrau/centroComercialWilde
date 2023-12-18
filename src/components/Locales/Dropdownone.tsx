@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import {rubrosk, categorias} from '../../../server/utils/rubros'
@@ -6,25 +6,44 @@ import { userinfo } from '../../app/Constants/userinfo'
 
 const Dropdown = (props:any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
-  const [category,setCategory] = useState(categorias[0])
+  const [category, setCategory] = useState(categorias[0]);
+  const [show, setShow] = useState(false)
+  const [selectedLocales, setSelectedLocales] = useState<string[]>([]);
+
   
   const handleRubro = async ()=>{
     props.selectRubro(category.categoria)
+    setSelectedLocales([]);
+    setShow(true)
   }
-
+  
   const handleAll = ()=>{
     props.selectRubro('All')
     setSelected(rubrosk[0])
+    setCategory(categorias[0])
+    setSelectedLocales([]);
   }
 
-  console.log('rubrosOk:',rubrosk)
-  console.log('categorias:',categorias)
-
+  const handleClick = () => {
+    setSelectedLocales([]);
+  };
+  
+  const handleCheckboxChange = (rubro:any) => {
+    setSelectedLocales((prevSelectedLocales) =>
+      prevSelectedLocales.includes(rubro)
+        ? prevSelectedLocales.filter((item) => item !== rubro)
+        : [...prevSelectedLocales, rubro]
+    );
+  };
+  
+  useEffect(() => {
+    props.selectedChecks(selectedLocales);
+  }, [category, selectedLocales]);
   
   return (
     <section className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded"> 
       <div className='w-full col-span-2' >
-      <Listbox value={category} onChange={(newValue) => {setCategory(newValue)}}>
+      <Listbox value={category} onChange={(newValue) => {setCategory(newValue),setShow(false)}}>
         <h2 className='text-lg text-lightgrey'>¿Que estas buscando?</h2>
           {/* First select */}
           <div className="relative mt-1">
@@ -65,16 +84,23 @@ const Dropdown = (props:any) => {
       <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
         <button onClick={handleRubro} className="bg-purple w-full hover:bg-pruple text-white font-bold py-4 px-3 rounded">{userinfo.banner.button}</button>
       </div>
-      <div className=" col-span-1 mt-2 lg:col-span-1 ">
+      <div className="col-span-1 mt-2 lg:col-span-1 ">
         <button onClick={handleAll} className="bg-transparent  w-full hover:bg-purple text-purple font-medium hover:text-white py-4 px-5 outline outline-1  outeline- bg-purple rounded">Ver Todos</button>
       </div>
       {/*Checkbox */}
-      {category.locales.length > 1 ? (
-        category.locales.map((rubro, key) => (
-          <div key={key}>
-            <label><input type='checkbox' value={rubro} name={rubro} defaultChecked={false} /> {rubro}</label>
+      {show && category.locales.length > 1 ? (
+        category.locales
+        .sort((a, b) => a.localeCompare(b)) 
+        .map((rubro, key) => (
+          <div key={key} className='flex text-start justify-start font-light md:font-normal xl:font-medium'>
+            <label><input type='checkbox' 
+                value={rubro} 
+                name={rubro} 
+                checked={selectedLocales.includes(rubro)}
+                onClick={handleClick}
+                onChange={() => handleCheckboxChange(rubro)}/> {rubro}</label>
           </div>
-        ))) : (null)}
+        ))): (null)}
     </section>
   )
 }

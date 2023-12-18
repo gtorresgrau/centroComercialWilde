@@ -4,23 +4,27 @@ import Image from 'next/image';
 
 export interface CardProps {
   product: {
-    local: string;
+    local: string,
     n_local: number;
     email: string;
     contacto: string;
     celular: number;
-    linea?: number;
+    linea: number;
     ubicacion: string;
+    categoria: string;
     rubro: string;
     rubroSecundario: string;
     horarios: string;
     logoLocal: string;
     fotoLocal: string;
-    texto?: string;
+    instagram: string;
+    facebook: string;
+    texto: string;
   };
 }
 
-const Card: React.FC<CardProps> = ({ product }) => {
+
+const Card: React.FC<CardProps> = ({product }) => {
   const { logoLocal, ubicacion, n_local, local } = product;
   const mod = (data: any) => {
     if (data === false) setModal(data);

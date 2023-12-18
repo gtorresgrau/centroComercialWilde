@@ -6,4 +6,8 @@ export const filterCat =(data:any)=>{
    const filtro = locales.filter((local) => local.categoria === data);
    return filtro
 }
-console.log('filterCat en filters:',filterCat)
+
+export const filterLocal =(data:any)=>{
+   const filtro = locales.filter((local) => local.rubro === data.join());
+   return filtro
+}
