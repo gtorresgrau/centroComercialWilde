@@ -22,4 +22,3 @@ export const categorias = uniqueCategories.map((catItem) => {
   return { categoria: catItem, locales: Array.from(rubrosSet) };
 }).sort((a, b) => a.categoria.localeCompare(b.categoria));
 
-console.log('categorias:', categorias);

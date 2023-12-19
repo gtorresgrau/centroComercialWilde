@@ -82,12 +82,14 @@ const Dropdown = (props:any) => {
 
       </div>
       <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
-        <button onClick={handleRubro} className="bg-purple w-full hover:bg-pruple text-white font-bold py-4 px-3 rounded">{userinfo.banner.button}</button>
+        <button onClick={handleRubro} className="bg-purple w-full text-white hover:bg-transparent hover:text-purple font-bold py-4 px-3 outline outline-1 outeline- rounded">{userinfo.banner.button}</button>
       </div>
       <div className="col-span-1 mt-2 lg:col-span-1 ">
-        <button onClick={handleAll} className="bg-transparent  w-full hover:bg-purple text-purple font-medium hover:text-white py-4 px-5 outline outline-1  outeline- bg-purple rounded">Ver Todos</button>
+        <button onClick={handleAll} className="bg-transparent  w-full text-purple hover:bg-purple hover:text-white font-bold py-4 px-5 outline outline-1 outeline- rounded">Ver Todos</button>
       </div>
       {/*Checkbox */}
+      {show && category.locales.length > 1 ?<button onClick={handleClick} className="bg-purple w-fit text-white hover:bg-transparent hover:text-purple font-normal py-1 px-2 outline outline-1 outeline- rounded">LIMPIAR</button>
+      :null}
       {show && category.locales.length > 1 ? (
         category.locales
         .sort((a, b) => a.localeCompare(b)) 

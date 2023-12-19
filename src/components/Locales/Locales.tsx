@@ -65,7 +65,6 @@ const Locales = () => {
       try {
         const localesChecks = await filterLocal(data);
         setFiltros(localesChecks);
-        console.log('filtros: ', localesChecks);
       } catch (error) {
         console.error('Error al obtener datos: ', error);
       }
