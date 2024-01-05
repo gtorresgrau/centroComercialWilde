@@ -41,7 +41,9 @@ const Dropdown = (props:any) => {
   }, [category, selectedLocales]);
   
   return (
-    <section className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded"> 
+    <section className=" items-center shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded">
+      
+      <div className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 ">
       <div className='w-full col-span-2' >
       <Listbox value={category} onChange={(newValue) => {setCategory(newValue),setShow(false)}}>
         <h2 className='text-lg text-lightgrey'>¿Que estas buscando?</h2>
@@ -81,28 +83,34 @@ const Dropdown = (props:any) => {
         </Listbox>
 
       </div>
-      <div  className=' col-span-1 mt-2 lg:col-span-1 '  >
+      <div  className=' col-span-1 mt-2 lg:col-span-1'  >
         <button onClick={handleRubro} className="bg-purple w-full text-white hover:bg-transparent hover:text-purple font-bold py-4 px-3 outline outline-1 outeline- rounded">{userinfo.banner.button}</button>
       </div>
       <div className="col-span-1 mt-2 lg:col-span-1 ">
         <button onClick={handleAll} className="bg-transparent  w-full text-purple hover:bg-purple hover:text-white font-bold py-4 px-5 outline outline-1 outeline- rounded">Ver Todos</button>
       </div>
+      </div> 
       {/*Checkbox */}
-      {show && category.locales.length > 1 ?<button onClick={handleClick} className="bg-purple w-fit text-white hover:bg-transparent hover:text-purple font-normal py-1 px-2 outline outline-1 outeline- rounded">LIMPIAR</button>
-      :null}
-      {show && category.locales.length > 1 ? (
-        category.locales
-        .sort((a, b) => a.localeCompare(b)) 
-        .map((rubro, key) => (
-          <div key={key} className='flex text-start justify-start font-light md:font-normal xl:font-medium'>
-            <label><input type='checkbox' 
-                value={rubro} 
-                name={rubro} 
-                checked={selectedLocales.includes(rubro)}
-                onClick={handleClick}
-                onChange={() => handleCheckboxChange(rubro)}/> {rubro}</label>
-          </div>
-        ))): (null)}
+      <div className='grid grid-cols-12 items-start py-5 px-4'>
+        <div className='grid  col-span-8 sm:col-span-9 md:col-span-10 md:grid-cols-3 sm:grid-cols-2'>
+          {show && category.locales.length > 1 ? (
+            category.locales
+            .sort((a, b) => a.localeCompare(b)) 
+            .map((rubro, key) => (
+              <div key={key} className='font-light md:font-normal xl:font-medium lg:flex-1'>
+                <label><input type='checkbox' 
+                  value={rubro} 
+                  name={rubro} 
+                  checked={selectedLocales.includes(rubro)}
+                  onClick={handleClick}
+                  onChange={() => handleCheckboxChange(rubro)}/> {rubro}</label>
+              </div>
+            ))): (null)}
+        </div>
+        {show && category.locales.length > 1 ?
+          <button onClick={handleClick} className="bg-purple w-fit text-white hover:bg-transparent hover:text-purple font-normal py-2 px-2 xs:col-span-1  md:col-span-2 outline outline-1 outeline- rounded">LIMPIAR</button>
+          :null}
+      </div>
     </section>
   )
 }
