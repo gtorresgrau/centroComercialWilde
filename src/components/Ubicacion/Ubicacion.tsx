@@ -9,7 +9,7 @@ const Ubicacion =()=>{
                 <h2 className='text-2xl text-black pb-10'>¿Dónde nos encontras?</h2>
                 <div className='w-full'>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3280.5077133504637!2d-58.3034688!3d-34.6923721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a33362e201a62d%3A0x1cc2d66dad49ac4e!2sCentro%20Comercial%20Wilde!5e0!3m2!1ses-419!2sar!4v1699369810228!5m2!1ses-419!2sar"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.507714849275!2d-58.303468825141415!3d-34.692372062184106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a33362e201a62d%3A0x1cc2d66dad49ac4e!2sCentro%20Comercial%20Wilde!5e0!3m2!1ses-419!2sar!4v1708374479584!5m2!1ses-419!2sar"
                         height="450"
                         width='fit'
                         className='w-full'
