@@ -1,0 +1,16 @@
+{
+    "name":"Centro Comercial Wilde",
+    "short_name":"CCW",
+    "icons":[
+        {
+            "src":"/public/favicon.ico",
+            "sise":"192x192",
+            "type":"image/ico"
+        }
+    ],
+    "start_url":"/",
+    "display":"standalone",
+    "theme_Color":"#ffffff",
+    "background_color":"#451F49"
+
+}

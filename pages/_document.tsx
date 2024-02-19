@@ -7,6 +7,7 @@ class MyDocument extends Document {
         <Head>
         <meta charSet="utf-8" />
         <meta name='description' content='Paseo de Compras Multimarca' />
+        <link rel="manifest" href='/manifest.json'/>
         <link rel="preload" href='/favicon.ico' as="image"/>
         </Head>
         <body>
