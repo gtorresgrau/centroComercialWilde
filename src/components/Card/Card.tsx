@@ -19,7 +19,7 @@ export interface CardProps {
     fotoLocal: string;
     instagram: string;
     facebook: string;
-    texto: string;
+    texto?: string;
   };
 }
 

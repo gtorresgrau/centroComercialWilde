@@ -24,7 +24,7 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
-  texto: string;
+  texto?: string;
 }
 
 const Locales = () => {
@@ -33,10 +33,6 @@ const Locales = () => {
     const [filtros, setFiltros] = useState<Local[]>([]);
 
     const localPage = 9;
-  
-    // const locales = rubros === 'All'
-    //   ? local
-    //   : filterCat(rubros)
 
     let locales: Local[];
 
