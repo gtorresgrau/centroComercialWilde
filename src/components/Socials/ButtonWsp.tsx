@@ -20,7 +20,6 @@ const ButtonWsp = ({ text , contact }: ButtonWspProps) => {
     setIsHovered(false);
   };
   const textoPredefinido = 'Hola, te escribo desde la web del CCW.';
-
   const enviar = `https://wa.me/54${contact}?text=${encodeURIComponent(textoPredefinido)}`;
 
   return (
