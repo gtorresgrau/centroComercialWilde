@@ -42,7 +42,6 @@ const Dropdown = (props:any) => {
   
   return (
     <section className=" items-center shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded">
-      
       <div className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4 ">
       <div className='w-full col-span-2' >
       <Listbox value={category} onChange={(newValue) => {setCategory(newValue),setShow(false)}}>
