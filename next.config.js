@@ -1,7 +1,8 @@
 // next.config.js
 module.exports = {
     images: {
-      domains: ['res.cloudinary.com'],
+      domains: ['res.cloudinary.com','localhost'],
+      unoptimized: true
     },
     async rewrites() {
       return [
