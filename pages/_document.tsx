@@ -5,10 +5,11 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
-        <meta charSet="utf-8" />
-        <meta name='description' content='Paseo de Compras Multimarca' />
-        <link rel="manifest" href='/manifest.json'/>
-        <link rel="preload" href='/favicon.ico' as="image"/>
+          <meta charSet="utf-8" />
+          <meta name='description' content='Paseo de Compras Multimarca' />
+          <link rel="manifest" href='/manifest.json'/>
+          <link rel="preload" href='/favicon.ico' as="image"/>
+          <meta name="theme-color" content="#000000" />
         </Head>
         <body>
           <Main />
