@@ -9,9 +9,7 @@ import Edificio from '../components/Edificio/Edificio';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-
 export default function Home() {
-  
   useEffect(() => {
     if (typeof document !== 'undefined') {
       AOS.init({
@@ -29,5 +27,5 @@ export default function Home() {
       <Comentarios />
       <Newsletter />
     </main>
-  )
+  );
 }

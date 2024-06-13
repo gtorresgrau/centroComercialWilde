@@ -6,10 +6,11 @@ class MyDocument extends Document {
       <Html lang="es">
         <Head>
           <meta charSet="utf-8" />
-          <meta name='description' content='Paseo de Compras Multimarca' />
-          <link rel="manifest" href='/manifest.json'/>
-          <link rel="preload" href='/favicon.ico' as="image"/>
-          <meta name="theme-color" content="#000000" />
+          <meta name="description" content="Paseo de Compras Multimarca" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="icon" href="/favicon.ico" />
+          <meta name="theme-color" content="#451F49" />
         </Head>
         <body>
           <Main />
