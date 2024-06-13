@@ -1,5 +1,6 @@
 import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import Head from 'next/head';
 import '../styles/globals.css';
 import Navbar from '../components/Navbar/index';
 import Footer from '../components/Footer/Footer';
@@ -19,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <Head><link rel="manifest" href="/manifest.json"></Head>
       <body>
         <Navbar />
         {children}
