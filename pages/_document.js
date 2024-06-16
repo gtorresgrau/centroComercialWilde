@@ -11,6 +11,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="icon" href="/favicon.ico" />
           <meta name="theme-color" content="#451F49" />
+          <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />  // Include AOS styles globally
         </Head>
         <body>
           <Main />
