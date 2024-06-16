@@ -1,5 +1,14 @@
-const withPWA = require('next-pwa')({
-  dest: 'public', // Specify the output directory for the PWA assets
+const withPWA = require('next-pwa').default({
+  dest: "public", 
+  cacheOnFrontEndNav: true,
+  aggresiveFrontEndNavCachig: true,
+  reloadOnOnline:true,
+  swcMinify: true,
+  disable: false,
+  workboxOptions:{
+    disableDevLogs: true,
+  }
+
 });
 
 module.exports = withPWA({
