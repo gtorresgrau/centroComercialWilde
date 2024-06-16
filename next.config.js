@@ -1,9 +1,9 @@
 const withPWA = require('next-pwa')({
   dest: "public", 
   cacheOnFrontEndNav: true,
-  reloadOnOnline:true,
+  reloadOnOnline: true,
   disable: false,
-  workboxOptions:{
+  workboxOptions: {
     disableDevLogs: true,
   }
 });
@@ -17,7 +17,7 @@ module.exports = withPWA({
     return [
       {
         source: '/api/:path*',
-        destination: '/api/contact', // Ensure this matches the path of your file
+        destination: '/api/:path*', // Ensure this matches the path of your API routes
       },
     ];
   },
