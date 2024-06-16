@@ -3,9 +3,7 @@ const withPWA = require('next-pwa')({
   cacheOnFrontEndNav: true,
   reloadOnOnline: true,
   disable: false,
-  workboxOptions: {
-    disableDevLogs: true,
-  }
+  disableDevLogs: true
 });
 
 module.exports = withPWA({
