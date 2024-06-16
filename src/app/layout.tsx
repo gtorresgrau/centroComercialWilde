@@ -12,6 +12,10 @@ export const metadata = {
   description: 'Paseo de Compras Multimarca',
 };
 
+export const viewport = {
+  themeColor:"#451F49",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
