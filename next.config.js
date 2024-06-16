@@ -1,9 +1,7 @@
 const withPWA = require('next-pwa')({
    dest: "public", 
   cacheOnFrontEndNav: true,
-  aggresiveFrontEndNavCachig: true,
   reloadOnOnline:true,
-  swcMinify: true,
   disable: false,
   workboxOptions:{
     disableDevLogs: true,
