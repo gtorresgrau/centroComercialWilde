@@ -1,14 +1,13 @@
 const withPWA = require('next-pwa').default({
-  dest: "public", 
-  cacheOnFrontEndNav: true,
-  aggresiveFrontEndNavCachig: true,
-  reloadOnOnline:true,
-  swcMinify: true,
-  disable: false,
-  workboxOptions:{
-    disableDevLogs: true,
-  }
-
+   dest: "public", 
+  // cacheOnFrontEndNav: true,
+  // aggresiveFrontEndNavCachig: true,
+  // reloadOnOnline:true,
+  // swcMinify: true,
+  // disable: false,
+  // workboxOptions:{
+  //   disableDevLogs: true,
+  // }
 });
 
 module.exports = withPWA({
