@@ -1,5 +1,5 @@
 import React from 'react';
-import RootLayout from './RootLayout';
+import RootLayout from '../src/app/layout';
 
 function MyApp({ Component, pageProps }) {
   return (
