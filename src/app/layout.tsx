@@ -6,11 +6,11 @@ import Footer from '../components/Footer/Footer';
 import ButtonWsp from '../components/Socials/ButtonWsp';
 import "aos/dist/aos.css";
 
-export const metadata = {
-  manifest: "/public/manifest.json",
-  title: 'Centro Comercial Wilde',
-  description: 'Paseo de Compras Multimarca',
-};
+// export const metadata = {
+//   manifest: "/manifest.json",
+//   title: 'Centro Comercial Wilde',
+//   description: 'Paseo de Compras Multimarca',
+// };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
