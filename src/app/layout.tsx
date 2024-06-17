@@ -12,7 +12,9 @@ export const metadata = {
   title: 'Centro Comercial Wilde',
   description: 'Paseo de Compras Multimarca',
   viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#451F49', // Adjust as needed
+  themeColor: '#451F49',
+  charSet:'UTF-8',
+  icon: '/favicon.ico'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,7 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Inject viewport and theme-color from metadata */}
         <meta name="viewport" content={metadata.viewport} />
         <meta name="theme-color" content={metadata.themeColor} />
-
         {/* ... other head elements (e.g., title, description) */}
       </head>
       <body>
