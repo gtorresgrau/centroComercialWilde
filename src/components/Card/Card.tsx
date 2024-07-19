@@ -9,7 +9,7 @@ export interface CardProps {
     email: string;
     contacto: string;
     celular: number;
-    linea: number;
+    linea: number | null;
     ubicacion: string;
     categoria: string;
     rubro: string;
