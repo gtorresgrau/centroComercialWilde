@@ -1,6 +1,4 @@
-'use client';
-import Image from 'next/image';
-import logo from '../../../public/assets/logo/administracion.webp';
+'use client'
 import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -110,9 +108,9 @@ const CreateLocal =()=> {
                         <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{color:'gray'}}/></button>
                                 <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
                                     <div className="flex flex-col items-center">
-                                    <Image
+                                    <img
                                         className="h-48px w-48px lg:block"
-                                        src={logo}
+                                        src='assets/logo/administracion.webp'
                                         alt="Centro Comercial Logo"
                                         width={100} 
                                         height={100} 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Modal from '../Locales/Modal';
-import Image from 'next/image';
 
 export interface CardProps {
   product: {
@@ -41,7 +40,7 @@ const Card: React.FC<CardProps> = ({product }) => {
       className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg"
     >
       <div className="w-full p-2 h-80 overflow-hidden bg-gray-200">
-        <Image
+        <img
           src={logoLocal}
           width={500}
           height={500}

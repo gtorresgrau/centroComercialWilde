@@ -1,6 +1,4 @@
 import { Dialog, Transition } from '@headlessui/react'
-import Image from 'next/image';
-import logo from '../../../public/assets/logo/administracion.webp'
 import { Fragment, useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -128,9 +126,9 @@ const Contactusform = () => {
                         <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{color:'gray'}}/></button>
                                     <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
-                                        <Image
+                                        <img
                                             className="h-48px w-48px lg:block"
-                                            src={logo}
+                                            src='assets/logo/administracion.webp'
                                             alt="Centro Comercial Logo"
                                             width={100} 
                                             height={100} 

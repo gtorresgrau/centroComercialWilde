@@ -5,8 +5,6 @@ import React from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Contactus from "./Contactus";
-import logo from '../../../public/assets/logo/administracion.webp'
-import Image from 'next/image';
 
 
 interface NavigationItem {
@@ -63,21 +61,19 @@ const Navbar = () => {
                             {/* LOGO */}
 
                             <div className="flex flex-shrink-0 items-center">
-                                    <Image
+                                    <img
                                         className="block h-30px w-30px lg:hidden"
-                                        src={logo}
+                                        src='assets/logo/administracion.webp'
                                         alt="Centro Comercial Logo"
                                         width={70} 
                                         height={70}
-                                        priority
                                     />
-                                    <Image
+                                    <img
                                         className="hidden h-48px w-48px lg:block"
-                                        src={logo}
+                                        src='assets/logo/administracion.webp'
                                         alt="Centro Comercial Logo"
                                         width={70}
                                         height={70} 
-                                        priority
                                     />
                             </div>
 
