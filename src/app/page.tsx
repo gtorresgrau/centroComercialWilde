@@ -4,6 +4,7 @@ import Banner from '../components/Banner/Banner';
 import Locales from '../components/Locales/Locales';
 import Comentarios from '../components/Comentarios/Comentarios';
 import Newsletter from '../components/Newsletter/Newsletter';
+import Sorteo from '../components/Sorteo/Sorteo'
 import Ubicacion from '../components/Ubicacion/Ubicacion';
 import Edificio from '../components/Edificio/Edificio';
 import AOS from "aos";
@@ -23,6 +24,7 @@ export default function Home() {
       <Banner />
       <Edificio />
       <Locales />
+      <Sorteo />
       <Ubicacion />
       <Comentarios />
       <Newsletter />
