@@ -37,11 +37,11 @@ const Ruleta = () => {
   return (
     <section id='ruleta' className='bg-bgpink px-4'>
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #9C27B0, #1E1E1E)', WebkitBackgroundClip: 'text', color: 'transparent'}}>SORTEO DE EXPENSAS PARA CHW</h1>
-        <span className='text-center text-xs md:text-base'>El sorteo se realiza desde la administacion del centro comercial wilde para los departamentos del Complejo Habitacional Wilde.</span>
+        <span className='text-center text-xs md:text-base'>El sorteo se realiza con este mismo sistema desde la administacion del centro comercial wilde para los departamentos del Complejo Habitacional Wilde.</span>
         <div className='flex justify-around items-center mt-4'>
             <div className="items-center mx-auto max-w-2xl px-4 pb-32 mb-32 lg:max-w-7xl lg:px-8">    
-                <div className='mb-4 md:min-h-[100px] md:min-w-[521px] w-full'>
-                    <div className='flex flex-col md:flex-row gap-4 align-middle text-center'>
+                <div className='mb-4 md:min-h-[100px] md:min-w-[600px] w-full'>
+                    <div className='flex flex-col md:flex-row gap-4 items-center text-center'>
                         <div className="">
                             <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded m-4 md:my-0" onClick={handleSortear}>SORTEAR</button>
                         </div>
