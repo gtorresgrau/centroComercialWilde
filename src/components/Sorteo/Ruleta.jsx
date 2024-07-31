@@ -6,13 +6,37 @@ const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min
 
 const sortearCandidatos = () => {
   const torres = 48;
-  const pisos = 10;
-  const departamentos = ['A', 'B', 'C', 'D'];
-
-  const resultados = [];
-  while (resultados.length < 4) {
+  const torresR = {
+    torre:[1 , 3 , 4 , 14 , 17 , 18 , 21 , 22 , 23 , 24 , 25 , 28 , 29 , 32 , 33 , 35 , 36 , 38 , 39 , 44],
+    pisos:11,
+    deptos:['A', 'B', 'C', 'D'],
+  }
+  const torresM = {
+    torre:[5 , 6 , 8 , 9 , 11 , 12 , 13 , 15 , 19 , 20 , 26 , 27 , 30 , 31 , 40 , 42 , 43 , 45 , 46 , 47 , 48],
+    pisos:10,
+    deptos:['A', 'B', 'C', 'D'],
+  }
+  const torresV = {
+    torre:[2 , 7 , 10 , 16 , 34 , 37 , 41],
+    pisos:6,
+    deptos:['A', 'B', 'C', 'D'],
+    }
+    const resultados = [];
+    while (resultados.length < 4) {
     const torre = generateRandomNumber(1, torres);
-    const piso = generateRandomNumber(0, pisos);
+    
+    let cantPisos;
+        if (torresR.torre.includes(torre)) {
+            cantPisos = torresR.pisos;
+        } else if (torresM.torre.includes(torre)) {
+            cantPisos = torresM.pisos;
+        } else {
+            cantPisos = torresV.pisos;
+        }
+        
+    const piso = generateRandomNumber(0, cantPisos);
+    let departamentos=['A', 'B', 'C', 'D'];
+
     const depto = departamentos[generateRandomNumber(0, departamentos.length - 1)];
     const resultado = `Torre ${torre} Piso ${piso} Depto ${depto}`;
 
