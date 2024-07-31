@@ -25,7 +25,7 @@ const facebook = "https://www.facebook.com/centrocomercialwilde";
 const celular = 1138498249;
 const linea = 0
 
-const footer = () => {
+const Footer = () => {
     const path = usePathname();
     const padTop = path === '/ruleta' ? 'pt-4' : 'pt-64';
 
@@ -64,4 +64,4 @@ const footer = () => {
     )
 }
 
-export default footer;
+export default Footer;
