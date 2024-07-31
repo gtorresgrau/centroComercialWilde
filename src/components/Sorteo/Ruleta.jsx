@@ -47,13 +47,13 @@ const Ruleta = () => {
                         </div>
                         <div className="flex flex-col md:flex-row gap-10">
                             <div className='min-h-[80px] md:min-w-[170px] mx-2'>
-                                <h2>Ganadores</h2>
+                                <h2><strong>Ganadores</strong></h2>
                                 {ganadores.map((ganador, index) => (
                                 <p key={index} className='text-start'>{index+1}-{ganador}</p>
                                 ))}
                             </div>
                             <div className='min-h-[80px] md:min-w-[170px] mx-2'>
-                                <h2>Suplentes</h2>
+                                <h2><strong>Suplentes</strong></h2>
                                 {suplentes.map((suplente, index) => (
                                 <p key={index} className='text-start'>{index+1}-{suplente}</p>
                                 ))}
