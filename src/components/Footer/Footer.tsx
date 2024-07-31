@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Contactus from '../Navbar/Contactus';
 import RedesSociales from "../Socials/RedesSociales";
 
@@ -14,6 +15,7 @@ const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home', current: true },
     { name: 'Locales', href: '#locales', current: false },
     { name: 'Comentarios', href: '#comentarios', current: false },
+    { name: 'Sorteo', href:'#sorteo', current: false },
     { name: 'Newsletter', href:'#newsletter', current: false },
     { name: 'Ubicacion', href:'#ubicacion', current: false },
 ]
@@ -24,9 +26,12 @@ const celular = 1138498249;
 const linea = 0
 
 const footer = () => {
+    const path = usePathname();
+    const padTop = path === '/ruleta' ? 'pt-4' : 'pt-64';
+
     return (
         <footer className="bg-bgpurple -mt-64 " id="first-section" >
-            <div className="mx-auto max-w-2xl pt-64 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <div className={`mx-auto max-w-2xl ${padTop} pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8`}>
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <div className='flex flex-col col-span-6 items-center '>

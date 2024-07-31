@@ -18,6 +18,7 @@ const navigation: NavigationItem[] = [
     { name: 'Locales', href: '#locales', current: false },
     { name: 'Comentarios', href: '#comentarios', current: false },
     { name: 'Newsletter', href:'#newsletter', current: false },
+    { name: 'Sorteo', href:'#sorteo', current: false },
     { name: 'Ubicacion', href:'#ubicacion', current: false },
     { name: 'Contacto', href:'#home', current: false },
 ]
@@ -41,13 +42,13 @@ const Navbar = () => {
 
                         {/* DRAWER ICON */}
 
-                        <div className='block md:hidden'>
+                        <div className='block lg:hidden'>
                             <Bars3Icon className="block h-6 w-6" aria-hidden="true" onClick={() => setIsOpen(true)} />
                         </div>
                         
                             {/* LINKS */}
 
-                            <div className="hidden sm:ml-14 md:block">
+                            <div className="hidden sm:ml-14 lg:block">
                                 <div className="flex space-x-4 md:align-middle">
                                     {navigation.map((item) => (
                                         item.name!=='Contacto'?

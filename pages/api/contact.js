@@ -20,7 +20,7 @@ export default function (req, res) {
       from: SENDER,
       to: TO,
       subject: `Sorteo expensas CHW`,
-      html: `<p>La Persona se ha suscripto al sorteo desde el sitio web:</p><p>Nombre: ${req.body.nombre + ' ' +req.body.apellido}</p><p>Email: ${req.body.email}</p><p>Domicilio: Torre ${req.body.torre + ' Piso:' + req.body.piso + ' Depto:' + req.body.depto}</p>`,
+      html: `<p>La Persona se ha suscripto al sorteo desde el sitio web:</p><p>Nombre: ${req.body.nombre + ' ' +req.body.apellido}</p><p>Email: ${req.body.email}</p><p>Domicilio: Torre ${req.body.torre + ' Piso:' + req.body.piso + ' Depto:' + req.body.depto}</p><p>Terminos: ${req.body.aceptar?'Acepto participar':'yo no me anote'}</p>`,
     }
   }else{
     mailData = {

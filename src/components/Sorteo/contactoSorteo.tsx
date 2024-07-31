@@ -9,14 +9,13 @@ const ContactoSorteo = () => {
 
     const [inputValues, setInputValues] = useState({
         nombre: '',
-        apellido:'',
+        apellido: '',
         email: '',
         torre: '',
         piso: '',
         depto: '',
+        aceptar: false,
     });
-
-    const [selectedOption, setSelectedOption] = useState('');
 
     const alert = () => {
         Swal.fire({
@@ -31,7 +30,7 @@ const ContactoSorteo = () => {
             title: 'Aguarde un momento',
             didOpen: () => {
                 Swal.showLoading();
-              },
+            },
             showConfirmButton: false,
         });
     };
@@ -44,14 +43,15 @@ const ContactoSorteo = () => {
         });
     };
 
-    const handleChange = (e: { target: { name: string; value: string }; }) => {
-        const { name, value } = e.target;
-        setInputValues((prevState) => ({ ...prevState, [name]: value }));
+    const handleChange = (e: { target: { name: string; value: string; type?: string; checked?: boolean }; }) => {
+        const { name, value, type, checked } = e.target;
+        console.log(checked)
+        setInputValues((prevState) => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
     };
 
-    const handleClick = () => {};
-
-    // FORM SUBMIT
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -63,7 +63,7 @@ const ContactoSorteo = () => {
                 alertLoading();
                 const response = await axios.post('/api/contact', {
                     ...inputValues,
-                    sorteo: 'sorteo', // Agregar el nuevo input desplegable al cuerpo de la solicitud
+                    sorteo: 'sorteo',
                 });
                 console.log('Response received', response.data);
                 Swal.close();
@@ -71,13 +71,13 @@ const ContactoSorteo = () => {
                     alert();
                     setInputValues({
                         nombre: '',
-                        apellido:'',
+                        apellido: '',
                         email: '',
                         torre: '',
                         piso: '',
                         depto: '',
+                        aceptar: false,
                     });
-                    setSelectedOption(''); // Restablecer el valor del input desplegable después del envío exitoso
                     setIsOpen(false);
                 }
             } catch (error) {
@@ -86,7 +86,8 @@ const ContactoSorteo = () => {
         }
     };
 
-    const isDisabled = Object.values(inputValues).some((value) => value === '');
+    // Check if any input field is empty or the checkbox is not checked
+    const isDisabled = Object.values(inputValues).some((value) => value === '') || !inputValues.aceptar;
 
     const closeModal = () => {
         setIsOpen(false);
@@ -99,7 +100,7 @@ const ContactoSorteo = () => {
     return (
         <>
             <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0">
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded"  onClick={openModal}>Anotate aca!</button>
+                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" onClick={openModal}>Anotate YA!</button>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -128,17 +129,18 @@ const ContactoSorteo = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{ color: 'gray' }}/></button>
+                                    <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{ color: 'gray' }} /></button>
                                     <div className="py-6 lg:py-8 px-4 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                             <img
                                                 className="h-48px w-48px lg:block"
                                                 src='assets/logo/administracion.webp'
                                                 alt="Sermar Logo"
-                                                width={100} 
-                                                height={100} 
+                                                width={100}
+                                                height={100}
                                             />
-                                            <p className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Anotate para el sorteo de las expensas</p>
+                                            <span className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Anotate para el sorteo de las expensas<br/>
+                                            <small className="m-2 font-light text-sm text-center text-gray-500 dark:text-gray-400">* Se sortea 1 expensa para 2 departanamentos por mes, completa tus datos para participar.</small></span>
                                         </div>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
@@ -166,7 +168,7 @@ const ContactoSorteo = () => {
                                                     autoComplete="current-password"
                                                     required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="Nombre..."
+                                                    placeholder="Apellido..."
                                                 />
                                             </div>
                                             <div>
@@ -199,7 +201,7 @@ const ContactoSorteo = () => {
                                                     />
                                                 </div>
                                                 <div className="">
-                                                    <label htmlFor="piso" className=" block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Piso</label>
+                                                    <label htmlFor="piso" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Piso</label>
                                                     <input
                                                         id="piso"
                                                         name="piso"
@@ -227,9 +229,18 @@ const ContactoSorteo = () => {
                                                     />
                                                 </div>
                                             </div>
+                                            <div className='flex items-center space-x-2'>
+                                                <input
+                                                    id="aceptar"
+                                                    name="aceptar"
+                                                    checked={inputValues.aceptar}
+                                                    onChange={handleChange}
+                                                    type="checkbox"
+                                                />
+                                                <label htmlFor="aceptar" className="block text-sm font-medium text-gray-900 dark:text-gray-300">Acepto los términos y condiciones</label>
+                                            </div>
                                             <button
                                                 type="submit"
-                                                onClick={handleClick}
                                                 disabled={isDisabled}
                                                 className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-red  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                             >
