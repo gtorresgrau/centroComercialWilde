@@ -15,8 +15,10 @@ const Sorteo = () => {
                             color: 'transparent',
                             }}>SORTEAMOS <strong>2</strong> EXPENSAS<br/> del CHW
                     </h2>
-                    <span className='text-lg font-medium'>ANOTATE! este puede ser tu mes</span><br/>
-                    <Link href='/ruleta'><small className='mb-4'>¿Como es el sorteo?</small></Link>
+                    {/* <span className='text-lg font-medium'>ANOTATE! este puede ser tu mes</span><br/> */}
+                    <Link href='/ruleta'>
+                        <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" >Mira como se hace el sorteo!</button>
+                    </Link>
                 </div>
                 <ContactoSorteo />
             </div>
