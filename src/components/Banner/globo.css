@@ -1,0 +1,33 @@
+@keyframes moveBalloon {
+    0% {
+      transform: translateX(0) scale(1);
+    }
+    25% {
+      transform: translateX(80px) scale(1.1);
+    }
+    50% {
+      transform: translateX(120px) scale(1);
+    }
+    75% {
+      transform: translateX(80px) scale(1.1);
+    }
+    100% {
+      transform: translateX(0) scale(1);
+    }
+  }
+  
+  .balloon {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    padding: 50px 25px;
+    background-color: #9C27B0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 1.75rem;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    animation: moveBalloon 5s ease-in-out infinite;
+  }
+  
