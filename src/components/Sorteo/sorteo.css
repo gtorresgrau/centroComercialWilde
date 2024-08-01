@@ -16,7 +16,7 @@
       height: 0;
       border-top: 10px solid transparent; /* Parte superior de la flecha */
       border-bottom: 10px solid transparent; /* Parte inferior de la flecha */
-      border-left: 20px solid #9C27B0; /* Color y tamaño de la flecha */
+      border-left: 20px solid #582261; /* Color y tamaño de la flecha */
       transform: rotate(90deg); /* Rotar la flecha hacia la izquierda */
       animation: bounce-horizontal 2s infinite;
     }
@@ -32,7 +32,7 @@
       height: 0;
       border-left: 10px solid transparent; /* Parte izquierda de la flecha */
       border-right: 10px solid transparent; /* Parte derecha de la flecha */
-      border-bottom: 20px solid #9C27B0; /* Color y tamaño de la flecha */
+      border-bottom: 20px solid #582261; /* Color y tamaño de la flecha */
       transform: rotate(90deg); /* Rotar la flecha hacia abajo */
       animation: bounce-vertical 2s infinite;
     }
