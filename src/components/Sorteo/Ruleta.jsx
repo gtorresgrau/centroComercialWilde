@@ -47,8 +47,6 @@ const sortearCandidatos = () => {
 };
 
 const Ruleta = () => {
-  const [showConfetti, setShowConfetti] = useState(false);
-  const [confettiOpacity, setConfettiOpacity] = useState(1); // Estado para la opacidad
 
   const [state, setState] = useState({
     ganadores: [],
@@ -84,7 +82,7 @@ const Ruleta = () => {
             ...prev,
             randomDisplay: `Torre ${generateRandomNumber(1, 48)} Piso ${generateRandomNumber(0, 11)} Depto ${['A', 'B', 'C', 'D'][generateRandomNumber(0, 3)]}`,
           }));
-        }, 100);
+        }, 150);
 
         setTimeout(() => {
           clearInterval(showRandom);
@@ -131,13 +129,14 @@ const Ruleta = () => {
           ...prev,
           randomDisplay: `Torre ${generateRandomNumber(1, 48)} Piso ${generateRandomNumber(0, 11)} Depto ${['A', 'B', 'C', 'D'][generateRandomNumber(0, 3)]}`,
         }));
-      }, 100);
+      }, 150);
 
       return () => clearInterval(interval);
     }
   }, [state.loading]);
 
   const renderResult = (result) => {
+    // console.log(result)
     const partes = result.split(' ');
     return (
       <div className='grid grid-cols-3 items-center min-h-[60px]'>
@@ -178,14 +177,14 @@ const Ruleta = () => {
               <div className="flex flex-col lg:flex-row gap-4 w-full">
                 <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] mx-2 border border-purple rounded'>
                   <div className=' px-4 py-4'>
-                    <h2><strong>Ganadores</strong></h2>
+                    <h2><strong>GANADORES</strong></h2>
                     {state.ganadores.map((ganador) => renderResult(ganador))}
                     {state.loading && state.loadingIndex < 2 && renderResult(state.randomDisplay)}
                   </div>
                 </div>
                 <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] mx-2 border border-purple'>
                   <div className=' rounded px-4 py-4'>
-                    <h2><strong>Suplentes</strong></h2>
+                    <h2><strong>SUPLENTES</strong></h2>
                     {state.suplentes.map((suplente) => renderResult(suplente))}
                     {state.loading && state.loadingIndex > 1 && state.loadingIndex < 4 && renderResult(state.randomDisplay)}
                   </div>
