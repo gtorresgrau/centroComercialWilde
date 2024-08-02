@@ -158,7 +158,7 @@ const Ruleta = () => {
   };
 
   return (
-    <section id='ruleta' className='bg-bgpink px-4'>
+    <section id='ruleta' className='bg-bgpink px-4 text-center'>
     
       <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #9C27B0, #1E1E1E)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
         SORTEO DE EXPENSAS PARA CHW
