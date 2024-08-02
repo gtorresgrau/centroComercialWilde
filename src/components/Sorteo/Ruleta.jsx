@@ -175,14 +175,14 @@ const Ruleta = () => {
                 </button>
               </div>
               <div className="flex flex-col lg:flex-row gap-4 w-full">
-                <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple rounded'>
+                <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple rounded'>
                   <div className=' px-2 py-4'>
                     <h2><strong>GANADORES</strong></h2>
                     {state.ganadores.map((ganador) => renderResult(ganador))}
                     {state.loading && state.loadingIndex < 2 && renderResult(state.randomDisplay)}
                   </div>
                 </div>
-                <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple'>
+                <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple'>
                   <div className=' rounded px-2 py-4'>
                     <h2><strong>SUPLENTES</strong></h2>
                     {state.suplentes.map((suplente) => renderResult(suplente))}
