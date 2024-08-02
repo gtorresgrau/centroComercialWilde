@@ -166,24 +166,24 @@ const Ruleta = () => {
         El sorteo se realiza con este mismo sistema desde la administración del centro comercial wilde para los departamentos del Complejo Habitacional Wilde.
       </span>
       <div className='flex justify-around items-center mt-4'>
-        <div className="items-center mx-auto max-w-2xl px-1 md:px-2 pb-32 mb-32 lg:max-w-7xl lg:px-4">
+        <div className="items-center mx-auto max-w-2xl px-0 md:px-2 pb-32 mb-32 lg:max-w-7xl lg:px-4">
           <div className='mb-4 md:min-h-[100px] md:min-w-[600px] w-full'>
             <div className='flex flex-col md:flex-row items-center text-center'>
               <div className=''>
-                <button className="min-w-[150px] bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded m-4 md:my-0" onClick={handleSortear} disabled={state.loading}>
+                <button className="min-w-[150px] bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-2 border border-lightgrehover:border-transparent rounded m-4 md:my-0" onClick={handleSortear} disabled={state.loading}>
                   {state.loading && state.loadingIndex < 4 ? 'SORTEANDO...' : 'SORTEAR'}
                 </button>
               </div>
               <div className="flex flex-col lg:flex-row gap-4 w-full">
                 <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] mx-2 border border-purple rounded'>
-                  <div className=' px-4 py-4'>
+                  <div className=' px-2 py-4'>
                     <h2><strong>GANADORES</strong></h2>
                     {state.ganadores.map((ganador) => renderResult(ganador))}
                     {state.loading && state.loadingIndex < 2 && renderResult(state.randomDisplay)}
                   </div>
                 </div>
                 <div className='min-h-[170px] w-full xs:min-w-[320px] sm:min-w-[370px] mx-2 border border-purple'>
-                  <div className=' rounded px-4 py-4'>
+                  <div className=' rounded px-2 py-4'>
                     <h2><strong>SUPLENTES</strong></h2>
                     {state.suplentes.map((suplente) => renderResult(suplente))}
                     {state.loading && state.loadingIndex > 1 && state.loadingIndex < 4 && renderResult(state.randomDisplay)}
