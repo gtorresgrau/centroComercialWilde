@@ -11,20 +11,20 @@ module.exports = {
   ],
   theme: {
     extend: {
-      keyframes: {
-        moveBalloon: {
-          '0%': { transform: 'translateX(0)' },
-          '50%': { transform: 'translateX(100px)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-      },
+      // keyframes: {
+      //   moveBalloon: {
+      //     '0%': { transform: 'translateX(0)' },
+      //     '50%': { transform: 'translateX(100px)' },
+      //     '100%': { transform: 'translateX(0)' },
+      //   },
+      // },
       screens: {
         'xs': '350px',
         'xxl': '1600px',
       },
-      animation: {
-        moveBalloon: 'moveBalloon 5s ease-in-out infinite',
-      },
+      // animation: {
+      //   moveBalloon: 'moveBalloon 5s ease-in-out infinite',
+      // },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',

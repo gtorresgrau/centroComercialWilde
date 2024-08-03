@@ -9,6 +9,9 @@ import Ubicacion from '../components/Ubicacion/Ubicacion';
 import Edificio from '../components/Edificio/Edificio';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Navbar from '../components/Navbar/Navbar';
+import ButtonWsp from '../components/Socials/ButtonWsp';
+import Footer from '../components/Footer/Footer';
 
 export default function Home() {
   useEffect(() => {
@@ -20,14 +23,23 @@ export default function Home() {
   }, []);
   
   return (
-    <main>
-      <Banner />
-      <Edificio />
-      <Locales />
-      <Sorteo />
-      <Ubicacion />
-      <Comentarios />
-      <Newsletter />
-    </main>
+    <>
+      <nav>
+        <Navbar />
+      </nav>
+      <main>
+        <Banner />
+        <Edificio />
+        <Locales />
+        <Sorteo />
+        <Ubicacion />
+        <Comentarios />
+        <Newsletter />
+      </main>
+      <footer>
+        <Footer />
+        <ButtonWsp />
+      </footer>
+    </>
   );
 }
