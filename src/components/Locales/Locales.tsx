@@ -30,13 +30,33 @@ const Locales = () => {
   const [page, setPage] = useState(1);
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [locale, setLocale] = useState<Local[]>([]); // Estado para mantener los locales obtenidos
+
 
   const localPage = 9;
 
   let locales: Local[];
+  
+  const fetchLocales = async () => {
+    const res = await fetch('/api/locales');
+    const data = await res.json();
+    console.log(data, 'respuesta de locales');
+    return data.locales; // Asumiendo que tu API devuelve un objeto con una array de locales
+  };
 
   useEffect(() => {
-    // Assuming localData is of type Local[], ensure it conforms to the updated interface
+    const loadLocales = async () => {
+      const fetchedLocales = await fetchLocales();
+      console.log(fetchedLocales, 'locales desde el front');
+      setLocale(fetchedLocales); // Actualiza el estado con los locales obtenidos
+    };
+
+    loadLocales();
+  }, []);
+
+  console.log(locale,'locales desde el front')
+
+  useEffect(() => {
     locales = localData.map(item => ({
       ...item,
       linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
