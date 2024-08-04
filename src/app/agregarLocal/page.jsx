@@ -50,8 +50,8 @@ const AgregarLocalPage = () => {
   
 
   return (
-    <div className="container mx-auto p-4">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Agregar Información</h3>
+    <div className="px-96 py-10  bg-[#FCF5EF]">
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">Agregar Nuevo Local</h3>
 
       <form id="formAddInfo" onSubmit={submitAddInfo} className="bg-white shadow-sm rounded-lg p-6">
         <div className="grid gap-4 mb-4 sm:grid-cols-2">

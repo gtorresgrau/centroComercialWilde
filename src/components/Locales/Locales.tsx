@@ -125,11 +125,16 @@ const Locales = () => {
           <div>No se encontraron locales.</div>
         ) : (
           locales
-            .sort((a, b) => a.local.localeCompare(b.local))
+            .sort((a, b) => {
+              const localA = a.local || '';
+              const localB = b.local || '';
+              return localA.localeCompare(localB);
+            })
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
               <Card product={product} key={index} />
             ))
+
         )}
       </article>
 
