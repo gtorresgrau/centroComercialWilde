@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import localData from '../../components/../app/Constants/data.json';
 import Card from '../Card/Card';
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
@@ -31,63 +30,66 @@ const Locales = () => {
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]); // Estado para mantener los locales obtenidos
-
-
   const localPage = 9;
 
-  let locales: Local[];
-  
+  // Función para obtener locales de la API
   const fetchLocales = async () => {
     const res = await fetch('/api/locales');
+    if (!res.ok) {
+      throw new Error('Error al cargar los locales');
+    }
     const data = await res.json();
-    console.log(data, 'respuesta de locales');
-    return data.locales; // Asumiendo que tu API devuelve un objeto con una array de locales
+    console.log(data, 'respuesta de locales'); // Verificar la respuesta
+    return data.locales; // Asegúrate de que este es el formato correcto
   };
 
   useEffect(() => {
     const loadLocales = async () => {
-      const fetchedLocales = await fetchLocales();
-      console.log(fetchedLocales, 'locales desde el front');
-      setLocale(fetchedLocales); // Actualiza el estado con los locales obtenidos
+      try {
+        const fetchedLocales = await fetchLocales();
+        console.log(fetchedLocales, 'locales desde el front'); // Verificar locales cargados
+        setLocale(fetchedLocales); // Actualiza el estado con los locales obtenidos
+      } catch (error) {
+        console.error('Error al cargar los locales: ', error);
+      }
     };
 
     loadLocales();
   }, []);
 
-  console.log(locale,'locales desde el front')
+  // Procesar los locales
+  let locales: Local[] = locale.map(item => ({
+    ...item,
+    linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
+  }));
 
-  useEffect(() => {
-    locales = localData.map(item => ({
-      ...item,
-      linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
-    }));
-  }, [localData]);
-
+  // Filtrado de locales
   if (rubros === 'All') {
-    locales = localData;
+    locales = locale;
   } else if (filtros.length > 0) {
     locales = filtros;
   } else {
     locales = filterCat(rubros);
   }
 
+  // Filtrado por búsqueda
   locales = locales.filter(local =>
     Object.values(local).some(value =>
       typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
-
+  
   const pages = Math.ceil(locales.length / localPage);
-
+  
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
+  
   const rubro = (data: string) => {
     setRubros(data);
     setPage(1);
   };
-
+  
   const checks = async (data: any) => {
     try {
       const localesChecks = await filterLocal(data);
@@ -96,7 +98,8 @@ const Locales = () => {
       console.error('Error al obtener datos: ', error);
     }
   };
-
+  
+  console.log(locales,'locales')
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
       <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
@@ -110,27 +113,30 @@ const Locales = () => {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
-              />
+                />
             </div>
             <Dropdownone selectRubro={rubro} selectedChecks={checks} />
           </div>
         </div>
       </article>
-      <article className="flex justify-center p-2 m-2">
-        <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
-      </article>
+
       <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8" data-aos="fade-right">
-        {locales
-          .sort((a, b) => a.local.localeCompare(b.local))
-          .slice((page - 1) * localPage, page * localPage)
-          .map((product, index) => (
-            <Card product={product} key={index} />
-          ))}
+        {locales.length === 0 ? (
+          <div>No se encontraron locales.</div>
+        ) : (
+          locales
+            .sort((a, b) => a.local.localeCompare(b.local))
+            .slice((page - 1) * localPage, page * localPage)
+            .map((product, index) => (
+              <Card product={product} key={index} />
+            ))
+        )}
       </article>
+
       <article className="flex justify-center p-2 m-2">
-        <Link href="#locales">
+        {pages > 1 && (
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
-        </Link>
+        )}
       </article>
     </section>
   );
