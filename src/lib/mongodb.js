@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
-const url = process.env.MONGOURL;
+const url = process.env.MONGO_LOCALES_URL;
 
 if (!url) {
   throw new Error('Please define the MONGOURL environment variable inside .env.local');
@@ -22,14 +22,6 @@ export async function connectDB() {
 }
 
 // Listen to mongoose connection events
-mongoose.connection.on('connected', () => {
-  console.log('Mongoose connected to DB');
-});
-
-mongoose.connection.on('error', (err) => {
-  console.error('Mongoose connection error:', err);
-});
-
 mongoose.connection.on('disconnected', () => {
   console.log('Mongoose disconnected from DB');
 });
