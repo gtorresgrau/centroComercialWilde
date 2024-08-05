@@ -3,7 +3,7 @@ import Local from '../../src/models/locales';
 
 export default async function handler(req, res) {
   await connectDB(); // Conectar a la base de datos
-
+  
   if (req.method === 'GET') {
     try {
       const locales = await Local.find(); // Obtener todos los locales de la base de datos

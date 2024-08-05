@@ -26,6 +26,12 @@ module.exports = {
       //   moveBalloon: 'moveBalloon 5s ease-in-out infinite',
       // },
       colors: {
+        primary: {
+          DEFAULT: '#451f49',  // Color de fondo predeterminado
+          hover: '#ffffff',    // Nuevo color de fondo al pasar el mouse
+          active: '#ffffff'
+        },
+        secondary:'#fcf5ef',
         transparent: 'transparent',
         current: 'currentColor',
         'white': '#ffffff',

@@ -1,12 +1,35 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const url = process.env.MONGOURL
+// Load environment variables from .env file
+dotenv.config();
 
-export async function connectDB(){
-    try {
-        await mongoose.connect(url);
-        console.log('Conexión exitosa a la base de datos');
-    } catch (error) {
-        console.error('Error al conectar a la base de datos:', error);
-    }
+const url = process.env.MONGOURL;
+
+if (!url) {
+  throw new Error('Please define the MONGOURL environment variable inside .env.local');
+}
+
+export async function connectDB() {
+  try {
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+    });
+    console.log('Mongoose connected to DB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
   }
+}
+
+// Listen to mongoose connection events
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose connected to DB');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('Mongoose connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose disconnected from DB');
+});
