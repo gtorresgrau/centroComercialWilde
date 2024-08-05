@@ -1,10 +1,16 @@
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
+import { toast } from 'react-toastify';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import Contactus from "./Contactus";
+import { logOut } from '../../lib/firebase';
+import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStorage';
+import UserMenu from './UserMenu'
+import Swal from 'sweetalert2';
+
 
 
 interface NavigationItem {
@@ -30,6 +36,44 @@ function classNames(...classes: string[]) {
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = React.useState(false);
+    const [user, setUser] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        const userData = getInLocalStorage('USER');
+        setUser(userData);
+      }, []);
+
+    
+      const handleLogOut = () => {
+        try {
+          Swal.fire({
+            icon: 'info',
+            title: '¿Está seguro que quiere salir?',
+            showCancelButton: true,
+            showConfirmButton: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const salir = logOut();
+              removeFromLocalStorage('USER');
+              setUser(null);
+              Swal.fire(salir.message);
+            }
+          });
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(error.message); // If error is an instance of Error, we can safely access its message
+          } else {
+            toast.error('An unexpected error occurred'); // Fallback message for unknown error types
+          }
+        }
+      };
+      
+    
+      const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+      };
+    
 
     return (
         <Disclosure as="nav" className="bg-lightpink navbar relative z-50">
@@ -58,10 +102,16 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </div>
+                            <div className="hidden md:block">
+                                <UserMenu user={user} toggleDropdown={toggleDropdown} isDropdownOpen={isDropdownOpen} handleLogOut={handleLogOut} />
+                            </div>
 
                             {/* LOGO */}
 
                             <div className="flex flex-shrink-0 items-center">
+                                    <div className="md:hidden block">
+                                        <UserMenu user={user} toggleDropdown={toggleDropdown} isDropdownOpen={isDropdownOpen} handleLogOut={handleLogOut} />
+                                    </div>
                                     <img
                                         className="block h-30px w-30px lg:hidden"
                                         src='assets/logo/administracion.webp'
