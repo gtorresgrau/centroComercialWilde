@@ -1,5 +1,5 @@
 // pages/api/download-csv.js
-import { connectDB } from '../lib/mongodb';
+import { connectDB } from '../../server/utils/mongodb';
 import Locales from '../../src/models/locales';
 import { parse } from 'json2csv';
 

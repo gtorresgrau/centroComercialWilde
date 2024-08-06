@@ -1,4 +1,4 @@
-import { connectDB } from '../../lib/mongodb';
+import { connectDB } from '../../../server/utils/mongodb';
 import Newsletter from '../../../src/models/newsletter';
 
 // Almacenamiento en memoria para rastrear las solicitudes por IP
