@@ -54,7 +54,7 @@ const Newsletter = () => {
                     alertError();
                 }else{
                     alertLoading();
-                    const response = await axios.post('/api/contact', inputValues);
+                    const response = await axios.post('/api/newsletter/newsletters', inputValues);
                     console.log('Response received: ', response.data);
                     Swal.close();
                     if (response.status === 200) {

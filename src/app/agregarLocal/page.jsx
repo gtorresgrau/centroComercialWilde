@@ -31,7 +31,7 @@ const AgregarLocalPage = () => {
   const submitAddInfo = async (e) => {
     e.preventDefault();
     console.log(formData);
-    const res = await fetch('api/postLocal', {
+    const res = await fetch('api/locales/locales', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // Indica que los datos son JSON
