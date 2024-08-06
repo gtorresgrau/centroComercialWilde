@@ -169,7 +169,7 @@ export default function Nav( {handleSelectSection} ) {
 
             {/* Descargar CSV */}
             <li>
-              <DownloadCSVButton toggleMenu={toggleMenu} />
+              {/* <DownloadCSVButton toggleMenu={toggleMenu} /> */}
             </li>
 
             {/* Regresar a la WEB */}
