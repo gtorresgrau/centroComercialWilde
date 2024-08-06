@@ -38,27 +38,21 @@ const ContactoSorteo = () => {
 
     const onSubmit = async (data) => {
         const { nombre, email } = data;
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!email.match(emailPattern)) {
-            console.error('Correo electrónico no válido');
-            alertError(email);
-        } else {
-            try {
-                alertLoading();
-                const response = await axios.post('/api/sorteos/sorteos', {
-                    ...data,
-                    sorteo: 'sorteo',
-                });
-                console.log('Response received', response.data);
-                Swal.close();
-                if (response.status === 200) {
-                    alert(nombre);
-                    reset();
-                    setIsOpen(false);
-                }
-            } catch (error) {
-                console.error('Error:', error);
+        try {
+            alertLoading();
+            const response = await axios.post('/api/sorteos/sorteos', {
+                ...data,
+                sorteo: 'sorteo',
+            });
+            console.log('Response received', response.data);
+            Swal.close();
+            if (response.status === 200) {
+                alert(nombre);
+                reset();
+                setIsOpen(false);
             }
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
@@ -121,80 +115,124 @@ const ContactoSorteo = () => {
                                                 <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
                                                 <input
                                                     id="nombre"
-                                                    {...register('nombre', { required: true })}
+                                                    {...register('nombre', { 
+                                                        required: 'Este campo es requerido',
+                                                        pattern: {
+                                                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ'´`]+$/,
+                                                            message: 'Solo se permiten letras y acentos'
+                                                        }
+                                                    })}
                                                     type="text"
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="Nombre..."
                                                 />
-                                                {errors.nombre && <span className="text-red-500">Este campo es requerido</span>}
+                                                {errors.nombre && <span className="text-red-500">{errors.nombre.message}</span>}
                                             </div>
                                             <div>
                                                 <label htmlFor="apellido" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
                                                 <input
                                                     id="apellido"
-                                                    {...register('apellido', { required: true })}
+                                                    {...register('apellido', { 
+                                                        required: 'Este campo es requerido',
+                                                        pattern: {
+                                                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ'´`]+$/,
+                                                            message: 'Solo se permiten letras y acentos'
+                                                        }
+                                                    })}
                                                     type="text"
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="Apellido..."
                                                 />
-                                                {errors.apellido && <span className="text-red-500">Este campo es requerido</span>}
+                                                {errors.apellido && <span className="text-red-500">{errors.apellido.message}</span>}
                                             </div>
                                             <div>
                                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tu Email</label>
                                                 <input
                                                     id="email"
-                                                    {...register('email', { required: true })}
+                                                    {...register('email', { 
+                                                        required: 'Este campo es requerido',
+                                                        pattern: {
+                                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                                            message: 'Correo electrónico no válido'
+                                                        }
+                                                    })}
                                                     type="email"
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="tu_email@email.com"
                                                 />
-                                                {errors.email && <span className="text-red-500">Este campo es requerido</span>}
+                                                {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                                             </div>
                                             <div className='flex gap-4 align-middle items-center justify-center text-center'>
                                                 <div className="">
                                                     <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Torre</label>
                                                     <input
                                                         id="torre"
-                                                        {...register('torre', { required: true })}
-                                                        type="text"
+                                                        {...register('torre', { 
+                                                            required: 'Este campo es requerido',
+                                                            min: {
+                                                                value: 1,
+                                                                message: 'El valor mínimo es 1'
+                                                            },
+                                                            max: {
+                                                                value: 48,
+                                                                message: 'El valor máximo es 48'
+                                                            }
+                                                        })}
+                                                        type="number"
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                         placeholder="1 a 48"
                                                     />
-                                                    {errors.torre && <span className="text-red-500">Este campo es requerido</span>}
+                                                    {errors.torre && <span className="text-red-500">{errors.torre.message}</span>}
                                                 </div>
                                                 <div className="">
                                                     <label htmlFor="piso" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Piso</label>
                                                     <input
                                                         id="piso"
-                                                        {...register('piso', { required: true })}
-                                                        type="text"
+                                                        {...register('piso', { 
+                                                            required: 'Este campo es requerido',
+                                                            min: {
+                                                                value: 0,
+                                                                message: 'El valor mínimo es 0'
+                                                            },
+                                                            max: {
+                                                                value: 11,
+                                                                message: 'El valor máximo es 11'
+                                                            }
+                                                        })}
+                                                        type="number"
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="0 a 10"
+                                                        placeholder="0 a 11"
                                                     />
-                                                    {errors.piso && <span className="text-red-500">Este campo es requerido</span>}
+                                                    {errors.piso && <span className="text-red-500">{errors.piso.message}</span>}
                                                 </div>
                                                 <div className="">
                                                     <label htmlFor="depto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Depto.</label>
                                                     <input
                                                         id="depto"
-                                                        {...register('depto', { required: true })}
+                                                        {...register('depto', { 
+                                                            required: 'Este campo es requerido',
+                                                            validate: value => ['a', 'b', 'c', 'd'].includes(value) || 'Valores permitidos: a, b, c, d'
+                                                        })}
                                                         type="text"
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                         placeholder="a-b-c-d"
                                                     />
-                                                    {errors.depto && <span className="text-red-500">Este campo es requerido</span>}
+                                                    {errors.depto && <span className="text-red-500">{errors.depto.message}</span>}
                                                 </div>
                                             </div>
                                             <div className='flex items-center space-x-2'>
                                                 <input
                                                     id="aceptar"
-                                                    {...register('aceptar', { required: true })}
+                                                    {...register('aceptar', { required: 'Este campo es requerido' })}
                                                     type="checkbox"
                                                 />
                                                 <label htmlFor="aceptar" className="block text-sm font-medium text-gray-900 dark:text-gray-300">Acepto los términos y condiciones</label>
-                                                {errors.aceptar && <span className="text-red-500">Este campo es requerido</span>}
+                                                {errors.aceptar && <span className="text-red-500">{errors.aceptar.message}</span>}
                                             </div>
-                                            <button type="submit" className="py-2 px-5 text-sm font-medium w-full text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                            <button
+                                                type="submit"
+                                                className="py-2 px-5 text-sm font-medium w-full text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                            >
                                                 Enviar
                                             </button>
                                         </form>
