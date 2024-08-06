@@ -1,5 +1,5 @@
 import { connectDB } from '../../../server/utils/mongodb';
-import Sorteo from '../../../src/models/sorteos'; // Asegúrate de crear este modelo
+import Sorteo from '../../src/models/sorteos';
 
 // Controlador para el método POST
 async function handlePost(req, res) {
