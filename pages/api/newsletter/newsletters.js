@@ -1,5 +1,5 @@
 import { connectDB } from '../../lib/mongodb';
-import Newsletter from '../../src/models/newsletter';
+import Newsletter from '../../../src/models/newsletter';
 
 // Almacenamiento en memoria para rastrear las solicitudes por IP
 const rateLimitMap = new Map();
