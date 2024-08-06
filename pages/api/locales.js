@@ -1,4 +1,4 @@
-import { connectDB } from '../../src/lib/mongodb';
+import { connectDB } from '../lib/mongodb';
 import Local from '../../src/models/locales';
 
 export default async function handler(req, res) {
