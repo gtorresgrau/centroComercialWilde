@@ -7,7 +7,7 @@ import useProducts from "../../Hooks/useProducts";
 //import Dropdown from "../Tienda/Dropdown/Dropdown";
 import { Pagination } from "@mui/material";
 import Nav from "./Nav/Nav";
-import TablaDestacados from "./TablaDestacados/TablaDestacados";
+//import TablaDestacados from "./TablaDestacados/TablaDestacados";
 //import DownloadCSVButton from "../DownloadCSVButton/DownloadCSVButton";
 import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
@@ -170,12 +170,12 @@ export default function Admin() {
                 <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                   <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
-                      <SearchBase />
+                      {/* <SearchBase /> */}
                     </div>
                     <div className="md:flex md:justify-end gap-3 grid grid-cols-5 w-full">
 
                         <div className="col-span-2">
-                        <Dropdown
+                        {/* <Dropdown
                           handleClearFilters={handleClearFilters} 
                           handleCheckboxChange={handleCheckboxChange}
                           categories={categories} 
@@ -194,7 +194,7 @@ export default function Admin() {
                           showAllVehiculos={showAllVehiculos}
                           selectedVehiculos={selectedVehiculos}
                           setSelectedVehiculos={setSelectedVehiculos}
-                          />
+                          /> */}
                           </div>
                       <div className="col-span-3">
 
@@ -282,13 +282,13 @@ export default function Admin() {
         <div className="flex-1 bg-primary-background p-3 sm:p-5">
           {section === 'Destacados' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaDestacados />
+              {/* <TablaDestacados /> */}
             </div>
           )}
 
           {section === 'DescargarCSV' && (
             <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
-              <DownloadCSVButton />
+              {/* <DownloadCSVButton /> */}
             </div>
           )}
         </div>
