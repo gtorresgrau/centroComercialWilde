@@ -61,7 +61,7 @@ const ContactoSorteo = () => {
         } else {
             try {
                 alertLoading();
-                const response = await axios.post('/api/contact', {
+                const response = await axios.post('/api/sorteos/sorteos', {
                     ...inputValues,
                     sorteo: 'sorteo',
                 });
