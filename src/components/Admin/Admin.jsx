@@ -19,7 +19,9 @@ export default function Admin() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [section, setSection] = useState('Productos')
-
+  const [locale, setLocale] = useState ([]); // Estado para mantener los locales obtenidos
+  const [currentPage, setCurrentPage] = useState(1);
+  const localesPerPage = 10;
   const {
     products,
     categories,
@@ -31,10 +33,10 @@ export default function Admin() {
     showAllCategories,
     showAllBrands,
     showAllVehiculos,
-    totalPages,
-    currentPage,
+    // totalPages,
+    // currentPage,
     isLoading,
-    handlePageChange,
+    // handlePageChange,
     handleCheckboxChange,
     handleClearFilters,
     handleShowAllCategories,
@@ -86,6 +88,32 @@ export default function Admin() {
   root.render(<Loading />);
   container.innerHTML = `<h2><strong>AGUARDE</strong></h2><br/><p> se está eliminando el producto</p>`;
   container.appendChild(loadingElement);
+
+    // Función para obtener locales de la API
+    const fetchLocales = async () => {
+      const res = await fetch('/api/locales/locales');
+      if (!res.ok) {
+        throw new Error('Error al cargar los locales');
+      }
+      const data = await res.json();
+      console.log(data, 'respuesta de locales'); // Verificar la respuesta
+      return data.locales; // Asegúrate de que este es el formato correcto
+    };
+
+    useEffect(() => {
+      
+      const loadLocales = async () => {
+        try {
+          const fetchedLocales = await fetchLocales();
+          console.log(fetchedLocales, 'locales desde el front'); // Verificar locales cargados
+          setLocale(fetchedLocales); // Actualiza el estado con los locales obtenidos
+        } catch (error) {
+          console.error('Error al cargar los locales: ', error);
+        }
+      };
+  
+      loadLocales();
+    }, []);
    
   const handleEliminarArchivos = async (producto) => {
     try {
@@ -159,6 +187,13 @@ export default function Admin() {
     setSection(section);
   };
 
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  const paginatedLocales = locale.slice((currentPage - 1) * localesPerPage, currentPage * localesPerPage);
+  const totalPages = Math.ceil(locale.length / localesPerPage);
+
   return (
     <Suspense fallback={<div>Cargando...</div>}>
       <div className="flex flex-col min-h-screen">
@@ -209,21 +244,21 @@ export default function Admin() {
                     <table className="w-full text-sm text-left text-gray-500" id="productosAdmin">
                       <thead className="text-xs text-gray-900 uppercase bg-gray-400">
                         <tr>
-                          <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center">Producto</th>
+                          <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center">Local</th>
                           <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center hidden md:table-cell">Categoría</th>
-                          <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center hidden md:table-cell">Marca</th>
+                          <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center hidden md:table-cell">Ubicación</th>
                           <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center hidden lg:table-cell">Descripción</th>
                           <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center">Acción</th>
                         </tr>
                       </thead>
-                      {products.length ? (
+                      {paginatedLocales.length ? (
                         <tbody>
-                          {products.map((product, index) => (
+                          {paginatedLocales.map((product, index) => (
                             <tr key={index} className={`border-b ${index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}`}>
-                              <th scope="row" className="px-1 py-6 md:px-4 md:py-4 font-medium text-gray-900 whitespace-nowrap">{product.nombre}</th>
+                              <th scope="row" className="px-1 py-6 md:px-4 md:py-4 font-medium text-gray-900 whitespace-nowrap">{product.local}</th>
                               <td scope="row" className="px-1 py-6 md:px-4 md:py-4 hidden md:table-cell">{product.categoria}</td>
-                              <td scope="row" className="px-1 py-6 md:px-4 md:py-4 hidden md:table-cell">{product.marca}</td>
-                              <td scope="row" title={product.descripcion} className="px-1 py-1 md:px-4 md:py-3 text-center text-ellipsis hidden lg:table-cell">{product.descripcion.length > 50 ? `${product.descripcion.slice(0, 50)}...` : product.descripcion}</td>
+                              <td scope="row" className="px-1 py-6 md:px-4 md:py-4 hidden md:table-cell">{product.ubicacion}</td>
+                              <td scope="row" title={product.texto} className="px-1 py-1 md:px-4 md:py-3 text-center text-ellipsis hidden lg:table-cell">{product.texto.length > 50 ? `${product.texto.slice(0, 50)}...` : product.texto}</td>
                               <td scope="row" className="px-1 py-6 md:px-4 md:py-4">
                                 <div className="flex justify-evenly items-center mx-1">
                                   <button
@@ -246,7 +281,7 @@ export default function Admin() {
                         <tbody>
                           <tr className="text-center">
                             <td colSpan="5" className="py-10">
-                              <span className="text-gray-500 font-semibold">No se encontraron productos.</span>
+                              <span className="text-gray-500 font-semibold">No se encontraron locales.</span>
                             </td>
                           </tr>
                         </tbody>

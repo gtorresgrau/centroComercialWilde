@@ -4,8 +4,8 @@ import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 const AdminPage = () => {
   return (
       <ProtectedRoute>
-        <h1>Hola Soy Admin</h1>
-        {/* <Admin /> */}
+        {/* <h1>Hola Soy Admin</h1> */}
+        <Admin />
       </ProtectedRoute>
   )
 };

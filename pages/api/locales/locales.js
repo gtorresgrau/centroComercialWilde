@@ -19,9 +19,21 @@ async function handlePost(req, res) {
 
 // Controlador para el método GET
 async function handleGet(req, res) {
+    const page =  '1';
+    const pageSize =  '9';
     try {
         const locales = await Local.find();
-        return res.status(200).json({ locales });
+        let filteredLocales = locales; // Productos que vienen desde MongoDB
+          // Paginar productos
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedLocales = filteredLocales.slice(startIndex, endIndex);
+        const totalPage = Math.ceil(filteredLocales.length / pageSize);
+
+        return res.status(200).json({
+            locales: paginatedLocales,
+            totalPage,
+        });
     } catch (error) {
         console.error('Error al obtener los locales:', error);
         return res.status(500).json({ message: 'Error al obtener los locales' });
