@@ -19,8 +19,8 @@ async function handlePost(req, res) {
 
 // Controlador para el método GET
 async function handleGet(req, res) {
-    const page =  '1';
-    const pageSize =  '9';
+    const page =  '1'
+    const pageSize =  '9' 
     try {
         const locales = await Local.find();
         let filteredLocales = locales; // Productos que vienen desde MongoDB
