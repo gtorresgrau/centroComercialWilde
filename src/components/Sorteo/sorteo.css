@@ -11,6 +11,7 @@
     .arrow::before {
       content: '';
       position: absolute;
+      right:-30px;
       bottom: -35px; /* Ajusta la posición según sea necesario */
       width: 0;
       height: 0;
