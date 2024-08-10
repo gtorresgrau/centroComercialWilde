@@ -1,4 +1,3 @@
-'use client'
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import axios from 'axios';
@@ -44,7 +43,7 @@ const ContactoSorteo = () => {
         });
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: { target: { name: string; value: string; type?: string; checked?: boolean }; }) => {
         const { name, value, type, checked } = e.target;
         console.log(checked)
         setInputValues((prevState) => ({
@@ -53,8 +52,8 @@ const ContactoSorteo = () => {
         }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!inputValues.email.match(emailPattern)) {
             console.error('Correo electrónico no válido');

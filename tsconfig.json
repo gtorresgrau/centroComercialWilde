@@ -37,7 +37,7 @@
     ".next/types/**/*.ts",
     "app/components/Socials/ButtonWsp.tsx",
     "src/app/admin/page.jsx"
-, "pages/_document.js", "src/components/Sorteo/contactoSorteo.jsx"  ],
+, "pages/_document.js", "src/components/Sorteo/contactoSorteo.tsx"  ],
   "exclude": [
     "node_modules"
   ]
