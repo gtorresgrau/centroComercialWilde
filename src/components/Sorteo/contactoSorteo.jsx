@@ -1,6 +1,6 @@
+'use client'
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { IoClose } from 'react-icons/io5';
@@ -8,11 +8,19 @@ import { IoClose } from 'react-icons/io5';
 const ContactoSorteo = () => {
     let [isOpen, setIsOpen] = useState(false);
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [inputValues, setInputValues] = useState({
+        nombre: '',
+        apellido: '',
+        email: '',
+        torre: '',
+        piso: '',
+        depto: '',
+        aceptar: false,
+    });
 
-    const alert = (name) => {
+    const alert = () => {
         Swal.fire({
-            title: `${name}, te anotaste correctamente.`,
+            title: `${inputValues.nombre}, te anotaste correctamente.`,
             icon: 'success',
             confirmButtonText: 'Ok',
         });
@@ -28,33 +36,59 @@ const ContactoSorteo = () => {
         });
     };
 
-    const alertError = (email) => {
+    const alertError = () => {
         Swal.fire({
-            text: `${email}, No es un correo electrónico válido`,
+            text: `${inputValues.email}, No es un correo electrónico válido`,
             icon: 'error',
             confirmButtonText: 'Ok',
         });
     };
 
-    const onSubmit = async (data) => {
-        const { nombre, email } = data;
-        try {
-            alertLoading();
-            const response = await axios.post('/api/sorteos/sorteos', {
-                ...data,
-                sorteo: 'sorteo',
-            });
-            console.log('Response received', response.data);
-            Swal.close();
-            if (response.status === 200) {
-                alert(nombre);
-                reset();
-                setIsOpen(false);
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        console.log(checked)
+        setInputValues((prevState) => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!inputValues.email.match(emailPattern)) {
+            console.error('Correo electrónico no válido');
+            alertError();
+        } else {
+            try {
+                alertLoading();
+                const response = await axios.post('/api/contact', {
+                    ...inputValues,
+                    sorteo: 'sorteo',
+                });
+                console.log('Response received', response.data);
+                Swal.close();
+                if (response.status === 200) {
+                    alert();
+                    setInputValues({
+                        nombre: '',
+                        apellido: '',
+                        email: '',
+                        torre: '',
+                        piso: '',
+                        depto: '',
+                        aceptar: false,
+                    });
+                    setIsOpen(false);
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
         }
     };
+
+    // Check if any input field is empty or the checkbox is not checked
+    const isDisabled = Object.values(inputValues).some((value) => value === '') || !inputValues.aceptar;
 
     const closeModal = () => {
         setIsOpen(false);
@@ -68,7 +102,7 @@ const ContactoSorteo = () => {
         <>
             <div className="inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0">
                 <small>Proximamente...</small>
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" onClick={openModal}>Anotate YA!</button>
+                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" onClick={openModal} disabled>Anotate YA!</button>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -110,128 +144,107 @@ const ContactoSorteo = () => {
                                             <span className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Anotate para el sorteo de las expensas<br/>
                                             <small className="m-2 font-light text-sm text-center text-gray-500 dark:text-gray-400">* Se sortea 1 expensa para 2 departanamentos por mes, completa tus datos para participar.</small></span>
                                         </div>
-                                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                                        <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
-                                                <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
+                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
                                                 <input
-                                                    id="nombre"
-                                                    {...register('nombre', { 
-                                                        required: 'Este campo es requerido',
-                                                        pattern: {
-                                                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ'´`]+$/,
-                                                            message: 'Solo se permiten letras y acentos'
-                                                        }
-                                                    })}
+                                                    id="text"
+                                                    name="nombre"
+                                                    value={inputValues.nombre}
+                                                    onChange={handleChange}
                                                     type="text"
+                                                    autoComplete="current-password"
+                                                    required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="Nombre..."
                                                 />
-                                                {errors.nombre && <span className="text-red">{errors.nombre.message}</span>}
                                             </div>
                                             <div>
-                                                <label htmlFor="apellido" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
+                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
                                                 <input
-                                                    id="apellido"
-                                                    {...register('apellido', { 
-                                                        required: 'Este campo es requerido',
-                                                        pattern: {
-                                                            value: /^[A-Za-zÁÉÍÓÚáéíóúÑñ'´`]+$/,
-                                                            message: 'Solo se permiten letras y acentos'
-                                                        }
-                                                    })}
+                                                    id="text"
+                                                    name="apellido"
+                                                    value={inputValues.apellido}
+                                                    onChange={handleChange}
                                                     type="text"
+                                                    autoComplete="current-password"
+                                                    required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="Apellido..."
                                                 />
-                                                {errors.apellido && <span className="text-red">{errors.apellido.message}</span>}
                                             </div>
                                             <div>
                                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tu Email</label>
                                                 <input
                                                     id="email"
-                                                    {...register('email', { 
-                                                        required: 'Este campo es requerido',
-                                                        pattern: {
-                                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                                            message: 'Correo electrónico no válido'
-                                                        }
-                                                    })}
+                                                    name="email"
+                                                    value={inputValues.email}
+                                                    onChange={handleChange}
                                                     type="email"
+                                                    autoComplete="current-password"
+                                                    required
                                                     className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                     placeholder="tu_email@email.com"
                                                 />
-                                                {errors.email && <span className="text-red">{errors.email.message}</span>}
                                             </div>
                                             <div className='flex gap-4 align-middle items-center justify-center text-center'>
                                                 <div className="">
                                                     <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Torre</label>
                                                     <input
                                                         id="torre"
-                                                        {...register('torre', { 
-                                                            required: 'Este campo es requerido',
-                                                            min: {
-                                                                value: 1,
-                                                                message: 'Valor min 1'
-                                                            },
-                                                            max: {
-                                                                value: 48,
-                                                                message: 'valor max 48'
-                                                            }
-                                                        })}
-                                                        type="number"
+                                                        name="torre"
+                                                        value={inputValues.torre}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        autoComplete="current-password"
+                                                        required
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                         placeholder="1 a 48"
                                                     />
-                                                    {errors.torre && <span className="text-red">{errors.torre.message}</span>}
                                                 </div>
                                                 <div className="">
                                                     <label htmlFor="piso" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Piso</label>
                                                     <input
                                                         id="piso"
-                                                        {...register('piso', { 
-                                                            required: 'Este campo es requerido',
-                                                            min: {
-                                                                value: 0,
-                                                                message: 'Valor min 0'
-                                                            },
-                                                            max: {
-                                                                value: 11,
-                                                                message: 'Valor max 11'
-                                                            }
-                                                        })}
-                                                        type="number"
+                                                        name="piso"
+                                                        value={inputValues.piso}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        autoComplete="current-password"
+                                                        required
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                        placeholder="0 a 11"
+                                                        placeholder="0 a 10"
                                                     />
-                                                    {errors.piso && <span className="text-red">{errors.piso.message}</span>}
                                                 </div>
                                                 <div className="">
                                                     <label htmlFor="depto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Depto.</label>
                                                     <input
                                                         id="depto"
-                                                        {...register('depto', { 
-                                                            required: 'Este campo es requerido',
-                                                            validate: value => ['a', 'b', 'c', 'd'].includes(value) || 'a, b, c, d'
-                                                        })}
+                                                        name="depto"
+                                                        value={inputValues.depto}
+                                                        onChange={handleChange}
                                                         type="text"
+                                                        autoComplete="current-password"
+                                                        required
                                                         className="relative block w-24 appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                                         placeholder="a-b-c-d"
                                                     />
-                                                    {errors.depto && <span className="text-red">{errors.depto.message}</span>}
                                                 </div>
                                             </div>
                                             <div className='flex items-center space-x-2'>
                                                 <input
                                                     id="aceptar"
-                                                    {...register('aceptar', { required: 'Este campo es requerido' })}
+                                                    name="aceptar"
+                                                    checked={inputValues.aceptar}
+                                                    onChange={handleChange}
                                                     type="checkbox"
                                                 />
                                                 <label htmlFor="aceptar" className="block text-sm font-medium text-gray-900 dark:text-gray-300">Acepto los términos y condiciones</label>
-                                                {errors.aceptar && <span className="text-red">{errors.aceptar.message}</span>}
                                             </div>
                                             <button
                                                 type="submit"
-                                                className="py-2 px-5 text-sm font-medium w-full text-center text-white rounded-lg bg-red hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                disabled={isDisabled}
+                                                className="py-2 px-5 text-sm disabled:opacity-50 font-medium w-full text-center text-white rounded-lg bg-red  hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                             >
                                                 Enviar
                                             </button>

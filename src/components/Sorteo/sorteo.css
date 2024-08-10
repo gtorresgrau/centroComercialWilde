@@ -1,67 +1,66 @@
 /* Estilos generales para la flecha */
 .arrow {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Animación horizontal para pantallas grandes */
+@media (min-width: 768px) {
+  .arrow::before {
+    content: '';
+    position: absolute;
+    right:-30px;
+    bottom: -35px; /* Ajusta la posición según sea necesario */
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent; /* Parte superior de la flecha */
+    border-bottom: 10px solid transparent; /* Parte inferior de la flecha */
+    border-left: 20px solid #582261; /* Color y tamaño de la flecha */
+    transform: rotate(90deg); /* Rotar la flecha hacia la izquierda */
+    animation: bounce-horizontal 2s infinite;
   }
-  
-  /* Animación horizontal para pantallas grandes */
-  @media (min-width: 768px) {
-    .arrow::before {
-      content: '';
-      position: absolute;
-      right:-30px;
-      bottom: -35px; /* Ajusta la posición según sea necesario */
-      width: 0;
-      height: 0;
-      border-top: 10px solid transparent; /* Parte superior de la flecha */
-      border-bottom: 10px solid transparent; /* Parte inferior de la flecha */
-      border-left: 20px solid #582261; /* Color y tamaño de la flecha */
-      transform: rotate(90deg); /* Rotar la flecha hacia la izquierda */
-      animation: bounce-horizontal 2s infinite;
-    }
+}
+
+/* Animación vertical para pantallas móviles */
+@media (max-width: 767px) {
+  .arrow::before {
+    content: '';
+    position: absolute;
+    top: -15px; /* Ajusta la posición según sea necesario */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent; /* Parte izquierda de la flecha */
+    border-right: 10px solid transparent; /* Parte derecha de la flecha */
+    border-bottom: 20px solid #582261; /* Color y tamaño de la flecha */
+    transform: rotate(90deg); /* Rotar la flecha hacia abajo */
+    animation: bounce-vertical 2s infinite;
   }
-  
-  /* Animación vertical para pantallas móviles */
-  @media (max-width: 767px) {
-    .arrow::before {
-      content: '';
-      position: absolute;
-      top: -15px; /* Ajusta la posición según sea necesario */
-      width: 0;
-      height: 0;
-      border-left: 10px solid transparent; /* Parte izquierda de la flecha */
-      border-right: 10px solid transparent; /* Parte derecha de la flecha */
-      border-bottom: 20px solid #582261; /* Color y tamaño de la flecha */
-      transform: rotate(90deg); /* Rotar la flecha hacia abajo */
-      animation: bounce-vertical 2s infinite;
-    }
+}
+
+/* Animación horizontal */
+@keyframes bounce-horizontal {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0) rotate(180deg);
   }
-  
-  /* Animación horizontal */
-  @keyframes bounce-horizontal {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateX(0) rotate(180deg);
-    }
-    40% {
-      transform: translateX(-10px) rotate(180deg);
-    }
-    60% {
-      transform: translateX(-5px) rotate(180deg);
-    }
+  40% {
+    transform: translateX(-10px) rotate(180deg);
   }
-  
-  /* Animación vertical */
-  @keyframes bounce-vertical {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0) rotate(180deg);
-    }
-    40% {
-      transform: translateY(-10px) rotate(180deg);
-    }
-    60% {
-      transform: translateY(-5px) rotate(180deg);
-    }
+  60% {
+    transform: translateX(-5px) rotate(180deg);
   }
-  
+}
+
+/* Animación vertical */
+@keyframes bounce-vertical {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(180deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(180deg);
+  }
+}
