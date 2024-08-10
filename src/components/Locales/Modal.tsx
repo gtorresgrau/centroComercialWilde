@@ -55,7 +55,7 @@ export default function Modal(props:any) {
                 <Dialog.Panel className="flex flex-col justify-center items-center w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 {imageLoaded && <Loading />}
                   <div className="rounded-xl shadow-lg w-350 h-350">
-                    <img src={fotoLocal} alt={local} className='rounded-xl shadow-lg object-cover' style={{ maxHeight: '350px', width:'500px'}} width={500} height={500} onLoad={handleImageLoad}/> 
+                    <img src={fotoLocal} alt={local} className='rounded-xl shadow-lg object-cover' style={{ maxHeight: '350px', width:'500px'}} width={500} height={500} onLoad={handleImageLoad} loading='lazy'/> 
                   </div>
                   <div className="mt-2">
                       {fraseUsuario

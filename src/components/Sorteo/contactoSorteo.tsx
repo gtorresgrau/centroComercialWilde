@@ -101,7 +101,7 @@ const ContactoSorteo = () => {
         <>
             <div className="inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0">
                 <small>Proximamente...</small>
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" onClick={openModal} disabled>Anotate YA!</button>
+                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparent rounded" onClick={openModal} >Anotate YA!</button>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -139,6 +139,7 @@ const ContactoSorteo = () => {
                                                 alt="Sermar Logo"
                                                 width={100}
                                                 height={100}
+                                                loading='lazy'
                                             />
                                             <span className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Anotate para el sorteo de las expensas<br/>
                                             <small className="m-2 font-light text-sm text-center text-gray-500 dark:text-gray-400">* Se sortea 1 expensa para 2 departanamentos por mes, completa tus datos para participar.</small></span>

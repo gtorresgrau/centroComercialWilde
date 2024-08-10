@@ -58,7 +58,7 @@ export default class MultipleItems extends Component {
                 <Slider {...settings} className='flex items-center justify-center'>
                   {dataCarrusel.map((item, i) =>
                     <div key={i} className='flex items-center justify-center m-2 md:bg-lightpink'>
-                      <img src={item.imgSrc} alt={item.imgSrc} width={165} height={165} className="w-auto h-32"/>
+                      <img src={item.imgSrc} alt={item.imgSrc} width={165} height={165} className="w-auto h-32" loading='lazy'/>
                     </div>
                   )}
                 </Slider>

@@ -9,6 +9,7 @@ export default function Notfound() {
           src="assets/logo/administracion.webp"
           alt="Logo"
           className="w-[50%] md:w-[30%]"
+          loading='lazy'
         />
         <div>
           <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
