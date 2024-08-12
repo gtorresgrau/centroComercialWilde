@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href={metadata.manifest} />
       </head>
       <body>
-        <nav>
+        <nav className='mb-20'>
           <Navbar />
         </nav>
         {children}
