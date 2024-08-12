@@ -58,7 +58,7 @@ const MultipleItems: React.FC = () => {
         <Slider {...settings} className="flex items-center justify-center">
           {dataCarrusel.map((item: DataCarrusel, i: number) => (
             <div key={i} className="flex items-center justify-center m-2 md:bg-lightpink">
-              <img src={item.imgSrc} width={165} height={165} className="w-auto h-32" loading="lazy"/>
+              <img src={item.imgSrc} width={165} height={165} loading="lazy" alt="imagenes publicidad locales" aria-label="imagenes publicidad locales"/>
             </div>
           ))}
         </Slider>
