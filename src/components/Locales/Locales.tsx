@@ -120,7 +120,7 @@ const Locales = () => {
         <div className="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
           <div className="col-span-8">
             <div className="items-center mb-4 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded">
-              <h2 className="text-lg text-lightgrey">Buscador</h2>
+              <h2 className="text-lg text-gray-500">Buscador</h2>
               <input
                 type="text"
                 placeholder="Buscar...(Nombre, Rubro, etc...)"

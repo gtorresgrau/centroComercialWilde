@@ -129,6 +129,11 @@ html:not([data-scroll="0"]) .navbar {
   text-shadow: 4px 4px 10px rgba(59, 7, 50, 0.8);
 }
 
+.skip-link {
+  @apply absolute left-0 bg-gray-900 text-white p-2 rounded-md text-base font-medium -top-10 focus:top-0 focus:z-50;
+}
+
+
 @media screen and (max-width: 780px) {
   .banner-image {
     background-image: none !important;

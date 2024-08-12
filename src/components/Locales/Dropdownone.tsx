@@ -41,7 +41,7 @@ const Dropdown = (props: any) => {
       <div className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4">
         <div className="w-full col-span-2">
           <Listbox value={category} onChange={(newValue) => { setCategory(newValue); setShow(false); }}>
-            <h2 className="text-lg text-lightgrey">¿Qué estás buscando?</h2>
+            <h2 className="text-lg text-gray-500">¿Qué estás buscando?</h2>
             <div className="relative mt-1">
               <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white text-xl py-2 pr-10 text-left focus:outline-none">
                 <span className="block truncate text-xl font-semibold">{category.categoria}</span>
