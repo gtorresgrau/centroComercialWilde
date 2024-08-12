@@ -1,7 +1,7 @@
-import Admin from '../../components/Admin/Admin';
+//import Admin from '../../components/Admin/Admin';
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 
-const AdminPage = () => {
+const AgregarLocalPage = () => {
   return (
       <ProtectedRoute>
         <h1>Hola Soy Admin</h1>
@@ -10,4 +10,4 @@ const AdminPage = () => {
   )
 };
 
-export default AdminPage;
+export default AgregarLocalPage;
