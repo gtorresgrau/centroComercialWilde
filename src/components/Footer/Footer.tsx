@@ -35,7 +35,7 @@ const Footer = () => {
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <div className='flex flex-col col-span-6 items-center '>
-                        <img className=" h-48px w-48px lg:block rounded-xl" src='assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
+                        <img className="lg:block rounded-xl" src='assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
                         <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
                         <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea}/>
                     </div>

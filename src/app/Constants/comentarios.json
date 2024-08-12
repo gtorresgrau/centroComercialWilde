@@ -3,43 +3,43 @@
     {
         "profession": "Local Guide",
         "name": "Laura Pereyra",
-        "imgSrc": "/assets/students/user-2.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-2.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "El Centro Comercial es un lugar donde encontras toooodo lo que necesitas desde indumentaria masculin@ y femenin@ entre otros comercios."
     },
     {
         "profession": "Anabella Loele",
         "name": "Monica Villarruel",
-        "imgSrc": "/assets/students/user-2.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-2.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "Súper completo! Lo mejor la panadería y la verduleria frutillitas!!"
     },
     {
         "profession": "Local Guide",
         "name": "Leo Quiroga",
-        "imgSrc": "/assets/students/user-1.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-1.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "El complejo es hermoso, el el centro comercial e MUY completo, kioscos, panaderías, almacenes, verdulerías, locales de ropa, computación, en fin MUY completo."
     },
     {
         "profession": "Local Guide",
         "name": "Maru Tornes",
-        "imgSrc": "/assets/students/user-2.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-2.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "Me encanto todo en especial el pet shop Mis pepis, atencion cordial ,calidas y excelentes precios"
     },
     {
         "profession": "Local Guide",
         "name": "Florencia Amado",
-        "imgSrc": "/assets/students/user-2.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-2.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "Excelente complejo para hacer todo tipo de compras. Muy buenos precios!! Y casi todos los rubros. Con seguridad"
     },
     {
         "profession": "Local Guide",
         "name": "Ernesto Sanna",
-        "imgSrc": "/assets/students/user-1.jpg",
-        "starimg": "/assets/students/stars.png",
+        "imgSrc": "/assets/students/user-1.webp",
+        "starimg": "/assets/students/stars.webp",
         "detail": "Buen lugar!!! Hay de todo. Mucha seguridad ya que se encuentra en un barrio cerrado."
     }
 ]
