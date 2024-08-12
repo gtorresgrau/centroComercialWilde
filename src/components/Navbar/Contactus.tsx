@@ -59,7 +59,7 @@ const Contactusform = () => {
             try {
                 alertLoading();
                 const response = await axios.post('/api/contact', inputValues); // Utiliza Axios para hacer la solicitud POST
-                console.log('Response received', response.data);
+                //('Response received', response.data);
                 Swal.close();
                 if (response.status === 200) {
                     alert();

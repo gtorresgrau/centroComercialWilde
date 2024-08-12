@@ -45,7 +45,7 @@ const ContactoSorteo = () => {
 
     const handleChange = (e: { target: { name: string; value: string; type?: string; checked?: boolean }; }) => {
         const { name, value, type, checked } = e.target;
-        console.log(checked)
+        //(checked)
         setInputValues((prevState) => ({
             ...prevState,
             [name]: type === 'checkbox' ? checked : value,
@@ -65,7 +65,7 @@ const ContactoSorteo = () => {
                     ...inputValues,
                     sorteo: 'sorteo',
                 });
-                console.log('Response received', response.data);
+                //console.log('Response received', response.data);
                 Swal.close();
                 if (response.status === 200) {
                     alert();

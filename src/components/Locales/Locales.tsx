@@ -40,7 +40,7 @@ const Locales = () => {
       throw new Error('Error al cargar los locales');
     }
     const data = await res.json();
-    console.log(data, 'respuesta de locales'); // Verificar la respuesta
+    //console.log(data, 'respuesta de locales'); // Verificar la respuesta
     return data.locales; // Asegúrate de que este es el formato correcto
   };
 
@@ -52,13 +52,13 @@ const Locales = () => {
     
         // Check if URL has a hash (e.g., #nombre_del_local)
         const hash = window.location.hash;
-        console.log("Hash encontrado:", hash); // Agregar este log
+        //console.log("Hash encontrado:", hash); // Agregar este log
         if (hash) {
           const localId = hash.replace('#', '').replace(/_/g, ' ');
-          console.log("ID del local buscado:", localId); // Agregar este log
+          //("ID del local buscado:", localId); // Agregar este log
           const targetLocal = fetchedLocales.find((local: { local: string; }) => local.local === localId);
           if (targetLocal) {
-            console.log("Local encontrado:", targetLocal); // Agregar este log
+            //("Local encontrado:", targetLocal); // Agregar este log
             setSelectedLocal(targetLocal);
             open(); // Abre el modal si se encontró el local
           }
@@ -113,7 +113,7 @@ const Locales = () => {
     }
   };
   
-  console.log(locales,'locales')
+  //console.log(locales,'locales')
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
       <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">

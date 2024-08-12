@@ -30,7 +30,7 @@ export default function Modal({ product, onClose }: any) {
           text: `Visita el local ${local}, ubicado ${sector}. ${fraseUsuario ? fraseUsuario + ' ' : ''}${frase ? frase : ''}`,
           url: window.location.href, // La URL actual incluyendo el hash del local
         });
-        console.log('Contenido compartido exitosamente');
+        //console.log('Contenido compartido exitosamente');
       } catch (error) {
         console.error('Error al compartir:', error);
       }
