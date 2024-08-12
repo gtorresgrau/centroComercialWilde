@@ -46,7 +46,7 @@ const Dropdown = (props: any) => {
               <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white text-xl py-2 pr-10 text-left focus:outline-none">
                 <span className="block truncate text-xl font-semibold">{category.categoria}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                  <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                  <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-label='categoria'/>
                 </span>
               </Listbox.Button>
               <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
@@ -60,7 +60,7 @@ const Dropdown = (props: any) => {
                           </span>
                           {selected && (
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                              <CheckIcon className="h-5 w-5" aria-label='seleccionar check filtro' />
                             </span>
                           )}
                         </>
