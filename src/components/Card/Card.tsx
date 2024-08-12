@@ -23,15 +23,12 @@ export interface CardProps {
 }
 
 
-const Card: React.FC<CardProps> = ({product }) => {
+const Card: React.FC<CardProps & { onOpen: () => void }> = ({ product, onOpen }) => {
   const { logoLocal, ubicacion, n_local, local } = product;
-  const mod = (data: any) => {
-    if (data === false) setModal(data);
-  };
-  const [modal, setModal] = useState(false);
 
   const handleModal = () => {
-    setModal(!modal);
+    onOpen();
+    window.history.pushState(null, '', `#${local.trim().replace(/ /g, '_')}`); // Update the URL with the hash
   };
 
   return (
@@ -48,7 +45,6 @@ const Card: React.FC<CardProps> = ({product }) => {
             <button className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110" onClick={handleModal}>Ver detalle</button>
          </div>
       </div>
-      {modal && <Modal product={product} modal={mod} />}
     </div>
   );
 };

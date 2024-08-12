@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
-import Link from 'next/link';
 import { filterCat, filterLocal } from '@/server/utils/filters';
+import Modal from './Modal';
 
 interface Local {
   local: string;
@@ -30,6 +30,7 @@ const Locales = () => {
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]); // Estado para mantener los locales obtenidos
+  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null); // Estado para el modal abierto
   const localPage = 9;
 
   // Función para obtener locales de la API
@@ -47,13 +48,26 @@ const Locales = () => {
     const loadLocales = async () => {
       try {
         const fetchedLocales = await fetchLocales();
-        console.log(fetchedLocales, 'locales desde el front'); // Verificar locales cargados
-        setLocale(fetchedLocales); // Actualiza el estado con los locales obtenidos
+        setLocale(fetchedLocales);
+    
+        // Check if URL has a hash (e.g., #nombre_del_local)
+        const hash = window.location.hash;
+        console.log("Hash encontrado:", hash); // Agregar este log
+        if (hash) {
+          const localId = hash.replace('#', '').replace(/_/g, ' ');
+          console.log("ID del local buscado:", localId); // Agregar este log
+          const targetLocal = fetchedLocales.find((local: { local: string; }) => local.local === localId);
+          if (targetLocal) {
+            console.log("Local encontrado:", targetLocal); // Agregar este log
+            setSelectedLocal(targetLocal);
+            open(); // Abre el modal si se encontró el local
+          }
+        }
       } catch (error) {
         console.error('Error al cargar los locales: ', error);
       }
     };
-
+    
     loadLocales();
   }, []);
 
@@ -119,7 +133,11 @@ const Locales = () => {
           </div>
         </div>
       </article>
-
+      <article className="flex justify-center p-2 m-2">
+        {pages > 1 && (
+          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
+        )}
+      </article>
       <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8" data-aos="fade-right">
         {locales.length === 0 ? (
           <div>No se encontraron locales.</div>
@@ -132,17 +150,25 @@ const Locales = () => {
             })
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
-              <Card product={product} key={index} />
+              <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />
             ))
 
         )}
       </article>
-
       <article className="flex justify-center p-2 m-2">
         {pages > 1 && (
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
         )}
       </article>
+      {selectedLocal && (
+        <Modal
+          product={selectedLocal}
+          onClose={() => {
+            setSelectedLocal(null);
+            window.history.pushState(null, '', window.location.pathname); // Remove hash from URL when closing modal
+          }}
+        />
+      )}
     </section>
   );
 };
