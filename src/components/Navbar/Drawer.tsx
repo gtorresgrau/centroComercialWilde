@@ -20,6 +20,7 @@ const Drawer = ({ children, isOpen, setIsOpen }: DrawerProps) => {
                             width={70} 
                             height={70} 
                             onClick={() => setIsOpen(false)} 
+                            loading='lazy'
                         />
                         <XMarkIcon className="block h-6 w-6 cursor-pointer" onClick={() => setIsOpen(false)} aria-label="Close Drawer" />
                     </header>

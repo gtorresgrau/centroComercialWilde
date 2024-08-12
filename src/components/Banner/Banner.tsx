@@ -1,10 +1,9 @@
 import React from 'react';
 import { userinfo } from '../../components/../app/Constants/userinfo';
 import Carrusel from '../Carrusel/Carrusel';
-import './globo.css'
+import s from './globo.module.css';
 
 const Banner = () => {
-   
     const handleBalloonClick = () => {
         window.location.href = '#sorteo';
     };
@@ -22,7 +21,12 @@ const Banner = () => {
                         <h2 className="text-3xl sm:text-4xl sm:font-bold tracking-tight text-gray-900 sm:text-60px md:4px sm:my-6 md:my-2 xl:my-6">{userinfo.banner.subTitle}</h2>
                     </div>
                 </article>
-                <div className="absolute top-1/4 left-1/4 p-3 bg-pink-500 text-white text-xl rounded-full cursor-pointer animate-moveBalloon balloon z-10" onClick={handleBalloonClick}>SORTEO</div>
+                <div 
+                    className={`${s.balloon} cursor-pointer z-10`} 
+                    onClick={handleBalloonClick}
+                >
+                    SORTEO
+                </div>
                 <Carrusel />
             </section>
         </main>

@@ -27,10 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* ... other head elements (e.g., title, description) */}
       </head>
       <body>
-        <Navbar />
         {children}
-        <Footer />
-        <ButtonWsp text='ADMINISTRACION' contact='1138498249' />
         <Analytics />
       </body>
     </html>

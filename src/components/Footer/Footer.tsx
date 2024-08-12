@@ -57,7 +57,7 @@ const Footer = () => {
             <div className='pb-20 px-4 flex-col md:flex-row' style={{ display: 'flex', justifyContent:'center', alignItems: 'center' }}>
                 <a href="https://programundo.dev">
                     <h3 className='text-center text-offwhite'>2023 - Creado por</h3>
-                    <img src='assets/footer/programundo.webp' alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} />
+                    <img src='assets/footer/programundo.webp' alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} loading='lazy'/>
                 </a>
             </div>
         </footer>

@@ -62,7 +62,7 @@ const images = [
         <Slider {...settings} >
             {images.map((img, i) => (
                 <article key={i} className="p-2 rounded-xl shadow-xl" >
-                    <img alt={img.alt} src={img.src} title={img.alt} loading='lazy'className="rounded-xl"/>
+                    <img alt={img.alt} src={img.src} title={img.alt} loading='lazy'className="rounded-xl" />
                 </article>
             ))}
         </Slider>

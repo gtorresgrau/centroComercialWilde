@@ -132,6 +132,7 @@ const Contactusform = () => {
                                             alt="Centro Comercial Logo"
                                             width={100} 
                                             height={100} 
+                                            loading='lazy'
                                         />                                        
                                         <p className="mb-8 lg:mb-16 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Deja un comentario a la administración por acá o comunícate por Whatsapp</p>
                                         </div>
