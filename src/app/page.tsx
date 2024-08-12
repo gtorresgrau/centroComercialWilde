@@ -24,9 +24,6 @@ export default function Home() {
   
   return (
     <>
-      <nav>
-        <Navbar />
-      </nav>
       <main>
         <Banner />
         <Edificio />
@@ -36,10 +33,6 @@ export default function Home() {
         <Comentarios />
         <Newsletter />
       </main>
-      <footer>
-        <Footer />
-        <ButtonWsp />
-      </footer>
     </>
   );
 }
