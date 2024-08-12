@@ -17,6 +17,8 @@ const Ubicacion =()=>{
                         allowFullScreen={true}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
+                        title='ubicacion geografica del local'
+                        aria-label='ubicacion geografica del local'
                 ></iframe>
                 </div>
             </article>
