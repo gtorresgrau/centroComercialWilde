@@ -3,7 +3,7 @@ import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.
     contact: {
-        email: 'ccw@gmail.com', //It is always a good idea to mention your email on your website. Good platform to communicate.
+        email: 'ccawilde@gmail.com', //It is always a good idea to mention your email on your website. Good platform to communicate.
         phone: '1138498249', //Phone number is optional, if you dont want it, consider leaving it blank .
         countrycode: '+54' //It is advisable to add the country code incase you mention your contact number.
     },
