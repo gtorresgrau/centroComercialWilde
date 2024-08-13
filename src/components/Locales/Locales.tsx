@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
+import CardSkeleton from '../CardSkeleton/CardSkeleton'; // Importa el esqueleto
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
 import { filterCat, filterLocal } from '@/server/utils/filters';
@@ -29,8 +30,9 @@ const Locales = () => {
   const [page, setPage] = useState(1);
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [locale, setLocale] = useState<Local[]>([]); // Estado para mantener los locales obtenidos
-  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null); // Estado para el modal abierto
+  const [locale, setLocale] = useState<Local[]>([]);
+  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
+  const [loading, setLoading] = useState(true); // Estado de carga
   const localPage = 9;
 
   // Función para obtener locales de la API
@@ -40,8 +42,7 @@ const Locales = () => {
       throw new Error('Error al cargar los locales');
     }
     const data = await res.json();
-    //console.log(data, 'respuesta de locales'); // Verificar la respuesta
-    return data.locales; // Asegúrate de que este es el formato correcto
+    return data.locales;
   };
 
   useEffect(() => {
@@ -49,22 +50,21 @@ const Locales = () => {
       try {
         const fetchedLocales = await fetchLocales();
         setLocale(fetchedLocales);
-    
+        setLoading(false); // Detener la carga cuando los datos estén listos
+
         // Check if URL has a hash (e.g., #nombre_del_local)
         const hash = window.location.hash;
-        //console.log("Hash encontrado:", hash); // Agregar este log
         if (hash) {
           const localId = hash.replace('#', '').replace(/_/g, ' ');
-          //("ID del local buscado:", localId); // Agregar este log
-          const targetLocal = fetchedLocales.find((local: { local: string; }) => local.local === localId);
+          const targetLocal = fetchedLocales.find((local: { local: string }) => local.local === localId);
           if (targetLocal) {
-            //("Local encontrado:", targetLocal); // Agregar este log
             setSelectedLocal(targetLocal);
             open(); // Abre el modal si se encontró el local
           }
         }
       } catch (error) {
         console.error('Error al cargar los locales: ', error);
+        setLoading(false); // Detener la carga en caso de error
       }
     };
     
@@ -92,18 +92,18 @@ const Locales = () => {
       typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
-  
+
   const pages = Math.ceil(locales.length / localPage);
-  
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  
+
   const rubro = (data: string) => {
     setRubros(data);
     setPage(1);
   };
-  
+
   const checks = async (data: any) => {
     try {
       const localesChecks = await filterLocal(data);
@@ -112,8 +112,7 @@ const Locales = () => {
       console.error('Error al obtener datos: ', error);
     }
   };
-  
-  //console.log(locales,'locales')
+
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
       <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
@@ -127,19 +126,23 @@ const Locales = () => {
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
-                />
+              />
             </div>
             <Dropdownone selectRubro={rubro} selectedChecks={checks} />
           </div>
         </div>
       </article>
       <article className="flex justify-center p-2 m-2">
-        {pages > 1 && (
+        {pages > 1 && !loading && (
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
         )}
       </article>
       <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8" data-aos="fade-right">
-        {locales.length === 0 ? (
+        {loading ? (
+          Array.from({ length: localPage }).map((_, index) => (
+            <CardSkeleton key={index} />
+          ))
+        ) : locales.length === 0 ? (
           <div>No se encontraron locales.</div>
         ) : (
           locales
@@ -152,11 +155,10 @@ const Locales = () => {
             .map((product, index) => (
               <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />
             ))
-
         )}
       </article>
       <article className="flex justify-center p-2 m-2">
-        {pages > 1 && (
+        {pages > 1 && !loading && (
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
         )}
       </article>
