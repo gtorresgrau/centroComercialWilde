@@ -30,7 +30,7 @@ const Card: React.FC<CardProps & { onOpen: () => void }> = ({ product, onOpen })
 
   const handleModal = () => {
     onOpen();
-    window.history.pushState(null, '', `${local.trim().replace(/ /g, '_')}`); // Update the URL with the hash
+    //window.history.pushState(null, '', `${local.trim().replace(/ /g, '_')}`); // Update the URL with the hash
   };
 
   return (
