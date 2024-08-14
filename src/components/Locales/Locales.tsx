@@ -22,7 +22,6 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
-  web?:string;
   texto?: string;
 }
 
@@ -52,6 +51,17 @@ const Locales = () => {
         const fetchedLocales = await fetchLocales();
         setLocale(fetchedLocales);
         setLoading(false); // Detener la carga cuando los datos estén listos
+
+        // Check if URL has a hash (e.g., #nombre_del_local)
+        const hash = window.location.hash;
+        if (hash) {
+          const localId = hash.replace('#', '').replace(/_/g, ' ');
+          const targetLocal = fetchedLocales.find((local: { local: string }) => local.local === localId);
+          if (targetLocal) {
+            setSelectedLocal(targetLocal);
+            open(); // Abre el modal si se encontró el local
+          }
+        }
       } catch (error) {
         console.error('Error al cargar los locales: ', error);
         setLoading(false); // Detener la carga en caso de error
@@ -143,7 +153,7 @@ const Locales = () => {
             })
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
-              <Card key={index} product={product} onOpen={() => setSelectedLocal(product)}/>
+              <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />
             ))
         )}
       </article>
