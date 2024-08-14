@@ -29,7 +29,7 @@ export default function Modal({ product, onClose }: any) {
         await navigator.share({
           title: `Detalles del local: ${local}`,
           text: `Visita el local ${local}, ubicado ${sector}. ${fraseUsuario ? fraseUsuario + ' ' : ''}${frase ? frase : ''}`,
-          url: url.replace('#', '/'), // La URL actual sin el hash del local
+          url: url.replace('#', ''), // La URL actual sin el hash del local
         });
         //console.log('Contenido compartido exitosamente');
       } catch (error) {
