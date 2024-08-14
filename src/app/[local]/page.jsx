@@ -6,7 +6,7 @@ import Loading from '../../components/Loading/Loading'
 import ShareIcon from '@mui/icons-material/Share';
 
 export default function LocalPage({ params }) {
-    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(true);
     const [localData, setLocalData] = useState(null);
   
     const fetchLocal = async () => {
