@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton'; // Importa el esqueleto
@@ -22,6 +23,7 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
+  web?:string;
   texto?: string;
 }
 
