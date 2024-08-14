@@ -152,7 +152,15 @@ const Locales = () => {
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
         )}
       </article>
-      
+      {selectedLocal && (
+        <Modal
+          product={selectedLocal}
+          onClose={() => {
+            setSelectedLocal(null);
+            window.history.pushState(null, '', window.location.pathname); // Remove hash from URL when closing modal
+          }}
+        />
+      )}
     </section>
   );
 };
