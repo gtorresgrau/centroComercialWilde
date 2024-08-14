@@ -19,13 +19,19 @@ export interface CardProps {
     fotoLocal: string;
     instagram: string;
     facebook: string;
+    web?:string;
     texto?: string;
   };
 }
 
 
-const Card: React.FC<CardProps> = ({ product }) => {
+const Card: React.FC<CardProps & { onOpen: () => void }> = ({ product, onOpen }) => {
   const { logoLocal, ubicacion, n_local, local } = product;
+
+  const handleModal = () => {
+    onOpen();
+    window.history.pushState(null, '', `${local.trim().replace(/ /g, '_')}`); // Update the URL with the hash
+  };
 
   return (
     <div key={n_local} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg" >
@@ -39,7 +45,7 @@ const Card: React.FC<CardProps> = ({ product }) => {
         </div>
          <div className="flex justify-center m-2">
             <Link href={local}>
-              <button className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110" >Ver detalle</button>
+              <button className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110" onClick={handleModal}>Ver detalle</button>
             </Link>
          </div>
       </div>

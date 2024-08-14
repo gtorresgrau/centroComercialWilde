@@ -12,7 +12,7 @@ export default function Modal({ product, onClose }: any) {
   const [imageLoaded, setImageLoaded] = useState(true);
   let [isOpen, setIsOpen] = useState(true)
 
-  const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto, linea } = product;
+  const {local, email, ubicacion, horarios, n_local, rubro, rubroSecundario, instagram, facebook, celular, fotoLocal, texto, linea, web } = product;
 
   const sector = ubicacion === 'Afuera'? 'en la galeria externa':'en '+ ubicacion;
   const frase = rubroSecundario === 'No tengo'? null: 'Ademas de ' + rubro + ' tambien posee ' + rubroSecundario + '.' ;
@@ -23,6 +23,7 @@ export default function Modal({ product, onClose }: any) {
   };
 
   const handleShare = async () => {
+    console.log(window.location.href)
     if (navigator.share) {
       try {
         await navigator.share({
@@ -91,6 +92,7 @@ export default function Modal({ product, onClose }: any) {
                         contact={celular}
                         linea={linea}
                         email={email}
+                        web={web}
                     />
 
                 </div>

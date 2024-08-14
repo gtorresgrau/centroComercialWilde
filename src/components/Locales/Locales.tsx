@@ -22,6 +22,7 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
+  web?:string;
   texto?: string;
 }
 
@@ -31,7 +32,7 @@ const Locales = () => {
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]);
-  // const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
+  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
   const [loading, setLoading] = useState(true); // Estado de carga
   const localPage = 9;
 
@@ -142,7 +143,7 @@ const Locales = () => {
             })
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
-              <Card key={index} product={product} />
+              <Card key={index} product={product} onOpen={() => setSelectedLocal(product)}/>
             ))
         )}
       </article>
