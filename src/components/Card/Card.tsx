@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Modal from '../Locales/Modal';
+import Link from 'next/link';
 
 export interface CardProps {
   product: {
-    local: string,
+    local: string;
     n_local: number;
     email: string;
     contacto: string;
@@ -23,13 +24,8 @@ export interface CardProps {
 }
 
 
-const Card: React.FC<CardProps & { onOpen: () => void }> = ({ product, onOpen }) => {
+const Card: React.FC<CardProps> = ({ product }) => {
   const { logoLocal, ubicacion, n_local, local } = product;
-
-  const handleModal = () => {
-    onOpen();
-    window.history.pushState(null, '', `#${local.trim().replace(/ /g, '_')}`); // Update the URL with the hash
-  };
 
   return (
     <div key={n_local} className="group relative shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] bg-white rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg" >
@@ -42,7 +38,9 @@ const Card: React.FC<CardProps & { onOpen: () => void }> = ({ product, onOpen })
             <h3 className="text-sm text-gray-700 text-center mb-4">{ubicacion}</h3>
         </div>
          <div className="flex justify-center m-2">
-            <button className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110" onClick={handleModal}>Ver detalle</button>
+            <Link href={local}>
+              <button className="bg-lightgrey text-white font-medium py-2 px-6 rounded-full hover:bg-[#701a75] transition-transform transform hover:scale-110" >Ver detalle</button>
+            </Link>
          </div>
       </div>
     </div>

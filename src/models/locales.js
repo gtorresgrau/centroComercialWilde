@@ -54,6 +54,10 @@ const localSchema = new mongoose.Schema({
         type: String,
         default: 'No tengo'
       },
+      web: {
+        type: String,
+        default: 'No tengo'
+      },
       texto: {
         type: String,
         default: ''
