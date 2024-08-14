@@ -22,6 +22,7 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
+  web?:string;
   texto?: string;
 }
 
