@@ -28,7 +28,7 @@ const email ="ccawilde@gmail.com"
 
 const Footer = () => {
     const path = usePathname();
-    const padTop = path === '/ruleta' ? 'pt-4' : 'pt-64';
+    const padTop = path !== '/' || !path.startsWith('/#')  ? 'pt-4' : 'pt-64';
 
     return (
         <footer className="bg-bgpurple -mt-64 " id="first-section" >
