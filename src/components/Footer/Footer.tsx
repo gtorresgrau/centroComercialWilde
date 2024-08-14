@@ -28,11 +28,11 @@ const email ="ccawilde@gmail.com"
 
 const Footer = () => {
     const path = usePathname();
-    const padTop = path !== '/' || !path.startsWith('/#')  ? 'pt-4' : 'pt-64';
+    const padTop = path === '/ruleta' || path !== '/' ? 'pt-2 pb-4' : 'pt-64 pb-16';
 
     return (
         <footer className="bg-bgpurple -mt-64 " id="first-section" >
-            <div className={`mx-auto max-w-2xl ${padTop} pb-16 px-4 sm:px-6 lg:max-w-7xl lg:px-8`}>
+            <div className={`mx-auto max-w-2xl ${padTop} px-4 sm:px-6 lg:max-w-7xl lg:px-8`}>
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <div className='flex flex-col col-span-6 items-center '>
