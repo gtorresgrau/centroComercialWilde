@@ -38,7 +38,7 @@ const Footer = () => {
                     <div className='flex flex-col col-span-6 items-center '>
                         <img className="lg:block rounded-xl" src='assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
                         <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
-                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea} email={email}/>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea} email={email} handleShare={() => {}}/>
                     </div>
                     {/* CLOUMN-2/3 */}
                     <div className=" flex flex-col group relative col-span-6 items-center">
