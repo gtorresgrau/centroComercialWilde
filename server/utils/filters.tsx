@@ -1,13 +1,30 @@
-import locales from '@/src/app/Constants/data.json'
+interface Local {
+   local: string;
+   n_local: number;
+   email: string;
+   contacto: string;
+   celular: number;
+   linea: number | null;
+   ubicacion: string;
+   categoria: string;
+   rubro: string;
+   rubroSecundario: string;
+   horarios: string;
+   logoLocal: string;
+   fotoLocal: string;
+   instagram: string;
+   facebook: string;
+   web?: string;
+   texto?: string;
+ }
 
-//console.log('locales en filters:',locales)
-
-export const filterCat =(data:any)=>{
+export const filterCat = (data: string, locales: Local[]) => {
    const filtro = locales.filter((local) => local.categoria === data);
-   return filtro
-}
-
-export const filterLocal =(data:any)=>{
+   return filtro;
+ };
+ 
+ export const filterLocal = (data: string[], locales: Local[]) => {
    const filtro = locales.filter((local) => local.rubro === data.join());
-   return filtro
-}
+   return filtro;
+ };
+ 

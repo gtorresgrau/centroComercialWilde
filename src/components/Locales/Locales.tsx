@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+'use client'
+import React, { useState } from 'react';
+import useLocales from '../../Hooks/useLocales';
 import Card from '../Card/Card';
-import CardSkeleton from '../CardSkeleton/CardSkeleton'; // Importa el esqueleto
+import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
-import { filterCat, filterLocal } from '@/server/utils/filters';
 import Modal from './Modal';
+import { filterCat, filterLocal } from '@/server/utils/filters';
 
 interface Local {
   local: string;
@@ -22,91 +24,53 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
+  web?: string; 
   texto?: string;
 }
 
 const Locales = () => {
+  const { locales, loading, setLocales } = useLocales();
   const [rubros, setRubros] = useState('All');
   const [page, setPage] = useState(1);
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [locale, setLocale] = useState<Local[]>([]);
   const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
-  const [loading, setLoading] = useState(true); // Estado de carga
   const localPage = 9;
 
-  // Función para obtener locales de la API
-  const fetchLocales = async () => {
-    const res = await fetch('/api/locales/locales');
-    if (!res.ok) {
-      throw new Error('Error al cargar los locales');
-    }
-    const data = await res.json();
-    return data.locales;
-  };
-
-  useEffect(() => {
-    const loadLocales = async () => {
-      try {
-        const fetchedLocales = await fetchLocales();
-        setLocale(fetchedLocales);
-        setLoading(false); // Detener la carga cuando los datos estén listos
-
-        // Check if URL has a hash (e.g., #nombre_del_local)
-        const hash = window.location.hash;
-        if (hash) {
-          const localId = hash.replace('#', '').replace(/_/g, ' ');
-          const targetLocal = fetchedLocales.find((local: { local: string }) => local.local === localId);
-          if (targetLocal) {
-            setSelectedLocal(targetLocal);
-            open(); // Abre el modal si se encontró el local
-          }
-        }
-      } catch (error) {
-        console.error('Error al cargar los locales: ', error);
-        setLoading(false); // Detener la carga en caso de error
-      }
-    };
-    
-    loadLocales();
-  }, []);
-
-  // Procesar los locales
-  let locales: Local[] = locale.map(item => ({
-    ...item,
-    linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
-  }));
-
   // Filtrado de locales
-  if (rubros === 'All') {
-    locales = locale;
-  } else if (filtros.length > 0) {
-    locales = filtros;
-  } else {
-    locales = filterCat(rubros);
+  let filteredLocales: Local[] = locales;
+
+  if (rubros !== 'All') {
+    filteredLocales = filterCat(rubros, locales);
   }
 
-  // Filtrado por búsqueda
-  locales = locales.filter(local =>
+  if (filtros.length > 0) {
+    filteredLocales = filtros;
+  }
+
+  filteredLocales = filteredLocales.filter(local =>
     Object.values(local).some(value =>
       typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
 
-  const pages = Math.ceil(locales.length / localPage);
+  const pages = Math.ceil(filteredLocales.length / localPage);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
   const rubro = (data: string) => {
-    setRubros(data);
+    const filteredLocales = filterCat(data, locales); // Pasando locales al filtro
+    
+    // Ensure that the type matches the expected type
+    setLocales(filteredLocales as typeof locales);
     setPage(1);
   };
 
   const checks = async (data: any) => {
     try {
-      const localesChecks = await filterLocal(data);
+      const localesChecks = filterLocal(data, locales); // Pasando locales al filtro
       setFiltros(localesChecks);
     } catch (error) {
       console.error('Error al obtener datos: ', error);
@@ -142,15 +106,11 @@ const Locales = () => {
           Array.from({ length: localPage }).map((_, index) => (
             <CardSkeleton key={index} />
           ))
-        ) : locales.length === 0 ? (
+        ) : filteredLocales.length === 0 ? (
           <div>No se encontraron locales.</div>
         ) : (
-          locales
-            .sort((a, b) => {
-              const localA = a.local || '';
-              const localB = b.local || '';
-              return localA.localeCompare(localB);
-            })
+          filteredLocales
+            .sort((a, b) => a.local.localeCompare(b.local))
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
               <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />

@@ -3,17 +3,40 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import { rubrosk, categorias } from '../../../server/utils/rubros';
 import { userinfo } from '../../app/Constants/userinfo';
+import useLocales from '../../Hooks/useLocales';
+import { filterCat } from '@/server/utils/filters';
+
+interface Local {
+  local: string;
+  n_local: number;
+  email: string;
+  contacto: string;
+  celular: number;
+  linea: number | null;
+  ubicacion: string;
+  categoria: string;
+  rubro: string;
+  rubroSecundario: string;
+  horarios: string;
+  logoLocal: string;
+  fotoLocal: string;
+  instagram: string;
+  facebook: string;
+  web?:string;
+  texto?: string;
+}
+
 
 const Dropdown = (props: any) => {
   const [selected, setSelected] = useState(rubrosk[0]);
   const [category, setCategory] = useState(categorias[0]);
-  const [show, setShow] = useState(false);
   const [selectedLocales, setSelectedLocales] = useState<string[]>([]);
+  const { locales, setLocales } = useLocales();
 
   const handleRubro = () => {
     props.selectRubro(category.categoria);
     setSelectedLocales([]);
-    setShow(true);
+    setLocales(filterCat(category.categoria, props.locales) as Local[]);
   };
 
   const handleAll = () => {
@@ -21,7 +44,7 @@ const Dropdown = (props: any) => {
     setSelected(rubrosk[0]);
     setCategory(categorias[0]);
     setSelectedLocales([]);
-    setShow(false);
+    setLocales(props.locales); // Restaura todos los locales
   };
 
   const handleCheckboxChange = (rubro: string) => {
@@ -33,14 +56,16 @@ const Dropdown = (props: any) => {
   };
 
   useEffect(() => {
-    props.selectedChecks(selectedLocales);
+    if (selectedLocales.length > 0) {
+      props.selectedChecks(selectedLocales);
+    }
   }, [selectedLocales]);
 
   return (
     <section className="items-center shadow-lg rounded">
       <div className="grid grid-cols-2 items-center lg:grid-cols-4 grid-rows-2 lg:grid-rows-1 gap-3 p-4">
         <div className="w-full col-span-2">
-          <Listbox value={category} onChange={(newValue) => { setCategory(newValue); setShow(false); }}>
+          <Listbox value={category} onChange={(newValue) => { setCategory(newValue); }}>
             <h2 className="text-lg text-gray-500">¿Qué estás buscando?</h2>
             <div className="relative mt-1">
               <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white text-xl py-2 pr-10 text-left focus:outline-none">
@@ -83,7 +108,7 @@ const Dropdown = (props: any) => {
           </button>
         </div>
       </div>
-      {show && category.locales.length > 1 && (
+      {category.locales.length > 1 && (
         <div className="grid grid-cols-12 items-start py-5 px-4">
           <div className="grid col-span-8 sm:col-span-9 md:col-span-10 md:grid-cols-3 sm:grid-cols-2">
             {category.locales
