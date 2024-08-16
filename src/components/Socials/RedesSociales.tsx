@@ -15,13 +15,13 @@ interface Sociales {
   handleShare: () => void
 }
 
-const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare }: Sociales) => {
+const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare  }: Sociales) => {
 
   const textoPredefinido = 'Hola, te escribo desde la web del CCW.';
   const enviar = `https://wa.me/54${contact}?text=${encodeURIComponent(textoPredefinido)}`;
 
   return (
-    <div className='flex flex-wrap'>
+    <div className='flex flex-wrap items-center'>
       {facebook && facebook !== 'No tengo' && (
         <Link href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
           <FaFacebookSquare className='m-3' style={{ color: '#4267B2' }} size={35} />
