@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Contactus from './Contactus';
-import UserMenu from "./UserMenu";
 
 interface NavigationItem {
   name: string;
