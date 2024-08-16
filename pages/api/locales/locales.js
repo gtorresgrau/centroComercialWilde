@@ -4,8 +4,8 @@ import Local from '../../../src/models/locales';
 // Controlador para el método POST
 async function handlePost(req, res) {
     try {
-        const { email, contacto, celular, ubicacion, categoria, rubro, horarios, logoLocal, fotoLocal } = req.body;
-        if (!email || !contacto || !celular || !ubicacion || !categoria || !rubro || !horarios || !logoLocal || !fotoLocal) {
+        const { local, n_local, email, contacto, celular, linea, ubicacion, categoria, rubro, rubroSecundario, horarios, logoLocal, fotoLocal, instagram, facebook, web, texto } = req.body;
+        if (!local || !n_local || !email || !contacto || !celular || !ubicacion || !categoria || !rubro || !horarios || !logoLocal || !fotoLocal) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
         const newLocal = new Local(req.body);

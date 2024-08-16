@@ -1,7 +1,15 @@
 import mongoose from 'mongoose';
 
 const localSchema = new mongoose.Schema({
-    email: {
+      local:{
+        type: String,
+        required: true,
+        },
+      n_local:{
+        type: Number,
+        required:true
+        },
+      email: {
         type: String,
         required: true,
         match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.']
@@ -52,6 +60,10 @@ const localSchema = new mongoose.Schema({
       },
       facebook: {
         type: String,
+        default: 'No tengo'
+      },
+      web:{
+        type:String,
         default: 'No tengo'
       },
       texto: {
