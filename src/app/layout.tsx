@@ -14,7 +14,8 @@ export const metadata = {
   viewport: 'width=device-width, initial-scale=1',
   themeColor: '#451F49',
   charSet: 'UTF-8',
-  icon: '/favicon.ico'
+  icon: '/favicon.ico',
+  keywords: 'Centro Comercial Wilde, Paseo de Compras Multimarca, Compras en Wilde, Tiendas en Wilde, Shopping en Wilde, Ofertas en Wilde, Descuentos en Wilde, Moda en Wilde, Comida en Wilde, Entretenimiento en Wilde, Locales Comerciales en Wilde, Shopping Buenos Aires, Centros Comerciales Zona Sur, Salidas en Wilde, Eventos en Wilde'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href={metadata.icon} />
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords} />
         <link rel="manifest" href={metadata.manifest} />
       </head>
       <body>
