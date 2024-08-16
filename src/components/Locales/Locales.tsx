@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton'; // Importa el esqueleto
@@ -23,7 +22,6 @@ interface Local {
   fotoLocal: string;
   instagram: string;
   facebook: string;
-  web?:string;
   texto?: string;
 }
 
@@ -33,25 +31,7 @@ const Locales = () => {
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]);
-  const [selectedLocal, setSelectedLocal] = useState<Local | null>(  {
-    "local": "UPA MAPACHE",
-    "n_local": 160,
-    "email": "anmariaracing@gmail.com",
-    "contacto": "Ana Maria Molla",
-    "celular": 1157546308,
-    "linea": 42252255,
-    "ubicacion": "Planta Baja",
-    "categoria":"Indumentaria",
-    "rubro": "Ropa Bebe",
-    "rubroSecundario": "Arreglos ropa en gral",
-    "horarios": "10 a 12 y de 17:30 a 20",
-    "logoLocal": "https://res.cloudinary.com/dkiiq9feu/image/upload/v1723818199/UpaMapache_r6zsfn.webp",
-    "fotoLocal": "https://res.cloudinary.com/dkiiq9feu/image/upload/v1723422543/upaLocal_bhycvi.webp",
-    "instagram": "https://res.cloudinary.com/dkiiq9feu/image/upload/v1723422543/upaLocal_bhycvi.webp",
-    "facebook": "https://res.cloudinary.com/dkiiq9feu/image/upload/v1723422543/upaLocal_bhycvi.webp",
-    'web':'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723422543/upaLocal_bhycvi.webp',
-    "texto": ""
-  });
+  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
   const [loading, setLoading] = useState(true); // Estado de carga
   const localPage = 9;
 
