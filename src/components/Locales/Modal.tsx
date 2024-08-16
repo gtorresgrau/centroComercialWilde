@@ -83,9 +83,7 @@ export default function Modal({ product, onClose }: any) {
                         :(<><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector}, en el local número {n_local}. El horario de atención es de {horarios} hs. {frase} </p></>)}
                   </div>
                   <div className="items-center flex justify-center mt-4">
-                    <button className="bg-slate-300 text-black font-medium mx-4  w-8 h-8 rounded-lg  transition-transform transform hover:scale-110" onClick={handleShare}>
-                      <ShareIcon />
-                    </button>
+
                     <RedesSociales
                         instagram={instagram}
                         facebook={facebook}
@@ -93,6 +91,7 @@ export default function Modal({ product, onClose }: any) {
                         linea={linea}
                         email={email}
                         web={web}
+                        handleShare={handleShare}
                     />
 
                 </div>

@@ -1,4 +1,5 @@
 "use client"
+import { ShareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp, FaPhone, FaEnvelope } from 'react-icons/fa';
@@ -10,10 +11,11 @@ interface Sociales {
   contact?: number,
   linea?: number,
   email?: string,
-  web?: string
+  web?: string,
+  handleShare: () => void
 }
 
-const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '' }: Sociales) => {
+const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare }: Sociales) => {
 
   const textoPredefinido = 'Hola, te escribo desde la web del CCW.';
   const enviar = `https://wa.me/54${contact}?text=${encodeURIComponent(textoPredefinido)}`;
@@ -54,6 +56,9 @@ const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, emai
           <TbWorldWww size={32} className='grid-cols-1 m-3 rounded-xl p-1 mt-3.5' style={{ background: '#007bff', color: 'white' }} />
         </Link>
       )}
+      <button className="bg-slate-300 text-black font-medium mx-4  w-8 h-8 rounded-lg  transition-transform transform hover:scale-110" onClick={handleShare}>
+        <ShareIcon />
+      </button>
     </div>
   );
 }
