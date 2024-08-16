@@ -97,12 +97,6 @@ export default function LocalPage({ params }) {
               )}
             </div>
             <div className="flex flex-wrap items-center justify-center mt-6 space-x-4">
-              <button
-                className="bg-slate-300 text-black font-medium w-8 h-8 rounded-lg transition-transform transform hover:scale-110"
-                onClick={handleShare}
-              >
-                <ShareIcon />
-              </button>
               <RedesSociales
                 instagram={instagram}
                 facebook={facebook}
