@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
-import { rubrosk, categorias } from '../../../server/utils/rubros';
+import { rubrosk, categorias } from '../../Utils/rubros';
 import { userinfo } from '../../app/Constants/userinfo';
-import { filterCat } from '../../..//server/utils/filters';
+import { filterCat } from '../../Utils/filters';
 import { Local } from '../../types/interfaces';
 import useLocales from '../../Hooks/useLocales';
 

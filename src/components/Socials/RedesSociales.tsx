@@ -6,9 +6,7 @@ import React from 'react';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { TbWorldWww } from "react-icons/tb";
 
-
-
-const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare  }: Sociales) => {
+const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare, showShareButton = true }: Sociales) => {
 
   const textoPredefinido = 'Hola, te escribo desde la web del CCW.';
   const enviar = `https://wa.me/54${contact}?text=${encodeURIComponent(textoPredefinido)}`;
@@ -29,7 +27,7 @@ const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, emai
             }} />
         </Link>
       )}
-      {contact && (
+      {contact !== 0 && (
         <Link href={enviar} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
           <FaWhatsapp size={32} className='m-3 rounded-xl p-1 mt-3.5' style={{ background: '#25D366', color: 'white' }} />
         </Link>
@@ -49,9 +47,11 @@ const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, emai
           <TbWorldWww size={32} className='grid-cols-1 m-3 rounded-xl p-1 mt-3.5' style={{ background: '#007bff', color: 'white' }} />
         </Link>
       )}
-      <button className="bg-slate-300 text-black font-medium mx-4  w-8 h-8 rounded-lg  transition-transform transform hover:scale-110" onClick={handleShare}>
-        <ShareIcon />
-      </button>
+      {showShareButton && (
+        <button className="bg-slate-300 text-black font-medium mx-4 w-8 h-8 rounded-lg transition-transform transform hover:scale-110" onClick={handleShare}>
+          <ShareIcon />
+        </button>
+      )}
     </div>
   );
 }

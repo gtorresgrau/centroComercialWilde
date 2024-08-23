@@ -32,10 +32,10 @@ const Footer = () => {
                     <div className='flex flex-col col-span-6 items-center '>
                         <img className="lg:block rounded-xl" src='assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
                         <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
-                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea} email={email} handleShare={() => {}}/>
+                        <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea} email={email} showShareButton={false} handleShare={() => {}}/>
                     </div>
-                    {/* CLOUMN-2/3 */}
-                    <div className=" flex flex-col group relative col-span-6 items-center">
+                    {/* COLUMN-2/3 */}
+                    <div className="flex flex-col group relative col-span-6 items-center">
                         <p className="text-white text-xl font-semibold mb-9 w-fit">Centro Comercial Wilde</p>
                         <div className="flex flex-col items-center md:items-baseline text-offwhite text-sm font-normal space-links">
                             {navigation.map((item) => (

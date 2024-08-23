@@ -75,5 +75,6 @@ export interface Sociales {
   linea?: number,
   email?: string,
   web?: string,
-  handleShare: () => void
+  handleShare: () => void,
+  showShareButton:boolean
 }

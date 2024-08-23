@@ -6,29 +6,30 @@ import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
 import Modal from './Modal';
-import { filterCat, filterLocal } from '@/server/utils/filters';
-import { Local } from '@/src/types/interfaces';
-
+import { filterCat, filterLocal } from '../../Utils/filters';
 
 const Locales = () => {
   const { locales, loading, setLocales } = useLocales();
   const [rubros, setRubros] = useState('All');
   const [page, setPage] = useState(1);
-  const [filtros, setFiltros] = useState<Local[]>([]);
+  const [filtros, setFiltros] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
+  const [selectedLocal, setSelectedLocal] = useState(null);
   const localPage = 9;
 
+  let filteredLocales = locales??[];
+  const pages = Math.ceil(filteredLocales.length / localPage);
+  
   // Filtrado de locales
-  let filteredLocales: Local[] = locales;
+  console.log('filteredLocales:', filteredLocales);
 
-  if (rubros !== 'All') {
-    filteredLocales = filterCat(rubros, locales);
-  }
+  // if (rubros !== 'All') {
+  //   filteredLocales = filterCat(rubros, locales ?? []); // Si locales es undefined, se pasa un array vacío a filterCat
+  // }
 
-  if (filtros.length > 0) {
-    filteredLocales = filtros;
-  }
+  // if (filtros.length > 0) {
+  //   filteredLocales = filtros;
+  // }
 
   filteredLocales = filteredLocales.filter(local =>
     Object.values(local).some(value =>
@@ -36,28 +37,29 @@ const Locales = () => {
     )
   );
 
-  const pages = Math.ceil(filteredLocales.length / localPage);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (value) => {
     setPage(value);
   };
 
-  const rubro = (data: string) => {
-    const filteredLocales = filterCat(data, locales); // Pasando locales al filtro
+  // const rubro = (data) => {
+  //   const filteredLocales = filterCat(data, locales); // Pasando locales al filtro
     
-    // Ensure that the type matches the expected type
-    setLocales(filteredLocales as typeof locales);
-    setPage(1);
-  };
+  //   // Ensure that the type matches the expected type
+  //   setLocales(filteredLocales);
+  //   setPage(1);
+  // };
 
-  const checks = async (data: any) => {
-    try {
-      const localesChecks = filterLocal(data, locales); // Pasando locales al filtro
-      setFiltros(localesChecks);
-    } catch (error) {
-      console.error('Error al obtener datos: ', error);
-    }
-  };
+  // const checks = async (data) => {
+  //   try {
+  //     const localesChecks = filterLocal(data, locales);
+  //     if (localesChecks) {
+  //       setFiltros(localesChecks);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error al obtener datos: ', error);
+  //   }
+  // };
 
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -66,15 +68,9 @@ const Locales = () => {
           <div className="col-span-8">
             <div className="items-center mb-4 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded">
               <h2 className="text-lg text-gray-500">Buscador</h2>
-              <input
-                type="text"
-                placeholder="Buscar...(Nombre, Rubro, etc...)"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
-              />
+              <input type="text" placeholder="Buscar...(Nombre, Rubro, etc...)" value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm" />
             </div>
-            <Dropdownone selectRubro={rubro} selectedChecks={checks} />
+            {/* <Dropdownone selectRubro={rubro} selectedChecks={checks} /> */}
           </div>
         </div>
       </article>
@@ -104,15 +100,7 @@ const Locales = () => {
           <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
         )}
       </article>
-      {selectedLocal && (
-        <Modal
-          product={selectedLocal}
-          onClose={() => {
-            setSelectedLocal(null);
-            window.history.pushState(null, '', window.location.pathname); // Remove hash from URL when closing modal
-          }}
-        />
-      )}
+      {selectedLocal && (<Modal product={selectedLocal} onClose={() => {setSelectedLocal(null), window.history.pushState(null, '', window.location.pathname)}} />)}
     </section>
   );
 };
