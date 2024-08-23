@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
-import Dropdownone from './Dropdownone';
-import { filterCat, filterLocal } from '@/server/utils/filters';
+import { filterCat} from '@/server/utils/filters';
 import Modal from './Modal';
 import { Local } from '@/src/types/interfaces';
-import { fetchLocales } from '../../Utils/fetchLocales'; // Importa la función de utilidades
+import { fetchLocales } from '@/src/Utils/fetchLocales';
+// import Dropdownone from './Dropdownone';
+// import { filterLocal } from '@/server/utils/filters';
+// import local from '../../app/Constants/data.json';
 
 const Locales = () => {
   const [rubros, setRubros] = useState('All');
@@ -14,15 +16,19 @@ const Locales = () => {
   const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]);
+  const [displayLocales, setDisplayLocales] = useState<Local[]>([]);
   const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
   const [loading, setLoading] = useState(true); // Estado de carga
+  const [isSorted, setIsSorted] = useState(false); // Estado para manejar la ordenación
   const localPage = 9;
 
   useEffect(() => {
     const loadLocales = async () => {
       try {
         const fetchedLocales = await fetchLocales();
+        //const fetchedLocales = local;
         setLocale(fetchedLocales);
+        shuffleLocales(fetchedLocales); // Mezclar locales inicialmente
         setLoading(false); // Detener la carga cuando los datos estén listos
 
         // Check if URL has a hash (e.g., #nombre_del_local)
@@ -40,19 +46,37 @@ const Locales = () => {
         setLoading(false); // Detener la carga en caso de error
       }
     };
-    
+
     loadLocales();
   }, []);
 
+  // Función para mezclar locales
+  const shuffleLocales = (localesList: Local[]) => {
+    const shuffledLocales = [...localesList].sort(() => Math.random() - 0.5);
+    setDisplayLocales(shuffledLocales);
+    setIsSorted(false);
+  };
+
+  // Función para ordenar locales alfabéticamente
+  const sortLocalesAlphabetically = () => {
+    const sortedLocales = [...displayLocales].sort((a, b) => {
+      const localA = a.local || '';
+      const localB = b.local || '';
+      return localA.localeCompare(localB);
+    });
+    setDisplayLocales(sortedLocales);
+    setIsSorted(true);
+  };
+
   // Procesar los locales
-  let locales: Local[] = locale.map(item => ({
+  let locales: Local[] = displayLocales.map(item => ({
     ...item,
     linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
   }));
 
   // Filtrado de locales
   if (rubros === 'All') {
-    locales = locale;
+    locales = displayLocales;
   } else if (filtros.length > 0) {
     locales = filtros;
   } else {
@@ -72,20 +96,6 @@ const Locales = () => {
     setPage(value);
   };
 
-  const rubro = (data: string) => {
-    setRubros(data);
-    setPage(1);
-  };
-
-  const checks = async (data: any) => {
-    try {
-      const localesChecks = await filterLocal(data);
-      setFiltros(localesChecks);
-    } catch (error) {
-      console.error('Error al obtener datos: ', error);
-    }
-  };
-
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
       <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
@@ -101,7 +111,15 @@ const Locales = () => {
                 className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
               />
             </div>
-            <Dropdownone selectRubro={rubro} selectedChecks={checks} />
+            {/* <Dropdownone selectRubro={rubro} selectedChecks={checks} /> */}
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={isSorted ? () => shuffleLocales(locale) : sortLocalesAlphabetically}
+                className="px-4 py-2 bg-bgpurple hover:bg-bgpink hover:text-bgpurple text-white rounded-lg shadow"
+              >
+                {isSorted ? 'Mostrar Aleatoriamente' : 'Ordenar Alfabéticamente'}
+              </button>
+            </div>
           </div>
         </div>
       </article>
@@ -119,11 +137,6 @@ const Locales = () => {
           <div>No se encontraron locales.</div>
         ) : (
           locales
-            .sort((a, b) => {
-              const localA = a.local || '';
-              const localB = b.local || '';
-              return localA.localeCompare(localB);
-            })
             .slice((page - 1) * localPage, page * localPage)
             .map((product, index) => (
               <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />
