@@ -3,13 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Contactus from '../Navbar/Contactus';
 import RedesSociales from "../Socials/RedesSociales";
-
-// MIDDLE LINKS DATA
-interface NavigationItem {
-    name: string;
-    href: any;
-    current: boolean;
-}
+import { NavigationItem } from "@/src/types/interfaces";
 
 const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home', current: true },

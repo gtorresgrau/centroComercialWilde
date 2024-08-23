@@ -3,28 +3,10 @@ import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import { rubrosk, categorias } from '../../../server/utils/rubros';
 import { userinfo } from '../../app/Constants/userinfo';
+import { filterCat } from '../../..//server/utils/filters';
+import { Local } from '../../types/interfaces';
 import useLocales from '../../Hooks/useLocales';
-import { filterCat } from '@/server/utils/filters';
 
-interface Local {
-  local: string;
-  n_local: number;
-  email: string;
-  contacto: string;
-  celular: number;
-  linea: number | null;
-  ubicacion: string;
-  categoria: string;
-  rubro: string;
-  rubroSecundario: string;
-  horarios: string;
-  logoLocal: string;
-  fotoLocal: string;
-  instagram: string;
-  facebook: string;
-  web?:string;
-  texto?: string;
-}
 
 
 const Dropdown = (props: any) => {

@@ -3,11 +3,10 @@ import React from "react";
 import Slider from "react-slick";
 import { dataCarrusel } from "./dataCarrusel";
 import { userinfo } from "../../components/../app/Constants/userinfo";
+import { DataCarrusel } from "@/src/types/interfaces";
 
 // IMAGES DATA FOR CAROUSEL
-interface DataCarrusel {
-  imgSrc: string;
-}
+
 
 // CAROUSEL SETTINGS
 const MultipleItems: React.FC = () => {

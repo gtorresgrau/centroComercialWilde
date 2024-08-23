@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import '../../styles/globals.css';
 import { FaWhatsapp } from "react-icons/fa";
+import { ButtonWspProps } from "@/src/types/interfaces";
 
-interface ButtonWspProps {
-  text?: string;
-  contact?: string;
-}
 
 const ButtonWsp = ({ text , contact }: ButtonWspProps) => {
   const [isHovered, setIsHovered] = useState(false);

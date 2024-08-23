@@ -1,19 +1,12 @@
 "use client"
+import { Sociales } from '@/src/types/interfaces';
 import { ShareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
 import { FaFacebookSquare, FaInstagram, FaWhatsapp, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { TbWorldWww } from "react-icons/tb";
 
-interface Sociales {
-  instagram?: string,
-  facebook?: string,
-  contact?: number,
-  linea?: number,
-  email?: string,
-  web?: string,
-  handleShare: () => void
-}
+
 
 const RedesSociales = ({ instagram = '', facebook = '', contact, linea = 0, email = '', web = '', handleShare  }: Sociales) => {
 

@@ -1,23 +1,7 @@
-interface Local {
-  local: string;
-  n_local: number;
-  email: string;
-  contacto: string;
-  celular: number;
-  linea: number | null;
-  ubicacion: string;
-  categoria: string;
-  rubro: string;
-  rubroSecundario: string;
-  horarios: string;
-  logoLocal: string;
-  fotoLocal: string;
-  instagram: string;
-  facebook: string;
-  web?: string; 
-  texto?: string;
-}
+
 //----------------------- Rubros ---------------------
+
+import { Local } from "@/src/types/interfaces";
 
 // Intenta obtener los locales almacenados en localStorage y parsearlos
 let locales: Local[] = [];

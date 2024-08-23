@@ -1,25 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
+import { Local } from '../types/interfaces';
 
-interface Local {
-  local: string;
-  n_local: number;
-  email: string;
-  contacto: string;
-  celular: number;
-  linea: number | null;
-  ubicacion: string;
-  categoria: string;
-  rubro: string;
-  rubroSecundario: string;
-  horarios: string;
-  logoLocal: string;
-  fotoLocal: string;
-  instagram: string;
-  facebook: string;
-  web?:string;
-  texto?: string;
-}
 
 const useLocales = () => {
   const [locales, setLocales] = useState<Local[]>([]);
