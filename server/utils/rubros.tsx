@@ -1,4 +1,9 @@
-import local from '../../src/app/Constants/data.json'
+'use client'
+import { Local } from '@/src/types/interfaces';
+
+const cachedLocales = localStorage.getItem('locales');  
+const local: Local[] = cachedLocales ? JSON.parse(cachedLocales) : [];
+
 
 //----------------------- Rubros ---------------------
 
