@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
-import CardSkeleton from '../CardSkeleton/CardSkeleton'; // Importa el esqueleto
+import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
 import { filterCat, filterLocal } from '@/server/utils/filters';
 import Modal from './Modal';
 import { Local } from '@/src/types/interfaces';
+import { fetchLocales } from '../../Utils/fetchLocales'; // Importa la función de utilidades
 
 const Locales = () => {
   const [rubros, setRubros] = useState('All');
@@ -16,16 +17,6 @@ const Locales = () => {
   const [selectedLocal, setSelectedLocal] = useState<Local | null>(null);
   const [loading, setLoading] = useState(true); // Estado de carga
   const localPage = 9;
-
-  // Función para obtener locales de la API
-  const fetchLocales = async () => {
-    const res = await fetch('/api/locales/locales');
-    if (!res.ok) {
-      throw new Error('Error al cargar los locales');
-    }
-    const data = await res.json();
-    return data.locales;
-  };
 
   useEffect(() => {
     const loadLocales = async () => {
