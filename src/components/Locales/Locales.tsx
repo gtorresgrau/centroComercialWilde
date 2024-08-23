@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
-import Dropdownone from './Dropdownone';
+// import Dropdownone from './Dropdownone';
 import { filterCat, filterLocal } from '@/server/utils/filters';
 import Modal from './Modal';
 import { Local } from '@/src/types/interfaces';
 import { fetchLocales } from '../../Utils/fetchLocales'; // Importa la función de utilidades
+import local  from '../../app/Constants/data.json'
 
 const Locales = () => {
   const [rubros, setRubros] = useState('All');
@@ -21,7 +22,8 @@ const Locales = () => {
   useEffect(() => {
     const loadLocales = async () => {
       try {
-        const fetchedLocales = await fetchLocales();
+        // const fetchedLocales = await fetchLocales();
+        const fetchedLocales = local
         setLocale(fetchedLocales);
         setLoading(false); // Detener la carga cuando los datos estén listos
 
@@ -72,19 +74,19 @@ const Locales = () => {
     setPage(value);
   };
 
-  const rubro = (data: string) => {
-    setRubros(data);
-    setPage(1);
-  };
+  // const rubro = (data: string) => {
+  //   setRubros(data);
+  //   setPage(1);
+  // };
 
-  const checks = async (data: any) => {
-    try {
-      const localesChecks = await filterLocal(data);
-      setFiltros(localesChecks);
-    } catch (error) {
-      console.error('Error al obtener datos: ', error);
-    }
-  };
+  // const checks = async (data: any) => {
+  //   try {
+  //     const localesChecks = await filterLocal(data);
+  //     setFiltros(localesChecks);
+  //   } catch (error) {
+  //     console.error('Error al obtener datos: ', error);
+  //   }
+  // };
 
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -101,7 +103,7 @@ const Locales = () => {
                 className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
               />
             </div>
-            <Dropdownone selectRubro={rubro} selectedChecks={checks} />
+            {/* <Dropdownone selectRubro={rubro} selectedChecks={checks} /> */}
           </div>
         </div>
       </article>
