@@ -125,7 +125,7 @@ const Locales = () => {
       </article>
       <article className="flex justify-center p-2 m-2">
         {pages > 1 && !loading && (
-          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
+          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0}/>
         )}
       </article>
       <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8" data-aos="fade-right">
@@ -145,7 +145,7 @@ const Locales = () => {
       </article>
       <article className="flex justify-center p-2 m-2">
         {pages > 1 && !loading && (
-          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" />
+          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0}/>
         )}
       </article>
       {selectedLocal && (
