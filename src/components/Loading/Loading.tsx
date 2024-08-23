@@ -2,10 +2,7 @@
 import * as React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
-interface LoadingProps {
-  ancho?: string;
-}
+import { LoadingProps } from '@/src/types/interfaces';
 
 const Loading: React.FC<LoadingProps> = ({ ancho }) => {
   return (

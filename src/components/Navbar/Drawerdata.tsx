@@ -1,12 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Contactus from './Contactus';
-
-interface NavigationItem {
-  name: string;
-  href: string;
-  current: boolean;
-}
+import { NavigationItem } from "@/src/types/interfaces";
 
 const navigation: NavigationItem[] = [
   { name: 'Home', href: '#home', current: true },

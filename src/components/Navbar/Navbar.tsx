@@ -12,12 +12,8 @@ import { removeFromLocalStorage, getInLocalStorage } from '../../Hooks/localStor
 import UserMenu from './UserMenu';
 import Swal from 'sweetalert2';
 import classNames from 'classnames'; // Make sure this is imported
+import { NavigationItem } from '@/src/types/interfaces';
 
-interface NavigationItem {
-  name: string;
-  href: string;
-  current: boolean;
-}
 
 const navigation: NavigationItem[] = [
   { name: 'Home', href: '#home', current: true },

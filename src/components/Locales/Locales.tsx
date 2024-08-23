@@ -5,25 +5,7 @@ import Pagination from '@mui/material/Pagination';
 import Dropdownone from './Dropdownone';
 import { filterCat, filterLocal } from '@/server/utils/filters';
 import Modal from './Modal';
-
-interface Local {
-  local: string;
-  n_local: number;
-  email: string;
-  contacto: string;
-  celular: number;
-  linea: number | null;
-  ubicacion: string;
-  categoria: string;
-  rubro: string;
-  rubroSecundario: string;
-  horarios: string;
-  logoLocal: string;
-  fotoLocal: string;
-  instagram: string;
-  facebook: string;
-  texto?: string;
-}
+import { Local } from '@/src/types/interfaces';
 
 const Locales = () => {
   const [rubros, setRubros] = useState('All');

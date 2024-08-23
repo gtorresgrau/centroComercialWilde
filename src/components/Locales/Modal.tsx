@@ -92,6 +92,7 @@ export default function Modal({ product, onClose }: any) {
                         email={email}
                         web={web}
                         handleShare={handleShare}
+                        showShareButton={true}
                     />
 
                 </div>
