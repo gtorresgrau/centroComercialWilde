@@ -31,7 +31,7 @@ const handlePost = async (req, res) => {
     await newMail.save();
     res.status(200).json({ message: 'Email registrado con éxito' });
   } catch (error) {
-    console.error('Error al agregar un email al newsletter:', error);
+    console.error('Error al agregar un email al newsletter:', error);  
     res.status(500).json({ error: 'Error al agregar un email al newsletter' });
   }
 };
