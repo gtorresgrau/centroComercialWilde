@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState, Suspense } from "react";
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import AddProduct from "./AddProduct/AddProduct";
 import UpdateProduct from "./UpdateProduct/UpdateProduct";
 import useProducts from "../../Hooks/useProducts";

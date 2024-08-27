@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { FaPlus } from "react-icons/fa";
 import UploadImage from '../UploadImage';
 import Swal from 'sweetalert2';
