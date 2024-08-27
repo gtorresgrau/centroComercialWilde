@@ -10,6 +10,7 @@ const ContactoSorteo = () => {
     const [inputValues, setInputValues] = useState({
         nombre: '',
         apellido: '',
+        dni:'',
         email: '',
         torre: '',
         piso: '',
@@ -72,6 +73,7 @@ const ContactoSorteo = () => {
                     setInputValues({
                         nombre: '',
                         apellido: '',
+                        dni:'',
                         email: '',
                         torre: '',
                         piso: '',
@@ -146,7 +148,7 @@ const ContactoSorteo = () => {
                                         </div>
                                         <form action="#" className="space-y-8" onSubmit={handleSubmit}>
                                             <div>
-                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nombre</label>
+                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
                                                 <input
                                                     id="text"
                                                     name="nombre"
@@ -160,7 +162,7 @@ const ContactoSorteo = () => {
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Apellido</label>
+                                                <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 ">Apellido</label>
                                                 <input
                                                     id="text"
                                                     name="apellido"
@@ -174,7 +176,21 @@ const ContactoSorteo = () => {
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tu Email</label>
+                                                <label htmlFor="dni" className="block mb-2 text-sm font-medium text-gray-900">DNI</label>
+                                                <input
+                                                    id="dni"
+                                                    name="dni"
+                                                    value={inputValues.dni}
+                                                    onChange={handleChange}
+                                                    type="number"
+                                                    autoComplete="current-password"
+                                                    required
+                                                    className="relative block w-full appearance-none  rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                    placeholder="Apellido..."
+                                                />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Tu Email</label>
                                                 <input
                                                     id="email"
                                                     name="email"
@@ -189,7 +205,7 @@ const ContactoSorteo = () => {
                                             </div>
                                             <div className='flex gap-4 align-middle items-center justify-center text-center'>
                                                 <div className="">
-                                                    <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Torre</label>
+                                                    <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Torre</label>
                                                     <input
                                                         id="torre"
                                                         name="torre"
@@ -203,7 +219,7 @@ const ContactoSorteo = () => {
                                                     />
                                                 </div>
                                                 <div className="">
-                                                    <label htmlFor="piso" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Piso</label>
+                                                    <label htmlFor="piso" className="block mb-2 text-sm font-medium text-gray-900 ">Piso</label>
                                                     <input
                                                         id="piso"
                                                         name="piso"
@@ -217,7 +233,7 @@ const ContactoSorteo = () => {
                                                     />
                                                 </div>
                                                 <div className="">
-                                                    <label htmlFor="depto" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Depto.</label>
+                                                    <label htmlFor="depto" className="block mb-2 text-sm font-medium text-gray-900 ">Depto.</label>
                                                     <input
                                                         id="depto"
                                                         name="depto"
@@ -239,7 +255,7 @@ const ContactoSorteo = () => {
                                                     onChange={handleChange}
                                                     type="checkbox"
                                                 />
-                                                <label htmlFor="aceptar" className="block text-sm font-medium text-gray-900 dark:text-gray-300">Acepto los términos y condiciones</label>
+                                                <label htmlFor="aceptar" className="block text-sm font-medium text-gray-900 ">Acepto los términos y condiciones</label>
                                             </div>
                                             <button
                                                 type="submit"
