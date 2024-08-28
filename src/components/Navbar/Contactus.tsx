@@ -21,6 +21,7 @@ const Contactusform = () => {
         text: `Pronto se comunicarán contigo al siguiente email, ${inputValues.input2} `,
         icon: "success",
         confirmButtonText: "Ok",
+        customClass: {confirmButton: 'bg-blue-500 text-white hover:bg-blue-700' }
         })  
     };
 
@@ -37,6 +38,9 @@ const Contactusform = () => {
         text: `${inputValues.input2}, No es un correo electronico Valido`,
         icon: "error",
         confirmButtonText: "Ok",
+        customClass: {
+            confirmButton: 'bg-blue-500 text-white hover:bg-blue-700',
+          }
         });  
     };
 
