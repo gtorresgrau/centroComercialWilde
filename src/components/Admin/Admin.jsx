@@ -198,7 +198,7 @@ export default function Admin() {
                           </div>
                       <div className="col-span-3">
 
-                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-boton-primary hover:bg-boton-primary-hover active:bg-boton-primary-active font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
+                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
                       {isModalOpen && modalType === 'add' && (
                         <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} marca={brands} categoria={categories} vehiculo={vehiculos} />
                       )}
@@ -206,7 +206,7 @@ export default function Admin() {
                       </div>
                   </div>
                   <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-gray-500" id="productosAdmin">
+                    <table className="w-full text-sm text-center text-gray-500" id="productosAdmin">
                       <thead className="text-xs text-gray-900 uppercase bg-gray-400">
                         <tr>
                           <th scope="col" className="px-1 py-2 md:px-4 md:py-3 text-center">Local</th>
@@ -231,10 +231,10 @@ export default function Admin() {
                                     id="updateProductButton"
                                     data-modal-target="updateProductModal"
                                     data-modal-toggle="updateProductModal"
-                                    className="px-3 py-2 text-xs items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg me-2 "
+                                    className="px-3 py-2 text-xs items-center focus:outline-none text-white bg-green hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg me-2 "
                                     type="button"
                                     onClick={() => openModal('update', product)}>Editar</button>
-                                  <button aria-label="Eliminar Producto" onClick={() => handleEliminarArchivos(product)} type="button" className="px-3 py-2 text-xs focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg ">
+                                  <button aria-label="Eliminar Producto" onClick={() => handleEliminarArchivos(product)} type="button" className="px-3 py-2 text-xs focus:outline-none text-white bg-red hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg ">
                                     Eliminar
                                   </button>
                                 </div>
