@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { usePathname } from "next/navigation";
+import axios from 'axios';
 
 
 const useProducts = () => {
@@ -32,20 +33,17 @@ const useProducts = () => {
   const searchParams = useSearchParams();
 
   const fetchProducts = async () => {
-    const params = new URLSearchParams(searchParams.toString());
+    // const params = new URLSearchParams(searchParams.toString());
     
-    const res = await fetch(`/api/products?${params}`);
-    if (!res.ok) {
-      console.error("Failed to fetch products:", res.statusText);
-      return;
-    }
-    const data = await res.json();
-    setProducts(data.products || []);
-    setTotalPages(data.totalPage || 1);
-    setCategories(data.totalCategories || []);
-    setBrands(data.totalBrands || []);
-    setVehiculos(data.totalVehiculos || []);
-    setAllDestacados(data.allproductosDestacados || []);
+    const res = await axios.get(`/api/locales/locales`);
+  console.log(res.data)
+    const data = await res.data;
+    setProducts(data.locales || []);
+    // setTotalPages(data.totalPage || 1);
+    // setCategories(data.totalCategories || []);
+    // setBrands(data.totalBrands || []);
+    // setVehiculos(data.totalVehiculos || []);
+    // setAllDestacados(data.allproductosDestacados || []);
     setIsLoading(false);
   };
 
