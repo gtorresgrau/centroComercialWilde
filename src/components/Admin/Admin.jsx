@@ -22,27 +22,27 @@ export default function Admin() {
 
   const {
     products,
-    categories,
-    brands,
-    vehiculos,
-    selectedCategories,
-    selectedBrands,
-    selectedVehiculos,
-    showAllCategories,
-    showAllBrands,
-    showAllVehiculos,
-    totalPages,
-    currentPage,
-    isLoading,
-    handlePageChange,
-    handleCheckboxChange,
-    handleClearFilters,
-    handleShowAllCategories,
-    handleShowAllBrands,
-    handleShowAllVehiculos,
-    setSelectedCategories,
-    setSelectedBrands,
-    setSelectedVehiculos,
+    // categories,
+    // brands,
+    // vehiculos,
+    // selectedCategories,
+    // selectedBrands,
+    // selectedVehiculos,
+    // showAllCategories,
+    // showAllBrands,
+    // showAllVehiculos,
+    // totalPages,
+    // currentPage,
+    // isLoading,
+    // handlePageChange,
+    // handleCheckboxChange,
+    // handleClearFilters,
+    // handleShowAllCategories,
+    // handleShowAllBrands,
+    // handleShowAllVehiculos,
+    // setSelectedCategories,
+    // setSelectedBrands,
+    // setSelectedVehiculos,
     fetchProducts
   } = useProducts();
   
@@ -200,7 +200,7 @@ export default function Admin() {
 
                       <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
                       {isModalOpen && modalType === 'add' && (
-                        <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} marca={brands} categoria={categories} vehiculo={vehiculos} />
+                        <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} product={products}/>
                       )}
                     </div>
                       </div>
@@ -253,7 +253,7 @@ export default function Admin() {
                       )}
                     </table>
                   </div>
-                  <Pagination
+                  {/* <Pagination
                     count={totalPages}
                     page={currentPage}
                     onChange={handlePageChange}
@@ -262,7 +262,7 @@ export default function Admin() {
                     variant="outlined"
                     shape="rounded"
                     className="flex justify-center my-6 bg-white"
-                  />
+                  /> */}
                 </div>
               </div>
             </section>

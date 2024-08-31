@@ -8,26 +8,26 @@ import axios from 'axios';
 const useProducts = () => {
   const path = usePathname()
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [vehiculos, setVehiculos] = useState([]);
-  const [allDestacados, setAllDestacados] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  // const [brands, setBrands] = useState([]);
+  // const [vehiculos, setVehiculos] = useState([]);
+  // const [allDestacados, setAllDestacados] = useState([]);
 
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedVehiculos, setSelectedVehiculos] = useState([]);
-
-
-  const [showAllCategories, setShowAllCategories] = useState(false);
-  const [showAllBrands, setShowAllBrands] = useState(false);
-  const [showAllVehiculos, setShowAllVehiculos] = useState(false);
+  // const [selectedCategories, setSelectedCategories] = useState([]);
+  // const [selectedBrands, setSelectedBrands] = useState([]);
+  // const [selectedVehiculos, setSelectedVehiculos] = useState([]);
 
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  // const [showAllCategories, setShowAllCategories] = useState(false);
+  // const [showAllBrands, setShowAllBrands] = useState(false);
+  // const [showAllVehiculos, setShowAllVehiculos] = useState(false);
+
+
+  // const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [totalPages, setTotalPages] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,7 +44,7 @@ const useProducts = () => {
     // setBrands(data.totalBrands || []);
     // setVehiculos(data.totalVehiculos || []);
     // setAllDestacados(data.allproductosDestacados || []);
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   useEffect(() => {
@@ -53,17 +53,17 @@ const useProducts = () => {
 
   
   const closeModal = () => {
-    setSelectedProduct(null);
+    // setSelectedProduct(null);
     setIsModalOpen(false);
     window.history.pushState(null, null, ' ');
 
   };
 
-  const handleProductSelect = (product) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-      window.location.hash = 'producto';
-  };
+  // const handleProductSelect = (product) => {
+  //   setSelectedProduct(product);
+  //   setIsModalOpen(true);
+  //     window.location.hash = 'producto';
+  // };
 
   useEffect(() => {
     const handlePopState = () => {
@@ -77,67 +77,67 @@ const useProducts = () => {
     return () => {
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [closeModal, handleProductSelect]);
+  }, [closeModal]);
   
-  useEffect(() => {
-    const page = searchParams.get("page") || 1;
-    setCurrentPage(Number(page));
-  }, [searchParams]);
+  // useEffect(() => {
+  //   const page = searchParams.get("page") || 1;
+  //   setCurrentPage(Number(page));
+  // }, [searchParams]);
 
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    setSelectedCategories(urlSearchParams.getAll("category"));
-    setSelectedBrands(urlSearchParams.getAll("brand"));
-    setSelectedVehiculos(urlSearchParams.getAll("vehiculo"));
-  }, []);
+  // useEffect(() => {
+  //   const urlSearchParams = new URLSearchParams(window.location.search);
+  //   setSelectedCategories(urlSearchParams.getAll("category"));
+  //   setSelectedBrands(urlSearchParams.getAll("brand"));
+  //   setSelectedVehiculos(urlSearchParams.getAll("vehiculo"));
+  // }, []);
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", value);
-    path === '/Admin'
-    ? router.push(`/Admin?${params.toString()}`)
-    : router.push(`/?${params.toString()}#productos`);
-};
+//   const handlePageChange = (event, value) => {
+// //     setCurrentPage(value);
+//     const params = new URLSearchParams(searchParams.toString());
+//     params.set("page", value);
+//     path === '/Admin'
+//     ? router.push(`/Admin?${params.toString()}`)
+//     : router.push(`/?${params.toString()}#productos`);
+// };
 
-const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
-    const value = e.target.value;
-    const isChecked = e.target.checked;
-    setSelectedValues((prevSelected) => {
-        const newSelected = isChecked
-        ? [...prevSelected, value]
-        : prevSelected.filter((item) => item !== value);
-        updateSearchParams(key, newSelected);
-        return newSelected;
-    })
-  };
+// const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
+//     const value = e.target.value;
+//     const isChecked = e.target.checked;
+//     setSelectedValues((prevSelected) => {
+//         const newSelected = isChecked
+//         ? [...prevSelected, value]
+//         : prevSelected.filter((item) => item !== value);
+//         updateSearchParams(key, newSelected);
+//         return newSelected;
+//     })
+//   };
 
-  const handleClearFilters = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("search");
-    params.delete("category");
-    params.delete("brand");
-    params.delete("vehiculo");
-    params.set("page", 1);
-    setSelectedCategories([]);
-    setSelectedBrands([]);
-    setSelectedVehiculos([]);
-    path === '/Admin'
-    ? router.push(`/Admin?${params.toString()}`)
-    : router.push(`/?${params.toString()}#productos`);
-  };
+//   const handleClearFilters = () => {
+//     const params = new URLSearchParams(searchParams.toString());
+//     params.delete("search");
+//     params.delete("category");
+//     params.delete("brand");
+//     params.delete("vehiculo");
+//     params.set("page", 1);
+//     setSelectedCategories([]);
+//     setSelectedBrands([]);
+//     setSelectedVehiculos([]);
+//     path === '/Admin'
+//     ? router.push(`/Admin?${params.toString()}`)
+//     : router.push(`/?${params.toString()}#productos`);
+//   };
 
-  const handleShowAllCategories = () => {
-    setShowAllCategories(!showAllCategories);
-  };
+//   const handleShowAllCategories = () => {
+//     setShowAllCategories(!showAllCategories);
+//   };
 
-  const handleShowAllBrands = () => {
-    setShowAllBrands(!showAllBrands);
-  };
+//   const handleShowAllBrands = () => {
+//     setShowAllBrands(!showAllBrands);
+//   };
 
-  const handleShowAllVehiculos = () => {
-    setShowAllVehiculos(!showAllVehiculos);
-  };
+//   const handleShowAllVehiculos = () => {
+//     setShowAllVehiculos(!showAllVehiculos);
+//   };
 
   const updateSearchParams = (key, values) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -153,33 +153,33 @@ const handleCheckboxChange = (e, key, selectedValues, setSelectedValues) => {
   };
   return {
     products,
-    allDestacados,
-    categories,
-    brands,
-    vehiculos,
-    selectedCategories,
-    selectedBrands,
-    selectedVehiculos,
-    showAllCategories,
-    showAllBrands,
-    showAllVehiculos,
-    selectedProduct,
-    isModalOpen,
-    totalPages,
-    currentPage,
-    isLoading,
-    setIsModalOpen,
-    setSelectedCategories,
-    setSelectedBrands,
-    setSelectedVehiculos,
-    handlePageChange,
-    handleCheckboxChange,
-    handleClearFilters,
-    handleShowAllCategories,
-    handleShowAllBrands,
-    handleShowAllVehiculos,
-    closeModal,
-    handleProductSelect,
+    // allDestacados,
+    // categories,
+    // brands,
+    // vehiculos,
+    // selectedCategories,
+    // selectedBrands,
+    // selectedVehiculos,
+    // showAllCategories,
+    // showAllBrands,
+    // showAllVehiculos,
+    // selectedProduct,
+    // isModalOpen,
+    // totalPages,
+    // currentPage,
+    // isLoading,
+    // setIsModalOpen,
+    // setSelectedCategories,
+    // setSelectedBrands,
+    // setSelectedVehiculos,
+    // handlePageChange,
+    // handleCheckboxChange,
+    // handleClearFilters,
+    // handleShowAllCategories,
+    // handleShowAllBrands,
+    // handleShowAllVehiculos,
+    // closeModal,
+    // handleProductSelect,
     fetchProducts,
   };
 };
