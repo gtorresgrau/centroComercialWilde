@@ -4,9 +4,14 @@ import { auth } from '../../pages/api/firebase';
 //------------------ Auth--------------------///
 
 // Función para iniciar sesión con usuario y contraseña
-export const signIn = async(data)=>{
-    const {email, contraseña} = data
-    return await signInWithEmailAndPassword(auth, email, contraseña);
+export const signIn = async (data) => {
+    const { email, contraseña } = data;
+    try {
+        return await signInWithEmailAndPassword(auth, email, contraseña);
+    } catch (error) {
+        console.error("Error signing in:", error);
+        throw new Error("Error signing in. Please check your credentials.");
+    }
 }
 
 // Función para cerrar sesión
