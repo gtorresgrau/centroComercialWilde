@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
 //import SearchBase from "../Search/SearchBase";
  import axios from "axios";
+import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -271,7 +272,7 @@ export default function Admin() {
         <div className="flex-1 bg-primary-background p-3 sm:p-5">
           {section === 'Destacados' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              {/* <TablaDestacados /> */}
+              <TablaNewsletter />
             </div>
           )}
 
