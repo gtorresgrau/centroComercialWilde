@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../CheckboxDestacados/CheckboxDestacados';
-import { getNewsletter } from '../../../Utils/newsletter/getNewsletter';
+import {getNewsletter} from '../../../../server/Utils/fetchsNewsletter/getNewsletter'
 
 const TablaNewsletter = () => {
   const [news, setNews] = useState([]);

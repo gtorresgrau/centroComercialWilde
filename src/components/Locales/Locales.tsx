@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
-import { filterCat} from '@/server/utils/filters';
+import { filterCat} from '@/server/Utils/filters';
 import Modal from './Modal';
 import { Local } from '@/src/types/interfaces';
 import { fetchLocales } from '@/src/Utils/fetchLocales';
