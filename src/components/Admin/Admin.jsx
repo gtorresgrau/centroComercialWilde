@@ -5,7 +5,9 @@ import UpdateProduct from "./UpdateProduct/UpdateProduct";
 import Nav from "./Nav/Nav";
 import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
-import axios from "axios";
+//import SearchBase from "../Search/SearchBase";
+ import axios from "axios";
+import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -183,8 +185,17 @@ export default function Admin() {
         )}
 
         <div className="flex-1 bg-primary-background p-3 sm:p-5">
-          {section === 'Usuarios' && <h1>Usuarios</h1>}
-          {section === 'Estadísticas' && <h1>Estadísticas</h1>}
+          {section === 'Destacados' && (
+            <div className="mx-auto max-w-screen-xl lg:px-12">
+              <TablaNewsletter />
+            </div>
+          )}
+
+          {section === 'DescargarCSV' && (
+            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+              {/* <DownloadCSVButton /> */}
+            </div>
+          )}
         </div>
       </div>
     </Suspense>
