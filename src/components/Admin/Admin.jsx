@@ -12,6 +12,7 @@ import Nav from "./Nav/Nav";
 import Swal from "sweetalert2";
 import Loading from "../Loading/Loading";
 //import SearchBase from "../Search/SearchBase";
+ import axios from "axios";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,35 +20,21 @@ export default function Admin() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [section, setSection] = useState('Productos')
+  const [products,setProducts] = useState ([])
 
-  const {
-    products,
-    // categories,
-    // brands,
-    // vehiculos,
-    // selectedCategories,
-    // selectedBrands,
-    // selectedVehiculos,
-    // showAllCategories,
-    // showAllBrands,
-    // showAllVehiculos,
-    // totalPages,
-    // currentPage,
-    // isLoading,
-    // handlePageChange,
-    // handleCheckboxChange,
-    // handleClearFilters,
-    // handleShowAllCategories,
-    // handleShowAllBrands,
-    // handleShowAllVehiculos,
-    // setSelectedCategories,
-    // setSelectedBrands,
-    // setSelectedVehiculos,
-    fetchProducts
-  } = useProducts();
+
+  const fetchProducts = async () => {
+    const productos = await axios.get("/api/locales/localesAdmin");
+    setProducts(productos.data.locales);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   
+
   const openModal = (type, product = null) => {
-    setSelectedProduct(product);
+    type==='update' && setSelectedProduct(product.n_local)
     setIsModalOpen(true);
     setIsModalClose(false);
     setModalType(type);
@@ -101,7 +88,7 @@ export default function Admin() {
       });
   
       if (result.isConfirmed) {
-        const fotosAEliminar = [];
+        // const fotosAEliminar = [];
   
         Swal.fire({
           title: 'Eliminando producto...',
@@ -111,43 +98,47 @@ export default function Admin() {
           },
         });
         
-        Object.keys(producto).forEach((key) => {
-          if (key.startsWith('foto_') && producto[key]) {
-            const imgPrevAEliminar = producto[key].split('/').pop().split('.')[0];
-            const imgAEliminar = `Products/${imgPrevAEliminar}`;
-            fotosAEliminar.push(imgAEliminar);
-          }
-        });
+        // Object.keys(producto).forEach((key) => {
+        //   if (key.startsWith('foto_') && producto[key]) {
+        //     const imgPrevAEliminar = producto[key].split('/').pop().split('.')[0];
+        //     const imgAEliminar = `Products/${imgPrevAEliminar}`;
+        //     fotosAEliminar.push(imgAEliminar);
+        //   }
+        // });
 
-        await Promise.all(
-          fotosAEliminar.map(async (imgAEliminar) => {
-            const res = await fetch('api/deleteImage', {
-              method: 'DELETE',
-              body: JSON.stringify({ file: imgAEliminar })
-            });
-            const data = await res.json();
-            return data;
-          })
-        );
+        // await Promise.all(
+        //   fotosAEliminar.map(async (imgAEliminar) => {
+        //     const res = await fetch('api/deleteImage', {
+        //       method: 'DELETE',
+        //       body: JSON.stringify({ file: imgAEliminar })
+        //     });
+        //     const data = await res.json();
+        //     return data;
+        //   })
+        // );
+        const res = await axios.delete(`/api/locales/localDelete?id=${producto._id}`);
+        
+        console.log(res.data)
+
+    
+        // const resBDD = await fetch('api/deleteProduct', {
+        //   method: 'DELETE',
+        //   body: JSON.stringify({ id: producto._id })
+        // });
+        // const dataBDD = await resBDD.json();
   
-        const resBDD = await fetch('api/deleteProduct', {
-          method: 'DELETE',
-          body: JSON.stringify({ id: producto._id })
-        });
-        const dataBDD = await resBDD.json();
-  
-        if (dataBDD.success) {
-          fetchProducts();
-          Swal.fire({
-            icon: 'success',
-            title: 'El producto ha sido eliminado correctamente.',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        } else {
-          console.error('Error al eliminar el producto en la base de datos:', dataBDD.error);
-          Swal.fire('Error', 'Ha ocurrido un error al intentar eliminar el producto.', 'error');
-        }
+         if (res.data.message) {
+           fetchProducts();
+           Swal.fire({
+             icon: 'success',
+             title: 'El producto ha sido eliminado correctamente.',
+             showConfirmButton: false,
+             timer: 1500
+           });
+         } else {
+           console.error('Error al eliminar el producto en la base de datos:');
+           Swal.fire('Error', 'Ha ocurrido un error al intentar eliminar el producto.', 'error');
+         }
       }
     } catch (error) {
       console.error('Error al eliminar las imágenes o producto:', error);
@@ -161,7 +152,7 @@ export default function Admin() {
 
   return (
     <Suspense fallback={<div>Cargando...</div>}>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen mb-40">
         <Nav handleSelectSection={handleSelectSection} />
         {section === 'Productos' && (
           <div>
@@ -170,7 +161,7 @@ export default function Admin() {
                 <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
                   <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
-                      {/* <SearchBase /> */}
+                     {/* <SearchBase />  */}
                     </div>
                     <div className="md:flex md:justify-end gap-3 grid grid-cols-5 w-full">
 
@@ -198,9 +189,9 @@ export default function Admin() {
                           </div>
                       <div className="col-span-3">
 
-                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar producto</button>
+                      <button type="button" aria-label="agregar producto" className="flex items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium w-full justify-center rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>+  Agregar local</button>
                       {isModalOpen && modalType === 'add' && (
-                        <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} product={products}/>
+                        <AddProduct toggleModal={closeModal} isOpenModal={isModalOpen} />
                       )}
                     </div>
                       </div>
@@ -270,10 +261,8 @@ export default function Admin() {
               <UpdateProduct
                 toggleModal={closeModal}
                 isOpenModal={isModalOpen}
-                product={selectedProduct}
-                marca={brands}
-                categoria={categories}
-                vehiculo={vehiculos}
+                n_local={selectedProduct}
+               
               />
             )}
           </div>

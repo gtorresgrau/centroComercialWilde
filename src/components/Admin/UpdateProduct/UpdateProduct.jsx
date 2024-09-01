@@ -5,183 +5,193 @@ import UploadImage from "../UploadImage";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
+import axios from "axios";
 
 export default function UpdateProduct({
   isOpenModal,
   toggleModal,
-  product,
-  categoria,
-  marca,
-  vehiculo,
+  n_local,
+ 
 }) {
-  const [isDropdownMarcaOpen, setIsDropdownMarcaOpen] = useState(false);
-  const [isDropdownCategoriaOpen, setIsDropdownCategoriaOpen] = useState(false);
-  const [isDropdownVehiculoOpen, setIsDropdownVehiculoOpen] = useState(false);
-  const [marcas, setMarcas] = useState(marca);
-  const [categorias, setCategorias] = useState(categoria);
-  const [vehiculos, setVehiculos] = useState(vehiculo);
+  const [product, setProduct] = useState({})
 
-  //('productoSeleccionado:',product)
-  // Estado para mantener las imágenes originales
-  const [originalImages, setOriginalImages] = useState({
-    foto_1_1: product.foto_1_1 || "",
-    foto_1_2: product.foto_1_2 || "",
-    foto_1_3: product.foto_1_3 || "",
-    foto_1_4: product.foto_1_4 || "",
-  });
+  const [isDropdownUbicacionOpen, setIsDropdownUbicacionOpen] = useState(false);
+  const [isDropdownCategoriaOpen, setIsDropdownCategoriaOpen] = useState(false);
+  const [isDropdownRubroOpen, setIsDropdownRubroOpen] = useState(false);
+  
+  const [categorias, setCategorias] = useState([])
+  const [ubicaciones, setUbicaciones] = useState([])
+  const [rubros, setRubros] = useState([])
+  
+  
+  const fetchUpdateProduct = async () => {
+    const product = await axios.get(`/api/locales/${n_local}`)
+    setProducto(product.data.localEncontrado)
+    return 
+  }
+  const fetchSelectAdmin = async () => {
+    const res = await axios.get('/api/locales/selectAdmin');
+    const { categorias, rubros, ubicaciones } = res.data;
+    setCategorias(categorias)
+    setUbicaciones(ubicaciones)
+    setRubros(rubros)
+  }
+
+  useEffect(() => {
+    fetchUpdateProduct()
+    fetchSelectAdmin()
+  }, [])
+
+
 
   const [producto, setProducto] = useState({
     _id: product._id,
-    n_producto: product.n_producto,
-    cod_producto: product.cod_producto,
-    marca: product.marca,
-    vehiculo: product.vehiculo,
+    local: product.local,
+    n_local: product.n_local,
+    email: product.email,
+    contacto: product.contacto,
+    celular: product.celular,
+    linea: product.linea,
+    ubicacion: product.ubicacion,
     categoria: product.categoria,
-    nombre: product.nombre,
-    modelo: product.modelo,
-    n_serie: product.n_serie || "",
-    titulo_de_producto: product.titulo_de_producto,
-    vehiculo: product.vehiculo,
-    _id: product._id,
-    destacados:product.destacados,
-    descripcion: product.descripcion,
-    n_electronica:product.n_electronica || '',
-    medidas:product.medidas || '',
-    foto_1_1: product.foto_1_1 || "",
-    foto_1_2: product.foto_1_2 || "",
-    foto_1_3: product.foto_1_3 || "",
-    foto_1_4: product.foto_1_4 || "",
+    rubro: product.rubro,
+    rubroSecundario: 'No tengo',
+    horarios: product.horarios,
+    logoLocal: product.logoLocal,
+    fotoLocal: product.fotoLocal,
+    instagram: 'No tengo',
+    facebook: 'No tengo',
+    web: 'No tengo',
+    texto: product.texto
   });
+console.log(producto)
 
-  const marcaDropdownRef = useRef(null);
-  const categoriaDropdownRef = useRef(null);
-  const vehiculoDropdownRef = useRef(null);
-
-  // Efecto para manejar clics fuera de los dropdowns y cerrarlos si es necesario
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // Función para manejar clics fuera de los dropdowns y cerrarlos
-  const handleClickOutside = (event) => {
-    if (marcaDropdownRef.current && !marcaDropdownRef.current.contains(event.target)) {
-      setIsDropdownMarcaOpen(false);
-    }
-    if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
-      setIsDropdownCategoriaOpen(false);
-    }
-    if ( vehiculoDropdownRef.current &&!vehiculoDropdownRef.current.contains(event.target)) {
-      setIsDropdownVehiculoOpen(false);
-    }
-  };
+   const ubicacionDropdownRef = useRef(null);
+   const categoriaDropdownRef = useRef(null);
+   const rubroDropdownRef = useRef(null)
+   //Efecto para manejar clics fuera de los dropdowns y cerrarlos si es necesario
+   useEffect(() => {
+     document.addEventListener("mousedown", handleClickOutside);
+     return () => {
+       document.removeEventListener("mousedown", handleClickOutside);
+     };
+   }, [])
+   
+   //Función para manejar clics fuera de los dropdowns y cerrarlos
+   const handleClickOutside = (event) => {
+     if (ubicacionDropdownRef.current && !ubicacionDropdownRef.current.contains(event.target)) {
+       setIsDropdownUbicacionOpen(false);
+     }
+     if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
+       setIsDropdownCategoriaOpen(false);
+     }
+     if ( rubroDropdownRef.current &&!rubroDropdownRef.current.contains(event.target)) {
+       setIsDropdownRubroOpen(false);
+     }
+   };
 
   // Función para manejar cambios en los inputs del formulario del producto
   const handleChangeInput = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setProducto((prevState) => ({
       ...prevState,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
 
   // Función para alternar la visibilidad del dropdown de marca
-  const toggleMarca = (e) => {
-    e.preventDefault();
-    setIsDropdownMarcaOpen(!isDropdownMarcaOpen);
-  };
-
-  // Función para alternar la visibilidad del dropdown de categoría
-  const toggleCategoria = (e) => {
-    e.preventDefault();
-    setIsDropdownCategoriaOpen(!isDropdownCategoriaOpen);
-  };
-  
-  // Función para alternar la visibilidad del dropdown de categoría
-  const toggleVehiculo = (e) => {
-    e.preventDefault();
-    setIsDropdownVehiculoOpen(!isDropdownVehiculoOpen);
-  };
+   const toggleUbicacion = (e) => {
+     e.preventDefault();
+     setIsDropdownUbicacionOpen(!isDropdownUbicacionOpen);
+   }
+   //Función para alternar la visibilidad del dropdown de categoría
+   const toggleCategoria = (e) => {
+     e.preventDefault();
+     setIsDropdownCategoriaOpen(!isDropdownCategoriaOpen);
+   };
+   //Función para alternar la visibilidad del dropdown de categoría
+   const toggleRubro = (e) => {
+     e.preventDefault();
+     setIsDropdownRubroOpen(!isDropdownRubroOpen);
+   };
   
 
   // Función para agregar una nueva marca a la lista de marcas disponibles
-  const handleAgregarNuevaMarca = (campo, valorNuevo) => {
-    setMarcas([...marcas, { brand: valorNuevo }]);
-    setIsDropdownMarcaOpen(false);
-  };
+   const handleAgregarNuevaUbicacion = ( valorNuevo) => {
+     setUbicaciones([...ubicaciones, valorNuevo ]);
+     setIsDropdownUbicacionOpen(false);
+   };
   
   // Función para agregar una nueva marca a la lista de marcas disponibles
-  const handleAgregarNuevoVehiculo = (campo, valorNuevo) => {
-    setVehiculos([...vehiculo, { vehiculo: valorNuevo }]);
-    setIsDropdownVehiculoOpen(false);
-  };
+   const handleAgregarNuevoRubro = ( valorNuevo) => {
+     setRubros([...rubros, valorNuevo ]);
+     setIsDropdownRubroOpen(false);
+   };
 
   // Función para agregar una nueva categoría a la lista de categorías disponibles
-  const handleAgregarNuevaCategoria = (campo, valorNuevo) => {
-    setCategorias([...categorias, { category: valorNuevo }]);
+  const handleAgregarNuevaCategoria = (valorNuevo) => {
+    setCategorias([...categorias, valorNuevo ]);
     setIsDropdownCategoriaOpen(false);
   };
 
   // Función para actualizar las imágenes del producto
-  const handleUpdateImages = (newImages) => {
-    setProducto((prevState) => ({
-      ...prevState,
-      foto_1_1: newImages[0]?.preview || "",
-      foto_1_2: newImages[1]?.preview || "",
-      foto_1_3: newImages[2]?.preview || "",
-      foto_1_4: newImages[3]?.preview || "",
-    }));
-  };
+  // const handleUpdateImages = (newImages) => {
+  //   setProducto((prevState) => ({
+  //     ...prevState,
+  //     foto_1_1: newImages[0]?.preview || "",
+  //     foto_1_2: newImages[1]?.preview || "",
+  //     foto_1_3: newImages[2]?.preview || "",
+  //     foto_1_4: newImages[3]?.preview || "",
+  //   }));
+  // };
 
   // Función para eliminar una imagen específica del producto
-  const handleRemoveImage = (index) => {
-    setProducto((prevState) => {
-      const updatedState = { ...prevState };
-      switch (index) {
-        case 0:
-          updatedState.foto_1_1 = "";
-          break;
-        case 1:
-          updatedState.foto_1_2 = "";
-          break;
-        case 2:
-          updatedState.foto_1_3 = "";
-          break;
-        case 3:
-          updatedState.foto_1_4 = "";
-          break;
-        default:
-          break;
-      }
-      return updatedState;
-    });
-  };
+  // const handleRemoveImage = (index) => {
+  //   setProducto((prevState) => {
+  //     const updatedState = { ...prevState };
+  //     switch (index) {
+  //       case 0:
+  //         updatedState.foto_1_1 = "";
+  //         break;
+  //       case 1:
+  //         updatedState.foto_1_2 = "";
+  //         break;
+  //       case 2:
+  //         updatedState.foto_1_3 = "";
+  //         break;
+  //       case 3:
+  //         updatedState.foto_1_4 = "";
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //     return updatedState;
+  //   });
+  // };
 
   // Función para verificar si ha habido cambios en las imágenes
-  const hasImageChanges = () => {
-    return (
-      producto.foto_1_1 !== originalImages.foto_1_1 ||
-      producto.foto_1_2 !== originalImages.foto_1_2 ||
-      producto.foto_1_3 !== originalImages.foto_1_3 ||
-      producto.foto_1_4 !== originalImages.foto_1_4
-    );
-  };
+  // const hasImageChanges = () => {
+  //   return (
+  //     producto.foto_1_1 !== originalImages.foto_1_1 ||
+  //     producto.foto_1_2 !== originalImages.foto_1_2 ||
+  //     producto.foto_1_3 !== originalImages.foto_1_3 ||
+  //     producto.foto_1_4 !== originalImages.foto_1_4
+  //   );
+  // };
 
   // Función para manejar el cierre del modal
   const handleToggleModal = () => {
-    if (hasImageChanges()) {
-      // Mostrar alerta si hay cambios no guardados
-      Swal.fire({
-        icon:'warning',
-        title:'Debe guardar los cambios antes de cerrar.',
-        showCancelButton:false,})
-    } else {
-      // Cerrar modal si no hay cambios
+    // if (hasImageChanges()) {
+    //   // Mostrar alerta si hay cambios no guardados
+    //   Swal.fire({
+    //     icon:'warning',
+    //     title:'Debe guardar los cambios antes de cerrar.',
+    //     showCancelButton:false,})
+    // } else {
+    //   // Cerrar modal si no hay cambios
       toggleModal();
-    }
+    // }
   };
 
  // esto es para incorporar el spinner dentro del sweetAlert
@@ -196,44 +206,41 @@ export default function UpdateProduct({
   const submitUpdateProduct = async (e) => {
     e.preventDefault();
     // Validación básica del campo nombre
-    if (!producto.nombre.trim()) {
+    if (!producto.local.trim()) {
       alert("Por favor ingrese un nombre para el producto.");
       return;
     }
 
     // Filtrar solo las propiedades que no están vacías o que tienen algún valor
-    const filteredProducto = {};
-    Object.keys(producto).forEach((key) => {
-      if (
-        producto[key] !== undefined &&
-        producto[key] !== null &&
-        producto[key] !== ""
-      ) {
-        filteredProducto[key] = producto[key];
-      }
-    });
+    // const filteredProducto = {};
+    // Object.keys(producto).forEach((key) => {
+    //   if (
+    //     producto[key] !== undefined &&
+    //     producto[key] !== null &&
+    //     producto[key] !== ""
+    //   ) {
+    //     filteredProducto[key] = producto[key];
+    //   }
+    // });
 
     // Crear FormData y agregar propiedades del producto filtrado
-    const formData = new FormData();
-    Object.keys(filteredProducto).forEach((key) => {
-      formData.append(key, filteredProducto[key]);
-    });
+    // const formData = new FormData();
+    // Object.keys(filteredProducto).forEach((key) => {
+    //   formData.append(key, filteredProducto[key]);
+    // });
     //console.log('productoSubmit:',producto);
     
     try {
       // Mostrar SweetAlert con loading
-      Swal.fire({
-       title: 'Guardando cambios...',
-       allowOutsideClick: false,
-       didOpen: () => {
-         Swal.showLoading();
-       },
-     });
-      const res = await fetch("api/updateProduct", {
-      method: "PUT",
-      body: formData,
-    });
-    const data = await res.json();
+       Swal.fire({
+        title: 'Guardando cambios...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+      const res = await axios.put("/api/locales/localesUpdate", producto);
+    const data = await res.data;
 
     // Cerrar SweetAlert al completar la solicitud
     Swal.fire({
@@ -246,7 +253,6 @@ export default function UpdateProduct({
     toggleModal(); // Cerrar modal de edición
 
     // Manejar la respuesta si es necesario
-    console.log(data.descripcion, "dataaaaaa");
   } catch (error) {
     // Cerrar SweetAlert en caso de error
     Swal.fire({
@@ -259,91 +265,227 @@ export default function UpdateProduct({
 };
 
   // Filtrar las imágenes que existen para pasarle a UploadImage
-  const imagenes = [
-    producto.foto_1_1,
-    producto.foto_1_2,
-    producto.foto_1_3,
-    producto.foto_1_4,
-  ].filter(Boolean);
+  // const imagenes = [
+  //   producto.foto_1_1,
+  //   producto.foto_1_2,
+  //   producto.foto_1_3,
+  //   producto.foto_1_4,
+  // ].filter(Boolean);
 
   return (
     <div>
-      <div id="updateProductModal" tabIndex="-1" aria-hidden="true" className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10 overflow-hidden ${
-          isOpenModal ? "" : "hidden" }`}>
+      <div
+        id="updateProductModal"
+        tabIndex="-1"
+        aria-hidden="true"
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10 overflow-hidden ${
+          isOpenModal ? "" : "hidden"
+        }`}
+      >
         <div className="rounded-none max-w-3xl w-full max-h-full overflow-y-auto">
           <div className="relative p-4 bg-white shadow-sm">
             <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5">
-              <h3 className="text-lg font-semibold text-gray-900">Editar Producto</h3>
-              <button type="button" onClick={handleToggleModal} // Utilizamos la función para manejar el cierre del modal
+              <h3 className="text-lg font-semibold text-gray-900">
+                Editar Local
+              </h3>
+              <button
+                type="button"
+                onClick={handleToggleModal} // Utilizamos la función para manejar el cierre del modal
                 className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                data-modal-toggle="updateProductModal" aria-label="editar producto">
-                <svg aria-hidden="true" className="w-5 h-5" width={20} height={20} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" >
-                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                data-modal-toggle="updateProductModal"
+                aria-label="editar producto"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="w-5 h-5"
+                  width={20}
+                  height={20}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
                 </svg>
               </button>
             </div>
-            <form id='formUpdateProduct' onSubmit={submitUpdateProduct}>
-               <div className="grid gap-4 mb-4 sm:grid-cols-2">       
-              {/* Nombre */}
+            <form id="formUpdateProduct" onSubmit={submitUpdateProduct}>
+              <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                {/* Local */}
                 <div>
-                  <label htmlFor="nombreUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Nombre</label>
-                  <div className="flex">
-                    <input onChange={handleChangeInput} type="text" name="nombre" id="nombreUpdate" value={producto.nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Nombre del producto"/>
-                    {producto.destacados
-                      ?<img src="/images/FotoDestacados.webp" alt={producto.nombre} width={30} height={20} className="m-1" loading='lazy'/>
-                      :null}
-                  </div>
+                  <label
+                    htmlFor="localAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Local
+                  </label>
+                  <input
+                    onChange={(e) => handleChangeInput(e)}
+                    type="text"
+                    name="local"
+                    value={producto.local}
+                    id="localAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Nombre del local"
+                  />
                 </div>
 
-                {/* Marca */}
+                {/* Número de local */}
                 <div>
-                  <label htmlFor="marcaUpdate" className="block mb-2 text-sm font-medium text-gray-900">Marca</label>
+                  <label
+                    htmlFor="n_localAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Número de local
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="number"
+                    name="n_local"
+                    value={producto.n_local}
+                    id="n_localAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Número del local"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label
+                    htmlFor="emailAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Email
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="email"
+                    name="email"
+                    value={producto.email}
+                    id="emailAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Email del local"
+                  />
+                </div>
+
+                {/* Contacto */}
+                <div>
+                  <label
+                    htmlFor="contactoAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Contacto
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="text"
+                    name="contacto"
+                    value={producto.contacto}
+                    id="contactoAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Persona de contacto"
+                  />
+                </div>
+
+                {/* Celular */}
+                <div>
+                  <label
+                    htmlFor="celularAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Celular
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="number"
+                    name="celular"
+                    value={producto.celular}
+                    id="celularAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Número de celular"
+                  />
+                </div>
+
+                {/* Línea */}
+                <div>
+                  <label
+                    htmlFor="lineaAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Línea
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="number"
+                    value={producto.linea}
+                    name="linea"
+                    id="lineaAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Línea telefónica"
+                  />
+                </div>
+
+                {/* Ubicación */}
+                <div>
+                  <label
+                    htmlFor="ubicacionUpdate"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Ubicación
+                  </label>
+
                   <div className="flex gap-4">
-                    <select onChange={handleChangeInput} name="marca" id="marcaUpdate" value={producto.marca} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
-                      {marcas.map((marca, index) => (
-                        <option key={index} value={marca.brand}>
-                          {marca.brand}
+                    <select
+                      onChange={handleChangeInput}
+                      name="ubicacion"
+                      id="ubicacionUpdate"
+                      value={producto.ubicacion}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    >
+                      {ubicaciones.map((ubicacion, index) => (
+                        <option key={index} value={ubicacion}>
+                          {ubicacion}
                         </option>
                       ))}
                     </select>
 
-                    <div className="relative" ref={marcaDropdownRef}>
+                    <div className="relative" ref={ubicacionDropdownRef}>
                       <button
-                      aria-label="seleccionar marca"
+                        aria-label="seleccionar ubicacion"
                         className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
-                        onClick={toggleMarca}
+                        onClick={toggleUbicacion}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter") toggleMarca(e);
+                          if (e.key === "Enter") toggleUbicacion(e);
                         }}
                         tabIndex="0"
                       >
                         <FaPlus />
                       </button>
 
-                      {isDropdownMarcaOpen && (
+                      {isDropdownUbicacionOpen && (
                         <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-40">
                           <div className="block w-full px-2 py-2 text-left text-gray-700">
                             <input
                               type="text"
-                              name="marcaNueva"
-                              id="marcaNueva"
+                              name="ubicacionNueva"
+                              id="ubicacionNueva"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
-                              placeholder="Ingrese una marca nueva"
+                              placeholder="Ingrese una ubicación"
                               onKeyDown={(e) => {
                                 if (e.key === "Enter")
-                                  handleAgregarNuevaMarca(
-                                    "marca",
-                                    e.target.value
-                                  );
+                                  handleAgregarNuevaUbicacion(e.target.value);
                               }}
                             />
 
                             <button
-                            aria-label="agregar nueva marca"
+                              aria-label="agregar neuva categoria"
                               onClick={() =>
-                                handleAgregarNuevaMarca(
-                                  "marca",
-                                  document.getElementById("marcaNueva").value
+                                handleAgregarNuevaUbicacion(
+                                  document.getElementById("ubicacionNueva")
+                                    .value
                                 )
                               }
                               className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4"
@@ -375,15 +517,15 @@ export default function UpdateProduct({
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     >
                       {categorias.map((categoria, index) => (
-                        <option key={index} value={categoria.category}>
-                          {categoria.category}
+                        <option key={index} value={categoria}>
+                          {categoria}
                         </option>
                       ))}
                     </select>
 
                     <div className="relative" ref={categoriaDropdownRef}>
                       <button
-                      aria-label="seleccionar categoria"
+                        aria-label="seleccionar categoria"
                         className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
                         onClick={toggleCategoria}
                         onKeyDown={(e) => {
@@ -405,18 +547,14 @@ export default function UpdateProduct({
                               placeholder="Ingrese una categoría"
                               onKeyDown={(e) => {
                                 if (e.key === "Enter")
-                                  handleAgregarNuevaCategoria(
-                                    "categoria",
-                                    e.target.value
-                                  );
+                                  handleAgregarNuevaCategoria(e.target.value);
                               }}
                             />
 
                             <button
-                            aria-label="agregar neuva categoria"
+                              aria-label="agregar neuva categoria"
                               onClick={() =>
                                 handleAgregarNuevaCategoria(
-                                  "categoria",
                                   document.getElementById("categoriaNueva")
                                     .value
                                 )
@@ -432,68 +570,63 @@ export default function UpdateProduct({
                   </div>
                 </div>
 
-                {/* Vehiculo */}
+                {/* Rubro */}
                 <div>
                   <label
-                    htmlFor="vehiculoUpdate"
+                    htmlFor="rubroUpdate"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Vehiculo
+                    Rubro
                   </label>
 
                   <div className="flex gap-4">
                     <select
                       onChange={handleChangeInput}
-                      name="vehiculo"
-                      id="vehiculoUpdate"
-                      value={producto.vehiculo}
+                      name="rubro"
+                      id="rubroUpdate"
+                      value={producto.rubro}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     >
-                     {/* {console.log(vehiculos,'vehi')} */}
-                      {vehiculos.map((vehiculo, index) => (
-                        <option key={index} value={vehiculo.vehiculo}>
-                          {vehiculo.vehiculo}
+                      {rubros.map((rubro, index) => (
+                        <option key={index} value={rubro}>
+                          {rubro}
                         </option>
                       ))}
                     </select>
 
-                    <div className="relative" ref={vehiculoDropdownRef}>
+                    <div className="relative" ref={rubroDropdownRef}>
                       <button
-                      aria-label="seleccionar vehiculo"
+                        aria-label="seleccionar rubro"
                         className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
-                        onClick={toggleVehiculo}
+                        onClick={toggleRubro}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter") toggleVehiculo(e);
+                          if (e.key === "Enter") toggleRubro(e);
                         }}
                         tabIndex="0"
                       >
                         <FaPlus />
                       </button>
 
-                      {isDropdownVehiculoOpen && (
+                      {isDropdownRubroOpen && (
                         <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-40">
                           <div className="block w-full px-2 py-2 text-left text-gray-700">
                             <input
                               type="text"
-                              name="vehiculoNuevo"
-                              id="vehiculoNuevo"
+                              name="rubroNueva"
+                              id="rubroNueva"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
-                              placeholder="Ingrese un vehiculo"
+                              placeholder="Ingrese una categoría"
                               onKeyDown={(e) => {
                                 if (e.key === "Enter")
-                                  handleAgregarNuevoVehiculo(
-                                    "vehiculo",
-                                    e.target.value
-                                  );
+                                  handleAgregarNuevoRubro(e.target.value);
                               }}
                             />
 
                             <button
-                            aria-label="agregar nuevo vehiculo"
+                              aria-label="agregar neuva rubro"
                               onClick={() =>
-                                handleAgregarNuevoVehiculo(
-                                  "vehiculo",
-                                  document.getElementById("vehiculoNuevo")
+                                handleAgregarNuevoRubro(
+                                  document.getElementById("rubroNueva")
                                     .value
                                 )
                               }
@@ -508,104 +641,184 @@ export default function UpdateProduct({
                   </div>
                 </div>
 
-                {/* Modelo */}
+                {/* Rubro Secundario */}
                 <div>
                   <label
-                    htmlFor="modeloUpdate"
+                    htmlFor="rubroSecundarioAdd"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Modelo
+                    Rubro Secundario
                   </label>
                   <input
                     onChange={handleChangeInput}
                     type="text"
-                    name="modelo"
-                    id="modeloUpdate"
-                    value={producto.modelo}
+                    name="rubroSecundario"
+                    value={producto.rubroSecundario}
+                    id="rubroSecundarioAdd"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Modelo del producto"
+                    placeholder="Rubro secundario"
                   />
                 </div>
 
-                {/* Numero de serie */}
+                {/* Horarios */}
                 <div>
                   <label
-                    htmlFor="n_serieUpdate"
+                    htmlFor="horariosAdd"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Numero de serie
+                    Horarios
                   </label>
                   <input
                     onChange={handleChangeInput}
                     type="text"
-                    name="n_serie"
-                    id="n_serieUpdate"
-                    value={producto.n_serie}
+                    name="horarios"
+                    value={producto.horarios}
+                    id="horariosAdd"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Numero de serie del producto"
+                    placeholder="Horarios de atención"
                   />
                 </div>
 
-                {/* Numero de electronica */}
+                {/* Logo del Local */}
                 <div>
                   <label
-                    htmlFor="n_electronicaUpdate"
+                    htmlFor="logoLocalAdd"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Numero de electronica
+                    Logo del Local
                   </label>
                   <input
                     onChange={handleChangeInput}
                     type="text"
-                    name="n_electronica"
-                    id="n_electronicaUpdate"
-                    value={producto.n_electronica}
+                    name="logoLocal"
+                    value={producto.logoLocal}
+                    id="logoLocalAdd"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Numero de electronica del producto"
+                    placeholder="URL del logo del local"
                   />
                 </div>
 
-                {/* Medidas */}
+                {/* Foto del Local */}
                 <div>
-                  <label htmlFor="medidasUpdate" className="block mb-2 text-sm font-medium text-gray-900">Medidas</label>
+                  <label
+                    htmlFor="fotoLocalAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Foto del Local
+                  </label>
                   <input
                     onChange={handleChangeInput}
                     type="text"
-                    name="medidas"
-                    id="medidasUpdate"
-                    value={producto.medidas}
+                    name="fotoLocal"
+                    value={producto.fotoLocal}
+                    id="fotoLocalAdd"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="Medidas del producto"
+                    placeholder="URL de la foto del local"
+                  />
+                </div>
+
+                {/* Instagram */}
+                <div>
+                  <label
+                    htmlFor="instagramAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Instagram
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="text"
+                    name="instagram"
+                    value={producto.instagram}
+                    id="instagramAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Instagram del local"
+                  />
+                </div>
+
+                {/* Facebook */}
+                <div>
+                  <label
+                    htmlFor="facebookAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Facebook
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="text"
+                    name="facebook"
+                    value={producto.facebook}
+                    id="facebookAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Facebook del local"
+                  />
+                </div>
+
+                {/* Sitio Web */}
+                <div>
+                  <label
+                    htmlFor="webAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Sitio Web
+                  </label>
+                  <input
+                    onChange={handleChangeInput}
+                    type="text"
+                    name="web"
+                    value={producto.web}
+                    id="webAdd"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Sitio web del local"
                   />
                 </div>
 
                 {/* Descripción */}
-                <div className="sm:col-span-2">
-                  <label htmlFor="descripcionUpdate" className="block mb-2 text-sm font-medium text-gray-900" >Descripción</label>
+                <div className="col-span-2">
+                  <label
+                    htmlFor="textoAdd"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Descripción
+                  </label>
                   <textarea
                     onChange={handleChangeInput}
-                    id="descripcionUpdate"
-                    rows="5"
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Descripción del producto..."
-                    value={producto.descripcion}
-                    name="descripcion"
+                    name="texto"
+                    value={producto.texto}
+                    id="textoAdd"
+                    className="block p-2.5 w-full h-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Descripción del local"
                   />
                 </div>
               </div>
-              
               {/* destacados */}
-              <div className='flex gap-2 mb-4'>
-                <input onChange={handleChangeInput} type="checkbox" name="destacados" id="destacadosUpdate" checked={producto.destacados}/>
-                <label htmlFor="destacadosUpdate" className="block text-sm font-medium text-gray-900" >Producto Destacado</label>
-              </div>
-                
+              {/* <div className="flex gap-2 mb-4">
+                <input
+                  onChange={handleChangeInput}
+                  type="checkbox"
+                  name="destacados"
+                  id="destacadosUpdate"
+                  checked={producto.destacados}
+                />
+                <label
+                  htmlFor="destacadosUpdate"
+                  className="block text-sm font-medium text-gray-900"
+                >
+                  Producto Destacado
+                </label>
+              </div> */}
+
               {/* Subir Archivo */}
-              <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} />
+              {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
 
               {/* Guardar cambios */}
               <div className="flex justify-center mt-6">
-                <button aria-label="guardar la actualizacion" type="submit" className="px-6 py-2 text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 rounded-lg">
+                <button
+                  aria-label="guardar la actualizacion"
+                  type="submit"
+                  className="px-6 py-2 text-sm font-medium text-white bg-green hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 rounded-lg"
+                >
                   Guardar cambios
                 </button>
               </div>

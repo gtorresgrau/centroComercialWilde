@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import UploadImage from '../UploadImage';
 import Swal from 'sweetalert2';
 import Loading from '../../Loading/Loading';
+import axios from 'axios';
 
 
 export default function AddProduct({
@@ -12,22 +13,15 @@ export default function AddProduct({
     toggleModal,
   //  product
   }) {
-    // const [isDropdownMarcaOpen, setIsDropdownMarcaOpen] = useState(false);
-    // const [isDropdownCategoriaOpen, setIsDropdownCategoriaOpen] = useState(false);
-    // const [isDropdownVehiculoOpen, setIsDropdownVehiculoOpen] = useState(false);
-    // const [marcas, setMarcas] = useState('');
-    // const [categorias, setCategorias] = useState('');
-    // const [vehiculos, setVehiculos] = useState('');
 
-  
-    // // Estado para mantener las imágenes originales
-    // const [originalImages, setOriginalImages] = useState({
-    //   foto_1_1: "",
-    //   foto_1_2: "",
-    //   foto_1_3: "",
-    //   foto_1_4: "",
-    // });
-  
+    const [isDropdownUbicacionOpen, setIsDropdownUbicacionOpen] = useState(false);
+    const [isDropdownCategoriaOpen, setIsDropdownCategoriaOpen] = useState(false);
+    const [isDropdownRubroOpen, setIsDropdownRubroOpen] = useState(false);
+    
+    const [categorias, setCategorias] = useState([])
+    const [ubicaciones, setUbicaciones] = useState([])
+    const [rubros, setRubros] = useState([])
+
     const [producto, setProducto] = useState({
         _id: null,
         local: null,
@@ -48,10 +42,37 @@ export default function AddProduct({
         web: 'No tengo',
         texto: null
       });
-  
-    const marcaDropdownRef = useRef(null);
-    const categoriaDropdownRef = useRef(null);
-    const vehiculoDropdownRef = useRef(null);
+
+
+    // Fetch de selects
+    const fetchSelectAdmin = async () => {
+      const res = await axios.get('/api/locales/selectAdmin');
+      const { categorias, rubros, ubicaciones } = res.data;
+      console.log(categorias)
+      setCategorias(categorias)
+      setUbicaciones(ubicaciones)
+      setRubros(rubros)
+    }
+
+    useEffect(() => {
+      fetchSelectAdmin()
+    }, [])
+
+
+    
+ 
+      
+      // // Estado para mantener las imágenes originales
+      // const [originalImages, setOriginalImages] = useState({
+      //   foto_1_1: "",
+      //   foto_1_2: "",
+      //   foto_1_3: "",
+      //   foto_1_4: "",
+      // });
+      
+   const ubicacionDropdownRef = useRef(null);
+   const categoriaDropdownRef = useRef(null);
+   const rubroDropdownRef = useRef(null)
   
     // Efecto para manejar clics fuera de los dropdowns y cerrarlos si es necesario
     useEffect(() => {
@@ -61,58 +82,62 @@ export default function AddProduct({
       };
     }, []);
   
-    // Función para manejar clics fuera de los dropdowns y cerrarlos
-    const handleClickOutside = (event) => {
-      if (marcaDropdownRef.current && !marcaDropdownRef.current.contains(event.target)) {
-        setIsDropdownMarcaOpen(false);
-      }
-      if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
-        setIsDropdownCategoriaOpen(false);
-      }
-      if ( vehiculoDropdownRef.current &&!vehiculoDropdownRef.current.contains(event.target)) {
-        setIsDropdownVehiculoOpen(false);
-      }
-    };
+  //Función para manejar clics fuera de los dropdowns y cerrarlos
+  const handleClickOutside = (event) => {
+    if (ubicacionDropdownRef.current && !ubicacionDropdownRef.current.contains(event.target)) {
+      setIsDropdownUbicacionOpen(false);
+    }
+    if (categoriaDropdownRef.current && !categoriaDropdownRef.current.contains(event.target)) {
+      setIsDropdownCategoriaOpen(false);
+    }
+    if ( rubroDropdownRef.current &&!rubroDropdownRef.current.contains(event.target)) {
+      setIsDropdownRubroOpen(false);
+    }
+  };
   
-    
-    
-    
-    // // Función para alternar la visibilidad del dropdown de marca
-    // const toggleMarca = (e) => {
-    //     e.preventDefault();
-    //     setIsDropdownMarcaOpen(!isDropdownMarcaOpen);
-    // };
-  
-    // // Función para alternar la visibilidad del dropdown de categoría
-    // const toggleCategoria = (e) => {
-    //     e.preventDefault();
-    //   setIsDropdownCategoriaOpen(!isDropdownCategoriaOpen);
-    // };
-    
-    // // Función para alternar la visibilidad del dropdown de categoría
-    // const toggleVehiculo = (e) => {
-    //     e.preventDefault();
-    //     setIsDropdownVehiculoOpen(!isDropdownVehiculoOpen);
-    // };
-    
-    
-//     // Función para agregar una nueva marca a la lista de marcas disponibles
-//     const handleAgregarNuevaMarca = (campo, valorNuevo) => {
-//         setMarcas([...marcas, { brand: valorNuevo }]);
-//         setIsDropdownMarcaOpen(false);
-//     };
-    
-//     // Función para agregar una nueva marca a la lista de marcas disponibles
-//     const handleAgregarNuevoVehiculo = (campo, valorNuevo) => {
-//         setVehiculos([...vehiculo, { vehiculo: valorNuevo }]);
-//         setIsDropdownVehiculoOpen(false);
-//     };
-    
-//     // Función para agregar una nueva categoría a la lista de categorías disponibles
-//     const handleAgregarNuevaCategoria = (campo, valorNuevo) => {
-//         setCategorias([...categorias, { category: valorNuevo }]);
-//         setIsDropdownCategoriaOpen(false);
-//     };
+         // Función para manejar cambios en los inputs del formulario del producto
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setProducto((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+   // Función para alternar la visibilidad del dropdown de marca
+   const toggleUbicacion = (e) => {
+    e.preventDefault();
+    setIsDropdownUbicacionOpen(!isDropdownUbicacionOpen);
+  }
+  //Función para alternar la visibilidad del dropdown de categoría
+  const toggleCategoria = (e) => {
+    e.preventDefault();
+    setIsDropdownCategoriaOpen(!isDropdownCategoriaOpen);
+  };
+  //Función para alternar la visibilidad del dropdown de categoría
+  const toggleRubro = (e) => {
+    e.preventDefault();
+    setIsDropdownRubroOpen(!isDropdownRubroOpen);
+  };
+ 
+
+ // Función para agregar una nueva marca a la lista de marcas disponibles
+ const handleAgregarNuevaUbicacion = ( valorNuevo) => {
+  setUbicaciones([...ubicaciones, valorNuevo ]);
+  setIsDropdownUbicacionOpen(false);
+};
+
+// Función para agregar una nueva marca a la lista de marcas disponibles
+const handleAgregarNuevoRubro = ( valorNuevo) => {
+  setRubros([...rubros, valorNuevo ]);
+  setIsDropdownRubroOpen(false);
+};
+
+// Función para agregar una nueva categoría a la lista de categorías disponibles
+const handleAgregarNuevaCategoria = (valorNuevo) => {
+ setCategorias([...categorias, valorNuevo ]);
+ setIsDropdownCategoriaOpen(false);
+};
     
 //     // Función para actualizar las imágenes del producto
 //     const handleUpdateImages = (newImages) => {
@@ -173,19 +198,7 @@ export default function AddProduct({
         // }
     };
     
-    // Función para manejar cambios en los inputs del formulario del producto
-    const handleChangeInput = (e) => {
-        const { name, value, type, checked } = e.target;
-        console.log(name, value, type)
-        setProducto ( (prevState) => ({
-        ...prevState,
-          [name]:value
-        // titulo_de_producto:`${producto.nombre} ${producto.marca} para ${producto.vehiculo}`
-        }
-        ));
-    //console.log(producto,'acaas')
-    };
-
+ 
      // esto es para incorporar el spinner dentro del sweetAlert
     const loadingElement = document.createElement('div');
     const root = ReactDOM.createRoot(loadingElement);
@@ -200,38 +213,38 @@ export default function AddProduct({
       e.preventDefault();
       console.log(producto,'submit')
       
-      //   // Validación básica del campo nombre
-      //   if (!producto.nombre.trim()) {
-        //     alert("Por favor ingrese un nombre para el producto.");
-        //     return;
-        //   }
+    // Validación básica del campo nombre
+    if (!producto.local.trim()) {
+      alert("Por favor ingrese un nombre para el producto.");
+      return;
+    }
   
         // Filtrar solo las propiedades que no están vacías o que tienen algún valor
-        const filteredProducto = {};
-        Object.keys(producto).forEach((key) => {
-            if (
-            producto[key] !== undefined &&
-            producto[key] !== null &&
-            producto[key] !== ""
-          ) {
-            filteredProducto[key] = producto[key];
-          }
-        });
-        console.log(filteredProducto)
-        // Crear FormData y agregar propiedades del producto filtrado
-        const formData = new FormData();
-        Object.keys(filteredProducto).forEach((key) => {
-          formData.append(key, filteredProducto[key]);
-        });
+        // const filteredProducto = {};
+        // Object.keys(producto).forEach((key) => {
+        //     if (
+        //     producto[key] !== undefined &&
+        //     producto[key] !== null &&
+        //     producto[key] !== ""
+        //   ) {
+        //     filteredProducto[key] = producto[key];
+        //   }
+        // });
+        // console.log(filteredProducto)
+        // // Crear FormData y agregar propiedades del producto filtrado
+        // const formData = new FormData();
+        // Object.keys(filteredProducto).forEach((key) => {
+        //   formData.append(key, filteredProducto[key]);
+        // });
        
        //console.log(formData,'formdatasubmit')
-      Swal.fire({
-    title: 'Agregando Local...',
-    allowOutsideClick: false,
-    didOpen: () => {
-      Swal.showLoading();
-    },
-  });
+  //     Swal.fire({
+  //   title: 'Agregando Local...',
+  //   allowOutsideClick: false,
+  //   didOpen: () => {
+  //     Swal.showLoading();
+  //   },
+  // });
 
   try {
     // Mostrar SweetAlert con indicador de carga
@@ -244,13 +257,8 @@ export default function AddProduct({
     });
 console.log(producto)
 // // Realizar la solicitud para agregar el producto
-// const res = await fetch("api/addProduct", {
-  //   method: "POST",
-  //   body: formData,
-  // });
-  
-  // Obtener datos de la respuesta
-  // const data = await res.json();
+  const res = await axios.post("/api/locales/localesAdd", producto )
+  const data = await res.data;
   
   // Cerrar SweetAlert al completar la solicitud con éxito
   Swal.fire({
@@ -261,13 +269,12 @@ console.log(producto)
   });
   
   // Cerrar modal de añadir producto
-  // toggleModal();
+   toggleModal();
   
   // Manejar la respuesta si es necesario
   // console.log(data.descripcion, "dataaaaaa");
 } catch (error) {
   // Cerrar SweetAlert en caso de error
-  console.log(formData)
   Swal.fire({
       icon: 'error',
       title: 'Error al agregar producto',
@@ -275,7 +282,7 @@ console.log(producto)
     });
 
     // Cerrar modal de añadir producto
-    // toggleModal();
+     toggleModal();
 
     console.error("Error al agregar el producto:", error);
   }
@@ -305,11 +312,11 @@ console.log(producto)
                   Agregar Local
                 </h3>
                 <button
-                  aria-label="Agregar producto"
                   type="button"
                   onClick={handleToggleModal} // Utilizamos la función para manejar el cierre del modal
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                   data-modal-toggle="updateProductModal"
+                  aria-label="editar producto"
                 >
                   <svg
                     aria-hidden="true"
@@ -328,334 +335,539 @@ console.log(producto)
                   </svg>
                 </button>
               </div>
-  
-              <form id='formAddProduct' onSubmit={submitAddProduct}>
+              <form id="formUpdateProduct" onSubmit={submitAddProduct}>
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                
-  {/* Local */}
-<div>
-  <label
-    htmlFor="localAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Local
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="local"
-    id="localAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Nombre del local"
-  />
-</div>
+                  {/* Local */}
+                  <div>
+                    <label
+                      htmlFor="localAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Local
+                    </label>
+                    <input
+                      onChange={(e) => handleChangeInput(e)}
+                      type="text"
+                      name="local"
+                      value={producto.local}
+                      id="localAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Nombre del local"
+                    />
+                  </div>
 
-{/* Número de local */}
-<div>
-  <label
-    htmlFor="n_localAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Número de local
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="number"
-    name="n_local"
-    id="n_localAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Número del local"
-  />
-</div>
+                  {/* Número de local */}
+                  <div>
+                    <label
+                      htmlFor="n_localAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Número de local
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="number"
+                      name="n_local"
+                      value={producto.n_local}
+                      id="n_localAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Número del local"
+                    />
+                  </div>
 
-{/* Email */}
-<div>
-  <label
-    htmlFor="emailAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Email
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="email"
-    name="email"
-    id="emailAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Email del local"
-  />
-</div>
+                  {/* Email */}
+                  <div>
+                    <label
+                      htmlFor="emailAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Email
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="email"
+                      name="email"
+                      value={producto.email}
+                      id="emailAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Email del local"
+                    />
+                  </div>
 
-{/* Contacto */}
-<div>
-  <label
-    htmlFor="contactoAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Contacto
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="contacto"
-    id="contactoAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Persona de contacto"
-  />
-</div>
+                  {/* Contacto */}
+                  <div>
+                    <label
+                      htmlFor="contactoAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Contacto
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="contacto"
+                      value={producto.contacto}
+                      id="contactoAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Persona de contacto"
+                    />
+                  </div>
 
-{/* Celular */}
-<div>
-  <label
-    htmlFor="celularAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Celular
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="number"
-    name="celular"
-    id="celularAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Número de celular"
-  />
-</div>
+                  {/* Celular */}
+                  <div>
+                    <label
+                      htmlFor="celularAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Celular
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="number"
+                      name="celular"
+                      value={producto.celular}
+                      id="celularAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Número de celular"
+                    />
+                  </div>
 
-{/* Línea */}
-<div>
-  <label
-    htmlFor="lineaAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Línea
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="number"
-    name="linea"
-    id="lineaAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Línea telefónica"
-  />
-</div>
+                  {/* Línea */}
+                  <div>
+                    <label
+                      htmlFor="lineaAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Línea
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="number"
+                      value={producto.linea}
+                      name="linea"
+                      id="lineaAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Línea telefónica"
+                    />
+                  </div>
 
-{/* Ubicación */}
-<div>
-  <label
-    htmlFor="ubicacionAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Ubicación
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="ubicacion"
-    id="ubicacionAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Ubicación del local"
-  />
-</div>
+                  {/* Ubicación */}
+                  <div>
+                    <label
+                      htmlFor="ubicacionUpdate"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Ubicación
+                    </label>
 
-{/* Categoría */}
-<div>
-  <label
-    htmlFor="categoriaAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Categoría
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="categoria"
-    id="categoriaAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Categoría del local"
-  />
-</div>
+                    <div className="flex gap-4">
+                      <select
+                        onChange={handleChangeInput}
+                        name="ubicacion"
+                        id="ubicacionUpdate"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      >
+                        {/* Opción vacía */}
+                        <option
+                          value=""
+                          disabled
+                          selected
+                          hidden
+                          className="text-gray-500"
+                        >
+                          Seleccione una ubicación
+                        </option>
 
-{/* Rubro */}
-<div>
-  <label
-    htmlFor="rubroAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Rubro
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="rubro"
-    id="rubroAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Rubro principal"
-  />
-</div>
+                        {ubicaciones.map((ubicacion, index) => (
+                          <option key={index} value={ubicacion}>
+                            {ubicacion}
+                          </option>
+                        ))}
+                      </select>
 
-{/* Rubro Secundario */}
-<div>
-  <label
-    htmlFor="rubroSecundarioAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Rubro Secundario
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="rubroSecundario"
-    id="rubroSecundarioAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Rubro secundario"
-  />
-</div>
+                      <div className="relative" ref={ubicacionDropdownRef}>
+                        <button
+                          aria-label="seleccionar ubicacion"
+                          className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
+                          onClick={toggleUbicacion}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") toggleUbicacion(e);
+                          }}
+                          tabIndex="0"
+                        >
+                          <FaPlus />
+                        </button>
 
-{/* Horarios */}
-<div>
-  <label
-    htmlFor="horariosAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Horarios
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="horarios"
-    id="horariosAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Horarios de atención"
-  />
-</div>
+                        {isDropdownUbicacionOpen && (
+                          <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-40">
+                            <div className="block w-full px-2 py-2 text-left text-gray-700">
+                              <input
+                                type="text"
+                                name="ubicacionNueva"
+                                id="ubicacionNueva"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
+                                placeholder="Ingrese una ubicación"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter")
+                                    handleAgregarNuevaUbicacion(e.target.value);
+                                }}
+                              />
 
-{/* Logo del Local */}
-<div>
-  <label
-    htmlFor="logoLocalAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Logo del Local
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="logoLocal"
-    id="logoLocalAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="URL del logo del local"
-  />
-</div>
+                              <button
+                                aria-label="agregar neuva categoria"
+                                onClick={() =>
+                                  handleAgregarNuevaUbicacion(
+                                    document.getElementById("ubicacionNueva")
+                                      .value
+                                  )
+                                }
+                                className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4"
+                              >
+                                AGREGAR
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
 
-{/* Foto del Local */}
-<div>
-  <label
-    htmlFor="fotoLocalAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Foto del Local
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="fotoLocal"
-    id="fotoLocalAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="URL de la foto del local"
-  />
-</div>
+                  {/* Categoría */}
+                  <div>
+                    <label
+                      htmlFor="categoriaUpdate"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Categoría
+                    </label>
 
-{/* Instagram */}
-<div>
-  <label
-    htmlFor="instagramAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Instagram
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="instagram"
-    id="instagramAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Instagram del local"
-  />
-</div>
+                    <div className="flex gap-4">
+                      <select
+                        onChange={handleChangeInput}
+                        name="categoria"
+                        id="categoriaUpdate"
+                        value={producto.categoria}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      >
+                        {/* Opción vacía */}
+                        <option
+                          value=""
+                          disabled
+                          selected
+                          hidden
+                          className="text-gray-500"
+                        >
+                          Seleccione una categoría
+                        </option>
+                        {categorias.map((categoria, index) => (
+                          <option key={index} value={categoria}>
+                            {categoria}
+                          </option>
+                        ))}
+                      </select>
 
-{/* Facebook */}
-<div>
-  <label
-    htmlFor="facebookAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Facebook
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="facebook"
-    id="facebookAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Facebook del local"
-  />
-</div>
+                      <div className="relative" ref={categoriaDropdownRef}>
+                        <button
+                          aria-label="seleccionar categoria"
+                          className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
+                          onClick={toggleCategoria}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") toggleCategoria(e);
+                          }}
+                          tabIndex="0"
+                        >
+                          <FaPlus />
+                        </button>
 
-{/* Sitio Web */}
-<div>
-  <label
-    htmlFor="webAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Sitio Web
-  </label>
-  <input
-    onChange={handleChangeInput}
-    type="text"
-    name="web"
-    id="webAdd"
-    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-    placeholder="Sitio web del local"
-  />
-</div>
+                        {isDropdownCategoriaOpen && (
+                          <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-40">
+                            <div className="block w-full px-2 py-2 text-left text-gray-700">
+                              <input
+                                type="text"
+                                name="categoriaNueva"
+                                id="categoriaNueva"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
+                                placeholder="Ingrese una categoría"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter")
+                                    handleAgregarNuevaCategoria(e.target.value);
+                                }}
+                              />
 
-{/* Descripción */}
-<div className='col-span-2'>
-  <label
-    htmlFor="textoAdd"
-    className="block mb-2 text-sm font-medium text-gray-900"
-  >
-    Descripción
-  </label>
-  <textarea
-    onChange={handleChangeInput}
-    name="texto"
-    id="textoAdd"
-    className="block p-2.5 w-full h-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-    placeholder="Descripción del local"
-  />
-</div>
+                              <button
+                                aria-label="agregar neuva categoria"
+                                onClick={() =>
+                                  handleAgregarNuevaCategoria(
+                                    document.getElementById("categoriaNueva")
+                                      .value
+                                  )
+                                }
+                                className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4"
+                              >
+                                AGREGAR
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
 
+                  {/* Rubro */}
+                  <div>
+                    <label
+                      htmlFor="rubroUpdate"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Rubro
+                    </label>
 
-                    {/* destacados */}
-                {/* <div className='flex gap-2 mb-2'>
-                  <input onChange={handleChangeInput} type="checkbox" name="destacados" id="destacadosAdd" checked={producto.destacados}/>
-                  <label htmlFor="destacadosAdd" className="block  text-sm font-medium text-gray-900" >Producto Destacado</label>
-                </div> */}
+                    <div className="flex gap-4">
+                      <select
+                        onChange={handleChangeInput}
+                        name="rubro"
+                        id="rubroUpdate"
+                        value={producto.rubro}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      >
+                        {/* Opción vacía */}
+                        <option
+                          value=""
+                          disabled
+                          selected
+                          hidden
+                          className="text-gray-500"
+                        >
+                          Seleccione un rubro
+                        </option>
+                        {rubros.map((rubro, index) => (
+                          <option key={index} value={rubro}>
+                            {rubro}
+                          </option>
+                        ))}
+                      </select>
+
+                      <div className="relative" ref={rubroDropdownRef}>
+                        <button
+                          aria-label="seleccionar rubro"
+                          className="text-gray-800 bg-gray-50 hover:bg-gray-200 border border-gray-300 rounded-lg text-sm ml-auto inline-flex items-center w-auto h-full p-3"
+                          onClick={toggleRubro}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") toggleRubro(e);
+                          }}
+                          tabIndex="0"
+                        >
+                          <FaPlus />
+                        </button>
+
+                        {isDropdownRubroOpen && (
+                          <div className="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-lg shadow-lg z-40">
+                            <div className="block w-full px-2 py-2 text-left text-gray-700">
+                              <input
+                                type="text"
+                                name="rubroNueva"
+                                id="rubroNueva"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 mb-1"
+                                placeholder="Ingrese una categoría"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter")
+                                    handleAgregarNuevoRubro(e.target.value);
+                                }}
+                              />
+
+                              <button
+                                aria-label="agregar neuva rubro"
+                                onClick={() =>
+                                  handleAgregarNuevoRubro(
+                                    document.getElementById("rubroNueva").value
+                                  )
+                                }
+                                className="w-full rounded-lg m-auto px-4 py-2 text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 focus:outline-none focus:ring-4"
+                              >
+                                AGREGAR
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rubro Secundario */}
+                  <div>
+                    <label
+                      htmlFor="rubroSecundarioAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Rubro Secundario
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="rubroSecundario"
+                      value={producto.rubroSecundario}
+                      id="rubroSecundarioAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Rubro secundario"
+                    />
+                  </div>
+
+                  {/* Horarios */}
+                  <div>
+                    <label
+                      htmlFor="horariosAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Horarios
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="horarios"
+                      value={producto.horarios}
+                      id="horariosAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Horarios de atención"
+                    />
+                  </div>
+
+                  {/* Logo del Local */}
+                  <div>
+                    <label
+                      htmlFor="logoLocalAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Logo del Local
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="logoLocal"
+                      value={producto.logoLocal}
+                      id="logoLocalAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="URL del logo del local"
+                    />
+                  </div>
+
+                  {/* Foto del Local */}
+                  <div>
+                    <label
+                      htmlFor="fotoLocalAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Foto del Local
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="fotoLocal"
+                      value={producto.fotoLocal}
+                      id="fotoLocalAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="URL de la foto del local"
+                    />
+                  </div>
+
+                  {/* Instagram */}
+                  <div>
+                    <label
+                      htmlFor="instagramAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Instagram
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="instagram"
+                      value={producto.instagram}
+                      id="instagramAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Instagram del local"
+                    />
+                  </div>
+
+                  {/* Facebook */}
+                  <div>
+                    <label
+                      htmlFor="facebookAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Facebook
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="facebook"
+                      value={producto.facebook}
+                      id="facebookAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Facebook del local"
+                    />
+                  </div>
+
+                  {/* Sitio Web */}
+                  <div>
+                    <label
+                      htmlFor="webAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Sitio Web
+                    </label>
+                    <input
+                      onChange={handleChangeInput}
+                      type="text"
+                      name="web"
+                      value={producto.web}
+                      id="webAdd"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                      placeholder="Sitio web del local"
+                    />
+                  </div>
+
+                  {/* Descripción */}
+                  <div className="col-span-2">
+                    <label
+                      htmlFor="textoAdd"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Descripción
+                    </label>
+                    <textarea
+                      onChange={handleChangeInput}
+                      name="texto"
+                      value={producto.texto}
+                      id="textoAdd"
+                      className="block p-2.5 w-full h-28 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                      placeholder="Descripción del local"
+                    />
+                  </div>
                 </div>
-  
-                {/* Subir Archivo */}
-                {/* <UploadImage
-                  imagenes={imagenes}
-                  updateImages={handleUpdateImages}
-                  handleRemoveImage={handleRemoveImage}
+                {/* destacados */}
+                {/* <div className="flex gap-2 mb-4">
+                <input
+                  onChange={handleChangeInput}
+                  type="checkbox"
+                  name="destacados"
+                  id="destacadosUpdate"
+                  checked={producto.destacados}
                 />
-   */}
+                <label
+                  htmlFor="destacadosUpdate"
+                  className="block text-sm font-medium text-gray-900"
+                >
+                  Producto Destacado
+                </label>
+              </div> */}
+
+                {/* Subir Archivo */}
+                {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
+
                 {/* Guardar cambios */}
                 <div className="flex justify-center mt-6">
                   <button
-                  aria-label="guardar cambios"
+                    aria-label="guardar la actualizacion"
                     type="submit"
                     className="px-6 py-2 text-sm font-medium text-white bg-green hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 rounded-lg"
                   >

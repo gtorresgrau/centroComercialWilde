@@ -1,9 +1,7 @@
 export const fetchLocales = async () => {
-    const cachedLocales = localStorage.getItem('locales');
-  
-    if (cachedLocales) {
-      return JSON.parse(cachedLocales);
-    }
+     if (localStorage.getItem('locales')) {
+       // Si existe, eliminarlo
+       localStorage.removeItem('locales');}
   
     const res = await fetch('/api/locales/locales');
     if (!res.ok) {
@@ -11,8 +9,7 @@ export const fetchLocales = async () => {
     }
   
     const data = await res.json();
-    localStorage.setItem('locales', JSON.stringify(data.locales));
-  
+    //  localStorage.setItem('locales', JSON.stringify(data.locales));
     return data.locales;
   };
   
