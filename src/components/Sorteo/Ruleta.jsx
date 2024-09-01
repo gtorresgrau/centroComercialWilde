@@ -95,10 +95,10 @@ const Ruleta = () => {
     loadResults(0, resultados);
   };
 
-  const renderResult = (result) => {
+  const renderResult = (result, index) => {
     const [_, torre, __, piso, ___, depto] = result.split(' ');
     return (
-      <div className='grid grid-cols-3 items-center min-h-[60px]'>
+      <div key={index} className='grid grid-cols-3 items-center min-h-[60px]'>
         <div className='grid grid-cols-2 gap-2 text-center'>
           <p className='font-bold'>Torre</p>
           <p>{torre}</p>
@@ -116,7 +116,7 @@ const Ruleta = () => {
   };
 
   return (
-    <section id='ruleta' className='bg-bgpink px-4 text-center'>
+    <section id='ruleta' className='bg-bgpink px-4 text-center mt-20'>
       <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #9C27B0, #1E1E1E)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
         SORTEO DE EXPENSAS PARA CHW
       </h1>
@@ -139,14 +139,14 @@ const Ruleta = () => {
                 <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple rounded'>
                   <div className='px-2 py-4'>
                     <h2><strong>GANADORES</strong></h2>
-                    {ganadores.map((ganador) => renderResult(ganador))}
+                    {ganadores.map((ganador, index) => renderResult(ganador, index))}
                     {loading && loadingIndex < 2 && renderResult(randomDisplay)}
                   </div>
                 </div>
                 <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple'>
                   <div className='rounded px-2 py-4'>
                     <h2><strong>SUPLENTES</strong></h2>
-                    {suplentes.map((suplente) => renderResult(suplente))}
+                    {suplentes.map((suplente, index) => renderResult(suplente, index))}
                     {loading && loadingIndex > 1 && loadingIndex < 4 && renderResult(randomDisplay)}
                   </div>
                 </div>

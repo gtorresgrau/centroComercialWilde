@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import UploadImage from "../UploadImage";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -196,7 +196,7 @@ console.log(producto)
 
  // esto es para incorporar el spinner dentro del sweetAlert
   const loadingElement = document.createElement('div');
-  const root = ReactDOM.createRoot(loadingElement);
+  const root = createRoot(loadingElement);
   const container = document.createElement('div');
   root.render(<Loading />);
   container.innerHTML = `<h2><strong>AGUARDE</strong></h2><br/><p> se está actualizando la información del producto</p>`;

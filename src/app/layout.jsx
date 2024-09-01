@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import '../styles/globals.css';
 import "aos/dist/aos.css";
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import ButtonWsp from '../components/Socials/ButtonWsp';
+import Loading from '../components/Loading/Loading';
+import ClientLayout from './clientLayout';
 
 // Define metadata with viewport and theme-color
 export const metadata = {
@@ -18,7 +20,7 @@ export const metadata = {
   keywords: 'Centro Comercial Wilde, Paseo de Compras Multimarca, Compras en Wilde, Tiendas en Wilde, Shopping en Wilde, Ofertas en Wilde, Descuentos en Wilde, Moda en Wilde, Comida en Wilde, Entretenimiento en Wilde, Locales Comerciales en Wilde, Shopping Buenos Aires, Centros Comerciales Zona Sur, Salidas en Wilde, Eventos en Wilde'
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <head>
@@ -33,15 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href={metadata.manifest} />
       </head>
       <body>
-        <nav className='mb-20'>
-          <Navbar />
-        </nav>
-        {children}
+        <ClientLayout>
+          {children}
+        </ClientLayout>
         <Analytics />
-        <footer>
-          <Footer />
-          <ButtonWsp />
-        </footer>
       </body>
     </html>
   );

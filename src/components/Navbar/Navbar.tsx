@@ -15,20 +15,21 @@ import classNames from 'classnames'; // Make sure this is imported
 import { NavigationItem } from '@/src/types/interfaces';
 
 
-const navigation: NavigationItem[] = [
-  { name: 'Home', href: '#home', current: true },
-  { name: 'Locales', href: '#locales', current: false },
-  { name: 'Comentarios', href: '#comentarios', current: false },
-  { name: 'Newsletter', href: '#newsletter', current: false },
-  { name: 'Sorteo', href: '#sorteo', current: false },
-  { name: 'Ubicacion', href: '#ubicacion', current: false },
-  { name: 'Contacto', href: '#contacto', current: false },
-];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<any>(null); // Adjust the type if you have a specific type for the user
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
+  const navigation: NavigationItem[] = [
+    { name: 'Home', href: '/#home', current: true },
+    { name: 'Locales', href: '/#locales', current: false },
+    { name: 'Comentarios', href: '/#comentarios', current: false },
+    { name: 'Newsletter', href: '/#newsletter', current: false },
+    { name: 'Sorteo', href: '/#sorteo', current: false },
+    { name: 'Ubicacion', href: '/#ubicacion', current: false },
+    { name: 'Contacto', href: '#contacto', current: false },
+  ];
 
   useEffect(() => {
     const userData = getInLocalStorage('USER');
