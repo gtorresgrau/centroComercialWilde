@@ -19,8 +19,7 @@ export async function connectDB() {
 
   try {
     await mongoose.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+ 
       connectTimeoutMS: 10000, // Tiempo de espera antes de fallar la conexión
       serverSelectionTimeoutMS: 5000, // Tiempo de espera para seleccionar el servidor
     });
