@@ -4,8 +4,8 @@ import Sorteo from '../../../src/models/sorteos';
 // Controlador para el método POST
 async function handlePost(req, res) {
     try {
-        const { nombre, apellido, email, torre, piso, depto, aceptar, sorteo } = req.body;
-        if (!nombre || !apellido || !email || !torre || !piso || !depto || !aceptar || !sorteo) {
+        const { nombre, apellido, email,dni,celular, torre, piso, depto, aceptar, sorteo } = req.body;
+        if (!nombre || !apellido || !email ||!dni || !celular || !torre || !piso || !depto || !aceptar || !sorteo) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
         const newSorteo = new Sorteo(req.body);

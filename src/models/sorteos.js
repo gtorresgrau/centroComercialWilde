@@ -9,11 +9,25 @@ const sorteoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    dni:{
+        type: String,
+        required: true,
+        unique: true, 
+    },
+    celular:{
+        type: String,
+        required: true,
+        unique: true, 
+    },
     email: {
         type: String,
         required: true,
         unique: true, 
         match: [/.+\@.+\..+/, 'Por favor ingrese un correo electrónico válido']
+    },
+    chw:{
+        type: Boolean,
+        required: true, 
     },
     torre: {
         type: String,
