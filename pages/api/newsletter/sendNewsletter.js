@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     try {
       // Envía los correos electrónicos
       await Promise.all(emails.map(async (email) => {
-        const unsubscribeLink = `https://localhost:3000/unsubscribe?email=${encodeURIComponent(email)}`;
+        const unsubscribeLink = `http://localhost:3000/unsubscribe/${encodeURIComponent(email)}`;
         const mailData = {
           from: SENDER,
           to: email,

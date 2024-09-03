@@ -1,18 +1,22 @@
-'use client'
-// pages/unsubscribe.jsx
-import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+'use client';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import path from 'path';
 
 const UnsubscribePage = () => {
-  const params = usePathname();
-  console.log(params);
+  const params = useParams().unsubscribe;
   const [status, setStatus] = useState('');
+  const email = params
+ 
 
   const handleUnsubscribe = async () => {
+    if (!email) {
+      setStatus('Email no proporcionado.');
+      return;
+    }
+
     try {
-      const response = await axios.delete(`/api/newsletter/unsubscribe?email=${encodeURIComponent(email)}`);
+      const response = await axios.delete(`/api/newsletter/deleteNewsletter?email=${email}`);
       setStatus('Correo electrónico eliminado con éxito');
     } catch (error) {
       console.error('Error al eliminar el correo electrónico:', error);
@@ -27,9 +31,10 @@ const UnsubscribePage = () => {
         <p>¿Estás seguro de que deseas darte de baja de nuestra lista de distribución?</p>
         <button
           onClick={handleUnsubscribe}
-          className='mt-4 bg-blue-500 text-white px-4 py-2 rounded'
+          className='mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer'
+          disabled={!email} // Desactiva el botón si no hay email
         >
-          Confirmar Baja
+          Confirmar Bajaa
         </button>
         {status && <p className='mt-4'>{status}</p>}
       </div>
