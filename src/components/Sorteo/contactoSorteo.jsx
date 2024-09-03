@@ -91,7 +91,7 @@ const ContactoSorteo = () => {
 
     const chw = watch("chw");
     const path =usePathname();
-    const padTop = path === '/ruleta' || path !== '/' ? 'pt-2 pb-4' : 'pt-64 pb-16';
+    const padTop = path === '/ruleta' || path !== '/' ? 'pt-2 pb-4' : '';
 
     const isDisabled = isSubmitting || Object.values(watch()).some((value) => value === '') || !watch("aceptar");
 
@@ -104,10 +104,10 @@ const ContactoSorteo = () => {
     };
 
     return (
-        <section>
-            <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0 ${padTop}`}>
+        <section >
+            <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6  sm:pr-0 ${padTop}`}>
                 <small>Proximamente...</small>
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparentrounded" onClick={openModal} disabled>Anotate YA!</button>
+                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparentrounded cursor-pointer" onClick={openModal} disabled>Anotate YA!</button>
             </article>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
