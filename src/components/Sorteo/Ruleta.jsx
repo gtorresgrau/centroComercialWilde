@@ -123,17 +123,17 @@ const Ruleta = () => {
       );
     } else {
       return (
-        <div key={index} className={`grid grid-cols-3 items-center min-h-[60px]`}>
-        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
+        <div key={index} className='grid grid-cols-3 items-center min-h-[60px]'>
+        <div className='grid grid-cols-2 gap-2 text-center items-center'>
           <span className='font-bold'>Calle</span><br/>
           <small>{torre}</small>
         </div>
-        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
+        <div className='grid grid-cols-2 gap-2 text-center items-center'>
           <p className='font-bold'>Altura</p><br/>
           <small>{piso}</small>
         </div>
-        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
-          <p className='font-bold'>Localidad'</p><br/>
+        <div className='grid grid-cols-2 gap-2 text-center items-center'>
+          <p className='font-bold'>Localidad</p><br/>
           <small>{depto}</small>
         </div>
       </div>
