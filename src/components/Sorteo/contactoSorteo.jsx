@@ -102,12 +102,12 @@ const ContactoSorteo = () => {
     const openModal = () => {
         setIsOpen(true);
     };
-
+    
     return (
         <section >
-            <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6  sm:pr-0 ${padTop}`}>
+            <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0 ${padTop}`}>
                 <small>Proximamente...</small>
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgrehover:border-transparentrounded cursor-pointer" onClick={openModal} disabled>Anotate YA!</button>
+                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} disabled>Anotate YA!</button>
             </article>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>

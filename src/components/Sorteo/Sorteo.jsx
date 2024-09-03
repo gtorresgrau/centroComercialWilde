@@ -4,6 +4,7 @@ import Link from 'next/link';
 import './sorteo.css';
 
 const Sorteo = () => {
+  
   return (
     <section id="sorteo" className="bg-bgpink">
       <div className="items-center mx-auto max-w-2xl px-4 pt-16 pb-32 sm:pt-32 lg:max-w-7xl lg:px-8">
@@ -37,8 +38,7 @@ const Sorteo = () => {
             </div>
             <div className="flex flex-col col-span-1">
               <Link href="/ruleta">
-                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgre hover:border-transparent rounded w-full">
-                  ¡Mira cómo se hace el sorteo!
+                <button className="bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-4 border border-lightgre hover:border-transparent  w-fit rounded-full"><small>¡Mira cómo se hace el sorteo!</small>
                 </button>
               </Link>
             </div>
