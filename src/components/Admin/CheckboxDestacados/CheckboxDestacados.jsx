@@ -1,28 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Checkbox({ product, onToggleDestacados }) {
-    
-  const handleCheckboxChange = async () => {
-    try {
-      const updatedProduct = { ...product, destacados: !product.destacados };
-      await fetch(`/api/updateDestacados`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedProduct),
-      });
-      onToggleDestacados(updatedProduct); // Actualiza el estado local después de la respuesta exitosa
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
+const CheckboxDestacados = ({ email, handleCheckboxChange }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    // Initialize checkbox state if needed (if you fetch checked state from a server)
+  }, []);
+
+  const handleChange = () => {
+    setIsChecked(prev => !prev);
+    handleCheckboxChange(email, !isChecked);
   };
 
   return (
     <input
       type="checkbox"
-      checked={product.destacados}
-      onChange={handleCheckboxChange}
+      checked={isChecked}
+      onChange={handleChange}
     />
   );
-}
+};
 
-export default Checkbox;
+export default CheckboxDestacados;
