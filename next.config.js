@@ -1,19 +1,47 @@
 const withPWA = require('next-pwa')({
-  dest: "public", // Directorio donde se generará el Service Worker y los archivos relacionados
+  dest: "public",
   disable: process.env.NODE_ENV === 'development'
 });
 
 module.exports = withPWA({
   images: {
     domains: ['res.cloudinary.com', 'localhost', 'centrocomercialwilde.com'],
-    unoptimized: true, // Permite deshabilitar la optimización automática de imágenes
+    unoptimized: true,
   },
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: '/api/:path*', // Asegúrate de que esto coincida con la ruta de tus API routes
+        destination: '/api/:path*',
       },
     ];
+  },
+  webpack: (config) => {
+    // Add support for `.mjs` files
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['next/babel'],
+        },
+      },
+    });
+  
+    // Add Babel loader for handling modern JavaScript syntax
+    config.module.rules.push({
+      test: /\.(js|mjs)$/,
+      include: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['next/babel'],
+        },
+      },
+    });
+  
+    return config;
   },
 });

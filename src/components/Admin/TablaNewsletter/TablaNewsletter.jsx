@@ -1,10 +1,9 @@
 'use client'; 
-
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../CheckboxDestacados/CheckboxDestacados';
-import {getNewsletter} from '../../../../server/Utils/fetchsNewsletter/getNewsletter'
+import getNewsletter from '../../../../server/utils/fetchsNewsletter/getNewsletter'
 
 const TablaNewsletter = () => {
   const [news, setNews] = useState([]);

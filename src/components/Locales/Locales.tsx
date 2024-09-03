@@ -2,18 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import CardSkeleton from '../CardSkeleton/CardSkeleton';
 import Pagination from '@mui/material/Pagination';
-import { filterCat} from '@/server/Utils/filters';
 import Modal from './Modal';
 import { Local } from '@/src/types/interfaces';
 import { fetchLocales } from '@/src/Utils/fetchLocales';
-// import Dropdownone from './Dropdownone';
 // import { filterLocal } from '@/server/utils/filters';
 // import local from '../../app/Constants/data.json';
 
 const Locales = () => {
-  const [rubros, setRubros] = useState('All');
   const [page, setPage] = useState(1);
-  const [filtros, setFiltros] = useState<Local[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [locale, setLocale] = useState<Local[]>([]);
   const [displayLocales, setDisplayLocales] = useState<Local[]>([]);
@@ -26,7 +22,6 @@ const Locales = () => {
     const loadLocales = async () => {
       try {
         const fetchedLocales = await fetchLocales();
-        //const fetchedLocales = local;
         setLocale(fetchedLocales);
         shuffleLocales(fetchedLocales); // Mezclar locales inicialmente
         setLoading(false); // Detener la carga cuando los datos estén listos
@@ -74,14 +69,6 @@ const Locales = () => {
     linea: item.linea !== null ? item.linea : 0, // Defaulting null linea to 0 or handle appropriately
   }));
 
-  // Filtrado de locales
-  if (rubros === 'All') {
-    locales = displayLocales;
-  } else if (filtros.length > 0) {
-    locales = filtros;
-  } else {
-    locales = filterCat(rubros);
-  }
 
   // Filtrado por búsqueda
   locales = locales.filter(local =>
@@ -111,12 +98,8 @@ const Locales = () => {
                 className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
               />
             </div>
-            {/* <Dropdownone selectRubro={rubro} selectedChecks={checks} /> */}
             <div className="flex justify-center mt-4">
-              <button
-                onClick={isSorted ? () => shuffleLocales(locale) : sortLocalesAlphabetically}
-                className="px-4 py-2 bg-bgpurple hover:bg-bgpink hover:text-bgpurple text-white rounded-lg shadow"
-              >
+              <button onClick={isSorted ? () => shuffleLocales(locale) : sortLocalesAlphabetically} className="px-4 py-2 bg-bgpurple hover:bg-bgpink hover:text-bgpurple text-white rounded-lg shadow">
                 {isSorted ? 'Mostrar Aleatoriamente' : 'Ordenar Alfabéticamente'}
               </button>
             </div>
