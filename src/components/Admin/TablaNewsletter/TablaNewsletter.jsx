@@ -29,7 +29,7 @@ const TablaNewsletter = () => {
       <h1 className="text-2xl font-bold mb-5">Newsletter Emails</h1>
       <div className='flex justify-end mb-2'>
 
-       <button type="button" aria-label="agregar producto" className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " onClick={() => openModal('add')}>Iniciar campaña</button>
+       <button type="button" aria-label="agregar producto" className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center " >Iniciar campaña</button>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
