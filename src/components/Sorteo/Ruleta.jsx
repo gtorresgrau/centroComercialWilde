@@ -13,10 +13,10 @@ const torres = {
 const calles = ['Avenida_Rivadavia', 'Avenida_9_de_Julio', 'Avenida_Corrientes', 'Calle_Florida', 'Avenida_Belgrano', 'Avenida_de_Mayo', 'Calle_Lavalle', 'Avenida_Santa_Fe', 'Avenida_Callao', 'Avenida_Libertador', 'Calle_Reconquista', 'Calle_Esmeralda', 'Calle_Alsina', 'Avenida_Córdoba', 'Avenida_Pueyrredón'];
 const localidades = ['La_Plata', 'Mar_del_Plata', 'Bahía_Blanca', 'San_Nicolás', 'Tandil', 'Olavarría', 'San_Isidro', 'Lomas_de_Zamora', 'Lanús', 'Avellaneda', 'Quilmes', 'Morón', 'San_Fernando', 'Tres_de_Febrero', 'Vicente_López'];
 
-const sortResults = () => {
+const sortResults = (vivoCHW) => {
   const resultados = [];
   while (resultados.length < 4) {
-    const torre = generateRandomNumber(1, 48);
+    const torre = vivoCHW?generateRandomNumber(1, 48):calles[generateRandomNumber(0, calles.length - 1)]
     let cantPisos;
 
     if (torres.R.torre.includes(torre)) {
@@ -27,8 +27,8 @@ const sortResults = () => {
       cantPisos = torres.V.pisos;
     }
 
-    const piso = generateRandomNumber(1, cantPisos);
-    const depto = torres.R.deptos[generateRandomNumber(0, 3)];
+    const piso = vivoCHW?generateRandomNumber(1, cantPisos):generateRandomNumber(1, 6000)
+    const depto = vivoCHW?torres.R.deptos[generateRandomNumber(0, 3)]:localidades[generateRandomNumber(0, localidades.length - 1)]
     const resultado = `Torre ${torre} Piso ${piso} Depto ${depto}`;
 
     if (!resultados.includes(resultado)) {
@@ -94,7 +94,7 @@ const Ruleta = () => {
   };
 
   const handleSortear = () => {
-    const resultados = sortResults();
+    const resultados = sortResults(vivoCHW);
     setLoading(true);
     setGanadores([]);
     setSuplentes([]);
