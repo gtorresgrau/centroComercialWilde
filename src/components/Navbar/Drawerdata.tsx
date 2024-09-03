@@ -4,12 +4,12 @@ import Contactus from './Contactus';
 import { NavigationItem } from "@/src/types/interfaces";
 
 const navigation: NavigationItem[] = [
-  { name: 'Home', href: '#home', current: true },
-  { name: 'Locales', href: '#locales', current: false },
-  { name: 'Comentarios', href: '#comentarios', current: false },
-  { name: 'Sorteo', href:'#sorteo', current: false },
-  { name: 'Newsletter', href:'#newsletter', current: false },
-  { name: 'Ubicacion', href:'#ubicacion', current: false },
+  { name: 'Home', href: '/#home', current: true },
+  { name: 'Locales', href: '/#locales', current: false },
+  { name: 'Comentarios', href: '/#comentarios', current: false },
+  { name: 'Sorteo', href:'/#sorteo', current: false },
+  { name: 'Newsletter', href:'/#newsletter', current: false },
+  { name: 'Ubicacion', href:'/#ubicacion', current: false },
 ]
 
 function classNames(...classes: string[]) {
