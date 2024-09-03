@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
+import ContactoSorteo from './contactoSorteo';
 
 const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -9,11 +10,13 @@ const torres = {
   M: { torre: [5, 6, 8, 9, 11, 12, 13, 15, 19, 20, 26, 27, 30, 31, 40, 42, 43, 45, 46, 47, 48], pisos: 10, deptos: ['A', 'B', 'C', 'D'] },
   V: { torre: [2, 7, 10, 16, 34, 37, 41], pisos: 6, deptos: ['A', 'B', 'C', 'D'] }
 };
+const calles = ['Avenida_Rivadavia', 'Avenida_9_de_Julio', 'Avenida_Corrientes', 'Calle_Florida', 'Avenida_Belgrano', 'Avenida_de_Mayo', 'Calle_Lavalle', 'Avenida_Santa_Fe', 'Avenida_Callao', 'Avenida_Libertador', 'Calle_Reconquista', 'Calle_Esmeralda', 'Calle_Alsina', 'Avenida_Córdoba', 'Avenida_Pueyrredón'];
+const localidades = ['La_Plata', 'Mar_del_Plata', 'Bahía_Blanca', 'San_Nicolás', 'Tandil', 'Olavarría', 'San_Isidro', 'Lomas_de_Zamora', 'Lanús', 'Avellaneda', 'Quilmes', 'Morón', 'San_Fernando', 'Tres_de_Febrero', 'Vicente_López'];
 
-const sortResults = () => {
+const sortResults = (vivoCHW) => {
   const resultados = [];
   while (resultados.length < 4) {
-    const torre = generateRandomNumber(1, 48);
+    const torre = vivoCHW?generateRandomNumber(1, 48):calles[generateRandomNumber(0, calles.length - 1)]
     let cantPisos;
 
     if (torres.R.torre.includes(torre)) {
@@ -24,8 +27,8 @@ const sortResults = () => {
       cantPisos = torres.V.pisos;
     }
 
-    const piso = generateRandomNumber(1, cantPisos);
-    const depto = torres.R.deptos[generateRandomNumber(0, 3)];
+    const piso = vivoCHW?generateRandomNumber(1, cantPisos):generateRandomNumber(1, 6000)
+    const depto = vivoCHW?torres.R.deptos[generateRandomNumber(0, 3)]:localidades[generateRandomNumber(0, localidades.length - 1)]
     const resultado = `Torre ${torre} Piso ${piso} Depto ${depto}`;
 
     if (!resultados.includes(resultado)) {
@@ -38,6 +41,7 @@ const sortResults = () => {
 const Ruleta = () => {
   const [ganadores, setGanadores] = useState([]);
   const [suplentes, setSuplentes] = useState([]);
+  const [vivoCHW, setVivoCHW] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingIndex, setLoadingIndex] = useState(0);
   const [randomDisplay, setRandomDisplay] = useState('Torre 1 Piso 0 Depto A');
@@ -53,11 +57,14 @@ const Ruleta = () => {
     });
   };
 
+
   const loadResults = (index, resultados) => {
     if (index < resultados.length) {
       const randomDuration = 2500;
       const showRandom = setInterval(() => {
-        setRandomDisplay(`Torre ${generateRandomNumber(1, 48)} Piso ${generateRandomNumber(1, 11)} Depto ${['A', 'B', 'C', 'D'][generateRandomNumber(0, 3)]}`);
+        vivoCHW
+        ? setRandomDisplay(`Torre ${generateRandomNumber(1, 48)} Piso ${generateRandomNumber(1, 11)} Depto ${['A', 'B', 'C', 'D'][generateRandomNumber(0, 3)]}`)
+        : setRandomDisplay(`Torre ${calles[generateRandomNumber(0, calles.length - 1)]} Piso ${generateRandomNumber(1, 6000)} Depto ${localidades[generateRandomNumber(0, localidades.length - 1)]}`);      
       }, 150);
 
       setTimeout(() => {
@@ -87,7 +94,7 @@ const Ruleta = () => {
   };
 
   const handleSortear = () => {
-    const resultados = sortResults();
+    const resultados = sortResults(vivoCHW);
     setLoading(true);
     setGanadores([]);
     setSuplentes([]);
@@ -97,26 +104,48 @@ const Ruleta = () => {
 
   const renderResult = (result, index) => {
     const [_, torre, __, piso, ___, depto] = result.split(' ');
-    return (
-      <div key={index} className='grid grid-cols-3 items-center min-h-[60px]'>
-        <div className='grid grid-cols-2 gap-2 text-center'>
-          <p className='font-bold'>Torre</p>
-          <p>{torre}</p>
+    if (vivoCHW) {
+      return (
+        <div key={index} className={`grid grid-cols-3 items-center min-h-[60px]`}>
+          <div className={`grid grid-cols-2 gap-2 text-center`}>
+            <p className='font-bold'>Torre</p>
+            <p>{torre}</p>
+          </div>
+          <div className={`grid grid-cols-2 gap-2 text-center`}>
+            <p className='font-bold'>Piso</p>
+            <p>{piso}</p>
+          </div>
+          <div className={`grid grid-cols-2 gap-2 text-center`}>
+            <p className='font-bold'>Depto</p>
+            <p>{depto}</p>
+          </div>
         </div>
-        <div className='grid grid-cols-2 gap-2'>
-          <p className='font-bold'>Piso</p>
-          <p>{piso}</p>
+      );
+    } else {
+      return (
+        <div key={index} className={`grid grid-cols-3 items-center min-h-[60px]`}>
+        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
+          <span className='font-bold'>Calle</span><br/>
+          <small>{torre}</small>
         </div>
-        <div className='grid grid-cols-2 gap-2'>
-          <p className='font-bold'>Depto</p>
-          <p>{depto}</p>
+        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
+          <p className='font-bold'>Altura</p><br/>
+          <small>{piso}</small>
+        </div>
+        <div className={`grid grid-cols-2 gap-2 text-center items-center`}>
+          <p className='font-bold'>Localidad'</p><br/>
+          <small>{depto}</small>
         </div>
       </div>
-    );
+      );
+    }
   };
 
+  const handleVivoCHW = ()=>{
+      setVivoCHW(!vivoCHW);
+  }
   return (
-    <section id='ruleta' className='bg-bgpink px-4 text-center mt-20'>
+    <section id='ruleta' className='bg-bgpink px-4 text-center mt-20 min-h-screen'>
       <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #9C27B0, #1E1E1E)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
         SORTEO DE EXPENSAS PARA CHW
       </h1>
@@ -126,8 +155,9 @@ const Ruleta = () => {
       <span className='text-center text-xs md:text-base'>
         ¡Ya hay varios ganadores, y vos podés ser el próximo! <strong>¡Anotate fácil y rápido!</strong>
       </span>
-      <div className='flex justify-around items-center mt-4'>
-        <div className="items-center mx-auto max-w-2xl px-1 pb-32 mb-32 lg:max-w-7xl lg:px-4">
+      <button onClick={handleVivoCHW} className='min-w-[150px] bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-2 border border-lightgrehover:border-transparent rounded m-4 md:my-0'>{!vivoCHW?'Vivo dentro Complejo Habitacion Wilde':'Vivo afuera del Complejo Habitacion Wilde'}</button>
+      <article className='flex justify-around items-center mt-4'>
+        <div className="items-center mx-auto max-w-2xl px-1  lg:max-w-7xl lg:px-4">
           <div className='mb-4 md:min-h-[100px] md:min-w-[600px] w-full'>
             <div className='flex flex-col md:flex-row items-center text-center'>
               <div>
@@ -154,6 +184,9 @@ const Ruleta = () => {
             </div>
           </div>
         </div>
+      </article>
+      <div className="pb-32 mb-32 m-4 p-4">
+        <ContactoSorteo />
       </div>
     </section>
   );
