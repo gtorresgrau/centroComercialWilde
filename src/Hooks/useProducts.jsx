@@ -9,6 +9,9 @@ const useProducts = () => {
   const path = usePathname()
   const [products, setProducts] = useState([]);
   const [userSorteo, setUserSorteo] = useState([]);
+  const [userSorteoCHW, setUserSorteoCHW] = useState([]);
+  const [userSorteoNoCHW, setUserSorteoNoCHW] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const [categories, setCategories] = useState([]);
@@ -51,8 +54,12 @@ const useProducts = () => {
     // const params = new URLSearchParams(searchParams.toString());
     const res = await axios.get(`/api/sorteos/sorteos`);
      console.log(res.data.sorteos)
-    const data = await res.data;
-    setUserSorteo(data.sorteos || []);
+    const data = await res.data.sorteos;
+    const usersCHW = data.filter(user => user.chw === true);
+    const usersNoCHW = data.filter(user => user.chw === false);
+    setUserSorteo(data || []);
+    setUserSorteoCHW(usersCHW);
+    setUserSorteoNoCHW(usersNoCHW);
     // setTotalPages(data.totalPage || 1);
     // setCategories(data.totalCategories || []);
     // setBrands(data.totalBrands || []);
@@ -169,6 +176,8 @@ const useProducts = () => {
   return {
     products,
     userSorteo,
+    userSorteoNoCHW,
+    userSorteoCHW,
     // allDestacados,
     // categories,
     // brands,

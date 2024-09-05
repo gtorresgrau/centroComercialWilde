@@ -9,8 +9,10 @@ import CheckboxSorteos from './CheckboxSorteos';
 function TablaSorteos() {
   const [products, setProducts] = useState([]);
 
-  const {userSorteo} = useProducts()
-  console.log(userSorteo,'Sorteos')
+  const {userSorteo, userSorteoCHW, userSorteoNoCHW} = useProducts()
+  console.log('Sorteos:',userSorteo)
+  console.log('userSorteoCHW:',userSorteoCHW)
+  console.log('userSorteoNoCHW:',userSorteoNoCHW)
 
   const handleToggleDestacados = async (updatedProduct) => {
     try {
