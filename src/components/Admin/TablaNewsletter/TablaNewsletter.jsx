@@ -71,18 +71,17 @@ const TablaNewsletter = () => {
 
     try {
       console.log(subject,message,selectedEmails)
-      // const response = await axios.post('/api/newsletter/sendNewsletter', {
-      //   subject,
-      //   message,
-      //   emails: selectedEmails
-      // });
-
-      // if (response.status === 200) {
-      //   toast.success('Correos enviados exitosamente');
-      //   closeModal();
-      // } else {
-      //   throw new Error('Error al enviar los correos');
-      // }
+       const response = await axios.post('/api/newsletter/sendNewsletter', {
+         subject,
+         message,
+         emails: selectedEmails
+       });
+      if (response.status === 200) {
+         toast.success('Correos enviados exitosamente');
+         closeModal();
+       } else {
+         throw new Error('Error al enviar los correos');
+       }
     } catch (error) {
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
