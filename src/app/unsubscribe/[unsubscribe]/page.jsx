@@ -2,51 +2,30 @@
 import { useParams, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UnsubscribePage = () => {
   const params = useParams().unsubscribe;
-  const [status, setStatus] = useState('');
   const email = params
  
 
   const handleUnsubscribe = async () => {
     if (!email) {
-      setStatus('Email no proporcionado.');
+      toast.error('Email no proporcionado.')
       return;
     }
 
     try {
       const response = await axios.delete(`/api/newsletter/deleteNewsletter?email=${email}`);
-      setStatus('Correo electrónico eliminado con éxito');
+      toast.success('Correo electrónico eliminado con éxito')
     } catch (error) {
       console.error('Error al eliminar el correo electrónico:', error);
-      setStatus('Error al eliminar el correo electrónico');
+      toast.error('Error al eliminar el correo electrónico')
     }
   };
 
   return (
-    //     <div className='bg-slate-50 h-screen flex items-center justify-center'>
-    //       <div className='text-center mx-6'>
-    //         <h1 className='text-2xl font-bold mb-4'>Lamentamos verte ir
-    //         </h1>
-    //         <p>Estás a punto de darte de baja de nuestra lista de suscriptores. Si decides continuar, ya no recibirás nuestras actualizaciones y noticias.</p>
-    //         <p>¿Estás seguro de que deseas proceder con la baja?
-
-    // </p>
-    //         <p><strong>Recuerda</strong>: Si cambias de opinión, siempre puedes volver a suscribirte en cualquier momento.
-
-    // </p>
-    //         <button
-    //           onClick={handleUnsubscribe}
-    //           className="items-center my-10 text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
-    //           disabled={!email} // Desactiva el botón si no hay email
-    //         >
-    //           Confirmar Baja
-    //         </button>
-    //         {status && <p className='mt-4'>{status}</p>}
-    //       </div>
-    //     </div>
-
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
@@ -80,6 +59,17 @@ const UnsubscribePage = () => {
           </button>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
