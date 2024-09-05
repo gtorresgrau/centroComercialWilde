@@ -12,6 +12,7 @@ const TablaNewsletter = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,15 @@ const TablaNewsletter = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
+    if (selectedEmails.length === news.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedEmails, news]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -44,6 +54,15 @@ const TablaNewsletter = () => {
     );
   };
 
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedEmails([]);
+    } else {
+      setSelectedEmails(news.map(item => item.email));
+    }
+    setSelectAll(!selectAll);
+  };
+
   const handleSendEmails = async () => {
     if (!subject || !message || selectedEmails.length === 0) {
       toast.error('Por favor completa todos los campos y selecciona al menos un email.');
@@ -51,18 +70,18 @@ const TablaNewsletter = () => {
     }
 
     try {
-      const response = await axios.post('/api/newsletter/sendNewsletter', {
-        subject,
-        message,
-        emails: selectedEmails
-      });
-  
+      console.log(subject,message,selectedEmails)
+       const response = await axios.post('/api/newsletter/sendNewsletter', {
+         subject,
+         message,
+         emails: selectedEmails
+       });
       if (response.status === 200) {
-        toast.success('Correos enviados exitosamente');
-        closeModal();
-      } else {
-        throw new Error('Error al enviar los correos');
-      }
+         toast.success('Correos enviados exitosamente');
+         closeModal();
+       } else {
+         throw new Error('Error al enviar los correos');
+       }
     } catch (error) {
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
@@ -152,14 +171,14 @@ const TablaNewsletter = () => {
                 <button
                   onClick={handleSendEmails}
                   type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
                 >
                   Enviar correos
                 </button>
                 <button
                   onClick={closeModal}
                   type="button"
-                  className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700"
+                  className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-bgpurple  hover:bg-gray-100 hover:text-bgpurple"
                 >
                   Cancelar
                 </button>
@@ -173,13 +192,22 @@ const TablaNewsletter = () => {
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
           <thead>
             <tr className='bg-slate-300 text-sm md:text-base'>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
+            <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
+
+              <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
+                <p className='font-normal'> Seleccionar todos</p>
+                <Checkbox
+                  email="select-all"
+                  handleCheckboxChange={handleSelectAll}
+                  isChecked={selectAll}
+                />
+              </th>
             </tr>
           </thead>
           {!news.length ? (
             <tbody>
               <tr className="text-center">
-                <td colSpan="5" className="py-10">
+                <td colSpan="2" className="py-10">
                   <span className="text-gray-500 font-semibold">No hay productos</span>
                 </td>
               </tr>
@@ -187,14 +215,13 @@ const TablaNewsletter = () => {
           ) : (
             <tbody>
               {news.map((email, index) => (
-                <tr key={email._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
-                  <td className="px-1 py-4 md:px-4 md:py-3 border-b">
-                    {email.email}
-                  </td>
-                  <td>
-                    <Checkbox 
-                      email={email.email} 
-                      handleCheckboxChange={handleCheckboxChange} 
+                <tr key={email._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
+                  <td className="px-1 py-1 md:px-4 md:py-3 border-b">{email.email}</td>
+                  <td className="px-1 py-1 md:px-4 md:py-3 border-b text-end items-center">
+                    <Checkbox
+                      email={email.email}
+                      handleCheckboxChange={handleCheckboxChange}
+                      isChecked={selectedEmails.includes(email.email)}
                     />
                   </td>
                 </tr>
@@ -204,8 +231,7 @@ const TablaNewsletter = () => {
         </table>
       </div>
       <ToastContainer
-        className="toast-container"
-        position="top-center"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
