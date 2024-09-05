@@ -8,6 +8,16 @@ async function handlePost(req, res) {
         if (!nombre || !apellido || !email ||!dni || !celular || !torre || !piso || !depto || !aceptar || !sorteo) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
+        const usrExist = await Sorteo.findOne({
+            $or: [
+                { dni },
+                { torre, piso, depto }
+            ]
+        });
+
+        if (usrExist) {
+            return res.status(400).json({ error: 'Ya existe un usuario con ese DNI o domicilio.' });
+        }
         const newSorteo = new Sorteo(req.body);
         await newSorteo.save();
         return res.status(200).json({ message: 'Inscripción al sorteo realizada con éxito' });

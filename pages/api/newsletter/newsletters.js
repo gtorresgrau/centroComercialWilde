@@ -50,19 +50,6 @@ const handlePut = async (req, res) => {
   }
 };
 
-const handleDelete = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const deletedMail = await Newsletter.findByIdAndDelete(id);
-    if (!deletedMail) {
-      return res.status(404).json({ message: 'Email no encontrado' });
-    }
-    res.status(200).json({ message: 'Email eliminado con éxito' });
-  } catch (error) {
-    console.error('Error al eliminar el email del newsletter:', error);
-    res.status(500).json({ error: 'Error al eliminar el email del newsletter' });
-  }
-};
 
 export default async function handler(req, res) {
   if (!rateLimiter(req, res)) return;
@@ -78,9 +65,6 @@ export default async function handler(req, res) {
       break;
     case 'PUT':
       await handlePut(req, res);
-      break;
-    case 'DELETE':
-      await handleDelete(req, res);
       break;
     default:
       res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
