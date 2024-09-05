@@ -8,6 +8,9 @@ import axios from 'axios';
 const useProducts = () => {
   const path = usePathname()
   const [products, setProducts] = useState([]);
+  const [userSorteo, setUserSorteo] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // const [categories, setCategories] = useState([]);
   // const [brands, setBrands] = useState([]);
   // const [vehiculos, setVehiculos] = useState([]);
@@ -24,7 +27,6 @@ const useProducts = () => {
 
 
   // const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   // const [totalPages, setTotalPages] = useState(1);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +36,6 @@ const useProducts = () => {
 
   const fetchProducts = async () => {
     // const params = new URLSearchParams(searchParams.toString());
-    
     const res = await axios.get(`/api/locales/locales`);
   console.log(res.data)
     const data = await res.data;
@@ -46,9 +47,23 @@ const useProducts = () => {
     // setAllDestacados(data.allproductosDestacados || []);
     // setIsLoading(false);
   };
+  const fetchSorteos = async () => {
+    // const params = new URLSearchParams(searchParams.toString());
+    const res = await axios.get(`/api/sorteos/sorteos`);
+     console.log(res)
+    const data = await res.data;
+    setUserSorteo(data || []);
+    // setTotalPages(data.totalPage || 1);
+    // setCategories(data.totalCategories || []);
+    // setBrands(data.totalBrands || []);
+    // setVehiculos(data.totalVehiculos || []);
+    // setAllDestacados(data.allproductosDestacados || []);
+    // setIsLoading(false);
+  };
 
   useEffect(() => {
     fetchProducts();
+    fetchSorteos();
   }, [searchParams]);
 
   
@@ -153,6 +168,7 @@ const useProducts = () => {
   };
   return {
     products,
+    userSorteo,
     // allDestacados,
     // categories,
     // brands,
@@ -181,6 +197,7 @@ const useProducts = () => {
     // closeModal,
     // handleProductSelect,
     fetchProducts,
+    fetchSorteos,
   };
 };
 

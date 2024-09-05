@@ -9,8 +9,8 @@ import CheckboxSorteos from './CheckboxSorteos';
 function TablaSorteos() {
   const [products, setProducts] = useState([]);
 
-  const {allDestacados} = useProducts()
-  console.log(allDestacados,'destacados')
+  const {userSorteo} = useProducts()
+  console.log(userSorteo,'Sorteos')
 
   const handleToggleDestacados = async (updatedProduct) => {
     try {
@@ -47,12 +47,14 @@ function TablaSorteos() {
                 <tr className='bg-slate-300 text-sm md:text-base'>
                   <th className="px-1 py-1 md:px-4 md:py-3 border-b">Nombre</th>
                   <th className="px-1 py-1 md:px-4 md:py-3 border-b">DNI</th>
+                  <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
+                  <th className="px-1 py-1 md:px-4 md:py-3 border-b">Celular</th>
                   <th className="px-1 py-1 md:px-4 md:py-3 border-b">Torre</th>
                   <th className="px-1 py-1 md:px-4 md:py-3 border-b">Piso</th>
                   <th className="px-1 py-1 md:px-4 md:py-3 border-b">Depto</th>
                 </tr>
               </thead>
-              {!allDestacados.length
+              {!userSorteo.length
                 ?(<tbody>
                     <tr className="text-center">
                       <td colSpan="5" className="py-10">
@@ -62,11 +64,15 @@ function TablaSorteos() {
                   </tbody>
                 ):(
                   <tbody>
-                    {allDestacados.map((product, index) => (
+                    {userSorteo.map((product, index) => (
                         <tr key={product._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}`}>
-                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.categoria}</td>
-                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.marca}</td>
-                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.nombre}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.nombre} {product.apellido}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.dni}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.email}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.celular}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.torre}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.piso}</td>
+                          <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.depto}</td>
                           <td className="px-1 py-4 md:px-4 md:py-3 border-b">
                             <CheckboxSorteos product={product} onToggleDestacados={handleToggleDestacados} />
                           </td>
