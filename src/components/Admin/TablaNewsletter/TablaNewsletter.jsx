@@ -196,7 +196,7 @@ const TablaNewsletter = () => {
             <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
 
               <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
-                <p> Seleccionar todos</p>
+                <p className='font-normal'> Seleccionar todos</p>
                 <Checkbox
                   email="select-all"
                   handleCheckboxChange={handleSelectAll}
