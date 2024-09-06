@@ -25,7 +25,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {!hideLayout && (
         <footer>
           <Footer />
-          <ButtonWsp />
+          <ButtonWsp contact={'1138498249'}/>
         </footer>
       )}
     </>
