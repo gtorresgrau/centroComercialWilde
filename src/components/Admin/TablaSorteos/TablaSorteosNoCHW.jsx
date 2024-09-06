@@ -138,9 +138,9 @@ const TablaSorteosNoCHW = () => {
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">DNI</th>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Celular</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Torre</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Piso</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Depto</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Calle</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Altura</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Localidad</th>
               <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
                 <p className='font-normal'> Seleccionar todos</p>
                 <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll}/>
@@ -166,7 +166,7 @@ const TablaSorteosNoCHW = () => {
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.torre}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-end items-end">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
                     </td>
                 </tr>
