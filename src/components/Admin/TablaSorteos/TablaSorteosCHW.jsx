@@ -158,13 +158,13 @@ const TablaSorteosCHW = () => {
             <tbody>
               {userSorteoCHW.map((user, index) => (
                 <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.nombre} {product.apellido}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.dni}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.email}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.celular}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.torre}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.piso}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{product.depto}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.email}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.celular}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.torre}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
                     </td>
