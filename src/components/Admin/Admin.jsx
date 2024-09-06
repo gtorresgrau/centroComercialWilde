@@ -8,7 +8,8 @@ import Loading from "../Loading/Loading";
 //import SearchBase from "../Search/SearchBase";
 import axios from "axios";
 import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
-import TablaSorteos from './TablaSorteos/TablaSorteos'
+import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
+import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -191,9 +192,14 @@ export default function Admin() {
               <TablaNewsletter />
             </div>
           )}
-          {section === 'Sorteo' && (
+          {section === 'SorteoCHW' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteos />
+              <TablaSorteosCHW />
+            </div>
+          )}
+          {section === 'SorteoNoCHW' && (
+            <div className="mx-auto max-w-screen-xl lg:px-12">
+              <TablaSorteosNoCHW />
             </div>
           )}
           {section === 'DescargarCSV' && (
