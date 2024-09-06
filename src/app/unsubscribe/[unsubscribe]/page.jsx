@@ -3,6 +3,7 @@ import { useParams } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Link from 'next/link';
 
 const UnsubscribePage = () => {
   const params = useParams().unsubscribe;
