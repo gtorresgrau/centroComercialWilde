@@ -165,7 +165,7 @@ const TablaSorteosCHW = () => {
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.torre}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b">
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-end items-end">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
                     </td>
                 </tr>
