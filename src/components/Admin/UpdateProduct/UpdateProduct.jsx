@@ -104,27 +104,33 @@ console.log(producto)
 
   const handleUpdateImages = (newImages) => {
     console.log('Tipo de newImages:', typeof newImages);
-    console.log('Estructura de newImages:', newImages);
-  
-    // Verifica si `newImages` es un array
-    if (!Array.isArray(newImages)) {
-      console.error('newImages no es un array');
-      return;
-    }
-  
-    // Suponiendo que `newImages` es un array de objetos con propiedad `url`
-    const updatedImagenes = newImages.map(img => img.url);
-    setImagenes(updatedImagenes);
-  
-    // Ajusta el estado del producto según corresponda
-    const logoLocal = newImages.find(img => img.type === 'logoLocal')?.url || '';
-    const fotoLocal = newImages.find(img => img.type === 'fotoLocal')?.url || '';
+    console.log('newImages:', newImages);
   
     setProducto((prevState) => ({
       ...prevState,
-      logoLocal: logoLocal || prevState.logoLocal,
-      fotoLocal: fotoLocal || prevState.fotoLocal,
+      logoLocal: newImages.logoLocal ,
+      fotoLocal: newImages.fotoLocal ,
     }));
+    // // Verifica si `newImages` es un array
+    // if (!Array.isArray(newImages)) {
+    //   console.error('newImages no es un array');
+    //   return;
+    // }
+  
+    // // Suponiendo que `newImages` es un array de objetos con propiedad `url`
+    // const updatedImagenes = newImages.map(img => img.url);
+    // setImagenes(updatedImagenes);
+  
+    // // Ajusta el estado del producto según corresponda
+    // const logoLocal = newImages.find(img => img.type === 'logoLocal')?.url || '';
+    // const fotoLocal = newImages.find(img => img.type === 'fotoLocal')?.url || '';
+    // console.log(logoLocal,fotoLocal,producto)
+  
+    // setProducto((prevState) => ({
+    //   ...prevState,
+    //   logoLocal: logoLocal ,
+    //   fotoLocal: fotoLocal ,
+    // }));
   };
   
   
@@ -258,7 +264,7 @@ console.log(producto)
     // Object.keys(filteredProducto).forEach((key) => {
     //   formData.append(key, filteredProducto[key]);
     // });
-    //console.log('productoSubmit:',producto);
+    console.log('productoSubmit:',producto);
     
     try {
       // Mostrar SweetAlert con loading
@@ -269,8 +275,8 @@ console.log(producto)
           Swal.showLoading();
         },
       });
-      const res = await axios.put("/api/locales/localesUpdate", producto);
-    const data = await res.data;
+    //   const res = await axios.put("/api/locales/localesUpdate", producto);
+    // const data = await res.data;
 
     // Cerrar SweetAlert al completar la solicitud
     Swal.fire({
@@ -839,10 +845,7 @@ console.log(producto)
 
               {/* Subir Archivo */}
               {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
-              <UploadImage
-          localData={images}
-          updateLocalData={handleUpdateImages}
-        />
+              <UploadImage localData={images} updateLocalData={handleUpdateImages} />
 
               {/* Guardar cambios */}
               <div className="flex justify-center mt-6">
