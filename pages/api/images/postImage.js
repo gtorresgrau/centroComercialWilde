@@ -29,7 +29,18 @@ export default async function POST(req) {
         });
 
         const { file } = data.files;
-console.log(data.files)
+
+        // Archivo a subir
+        console.log(data.files.file[0])
+
+        // que tipo de foto es: local o logo
+        console.log(data.fields.tipo[0])
+        
+        
+        const tipo = data.fields.tipo[0]
+        const folder = tipo === 'fotoLocal' ? 'LOCAL CCW' : 'LOGOS CCW'
+        //Carpeta donde se a subir 
+        console.log(folder)
         if (!file || file.length === 0) {
             return NextResponse.json({ error: 'No se ha subido la imagen' }, { status: 400 });
         }

@@ -35,9 +35,10 @@ export default function UploadImage({ localData, updateLocalData }) {
 
 
 
-  const submitUpdateImage = async (file) => {
+  const submitUpdateImage = async (file,tipo) => {
      const formData = new FormData();
      formData.set('file', file);
+     formData.set('tipo', tipo);
 
     try {
         const res = await axios.post('/api/images/postImage', formData);
@@ -91,7 +92,7 @@ export default function UploadImage({ localData, updateLocalData }) {
       preview: URL.createObjectURL(archivoProcesado),
       isURL: false,
     };
-    const res =await submitUpdateImage(archivo)
+    const res =await submitUpdateImage(archivo,tipo)
 
     setArchivos((prevArchivos) => {
       const updatedArchivos = prevArchivos.map((arch) =>
