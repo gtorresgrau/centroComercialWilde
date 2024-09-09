@@ -1,4 +1,4 @@
-import {faFacebook, faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons"
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 export const userinfo = {
     logoText: "Centro Comercial Wilde", //This text is visible on your navbar and footer like your logo.
@@ -10,9 +10,9 @@ export const userinfo = {
     socials: [
         //For aesthetics, it is advisable for you to mention upto 4 social media links only. Fill in the links.
         //more icons are imported above, use as you like them.
-        { type: 'Facebook', link: 'https://www.facebook.com/centrocomercialwilde/?locale=es_LA', icon: faFacebook },
-        { type: 'Instagram', link: 'https://www.instagram.com/wildecentrocomercial/', icon: faInstagram },
-        { type: 'WhatsApp', link:'https://api.whatsapp.com/send?phone=5491131635166', icon: faWhatsapp },
+        { type: 'Facebook', link: 'https://www.facebook.com/centrocomercialwilde/?locale=es_LA', icon: <FaFacebook /> },
+        { type: 'Instagram', link: 'https://www.instagram.com/wildecentrocomercial/', icon: <FaInstagram /> },
+        { type: 'WhatsApp', link:'https://api.whatsapp.com/send?phone=5491131635166', icon: <FaWhatsapp /> },
         { type: 'Phone', link:'https://api.whatsapp.com/send?phone=5491138498249' },  
     ],
     banner:{
