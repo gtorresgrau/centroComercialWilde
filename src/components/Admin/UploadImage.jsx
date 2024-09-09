@@ -1,165 +1,147 @@
-'use client'
-import React, { useState } from "react";
-import { Button, styled } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { Button, styled } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import heic2any from "heic2any";
+import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
-export default function UploadImage({ imagenes, updateImages, handleRemoveImage }) {
-// Inicializar el estado con URLs y archivos
-  const [archivos, setArchivos] = useState(
-    imagenes
-      .filter(Boolean) // Filtrar elementos vacíos
-      .map((img) => ({
-        name:  typeof img ==='string' && img.split('/').pop(), // Extraer el nombre del archivo desde la URL
-        preview: img,
-        isURL: true,
-      }))
-  );
-  
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
+export default function UploadImage({ localData, updateLocalData }) {
+  const [archivos, setArchivos] = useState([]);
+
+  useEffect(() => {
+    // Inicializar el estado con los datos proporcionados
+    setArchivos([
+      { name: 'logoLocal', preview: localData.logoLocal, isURL: true },
+      { name: 'fotoLocal', preview: localData.fotoLocal, isURL: true }
+    ]);
+  }, [localData]);
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
     height: 1,
-    overflow: "hidden",
-    position: "absolute",
+    overflow: 'hidden',
+    position: 'absolute',
     bottom: 0,
     left: 0,
-    whiteSpace: "nowrap",
+    whiteSpace: 'nowrap',
     width: 1,
   });
-  
-  // Verificar si la imagen tiene una relación de aspecto 1:1
-  const isAspectRatioOneToOne = (image) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        const isOneToOne = img.width === img.height;
-        resolve(isOneToOne);
-      };
-      img.onerror = reject;
-      img.src = URL.createObjectURL(image);
-    });
-  };
 
-  // Manejar la selección de archivos
-  const handleArchivoSeleccionado = async (e) => {
-    const nuevosArchivos = [...archivos];
-    const filesToUpload = e.target.files;
-    
-    // Verificar que no se superen los 4 archivos
-    if (archivos.length + filesToUpload.length > 4) {
-      toast.error("Solo se pueden cargar hasta 4 fotos.");
+  const isLogoDisabled = archivos.find((archivo) => archivo.name === 'logoLocal' && archivo.preview);
+  const isFotoDisabled = archivos.find((archivo) => archivo.name === 'fotoLocal' && archivo.preview);
+
+
+
+  const submitUpdateImage = async (file,tipo) => {
+     const formData = new FormData();
+     formData.set('file', file);
+     formData.set('tipo', tipo);
+
+    try {
+        const res = await axios.post('/api/images/postImage', formData);
+
+        const data = res.data;
+        console.log(data, 'data');
+        return data;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        return { error: 'Failed to upload image' };
+    }
+};
+
+
+
+  
+
+
+  const handleArchivoSeleccionado = async (e, tipo) => {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+
+    if (!archivo.type.startsWith('image/')) {
+      toast.error('Solo se pueden cargar archivos de imagen.');
       return;
     }
+
     Swal.fire({
       title: 'Cargando...',
-      text: 'Subiendo imagen(es), por favor espere.',
+      text: 'Subiendo imagen, por favor espere.',
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
-    for (let i = 0; i < filesToUpload.length; i++) {
-      let archivo = filesToUpload[i];
-  
-      // Verificar si el archivo es una imagen
-      if (!archivo.type.startsWith('image/')) {
-        toast.error("Solo se pueden cargar archivos de imagen.");
-        continue;
-      }
-  
-      // Convertir HEIC a JPEG si es necesario
-      const isHEIC = archivo.type === 'image/heic' || archivo.type === 'image/heif' || archivo.name.endsWith('.heic') || archivo.name.endsWith('.heif');
-      if (isHEIC) {
-        try {
-          const convertedBlob = await heic2any({ blob: archivo, toType: "image/jpeg" });
-          archivo = new File([convertedBlob], archivo.name.replace(/\.[^/.]+$/, ".jpg"), { type: "image/jpeg" });
-        } catch (error) {
-          console.error("Error al convertir HEIC a JPEG:", error);
-          toast.error("Error al convertir archivo HEIC.");
-          continue;
-        }
-      }
-  
-      // Verificar que el archivo no esté ya en la lista
-      const existe = archivos.some((a) => a.name === archivo.name);
-      if (!existe) {
-        // Verificar relación de aspecto 1:1
-        const isOneToOne = await isAspectRatioOneToOne(archivo);
-        if (isOneToOne) {
-          archivo.preview = URL.createObjectURL(archivo);
-          const res =await submitUpdateImage(archivo)
-          nuevosArchivos.push(res);
-        } else {
-          toast.error("La imagen debe tener una relación de aspecto 1:1.");
-        }
+
+    let archivoProcesado = archivo;
+    if (['image/heic', 'image/heif'].includes(archivo.type) || archivo.name.endsWith('.heic') || archivo.name.endsWith('.heif')) {
+      try {
+        const convertedBlob = await heic2any({ blob: archivo, toType: 'image/jpeg' });
+        archivoProcesado = new File([convertedBlob], archivo.name.replace(/\.[^/.]+$/, '.jpg'), { type: 'image/jpeg' });
+      } catch (error) {
+        console.error('Error al convertir HEIC a JPEG:', error);
+        toast.error('Error al convertir archivo HEIC.');
+        return;
       }
     }
-  
-    setArchivos(nuevosArchivos);
-    updateImages(nuevosArchivos.map(archivo => archivo));
+
+    const newArchivo = {
+      name: tipo,
+      preview: URL.createObjectURL(archivoProcesado),
+      isURL: false,
+    };
+    const res =await submitUpdateImage(archivo,tipo)
+
+    setArchivos((prevArchivos) => {
+      const updatedArchivos = prevArchivos.map((arch) =>
+        arch.name === tipo ? newArchivo : arch
+      );
+      return updatedArchivos;
+    });
+
+    updateLocalData({
+      ...localData,
+      [tipo]: newArchivo.preview,
+    });
 
     Swal.close();
   };
 
-  // Manejar la eliminación de archivos
-  const handleEliminarArchivo = async (index) => {
-    const [imgPrevAEliminar] = archivos.filter((_, i) => i === index)[0].name.split('.');
-    const imgAEliminar = `Products/${imgPrevAEliminar}`;
-
+  const handleEliminarArchivo = async (tipo) => {
     Swal.fire({
       title: 'Eliminando...',
       text: 'Eliminando imagen, por favor espere.',
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
 
-    const res = await fetch('api/deleteImage', {
-        method: 'DELETE',
-        body: JSON.stringify({ file: imgAEliminar }) // Correctly pass the image to be deleted
-    });
-
-    const data = await res.json();
-    
-    const nuevosArchivos = archivos.filter((_, i) => i !== index);
-    const archivoAEliminar = archivos[index];
-    if (!archivoAEliminar.isURL && archivoAEliminar.preview) {
-      URL.revokeObjectURL(archivoAEliminar.preview);
+    try {
+      const nuevosArchivos = archivos.map((arch) =>
+        arch.name === tipo ? { ...arch, preview: '' } : arch
+      );
+      setArchivos(nuevosArchivos);
+      updateLocalData({ ...localData, [tipo]: '' });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo eliminar la imagen. Por favor, inténtalo de nuevo.',
+      });
+    } finally {
+      Swal.close();
     }
-    handleRemoveImage(index);
-
-    setArchivos(nuevosArchivos);
-    updateImages(nuevosArchivos.map(archivo => archivo));
-
-    Swal.close();
   };
 
-  // Manejar la visualización de archivos
   const handleVerArchivo = (archivo) => {
     if (archivo.preview) {
       window.open(archivo.preview);
-    } else {
-      window.open(URL.createObjectURL(archivo));
     }
   };
-
-
-  const submitUpdateImage = async(file) => {
-    const formData = new FormData()
-    formData.append('file', file);
-
-     const res = await fetch ( 'api/uploadImage', {
-       method:'POST',
-       body: formData
-     })
-      const data = await res.json()
-      //console.log(data,'data')
-      return data
-    }
   
 
   return (
@@ -176,62 +158,75 @@ export default function UploadImage({ imagenes, updateImages, handleRemoveImage 
         draggable
         pauseOnHover
       />
-      <div className="flex mt-[10px]">
+      <div className="flex mt-[10px] gap-4">
         <Button
           component="label"
-          role={undefined}
           variant="outlined"
           tabIndex={-1}
+          disabled={isLogoDisabled}
+          >
+          Subir Logo del Local
+          <VisuallyHiddenInput
+            type="file"
+            onChange={(e) => handleArchivoSeleccionado(e, 'logoLocal')}
+            />
+        </Button>
+        <Button
+          component="label"
+          variant="outlined"
+          tabIndex={-1}
+          disabled={isFotoDisabled}
         >
-          Subir Archivo
-          <VisuallyHiddenInput type="file" multiple onChange={handleArchivoSeleccionado} />
+          Subir Foto del Local
+          <VisuallyHiddenInput
+            type="file"
+            onChange={(e) => handleArchivoSeleccionado(e, 'fotoLocal')}
+          />
         </Button>
       </div>
 
-      {archivos.length !== 0 && (
-        <div className="relative pb-[50px] bg-white mt-[20px] rounded-md ">
-          <div className="grid grid-cols-4 gap-4">
-            {archivos.map((archivo, index) => (
+      <div className="relative pb-[50px] bg-white mt-[20px] rounded-md">
+        <div className="grid grid-cols-2 gap-4">
+          {console.log(archivos)}
+          {archivos.map((archivo, index) => (
+            archivo.preview && (
               <div key={index} className="relative shadow-md rounded-lg">
-                {/* Vista previa de la imagen */}
+                <h4>{archivo.name === 'logoLocal' ? 'Logo del local' : 'Foto del local'}</h4>
                 <img
-                  src={archivo.preview || URL.createObjectURL(archivo)}
+                  src={archivo.preview}
                   alt={archivo.name}
                   className="w-full object-cover cursor-pointer h-36 max-w-full rounded-lg"
                   onClick={() => handleVerArchivo(archivo)}
-                  loading='lazy'
+                  loading="lazy"
                 />
 
-                 <button
-                    type="button"
-                    aria-label="eliminar archivo"
-                    onClick={() => handleEliminarArchivo(index)}
-                    aria-controls="drawer-navigation"
-                    className="absolute top-1 right-1 cursor-pointer bg-gray-300 text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg text-sm w-6 h-6  inline-flex items-center justify-center "
+                <button
+                  type="button"
+                  aria-label="eliminar archivo"
+                  onClick={() => handleEliminarArchivo(archivo.name)}
+                  className="absolute top-1 right-1 cursor-pointer bg-gray-300 text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg text-sm w-6 h-6 inline-flex items-center justify-center"
+                >
+                  <svg
+                    className="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
                   >
-                    <svg
-                      className="w-3 h-3"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 14"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                      />
-                    </svg>
-                  </button>
-
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                </button>
               </div>
-            ))}
-          </div>
-         
+            )
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }

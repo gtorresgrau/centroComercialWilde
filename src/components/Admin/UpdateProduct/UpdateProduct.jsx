@@ -1,11 +1,11 @@
 'use client'
 import React, { useState, useRef, useEffect } from "react";
 import { createRoot } from 'react-dom/client';
-import UploadImage from "../UploadImage";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
 import axios from "axios";
+import UploadImage from "../UploadImage";
 
 export default function UpdateProduct({
   isOpenModal,
@@ -22,11 +22,14 @@ export default function UpdateProduct({
   const [categorias, setCategorias] = useState([])
   const [ubicaciones, setUbicaciones] = useState([])
   const [rubros, setRubros] = useState([])
+  const [imagenes, setImagenes] = useState([]);
+
   
   
   const fetchUpdateProduct = async () => {
     const product = await axios.get(`/api/locales/${n_local}`)
     setProducto(product.data.localEncontrado)
+    setImagenes([product.data.localEncontrado.logoLocal, product.data.localEncontrado.fotoLocal]);
     return 
   }
   const fetchSelectAdmin = async () => {
@@ -98,6 +101,39 @@ console.log(producto)
       [name]: value,
     }));
   };
+
+  const handleUpdateImages = (newImages) => {
+    console.log('Tipo de newImages:', typeof newImages);
+    console.log('newImages:', newImages);
+  
+    setProducto((prevState) => ({
+      ...prevState,
+      logoLocal: newImages.logoLocal ,
+      fotoLocal: newImages.fotoLocal ,
+    }));
+    // // Verifica si `newImages` es un array
+    // if (!Array.isArray(newImages)) {
+    //   console.error('newImages no es un array');
+    //   return;
+    // }
+  
+    // // Suponiendo que `newImages` es un array de objetos con propiedad `url`
+    // const updatedImagenes = newImages.map(img => img.url);
+    // setImagenes(updatedImagenes);
+  
+    // // Ajusta el estado del producto según corresponda
+    // const logoLocal = newImages.find(img => img.type === 'logoLocal')?.url || '';
+    // const fotoLocal = newImages.find(img => img.type === 'fotoLocal')?.url || '';
+    // console.log(logoLocal,fotoLocal,producto)
+  
+    // setProducto((prevState) => ({
+    //   ...prevState,
+    //   logoLocal: logoLocal ,
+    //   fotoLocal: fotoLocal ,
+    // }));
+  };
+  
+  
 
 
   // Función para alternar la visibilidad del dropdown de marca
@@ -228,7 +264,7 @@ console.log(producto)
     // Object.keys(filteredProducto).forEach((key) => {
     //   formData.append(key, filteredProducto[key]);
     // });
-    //console.log('productoSubmit:',producto);
+    console.log('productoSubmit:',producto);
     
     try {
       // Mostrar SweetAlert con loading
@@ -239,8 +275,8 @@ console.log(producto)
           Swal.showLoading();
         },
       });
-      const res = await axios.put("/api/locales/localesUpdate", producto);
-    const data = await res.data;
+    //   const res = await axios.put("/api/locales/localesUpdate", producto);
+    // const data = await res.data;
 
     // Cerrar SweetAlert al completar la solicitud
     Swal.fire({
@@ -265,12 +301,10 @@ console.log(producto)
 };
 
   // Filtrar las imágenes que existen para pasarle a UploadImage
-  // const imagenes = [
-  //   producto.foto_1_1,
-  //   producto.foto_1_2,
-  //   producto.foto_1_3,
-  //   producto.foto_1_4,
-  // ].filter(Boolean);
+  const images = 
+    {logoLocal:producto.logoLocal,
+    fotoLocal:producto.fotoLocal}
+  
 
   return (
     <div>
@@ -811,6 +845,7 @@ console.log(producto)
 
               {/* Subir Archivo */}
               {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
+              <UploadImage localData={images} updateLocalData={handleUpdateImages} />
 
               {/* Guardar cambios */}
               <div className="flex justify-center mt-6">
