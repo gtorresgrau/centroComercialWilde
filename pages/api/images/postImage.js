@@ -50,7 +50,7 @@ export default async function POST(req) {
 
         // // Subimos la imagen a Cloudinary
         // const response = await cloudinary.uploader.upload(imageFile.path, {
-        //     folder: 'Products'
+        //     folder: folder
         // });
 
         return NextResponse.json({
