@@ -5,9 +5,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export default function UploadImage({ localData, updateLocalData }) {
-  console.log(localData)
   const [archivos, setArchivos] = useState([]);
 
   useEffect(() => {
@@ -33,9 +33,31 @@ export default function UploadImage({ localData, updateLocalData }) {
   const isLogoDisabled = archivos.find((archivo) => archivo.name === 'logoLocal' && archivo.preview);
   const isFotoDisabled = archivos.find((archivo) => archivo.name === 'fotoLocal' && archivo.preview);
 
+
+
+  const submitUpdateImage = async (file) => {
+     const formData = new FormData();
+     formData.set('file', file);
+
+    try {
+        const res = await axios.post('/api/images/postImage', formData);
+
+        const data = res.data;
+        console.log(data, 'data');
+        return data;
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        return { error: 'Failed to upload image' };
+    }
+};
+
+
+
+  
+
+
   const handleArchivoSeleccionado = async (e, tipo) => {
     const archivo = e.target.files[0];
-
     if (!archivo) return;
 
     if (!archivo.type.startsWith('image/')) {
@@ -69,6 +91,7 @@ export default function UploadImage({ localData, updateLocalData }) {
       preview: URL.createObjectURL(archivoProcesado),
       isURL: false,
     };
+    const res =await submitUpdateImage(archivo)
 
     setArchivos((prevArchivos) => {
       const updatedArchivos = prevArchivos.map((arch) =>
@@ -118,6 +141,7 @@ export default function UploadImage({ localData, updateLocalData }) {
       window.open(archivo.preview);
     }
   };
+  
 
   return (
     <div>
