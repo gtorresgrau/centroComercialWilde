@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import multiparty from 'multiparty';
 
@@ -14,53 +13,48 @@ export const config = {
     },
 };
 
-export default async function POST(req) {
-    try {
-        // Usamos multiparty para manejar el form data
-        const form = new multiparty.Form();
-        console.log(form)
-        
-        // Promisificamos el manejo del form para usar async/await
-        const data = await new Promise((resolve, reject) => {
-            form.parse(req, (err, fields, files) => {
-                if (err) reject(err);
-                else resolve({ fields, files });
+export default async function handler(req, res) {
+    if (req.method === 'POST') {
+        try {
+            // Usamos multiparty para manejar el form data
+            const form = new multiparty.Form();
+
+            // Promisificamos el manejo del form para usar async/await
+            const data = await new Promise((resolve, reject) => {
+                form.parse(req, (err, fields, files) => {
+                    if (err) reject(err);
+                    else resolve({ fields, files });
+                });
             });
-        });
 
-        const { file } = data.files;
+            const { file } = data.files;
 
-        // Archivo a subir
-        console.log(data.files.file[0])
+            if (!file || file.length === 0) {
+                return res.status(400).json({ error: 'No se ha subido la imagen' });
+            }
 
-        // que tipo de foto es: local o logo
-        console.log(data.fields.tipo[0])
-        
-        
-        const tipo = data.fields.tipo[0]
-        const folder = tipo === 'fotoLocal' ? 'LOCAL CCW' : 'LOGOS CCW'
-        //Carpeta donde se a subir 
-        console.log(folder)
-        if (!file || file.length === 0) {
-            return NextResponse.json({ error: 'No se ha subido la imagen' }, { status: 400 });
+            const tipo = data.fields.tipo[0];
+            const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW');
+
+            // Tomamos el primer archivo en caso de que haya varios
+            const imageFile = file[0];
+
+            // Subimos la imagen a Cloudinary
+            const response = await cloudinary.uploader.upload(imageFile.path, {
+                folder: folder
+            });
+
+            return res.status(200).json({
+                preview: response.secure_url.toString(),
+                name: response.public_id.toString(),
+                isURL: true
+            });
+
+        } catch (error) {
+            console.error('Error al subir la imagen a Cloudinary:', error);
+            return res.status(500).json({ error: 'Error al subir la imagen' });
         }
-
-        // Tomamos el primer archivo en caso de que haya varios
-        const imageFile = file[0];
-
-        // // Subimos la imagen a Cloudinary
-        // const response = await cloudinary.uploader.upload(imageFile.path, {
-        //     folder: folder
-        // });
-
-        return NextResponse.json({
-            preview: response.secure_url.toString(),
-            name: response.public_id.toString(),
-            isURL: true
-        });
-
-    } catch (error) {
-        console.error('Error al subir la imagen a Cloudinary:', error);
-        return NextResponse.json({ error: 'Error al subir la imagen' }, { status: 500 });
+    } else {
+        return res.status(405).json({ error: 'Método no permitido' });
     }
 }

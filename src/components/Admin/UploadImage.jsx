@@ -59,6 +59,7 @@ export default function UploadImage({ localData, updateLocalData }) {
 
   const handleArchivoSeleccionado = async (e, tipo) => {
     const archivo = e.target.files[0];
+    console.log(archivo)
     if (!archivo) return;
 
     if (!archivo.type.startsWith('image/')) {
@@ -86,24 +87,16 @@ export default function UploadImage({ localData, updateLocalData }) {
         return;
       }
     }
+    console.log(archivoProcesado)
+    
 
-    const newArchivo = {
-      name: tipo,
-      preview: URL.createObjectURL(archivoProcesado),
-      isURL: false,
-    };
-    const res =await submitUpdateImage(archivo,tipo)
+    const res =await submitUpdateImage(archivoProcesado,tipo)
+    
 
-    setArchivos((prevArchivos) => {
-      const updatedArchivos = prevArchivos.map((arch) =>
-        arch.name === tipo ? newArchivo : arch
-      );
-      return updatedArchivos;
-    });
 
     updateLocalData({
       ...localData,
-      [tipo]: newArchivo.preview,
+      [tipo]: res.preview,
     });
 
     Swal.close();
@@ -118,13 +111,36 @@ export default function UploadImage({ localData, updateLocalData }) {
         Swal.showLoading();
       },
     });
-
+  
     try {
-      const nuevosArchivos = archivos.map((arch) =>
-        arch.name === tipo ? { ...arch, preview: '' } : arch
-      );
-      setArchivos(nuevosArchivos);
-      updateLocalData({ ...localData, [tipo]: '' });
+      const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW')
+
+      console.log(localData)
+      
+      // Obtener la URL de la imagen que deseas eliminar
+      const imgAEliminar = `${folder}/${localData[tipo].split('/').pop().split('.')[0]}`;
+  console.log(tipo)
+  console.log(imgAEliminar)
+      if (!imgAEliminar) {
+        throw new Error('No se encontró la imagen para eliminar.');
+      }
+  
+      // Realizar la solicitud DELETE al backend
+      const res = await axios.delete('/api/images/deleteImage', {
+        data: { file: imgAEliminar }, // Enviar la URL o el identificador de la imagen a eliminar
+      });
+  
+      // Actualizar el estado solo si la eliminación fue exitosa
+      if (res.status === 200) {
+        const nuevosArchivos = archivos.map((arch) =>
+          arch.name === tipo ? { ...arch, preview: '' } : arch
+        );
+        setArchivos(nuevosArchivos);
+        updateLocalData({ ...localData, [tipo]: '' });
+        Swal.fire('Eliminado!', 'La imagen ha sido eliminada.', 'success');
+      } else {
+        throw new Error('Error al eliminar la imagen');
+      }
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -136,6 +152,7 @@ export default function UploadImage({ localData, updateLocalData }) {
       Swal.close();
     }
   };
+  
 
   const handleVerArchivo = (archivo) => {
     if (archivo.preview) {

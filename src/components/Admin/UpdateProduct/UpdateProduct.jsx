@@ -275,8 +275,8 @@ console.log(producto)
           Swal.showLoading();
         },
       });
-    //   const res = await axios.put("/api/locales/localesUpdate", producto);
-    // const data = await res.data;
+       const res = await axios.put("/api/locales/localesUpdate", producto);
+     const data = await res.data;
 
     // Cerrar SweetAlert al completar la solicitud
     Swal.fire({
