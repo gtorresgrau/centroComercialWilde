@@ -111,26 +111,6 @@ console.log(producto)
       logoLocal: newImages.logoLocal ,
       fotoLocal: newImages.fotoLocal ,
     }));
-    // // Verifica si `newImages` es un array
-    // if (!Array.isArray(newImages)) {
-    //   console.error('newImages no es un array');
-    //   return;
-    // }
-  
-    // // Suponiendo que `newImages` es un array de objetos con propiedad `url`
-    // const updatedImagenes = newImages.map(img => img.url);
-    // setImagenes(updatedImagenes);
-  
-    // // Ajusta el estado del producto según corresponda
-    // const logoLocal = newImages.find(img => img.type === 'logoLocal')?.url || '';
-    // const fotoLocal = newImages.find(img => img.type === 'fotoLocal')?.url || '';
-    // console.log(logoLocal,fotoLocal,producto)
-  
-    // setProducto((prevState) => ({
-    //   ...prevState,
-    //   logoLocal: logoLocal ,
-    //   fotoLocal: fotoLocal ,
-    // }));
   };
   
   
@@ -170,41 +150,6 @@ console.log(producto)
     setCategorias([...categorias, valorNuevo ]);
     setIsDropdownCategoriaOpen(false);
   };
-
-  // Función para actualizar las imágenes del producto
-  // const handleUpdateImages = (newImages) => {
-  //   setProducto((prevState) => ({
-  //     ...prevState,
-  //     foto_1_1: newImages[0]?.preview || "",
-  //     foto_1_2: newImages[1]?.preview || "",
-  //     foto_1_3: newImages[2]?.preview || "",
-  //     foto_1_4: newImages[3]?.preview || "",
-  //   }));
-  // };
-
-  // Función para eliminar una imagen específica del producto
-  // const handleRemoveImage = (index) => {
-  //   setProducto((prevState) => {
-  //     const updatedState = { ...prevState };
-  //     switch (index) {
-  //       case 0:
-  //         updatedState.foto_1_1 = "";
-  //         break;
-  //       case 1:
-  //         updatedState.foto_1_2 = "";
-  //         break;
-  //       case 2:
-  //         updatedState.foto_1_3 = "";
-  //         break;
-  //       case 3:
-  //         updatedState.foto_1_4 = "";
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //     return updatedState;
-  //   });
-  // };
 
   // Función para verificar si ha habido cambios en las imágenes
   // const hasImageChanges = () => {
@@ -247,23 +192,6 @@ console.log(producto)
       return;
     }
 
-    // Filtrar solo las propiedades que no están vacías o que tienen algún valor
-    // const filteredProducto = {};
-    // Object.keys(producto).forEach((key) => {
-    //   if (
-    //     producto[key] !== undefined &&
-    //     producto[key] !== null &&
-    //     producto[key] !== ""
-    //   ) {
-    //     filteredProducto[key] = producto[key];
-    //   }
-    // });
-
-    // Crear FormData y agregar propiedades del producto filtrado
-    // const formData = new FormData();
-    // Object.keys(filteredProducto).forEach((key) => {
-    //   formData.append(key, filteredProducto[key]);
-    // });
     console.log('productoSubmit:',producto);
     
     try {
@@ -300,10 +228,12 @@ console.log(producto)
   }
 };
 
+  const imgNoDisponible = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'
   // Filtrar las imágenes que existen para pasarle a UploadImage
-  const images = 
-    {logoLocal:producto.logoLocal,
-    fotoLocal:producto.fotoLocal}
+  const images = {
+    logoLocal: producto.logoLocal || imgNoDisponible,
+    fotoLocal: producto.fotoLocal || imgNoDisponible,
+  };
   
 
   return (
@@ -845,7 +775,7 @@ console.log(producto)
 
               {/* Subir Archivo */}
               {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
-              <UploadImage localData={images} updateLocalData={handleUpdateImages} />
+              <UploadImage localData={images} updateLocalData={handleUpdateImages} id={producto._id}/>
 
               {/* Guardar cambios */}
               <div className="flex justify-center mt-6">

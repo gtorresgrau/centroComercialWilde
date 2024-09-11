@@ -1,5 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import multiparty from 'multiparty';
+import mongoose from 'mongoose';
+import Local from '../../../src/models/locales';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -16,6 +18,11 @@ export const config = {
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
+            // Conectamos a la base de datos
+            if (mongoose.connection.readyState === 0) {
+                await mongoose.connect(process.env.MONGO_URI);
+            }
+
             // Usamos multiparty para manejar el form data
             const form = new multiparty.Form();
 
@@ -28,12 +35,13 @@ export default async function handler(req, res) {
             });
 
             const { file } = data.files;
+            const productId = data.fields.id[0]; // ID del producto para actualizar
+            const tipo = data.fields.tipo[0]; // Tipo de la imagen (fotoLocal, logo, etc.)
 
             if (!file || file.length === 0) {
                 return res.status(400).json({ error: 'No se ha subido la imagen' });
             }
 
-            const tipo = data.fields.tipo[0];
             const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW');
 
             // Tomamos el primer archivo en caso de que haya varios
@@ -44,6 +52,17 @@ export default async function handler(req, res) {
                 folder: folder
             });
 
+            // Actualizamos solo la propiedad específica en la base de datos
+            const updateResult = await Local.findByIdAndUpdate(
+                productId, 
+                { $set: { [tipo]: response.secure_url } },
+                { new: true } // Devuelve el documento actualizado
+            );
+
+            if (!updateResult) {
+                return res.status(404).json({ error: 'Producto no encontrado para actualizar' });
+            }
+
             return res.status(200).json({
                 preview: response.secure_url.toString(),
                 name: response.public_id.toString(),
@@ -51,8 +70,8 @@ export default async function handler(req, res) {
             });
 
         } catch (error) {
-            console.error('Error al subir la imagen a Cloudinary:', error);
-            return res.status(500).json({ error: 'Error al subir la imagen' });
+            console.error('Error al subir la imagen a Cloudinary o actualizar la base de datos:', error);
+            return res.status(500).json({ error: 'Error al subir la imagen o actualizar la base de datos' });
         }
     } else {
         return res.status(405).json({ error: 'Método no permitido' });

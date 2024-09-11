@@ -7,7 +7,8 @@ import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-export default function UploadImage({ localData, updateLocalData }) {
+export default function UploadImage({ localData, updateLocalData,id }) {
+  console.log(localData)
   const [archivos, setArchivos] = useState([]);
 
   useEffect(() => {
@@ -30,15 +31,30 @@ export default function UploadImage({ localData, updateLocalData }) {
     width: 1,
   });
 
-  const isLogoDisabled = archivos.find((archivo) => archivo.name === 'logoLocal' && archivo.preview);
-  const isFotoDisabled = archivos.find((archivo) => archivo.name === 'fotoLocal' && archivo.preview);
+  const isLogoDisabled = archivos.some((archivo) => {
+    if (archivo.name === 'logoLocal') {
+      const previewFileName = archivo.preview.split('/').pop().split('.')[0];
+      const isDefault = 'NoDisponible_jrzbvh' === previewFileName;  // Verifica si es imagen por defecto
+      return !isDefault;  // Si es imagen por defecto, devuelve false; si no, devuelve true
+    }
+    return false;
+  });
+  
+  const isFotoDisabled = archivos.some((archivo) => {
+    if (archivo.name === 'fotoLocal') {
+      const previewFileName = archivo.preview.split('/').pop().split('.')[0];
+      const isDefault = 'NoDisponible_jrzbvh' === previewFileName;  // Verifica si es imagen por defecto
+      return !isDefault;  // Si es imagen por defecto, devuelve false; si no, devuelve true
+    }
+    return false;
+  });
 
 
-
-  const submitUpdateImage = async (file,tipo) => {
+  const submitUpdateImage = async (file,tipo,id) => {
      const formData = new FormData();
      formData.set('file', file);
      formData.set('tipo', tipo);
+     formData.set('id', id);
 
     try {
         const res = await axios.post('/api/images/postImage', formData);
@@ -57,7 +73,7 @@ export default function UploadImage({ localData, updateLocalData }) {
   
 
 
-  const handleArchivoSeleccionado = async (e, tipo) => {
+  const handleArchivoSeleccionado = async (e, tipo,id) => {
     const archivo = e.target.files[0];
     console.log(archivo)
     if (!archivo) return;
@@ -90,7 +106,7 @@ export default function UploadImage({ localData, updateLocalData }) {
     console.log(archivoProcesado)
     
 
-    const res =await submitUpdateImage(archivoProcesado,tipo)
+    const res =await submitUpdateImage(archivoProcesado,tipo,id)
     
 
 
@@ -103,6 +119,7 @@ export default function UploadImage({ localData, updateLocalData }) {
   };
 
   const handleEliminarArchivo = async (tipo) => {
+    
     Swal.fire({
       title: 'Eliminando...',
       text: 'Eliminando imagen, por favor espere.',
@@ -111,7 +128,6 @@ export default function UploadImage({ localData, updateLocalData }) {
         Swal.showLoading();
       },
     });
-  
     try {
       const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW')
 
@@ -119,15 +135,19 @@ export default function UploadImage({ localData, updateLocalData }) {
       
       // Obtener la URL de la imagen que deseas eliminar
       const imgAEliminar = `${folder}/${localData[tipo].split('/').pop().split('.')[0]}`;
-  console.log(tipo)
-  console.log(imgAEliminar)
+      console.log(tipo)
+      console.log(imgAEliminar)
       if (!imgAEliminar) {
         throw new Error('No se encontró la imagen para eliminar.');
+      }
+      
+      if (imgAEliminar===`NoDisponible_jrzbvh`){
+        return
       }
   
       // Realizar la solicitud DELETE al backend
       const res = await axios.delete('/api/images/deleteImage', {
-        data: { file: imgAEliminar }, // Enviar la URL o el identificador de la imagen a eliminar
+        data: { file: imgAEliminar , id:id, tipo:tipo }, // Enviar la URL o el identificador de la imagen a eliminar
       });
   
       // Actualizar el estado solo si la eliminación fue exitosa
@@ -185,7 +205,7 @@ export default function UploadImage({ localData, updateLocalData }) {
           Subir Logo del Local
           <VisuallyHiddenInput
             type="file"
-            onChange={(e) => handleArchivoSeleccionado(e, 'logoLocal')}
+            onChange={(e) => handleArchivoSeleccionado(e, 'logoLocal',id)}
             />
         </Button>
         <Button
@@ -197,7 +217,7 @@ export default function UploadImage({ localData, updateLocalData }) {
           Subir Foto del Local
           <VisuallyHiddenInput
             type="file"
-            onChange={(e) => handleArchivoSeleccionado(e, 'fotoLocal')}
+            onChange={(e) => handleArchivoSeleccionado(e, 'fotoLocal',id)}
           />
         </Button>
       </div>
@@ -216,29 +236,31 @@ export default function UploadImage({ localData, updateLocalData }) {
                   onClick={() => handleVerArchivo(archivo)}
                   loading="lazy"
                 />
+                {archivo.preview.split('/').pop().split('.')[0] !== 'NoDisponible_jrzbvh' && (
 
-                <button
+                  <button
                   type="button"
                   aria-label="eliminar archivo"
                   onClick={() => handleEliminarArchivo(archivo.name)}
                   className="absolute top-1 right-1 cursor-pointer bg-gray-300 text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg text-sm w-6 h-6 inline-flex items-center justify-center"
-                >
+                  >
                   <svg
                     className="w-3 h-3"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 14 14"
-                  >
+                    >
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
+                      />
                   </svg>
                 </button>
+                    )}
               </div>
             )
           ))}

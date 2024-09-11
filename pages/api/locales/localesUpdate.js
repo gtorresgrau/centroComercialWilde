@@ -6,10 +6,10 @@ async function handlePut(req, res) {
     try {
         const updatedData = req.body;
         if (!updatedData.fotoLocal || updatedData.fotoLocal === '') {
-            updatedData.fotoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430293/Administraci%C3%B3n_l8mnij_i6mbqp.webp'; // URL de la imagen por defecto
+            updatedData.fotoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'; // URL de la imagen por defecto
         }
         if (!updatedData.logoLocal || updatedData.logoLocal === '') {
-            updatedData.logoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430293/Administraci%C3%B3n_l8mnij_i6mbqp.webp'; // URL de la imagen por defecto
+            updatedData.logoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'; // URL de la imagen por defecto
         }
         console.log(updatedData,'updateData')
          const updatedLocal = await Local.findByIdAndUpdate(updatedData._id, updatedData, { new: true, runValidators: true });
