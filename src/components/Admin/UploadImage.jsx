@@ -129,7 +129,7 @@ export default function UploadImage({ localData, updateLocalData,id }) {
       },
     });
     try {
-      const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW')
+      const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logoLocal' && 'LOGOS CCW')
 
       console.log(localData)
       
