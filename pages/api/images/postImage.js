@@ -42,7 +42,7 @@ export default async function handler(req, res) {
                 return res.status(400).json({ error: 'No se ha subido la imagen' });
             }
 
-            const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logo' && 'LOGOS CCW');
+            const folder = (tipo === 'fotoLocal' && 'LOCAL CCW') || (tipo === 'logoLocal' && 'LOGOS CCW');
 
             // Tomamos el primer archivo en caso de que haya varios
             const imageFile = file[0];

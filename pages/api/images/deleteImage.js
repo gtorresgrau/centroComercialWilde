@@ -12,7 +12,8 @@ export default async function handler(req, res) {
     try {
       const { file, id, tipo} = req.body;
       console.log("ID de la imagen a eliminar:", id);
-
+      console.log(tipo)
+      console.log(file)
       if (!file || typeof file !== 'string') {
         return res.status(400).json({ message: 'ID de archivo inválido o no proporcionado' });
       }
