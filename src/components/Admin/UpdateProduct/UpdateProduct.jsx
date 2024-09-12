@@ -1,11 +1,11 @@
 'use client'
 import React, { useState, useRef, useEffect } from "react";
 import { createRoot } from 'react-dom/client';
-import UploadImage from "../UploadImage";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
 import axios from "axios";
+import UploadImage from "../UploadImage";
 
 export default function UpdateProduct({
   isOpenModal,
@@ -22,11 +22,14 @@ export default function UpdateProduct({
   const [categorias, setCategorias] = useState([])
   const [ubicaciones, setUbicaciones] = useState([])
   const [rubros, setRubros] = useState([])
+  const [imagenes, setImagenes] = useState([]);
+
   
   
   const fetchUpdateProduct = async () => {
     const product = await axios.get(`/api/locales/${n_local}`)
     setProducto(product.data.localEncontrado)
+    setImagenes([product.data.localEncontrado.logoLocal, product.data.localEncontrado.fotoLocal]);
     return 
   }
   const fetchSelectAdmin = async () => {
@@ -99,6 +102,19 @@ console.log(producto)
     }));
   };
 
+  const handleUpdateImages = (newImages) => {
+    console.log('Tipo de newImages:', typeof newImages);
+    console.log('newImages:', newImages);
+  
+    setProducto((prevState) => ({
+      ...prevState,
+      logoLocal: newImages.logoLocal ,
+      fotoLocal: newImages.fotoLocal ,
+    }));
+  };
+  
+  
+
 
   // Función para alternar la visibilidad del dropdown de marca
    const toggleUbicacion = (e) => {
@@ -134,41 +150,6 @@ console.log(producto)
     setCategorias([...categorias, valorNuevo ]);
     setIsDropdownCategoriaOpen(false);
   };
-
-  // Función para actualizar las imágenes del producto
-  // const handleUpdateImages = (newImages) => {
-  //   setProducto((prevState) => ({
-  //     ...prevState,
-  //     foto_1_1: newImages[0]?.preview || "",
-  //     foto_1_2: newImages[1]?.preview || "",
-  //     foto_1_3: newImages[2]?.preview || "",
-  //     foto_1_4: newImages[3]?.preview || "",
-  //   }));
-  // };
-
-  // Función para eliminar una imagen específica del producto
-  // const handleRemoveImage = (index) => {
-  //   setProducto((prevState) => {
-  //     const updatedState = { ...prevState };
-  //     switch (index) {
-  //       case 0:
-  //         updatedState.foto_1_1 = "";
-  //         break;
-  //       case 1:
-  //         updatedState.foto_1_2 = "";
-  //         break;
-  //       case 2:
-  //         updatedState.foto_1_3 = "";
-  //         break;
-  //       case 3:
-  //         updatedState.foto_1_4 = "";
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //     return updatedState;
-  //   });
-  // };
 
   // Función para verificar si ha habido cambios en las imágenes
   // const hasImageChanges = () => {
@@ -211,24 +192,7 @@ console.log(producto)
       return;
     }
 
-    // Filtrar solo las propiedades que no están vacías o que tienen algún valor
-    // const filteredProducto = {};
-    // Object.keys(producto).forEach((key) => {
-    //   if (
-    //     producto[key] !== undefined &&
-    //     producto[key] !== null &&
-    //     producto[key] !== ""
-    //   ) {
-    //     filteredProducto[key] = producto[key];
-    //   }
-    // });
-
-    // Crear FormData y agregar propiedades del producto filtrado
-    // const formData = new FormData();
-    // Object.keys(filteredProducto).forEach((key) => {
-    //   formData.append(key, filteredProducto[key]);
-    // });
-    //console.log('productoSubmit:',producto);
+    console.log('productoSubmit:',producto);
     
     try {
       // Mostrar SweetAlert con loading
@@ -239,8 +203,8 @@ console.log(producto)
           Swal.showLoading();
         },
       });
-      const res = await axios.put("/api/locales/localesUpdate", producto);
-    const data = await res.data;
+       const res = await axios.put("/api/locales/localesUpdate", producto);
+     const data = await res.data;
 
     // Cerrar SweetAlert al completar la solicitud
     Swal.fire({
@@ -264,13 +228,13 @@ console.log(producto)
   }
 };
 
+  const imgNoDisponible = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'
   // Filtrar las imágenes que existen para pasarle a UploadImage
-  // const imagenes = [
-  //   producto.foto_1_1,
-  //   producto.foto_1_2,
-  //   producto.foto_1_3,
-  //   producto.foto_1_4,
-  // ].filter(Boolean);
+  const images = {
+    logoLocal: producto.logoLocal || imgNoDisponible,
+    fotoLocal: producto.fotoLocal || imgNoDisponible,
+  };
+  
 
   return (
     <div>
@@ -679,44 +643,6 @@ console.log(producto)
                   />
                 </div>
 
-                {/* Logo del Local */}
-                <div>
-                  <label
-                    htmlFor="logoLocalAdd"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Logo del Local
-                  </label>
-                  <input
-                    onChange={handleChangeInput}
-                    type="text"
-                    name="logoLocal"
-                    value={producto.logoLocal}
-                    id="logoLocalAdd"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="URL del logo del local"
-                  />
-                </div>
-
-                {/* Foto del Local */}
-                <div>
-                  <label
-                    htmlFor="fotoLocalAdd"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    Foto del Local
-                  </label>
-                  <input
-                    onChange={handleChangeInput}
-                    type="text"
-                    name="fotoLocal"
-                    value={producto.fotoLocal}
-                    id="fotoLocalAdd"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="URL de la foto del local"
-                  />
-                </div>
-
                 {/* Instagram */}
                 <div>
                   <label
@@ -811,6 +737,7 @@ console.log(producto)
 
               {/* Subir Archivo */}
               {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
+              <UploadImage localData={images} updateLocalData={handleUpdateImages} id={producto._id}/>
 
               {/* Guardar cambios */}
               <div className="flex justify-center mt-6">

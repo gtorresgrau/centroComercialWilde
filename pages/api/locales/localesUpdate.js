@@ -5,7 +5,13 @@ import Local from '../../../src/models/locales';
 async function handlePut(req, res) {
     try {
         const updatedData = req.body;
-        console.log(updatedData)
+        if (!updatedData.fotoLocal || updatedData.fotoLocal === '') {
+            updatedData.fotoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'; // URL de la imagen por defecto
+        }
+        if (!updatedData.logoLocal || updatedData.logoLocal === '') {
+            updatedData.logoLocal = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'; // URL de la imagen por defecto
+        }
+        console.log(updatedData,'updateData')
          const updatedLocal = await Local.findByIdAndUpdate(updatedData._id, updatedData, { new: true, runValidators: true });
          if (!updatedLocal) {
              return res.status(404).json({ error: 'Local no encontrado' });
