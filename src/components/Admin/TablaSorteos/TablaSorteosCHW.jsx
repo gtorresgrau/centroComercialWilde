@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import useProducts from '../../../Hooks/useProducts';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
+import RuletaAdmin from '../RuletaAdmin'
 
 const TablaSorteosCHW = () => {
   const [news, setNews] = useState([]);
@@ -83,12 +84,13 @@ const TablaSorteosCHW = () => {
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
-      <h1 className="text-2xl font-bold mb-5">Sorteos CHW </h1>
+      <h1 className="text-2xl font-bold mb-5 text-secondary uppercase">Sorteos CHW </h1>
       <div className='flex justify-end mb-2'>
         <button onClick={openModal} type="button" aria-label="agregar producto" className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center ">
             Iniciar campaña
         </button>
       </div>
+      <RuletaAdmin userSorteoCHW={userSorteoCHW} userSorteoNoCHW={userSorteoNoCHW}/>
       
       {/* Modal */}
       {isModalOpen && (
