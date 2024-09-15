@@ -86,7 +86,7 @@ const ContactoSorteo = () => {
         } else {
             try {
                 alertLoading();
-                const response = await axios.post('/api/sorteos/sorteos', {
+                const response = await axios.post('/api/sorteos', {
                     ...data,
                     sorteo: 'sorteo',
                 });
@@ -95,6 +95,12 @@ const ContactoSorteo = () => {
                     alert(nombre);
                     reset();
                     setIsOpen(false);
+                }
+                const responseNews = await axios.post('/api/newsletter/newsletters', {
+                    newsletter:email,
+                });
+                if (responseNews.status === 200) {
+                    console.log('Se suscribio correctamente');
                 }
             } catch (error) {
                 Swal.close();
@@ -130,7 +136,7 @@ const ContactoSorteo = () => {
         <section >
             <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0 ${padTop}`}>
                 <small>Proximamente...</small>
-                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} >Anotate YA!</button>
+                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} disabled>Anotate YA!</button>
             </article>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
