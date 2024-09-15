@@ -37,7 +37,7 @@ const ContactoSorteo = () => {
             icon: 'success',
             confirmButtonText: 'Ok',
             customClass: {
-                confirmButton: 'bg-blue-500 text-white hover:bg-blue-700',
+                confirmButton: 'bg-primary text-white hover:bg-blue-700',
             }
         });
     };
@@ -49,6 +49,9 @@ const ContactoSorteo = () => {
                 Swal.showLoading();
             },
             showConfirmButton: false,
+            customClass: {
+                confirmButton: 'bg-primary text-white hover:bg-blue-700',
+            }
         });
     };
 
@@ -58,7 +61,17 @@ const ContactoSorteo = () => {
             icon: 'error',
             confirmButtonText: 'Ok',
             customClass: {
-                confirmButton: 'bg-blue-500 text-white hover:bg-blue-700',
+                confirmButton: 'bg-primary text-white hover:bg-blue-700',
+            }
+        });
+    };
+    const alreadyExist = (message) => {
+        Swal.fire({
+            title: `${message}`,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            customClass: {
+                confirmButton: 'bg-primary text-white hover:bg-blue-700',
             }
         });
     };
@@ -66,7 +79,7 @@ const ContactoSorteo = () => {
     const onSubmit = async (data) => {
         const { email, nombre } = data;
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
+    
         if (!email.match(emailPattern)) {
             console.error('Correo electrónico no válido');
             alertError(email);
@@ -84,10 +97,20 @@ const ContactoSorteo = () => {
                     setIsOpen(false);
                 }
             } catch (error) {
-                console.error('Error:', error);
+                Swal.close();
+                if (error.response && error.response.status === 400) {
+                    console.error('Error:', error.response.data.message);
+                    alreadyExist(error.response.data.message); 
+                } else {
+                    console.error('Error:', error.response ? error.response.data : error.message);
+                    alertError('Ocurrió un error. Intente nuevamente.');
+                }
+    
+                setIsOpen(false);
             }
         }
     };
+    
 
     const chw = watch("chw");
     const path =usePathname();
@@ -107,7 +130,7 @@ const ContactoSorteo = () => {
         <section >
             <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0 ${padTop}`}>
                 <small>Proximamente...</small>
-                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} disabled>Anotate YA!</button>
+                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} >Anotate YA!</button>
             </article>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>

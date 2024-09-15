@@ -17,6 +17,9 @@ const Newsletter = () => {
         text: `Sólo enviaremos información sobre próximos eventos al email: ${inputValues.newsletter}`,
         icon: "success",
         confirmButtonText: "Ok",
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         })  
     };
 
@@ -25,6 +28,9 @@ const Newsletter = () => {
         title:'Aguarde un momento',
         text: `Tu email se esta enviando a nuestra base de datos...`,
         showConfirmButton: false,
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         });  
     };
 
@@ -33,11 +39,14 @@ const Newsletter = () => {
         text: `${inputValues.newsletter}, No es un correo electronico Valido`,
         icon: "error",
         confirmButtonText: "Ok",
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         });  
     };
 
     const handleClick = () => {
-        console.log('News:',inputValues.newsletter)
+        //('News:',inputValues.newsletter)
     }
 
     const handleChange = (e: { target: { name: string; value: string; }; }) => {

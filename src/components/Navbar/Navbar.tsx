@@ -42,6 +42,9 @@ const Navbar = () => {
       title: '¿Está seguro que quiere salir?',
       showCancelButton: true,
       showConfirmButton: true,
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         const salir = logOut();

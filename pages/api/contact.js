@@ -4,7 +4,6 @@ const { SENDER, PASSWORD, TO} = process.env;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (req, res) {
-  //console.log(req.body)
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,

@@ -250,6 +250,9 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
     Swal.fire({
       title: 'Agregando Local...',
       allowOutsideClick: false,
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+      },
       didOpen: () => {
         Swal.showLoading();
       },
@@ -264,6 +267,9 @@ console.log(producto)
     icon: 'success',
     title: 'Local agregado',
     showConfirmButton: false,
+    customClass: {
+      confirmButton: 'bg-primary text-white hover:bg-blue-700',
+    },
     timer: 1500 // Tiempo en milisegundos para cerrar automáticamente
   });
   
@@ -278,6 +284,9 @@ console.log(producto)
       icon: 'error',
       title: 'Error al agregar producto',
       text: 'Por favor, inténtelo de nuevo más tarde.',
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+      }
     });
 
     // Cerrar modal de añadir producto

@@ -40,7 +40,7 @@ const useProducts = () => {
   const fetchProducts = async () => {
     // const params = new URLSearchParams(searchParams.toString());
     const res = await axios.get(`/api/locales/locales`);
-    console.log(res.data.locales)
+    //console.log(res.data.locales)
     const data = await res.data;
     setProducts(data.locales || []);
     // setTotalPages(data.totalPage || 1);
@@ -52,8 +52,8 @@ const useProducts = () => {
   };
   const fetchSorteos = async () => {
     // const params = new URLSearchParams(searchParams.toString());
-    const res = await axios.get(`/api/sorteos/sorteos`);
-     console.log(res.data.sorteos)
+    const res = await axios.get(`/api/sorteos`);
+    //console.log(res.data.sorteos)
     const data = await res.data.sorteos;
     const usersCHW = data.filter(user => user.chw === true);
     const usersNoCHW = data.filter(user => user.chw === false);

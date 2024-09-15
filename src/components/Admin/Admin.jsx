@@ -101,6 +101,9 @@ export default function Admin() {
         Swal.fire({
           title: 'Eliminando producto...',
           allowOutsideClick: false,
+          customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
           didOpen: () => {
             Swal.showLoading();
           },
@@ -114,7 +117,10 @@ export default function Admin() {
             icon: 'success',
             title: 'El producto ha sido eliminado correctamente.',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
+            customClass: {
+              confirmButton: 'bg-primary text-white hover:bg-blue-700',
+          }
           });
         } else {
           Swal.fire('Error', 'Ha ocurrido un error al intentar eliminar el producto.', 'error');

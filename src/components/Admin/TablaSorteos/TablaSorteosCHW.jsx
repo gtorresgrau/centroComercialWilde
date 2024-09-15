@@ -1,26 +1,22 @@
 'use client'; 
 import React, { useState, useEffect, Suspense } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { MdDelete } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../Checkbox/Checkbox';
 import useProducts from '../../../Hooks/useProducts';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
-import RuletaAdmin from '../RuletaAdmin'
+import RuletaAdmin from '../RuletaAdmin';
 
 const TablaSorteosCHW = () => {
-  const [news, setNews] = useState([]);
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [selectAll, setSelectAll] = useState(false);
 
-  const {userSorteo, userSorteoCHW, userSorteoNoCHW} = useProducts()
-  console.log('Sorteos:',userSorteo)
-  console.log('userSorteoCHW:',userSorteoCHW)
-  console.log('userSorteoNoCHW:',userSorteoNoCHW)
-
+  const { userSorteoCHW, userSorteoNoCHW } = useProducts();
 
   useEffect(() => {
     // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
@@ -63,37 +59,47 @@ const TablaSorteosCHW = () => {
     }
 
     try {
-      console.log(subject,message,selectedEmails)
-       const response = await axios.post('/api/newsletter/sendNewsletter', {
-         subject,
-         message,
-         emails: selectedEmails
-       });
+      const response = await axios.post('/api/newsletter/sendNewsletter', {
+        subject,
+        message,
+        emails: selectedEmails,
+      });
       if (response.status === 200) {
-         toast.success('Correos enviados exitosamente');
-         closeModal();
-       } else {
-         throw new Error('Error al enviar los correos');
-       }
+        toast.success('Correos enviados exitosamente');
+        closeModal();
+      } else {
+        throw new Error('Error al enviar los correos');
+      }
     } catch (error) {
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
     }
   };
 
+  const handleDeleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`/api/sorteos/${id}`);        
+        if (response.status === 200 || response.status === 204) {
+            toast.success('Inscripción eliminada con éxito');
+        } 
+    } catch (error) {
+        console.error('Error al eliminar la inscripción 2:', error.response ? error.response.data : error.message);
+        toast.error('Error al eliminar la inscripción');
+    }
+};
+
+
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
-      <h1 className="text-2xl font-bold mb-5 text-secondary uppercase">Sorteos CHW </h1>
-      <div className='flex justify-end mb-2'>
-        <button onClick={openModal} type="button" aria-label="agregar producto" className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center ">
+        <h1 className="text-2xl font-bold mb-5 text-secondary uppercase">Sorteos CHW</h1>
+        <div className='flex justify-end mb-2'>
+          <button onClick={openModal} type="button" aria-label="agregar producto" className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center">
             Iniciar campaña
-        </button>
-      </div>
-      <RuletaAdmin userSorteoCHW={userSorteoCHW} userSorteoNoCHW={userSorteoNoCHW}/>
-      
-      {/* Modal */}
-      {isModalOpen && (
+          </button>
+        </div>
+        <RuletaAdmin userSorteoCHW={userSorteoCHW} userSorteoNoCHW={userSorteoNoCHW} />
+        {isModalOpen && (
         <div id="default-modal"tabIndex="-1" aria-hidden="true" className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-gray-900 g-opacity-50" >
           <div className="relative p-4 w-full max-w-2xl max-h-full">
             <div className="relative bg-white rounded-lg shadow">
@@ -130,36 +136,36 @@ const TablaSorteosCHW = () => {
           </div>
         </div>
       )}
-
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300 shadow-xl">
-          <thead>
-            <tr className='bg-slate-300 text-sm md:text-base'>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Nombre</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">DNI</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Celular</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Torre</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Piso</th>
-              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Depto</th>
-              <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
-                <p className='font-normal'> Seleccionar todos</p>
-                <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll}/>
-              </th>
-            </tr>
-          </thead>
-          {!userSorteoCHW.length ? (
-            <tbody>
-              <tr className="text-center">
-                <td colSpan="2" className="py-10">
-                  <span className="text-gray-500 font-semibold">No hay productos</span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-300 shadow-xl">
+            <thead>
+              <tr className='bg-slate-300 text-sm md:text-base'>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Nombre</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">DNI</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Celular</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Torre</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Piso</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Depto</th>
+                <th className="px-1 py-1 md:px-4 md:py-3 border-b">Acc</th>
+                <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
+                  <p className='font-bold'>All</p>
+                  <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll} />
+                </th>
               </tr>
-            </tbody>
-          ) : (
-            <tbody>
-              {userSorteoCHW.map((user, index) => (
-                <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
+            </thead>
+            {!userSorteoCHW.length ? (
+              <tbody>
+                <tr className="text-center">
+                  <td colSpan="2" className="py-10">
+                    <span className="text-gray-500 font-semibold">No hay inscripciones</span>
+                  </td>
+                </tr>
+              </tbody>
+            ) : (
+              <tbody>
+                {userSorteoCHW.map((user, index) => (
+                  <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.email}</td>
@@ -167,16 +173,19 @@ const TablaSorteosCHW = () => {
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.torre}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-end items-end">
-                      <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
+                    <td className="px-1 py-4 md:px-4 md:py-2 border-b text-end">
+                      <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteUser(user._id)}/>
                     </td>
-                </tr>
-              ))}
-            </tbody>
-          )}
-        </table>
-      </div>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-center items-center">
+                      <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
+          </table>
+        </div>
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       </section>
     </Suspense>
   );

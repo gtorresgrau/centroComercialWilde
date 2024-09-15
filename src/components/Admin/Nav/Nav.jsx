@@ -24,6 +24,9 @@ export default function Nav( {handleSelectSection} ) {
         icon:'info',
         title:'¿Esta seguro quiere salir?',
         showCancelButton:true,
+        customClass: {
+          confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         showConfirmButton:true
       }).then(async (result) =>{
         if(result.isConfirmed){

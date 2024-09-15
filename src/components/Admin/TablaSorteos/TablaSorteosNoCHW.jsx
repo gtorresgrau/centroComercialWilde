@@ -7,6 +7,7 @@ import useProducts from '../../../Hooks/useProducts';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import RuletaAdmin from '../RuletaAdmin';
+import { MdDelete } from 'react-icons/md';
 
 const TablaSorteosNoCHW = () => {
   const [news, setNews] = useState([]);
@@ -17,9 +18,9 @@ const TablaSorteosNoCHW = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   const {userSorteo, userSorteoCHW, userSorteoNoCHW} = useProducts()
-  console.log('Sorteos:',userSorteo)
-  console.log('userSorteoCHW:',userSorteoCHW)
-  console.log('userSorteoNoCHW:',userSorteoNoCHW)
+  //console.log('Sorteos:',userSorteo)
+  //console.log('userSorteoCHW:',userSorteoCHW)
+  //console.log('userSorteoNoCHW:',userSorteoNoCHW)
 
   useEffect(() => {
     // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
@@ -79,6 +80,18 @@ const TablaSorteosNoCHW = () => {
       toast.error('Error al enviar los correos');
     }
   };
+
+  const handleDeleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`/api/sorteos/${id}`);        
+        if (response.status === 200 || response.status === 204) {
+            toast.success('Inscripción eliminada con éxito');
+        } 
+    } catch (error) {
+        console.error('Error al eliminar la inscripción 2:', error.response ? error.response.data : error.message);
+        toast.error('Error al eliminar la inscripción');
+    }
+};
 
   return (
     <Suspense fallback={<Loading />}>
@@ -143,9 +156,10 @@ const TablaSorteosNoCHW = () => {
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Calle</th>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Altura</th>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Localidad</th>
+              <th className="px-1 py-1 md:px-4 md:py-3 border-b">Acc</th>
               <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
-                <p className='font-normal'> Seleccionar todos</p>
-                <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll}/>
+                <p className='font-bold'>All</p>
+                <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll} />
               </th>
             </tr>
           </thead>
@@ -168,6 +182,9 @@ const TablaSorteosNoCHW = () => {
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.torre}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
+                    <td className="px-1 py-4 md:px-4 md:py-2 border-b text-end">
+                      <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteUser(user._id)}/>
+                    </td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b text-end items-end">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
                     </td>

@@ -199,6 +199,9 @@ console.log(producto)
        Swal.fire({
         title: 'Guardando cambios...',
         allowOutsideClick: false,
+        customClass: {
+          confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         didOpen: () => {
           Swal.showLoading();
         },
@@ -211,6 +214,9 @@ console.log(producto)
       icon: 'success',
       title: 'Cambios guardados',
       showConfirmButton: false,
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+      },
       timer: 1500 // Tiempo en milisegundos para cerrar automáticamente
     });
 
@@ -223,6 +229,9 @@ console.log(producto)
       icon: 'error',
       title: 'Error al guardar cambios',
       text: 'Por favor, inténtelo de nuevo más tarde.',
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+      }
     });
     toggleModal(); // Cerrar modal de edición
   }

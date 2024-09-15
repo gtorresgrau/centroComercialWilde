@@ -12,7 +12,7 @@ export default function LocalPage({ params }) {
   const fetchLocal = async () => {
     try {
       const res = await fetch(`/api/locales/${params.n_local}`);
-      console.log('res:', res);
+      //console.log('res:', res);
       
       if (!res.ok) {
         throw new Error('Error al cargar el local');

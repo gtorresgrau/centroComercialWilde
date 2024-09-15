@@ -87,6 +87,9 @@ export default function UploadImage({ localData, updateLocalData,id }) {
       title: 'Cargando...',
       text: 'Subiendo imagen, por favor espere.',
       allowOutsideClick: false,
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+    },
       didOpen: () => {
         Swal.showLoading();
       },
@@ -124,6 +127,9 @@ export default function UploadImage({ localData, updateLocalData,id }) {
       title: 'Eliminando...',
       text: 'Eliminando imagen, por favor espere.',
       allowOutsideClick: false,
+      customClass: {
+        confirmButton: 'bg-primary text-white hover:bg-blue-700',
+    },
       didOpen: () => {
         Swal.showLoading();
       },
@@ -167,6 +173,9 @@ export default function UploadImage({ localData, updateLocalData,id }) {
         icon: 'error',
         title: 'Error',
         text: 'No se pudo eliminar la imagen. Por favor, inténtalo de nuevo.',
+        customClass: {
+          confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
       });
     } finally {
       Swal.close();

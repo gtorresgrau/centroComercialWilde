@@ -20,8 +20,10 @@ const Contactusform = () => {
         title: `${inputValues.input1},tu mensaje ha sido enviado correctamente.`,
         text: `Pronto se comunicarán contigo al siguiente email, ${inputValues.input2} `,
         icon: "success",
-        confirmButtonText: "Ok",
-        customClass: {confirmButton: 'bg-blue-500 text-white hover:bg-blue-700' }
+        confirmButtonText: "Ok",            
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         })  
     };
 
@@ -30,6 +32,9 @@ const Contactusform = () => {
         title:'Aguarde un momento',
         text: `Tu mensaje se esta enviando...`,
         showConfirmButton: false,
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
         });  
     };
 

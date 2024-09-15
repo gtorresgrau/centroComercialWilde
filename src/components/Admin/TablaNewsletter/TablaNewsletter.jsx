@@ -19,7 +19,7 @@ const TablaNewsletter = () => {
       try {
         const newsData = await getNewsletter();
         setNews(newsData.emails);
-        console.log(newsData.emails);
+        //console.log(newsData.emails);
       } catch (error) {
         console.error('Error fetching newsletter:', error);
         toast.error('Error al obtener los correos');
@@ -70,7 +70,7 @@ const TablaNewsletter = () => {
     }
 
     try {
-      console.log(subject,message,selectedEmails)
+      //console.log(subject,message,selectedEmails)
        const response = await axios.post('/api/newsletter/sendNewsletter', {
          subject,
          message,
