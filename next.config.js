@@ -34,10 +34,12 @@ module.exports = withPWA({
     config.module.rules.push({
       test: /\.(js|mjs)$/,
       include: /node_modules/,
+      exclude: /(react-icons|heic2any)/,  // Excluye módulos grandes
       use: {
         loader: 'babel-loader',
         options: {
           presets: ['next/babel'],
+          cacheDirectory: true,
         },
       },
     });

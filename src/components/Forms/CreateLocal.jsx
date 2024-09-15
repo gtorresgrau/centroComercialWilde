@@ -1,7 +1,6 @@
 'use client'
 import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-
 import { IoClose } from 'react-icons/io5';
 
 const CreateLocal =()=> {

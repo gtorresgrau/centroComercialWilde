@@ -134,7 +134,7 @@ export default function Admin() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <div className="flex flex-col min-h-screen mb-40 ">
+      <div className="flex flex-col min-h-screen">
         <Nav handleSelectSection={handleSelectSection}  className='bg-secondary'/>
         {section === 'Productos' && (
           <div>
@@ -217,7 +217,7 @@ export default function Admin() {
           </div>
         )}
 
-        <article className="flex-1 bg-primary-background p-3 sm:p-5">
+        <article className="flex-1 bg-primary p-3 sm:p-5">
           {section === 'Newsletter' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
               <TablaNewsletter />

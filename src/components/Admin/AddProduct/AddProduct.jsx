@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { FaPlus } from "react-icons/fa";
-import UploadImage from '../UploadImage';
 import Swal from 'sweetalert2';
 import Loading from '../../Loading/Loading';
 import axios from 'axios';
