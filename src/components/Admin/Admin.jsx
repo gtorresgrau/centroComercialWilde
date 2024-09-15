@@ -138,11 +138,11 @@ export default function Admin() {
         <Nav handleSelectSection={handleSelectSection}  className='bg-secondary'/>
         {section === 'Productos' && (
           <div>
-            <section id="tablaProductosAdmin" className="bg-primary min-h-screen p-2 sm:p-3 md:p-5">
-              <div className="mx-auto max-w-screen-xl px-0 lg:px-12">
+            <section id="tablaProductosAdmin" className="bg-primary px-2 sm:px-3 md:px-4">
+              <div className="mx-auto max-w-screen-xl px-0 pt-2 lg:px-12">
                 <div className="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
-                  <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4 text-center md:text-left ">
-                    <div className="w-full rounded-md">
+                  <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-2 text-center md:text-left ">
+                    <div className="w-full rounded-lg">
                       <SearchBase
                         searchQuery={searchQuery}
                         setSearchQuery={setSearchQuery}
@@ -160,7 +160,7 @@ export default function Admin() {
                     </div>
                   </div>
                   <div className="overflow-x-auto">
-                   <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 align-middle self-center"/>
+                   <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-2 align-middle self-center"/>
                     <table className="w-full text-sm text-center text-gray-500" id="productosAdmin">
                       <thead className="text-xs text-gray-900 uppercase bg-gray-400">
                         <tr>
@@ -217,7 +217,7 @@ export default function Admin() {
           </div>
         )}
 
-        <article className="flex-1 bg-primary p-3 sm:p-5">
+        <article className="flex-1 bg-primary pt-2 sm:pt-4">
           {section === 'Newsletter' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
               <TablaNewsletter />

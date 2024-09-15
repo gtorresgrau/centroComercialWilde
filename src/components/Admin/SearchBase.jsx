@@ -25,7 +25,7 @@ export default function SearchBase({ searchQuery, setSearchQuery, setFilteredLoc
             placeholder="Buscar...(Nombre, Rubro, etc...)"
             value={searchQuery}
             onChange={e => handleSearch(e.target.value)}
-            className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
+            className="rounded-xl border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
         />
     </div>
   );

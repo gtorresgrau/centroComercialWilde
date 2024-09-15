@@ -42,7 +42,7 @@ export default function Nav( {handleSelectSection} ) {
 
   return (
     <div className="border-gray-200 bg-[url('/bg/bg-banner.webp')]">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between flex-row-reverse mx-auto p-4">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between flex-row-reverse mx-auto px-4">
         <a href="#" className="flex items-center space-x-3">
           <img src="assets/logo/administracion.webp" className="h-20" alt="Logo CCW" loading='lazy'/>
         </a>
