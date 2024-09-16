@@ -154,6 +154,7 @@ export default function Admin() {
                         setSearchQuery={setSearchQuery}
                         locales={products}
                         setFilteredLocales={setFilteredLocales}
+                        setPage={setPage}
                       />
                     </div>
                     <div className="md:flex md:justify-end gap-3 grid grid-cols-5 w-full">

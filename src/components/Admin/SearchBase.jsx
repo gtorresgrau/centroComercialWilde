@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 
-export default function SearchBase({ searchQuery, setSearchQuery, setFilteredLocales, locales }) {
+export default function SearchBase({ searchQuery, setSearchQuery, setFilteredLocales, locales , setPage}) {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -15,6 +15,7 @@ export default function SearchBase({ searchQuery, setSearchQuery, setFilteredLoc
 
     // Setear el estado de locales filtrados
     setFilteredLocales(filtered);
+    setPage(1);
   };
 
   return (
