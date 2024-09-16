@@ -729,45 +729,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
                       placeholder="Horarios de atención"
                     />
                   </div>
-
-                  {/* Logo del Local */}
-                  <div>
-                    <label
-                      htmlFor="logoLocalAdd"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Logo del Local
-                    </label>
-                    <input
-                      onChange={handleChangeInput}
-                      type="text"
-                      name="logoLocal"
-                      value={producto.logoLocal}
-                      id="logoLocalAdd"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      placeholder="URL del logo del local"
-                    />
-                  </div>
-
-                  {/* Foto del Local */}
-                  <div>
-                    <label
-                      htmlFor="fotoLocalAdd"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Foto del Local
-                    </label>
-                    <input
-                      onChange={handleChangeInput}
-                      type="text"
-                      name="fotoLocal"
-                      value={producto.fotoLocal}
-                      id="fotoLocalAdd"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      placeholder="URL de la foto del local"
-                    />
-                  </div>
-
+                
                   {/* Instagram */}
                   <div>
                     <label
