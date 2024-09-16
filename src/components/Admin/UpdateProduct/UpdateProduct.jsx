@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading/Loading";
 import axios from "axios";
-import UploadImage from "../UploadImage";
+import UploadImage from "./UploadImage";
 
 export default function UpdateProduct({
   isOpenModal,
