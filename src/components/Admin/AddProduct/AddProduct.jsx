@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { FaPlus } from "react-icons/fa";
-import UploadImage from '../UploadImage';
+import AgregarImagen from './AgregarImagen';
 import Swal from 'sweetalert2';
 import Loading from '../../Loading/Loading';
 import axios from 'axios';
@@ -11,7 +11,6 @@ import axios from 'axios';
 export default function AddProduct({
     isOpenModal,
     toggleModal,
-  //  product
   }) {
 
     const [isDropdownUbicacionOpen, setIsDropdownUbicacionOpen] = useState(false);
@@ -43,6 +42,13 @@ export default function AddProduct({
         texto: null
       });
 
+      const imgNoDisponible = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'
+      // Filtrar las imágenes que existen para pasarle a UploadImage
+      const images = {
+        logoLocal: producto.logoLocal || imgNoDisponible,
+        fotoLocal: producto.fotoLocal || imgNoDisponible,
+      };
+
 
     // Fetch de selects
     const fetchSelectAdmin = async () => {
@@ -58,18 +64,6 @@ export default function AddProduct({
       fetchSelectAdmin()
     }, [])
 
-
-    
- 
-      
-      // // Estado para mantener las imágenes originales
-      // const [originalImages, setOriginalImages] = useState({
-      //   foto_1_1: "",
-      //   foto_1_2: "",
-      //   foto_1_3: "",
-      //   foto_1_4: "",
-      // });
-      
    const ubicacionDropdownRef = useRef(null);
    const categoriaDropdownRef = useRef(null);
    const rubroDropdownRef = useRef(null)
@@ -101,6 +95,17 @@ export default function AddProduct({
     setProducto((prevState) => ({
       ...prevState,
       [name]: value,
+    }));
+  };
+
+  const handleUpdateImages = (newImages) => {
+    console.log('Tipo de newImages:', typeof newImages);
+    console.log('newImages:', newImages);
+  
+    setProducto((prevState) => ({
+      ...prevState,
+      logoLocal: newImages.logoLocal ,
+      fotoLocal: newImages.fotoLocal ,
     }));
   };
 
@@ -138,64 +143,10 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
  setCategorias([...categorias, valorNuevo ]);
  setIsDropdownCategoriaOpen(false);
 };
-    
-//     // Función para actualizar las imágenes del producto
-//     const handleUpdateImages = (newImages) => {
-//         setProducto((prevState) => ({
-//             ...prevState,
-//             foto_1_1: newImages[0]?.preview || "",
-//             foto_1_2: newImages[1]?.preview || "",
-//             foto_1_3: newImages[2]?.preview || "",
-//         foto_1_4: newImages[3]?.preview || "",
-//     }));
-// };
 
-// // Función para eliminar una imagen específica del producto
-// const handleRemoveImage = (index) => {
-//     setProducto((prevState) => {
-//         const updatedState = { ...prevState };
-//         switch (index) {
-//             case 0:
-//             updatedState.foto_1_1 = "";
-//             break;
-//           case 1:
-//               updatedState.foto_1_2 = "";
-//             break;
-//           case 2:
-//             updatedState.foto_1_3 = "";
-//             break;
-//             case 3:
-//                 updatedState.foto_1_4 = "";
-//                 break;
-//                 default:
-//                     break;
-//         }
-//         return updatedState;
-//     });
-// };
-
-// // Función para verificar si ha habido cambios en las imágenes
-// const hasImageChanges = () => {
-//     return (
-//         producto.foto_1_1 !== originalImages.foto_1_1 ||
-//         producto.foto_1_2 !== originalImages.foto_1_2 ||
-//         producto.foto_1_3 !== originalImages.foto_1_3 ||
-//         producto.foto_1_4 !== originalImages.foto_1_4
-//     );
-//     };
-  
     // Función para manejar el cierre del modal
     const handleToggleModal = () => {
-      //   if (hasImageChanges()) {
-      //       // Mostrar alerta si hay cambios no guardados
-      //       Swal.fire({
-      //     icon:'warning',
-      //     title:'Debe guardar los cambios antes de cerrar.',
-      //     showCancelButton:false,})
-      // } else {
-          // Cerrar modal si no hay cambios
           toggleModal();
-        // }
     };
     
  
@@ -207,86 +158,134 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
     container.innerHTML = `<h2><strong>AGUARDE</strong></h2><br/><p> se está creando el producto</p>`;
     container.appendChild(loadingElement);
 
+    console.log(producto)
+
+    const submitUpdateImage = async (file, tipo) => {
+      console.log(file,tipo)
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('tipo', tipo); // Carpeta en Cloudinary para organizar las imágenes
+    console.log(formData)
+      try {
+        const response = await axios.post('/api/images/postImage', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(response.data)
+        const { data } = response;
+        console.log(data)
+        return data.preview; // URL segura de la imagen en Cloudinary
+      } catch (error) {
+        console.error('Error al subir la imagen:', error);
+        return { error: 'Error al subir la imagen' };
+      }
+    };
+    
+    
+    
 
     // Función para enviar el formulario actualizado del producto
     const submitAddProduct = async (e) => {
       e.preventDefault();
-      console.log(producto,'submit')
-      
-    // Validación básica del campo nombre
-    if (!producto.local.trim()) {
-      alert("Por favor ingrese un nombre para el producto.");
-      return;
-    }
-  
-        // Filtrar solo las propiedades que no están vacías o que tienen algún valor
-        // const filteredProducto = {};
-        // Object.keys(producto).forEach((key) => {
-        //     if (
-        //     producto[key] !== undefined &&
-        //     producto[key] !== null &&
-        //     producto[key] !== ""
-        //   ) {
-        //     filteredProducto[key] = producto[key];
-        //   }
-        // });
-        // console.log(filteredProducto)
-        // // Crear FormData y agregar propiedades del producto filtrado
-        // const formData = new FormData();
-        // Object.keys(filteredProducto).forEach((key) => {
-        //   formData.append(key, filteredProducto[key]);
-        // });
-       
-       //console.log(formData,'formdatasubmit')
-  //     Swal.fire({
-  //   title: 'Agregando Local...',
-  //   allowOutsideClick: false,
-  //   didOpen: () => {
-  //     Swal.showLoading();
-  //   },
-  // });
-
-  try {
-    // Mostrar SweetAlert con indicador de carga
-    Swal.fire({
-      title: 'Agregando Local...',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-console.log(producto)
-// // Realizar la solicitud para agregar el producto
-  const res = await axios.post("/api/locales/localesAdd", producto )
-  const data = await res.data;
-  
-  // Cerrar SweetAlert al completar la solicitud con éxito
-  Swal.fire({
-    icon: 'success',
-    title: 'Local agregado',
-    showConfirmButton: false,
-    timer: 1500 // Tiempo en milisegundos para cerrar automáticamente
-  });
-  
-  // Cerrar modal de añadir producto
-   toggleModal();
-  
-  // Manejar la respuesta si es necesario
-  // console.log(data.descripcion, "dataaaaaa");
-} catch (error) {
-  // Cerrar SweetAlert en caso de error
-  Swal.fire({
-      icon: 'error',
-      title: 'Error al agregar producto',
-      text: 'Por favor, inténtelo de nuevo más tarde.',
-    });
-
-    // Cerrar modal de añadir producto
-     toggleModal();
-
-    console.error("Error al agregar el producto:", error);
-  }
-};
+      console.log(producto, 'submit');
+    
+      // Validación básica del campo nombre
+      if (!producto.local.trim()) {
+        alert('Por favor ingrese un nombre para el producto.');
+        return;
+      }
+    
+      try {
+        // Mostrar SweetAlert con indicador de carga
+        Swal.fire({
+          title: 'Guardando cambios...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+    
+        // Inicializa URLs de las imágenes
+        let logoLocalUrl = '';
+        let fotoLocalUrl = '';
+    
+        // Subir el logoLocal si existe
+        if (producto.logoLocal && producto.logoLocal.file) {
+          const logoResponse = await submitUpdateImage(producto.logoLocal.file, 'logoLocal');
+          console.log(logoResponse);
+          if (logoResponse.error) {
+            throw new Error('Error al subir el logo local');
+          }
+          logoLocalUrl = logoResponse; // URL de la imagen del logo local
+    
+          // Actualizar el estado del producto con la URL del logo
+          setProducto((prevState) => ({
+            ...prevState,
+            logoLocal: logoResponse,
+          }));
+          console.log('logoLocal subido');
+        }
+    
+        // Subir la fotoLocal si existe
+        if (producto.fotoLocal && producto.fotoLocal.file) {
+          const fotoResponse = await submitUpdateImage(producto.fotoLocal.file, 'fotoLocal');
+          if (fotoResponse.error) {
+            throw new Error('Error al subir la foto local');
+          }
+          fotoLocalUrl = fotoResponse; // URL de la imagen de la foto local
+    
+          // Actualizar el estado del producto con la URL de la foto
+          setProducto((prevState) => ({
+            ...prevState,
+            fotoLocal: fotoResponse,
+          }));
+          console.log('fotoLocal subido');
+        }
+    
+        // Agregar URLs de imágenes al objeto producto
+        const updatedProducto = {
+          ...producto,
+          logoLocal: logoLocalUrl,
+          fotoLocal: fotoLocalUrl,
+        };
+    
+        console.log(updatedProducto);
+    
+        // Enviar el formulario actualizado al backend
+        const res = await axios.post('/api/locales/localesAdd', updatedProducto);
+        const data = res.data;
+    
+        // Cerrar SweetAlert al completar la solicitud con éxito
+        Swal.fire({
+          icon: 'success',
+          title: 'Cambios guardados',
+          showConfirmButton: false,
+          timer: 1500, // Tiempo en milisegundos para cerrar automáticamente
+        });
+    
+        // Cerrar modal de añadir producto
+        toggleModal();
+    
+        // Manejar la respuesta si es necesario
+        console.log(data, 'dataaaaaa');
+      } catch (error) {
+        // Cerrar SweetAlert en caso de error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar cambios',
+          text: 'Por favor, inténtelo de nuevo más tarde.',
+        });
+    
+        // Cerrar modal de añadir producto
+        toggleModal();
+    
+        console.error('Error al guardar los cambios:', error);
+      }
+    };
+    
+    
+    
     // // Filtrar las imágenes que existen para pasarle a UploadImage
     // const imagenes = [
     //   producto.foto_1_1,
@@ -863,6 +862,7 @@ console.log(producto)
 
                 {/* Subir Archivo */}
                 {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
+                <AgregarImagen localData={images} updateLocalData={handleUpdateImages} id={producto._id} />
 
                 {/* Guardar cambios */}
                 <div className="flex justify-center mt-6">

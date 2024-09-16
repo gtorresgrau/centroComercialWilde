@@ -55,7 +55,7 @@ export default function UploadImage({ localData, updateLocalData,id }) {
      formData.set('file', file);
      formData.set('tipo', tipo);
      formData.set('id', id);
-
+    console.log(file,tipo, id)
     try {
         const res = await axios.post('/api/images/postImage', formData);
 
@@ -106,13 +106,12 @@ export default function UploadImage({ localData, updateLocalData,id }) {
     console.log(archivoProcesado)
     
 
-    const res =await submitUpdateImage(archivoProcesado,tipo,id)
-    
+      const res =await submitUpdateImage(archivoProcesado,tipo,id)
 
 
     updateLocalData({
       ...localData,
-      [tipo]: res.preview,
+      [tipo]: id ? res.preview : archivoProcesado,
     });
 
     Swal.close();
