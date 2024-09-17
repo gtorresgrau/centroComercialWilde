@@ -4,7 +4,7 @@ import Local from '../../../src/models/locales';
 // Controlador para el método GET
 async function handleGet(req, res) {
     try {
-        const locales = await Local.find({}, { local: 1, categoria: 1, n_local: 1 });
+        const locales = await Local.find({}, { local: 1, categoria: 1,fotoLocal:1, logoLocal:1, n_local: 1 });
         return res.status(200).json({ locales });
     } catch (error) {
         console.error('Error al obtener los locales:', error);

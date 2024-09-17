@@ -85,6 +85,7 @@ export default function Admin() {
   }, [isModalClose, isModalOpen]);
 
   const handleEliminarArchivos = async (producto) => {
+    console.log(producto);
     try {
       const result = await Swal.fire({
         title: '¿Estás seguro?',
@@ -96,22 +97,51 @@ export default function Admin() {
         confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'Cancelar'
       });
-
+  
       if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Eliminando imágenes...',
+          allowOutsideClick: false,
+          customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+          },
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+  
+        // Función para eliminar imagen
+        const eliminarImagen = async (url, tipo) => {
+          console.log(url, tipo);
+          const path = decodeURIComponent(url.replace(/\/v\d+\//, '/').split('/image/upload/')[1].replace(/\.[^/.]+$/, ''));
+          console.log(path);
+          return axios.delete('/api/images/deleteImage', {
+            data: { file: path, id: producto._id, tipo }
+          });
+        };
+  
+        // Ejecutar la eliminación de las imágenes en paralelo
+        await Promise.all([
+          eliminarImagen(producto.fotoLocal, 'fotoLocal'),
+          eliminarImagen(producto.logoLocal, 'logoLocal')
+        ]);
+  
+        // Una vez que las imágenes se han eliminado, proceder a eliminar el producto
         Swal.fire({
           title: 'Eliminando producto...',
           allowOutsideClick: false,
           customClass: {
             confirmButton: 'bg-primary text-white hover:bg-blue-700',
-        },
+          },
           didOpen: () => {
             Swal.showLoading();
           },
         });
-
-        const res = await axios.delete(`/api/locales/localDelete?id=${producto._id}`);
-
-        if (res.data.message) {
+  
+        const resDeleteProducto = await axios.delete(`/api/locales/localDelete?id=${producto._id}`);
+  
+        // Verificar si el producto fue eliminado exitosamente
+        if (resDeleteProducto.data.message) {
           fetchProducts();
           Swal.fire({
             icon: 'success',
@@ -120,17 +150,19 @@ export default function Admin() {
             timer: 1500,
             customClass: {
               confirmButton: 'bg-primary text-white hover:bg-blue-700',
-          }
+            }
           });
         } else {
-          Swal.fire('Error', 'Ha ocurrido un error al intentar eliminar el producto.', 'error');
+          throw new Error('Error al eliminar el producto');
         }
       }
     } catch (error) {
+      console.error(error);
       Swal.fire('Error', 'Ha ocurrido un error al intentar eliminar el producto o sus imágenes.', 'error');
     }
   };
-
+  
+  
   const handleSelectSection = (section) => {
     setSection(section);
   };
