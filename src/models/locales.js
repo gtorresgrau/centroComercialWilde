@@ -69,7 +69,11 @@ const localSchema = new mongoose.Schema({
       texto: {
         type: String,
         default: ''
-      }
+      },
+      activo: {
+        type: Boolean,
+        default: true
+      },
 
 });
 
