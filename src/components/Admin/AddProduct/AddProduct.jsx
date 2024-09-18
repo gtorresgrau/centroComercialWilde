@@ -36,8 +36,8 @@ export default function AddProduct({
         rubro: null,
         rubroSecundario: 'No tengo',
         horarios: null,
-        logoLocal: null,
-        fotoLocal: null,
+        logoLocal: imgNoDisponible,
+        fotoLocal: imgNoDisponible,
         instagram: 'No tengo',
         facebook: 'No tengo',
         web: 'No tengo',
@@ -46,8 +46,8 @@ export default function AddProduct({
 
       // Filtrar las imágenes que existen para pasarle a UploadImage
       const images = {
-        logoLocal: producto.logoLocal || imgNoDisponible,
-        fotoLocal: producto.fotoLocal || imgNoDisponible,
+        logoLocal: producto.logoLocal,
+        fotoLocal: producto.fotoLocal,
       };
 
 
@@ -208,8 +208,8 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
         });
     
         // Inicializa URLs de las imágenes
-        let logoLocalUrl = '';
-        let fotoLocalUrl = '';
+        let logoLocalUrl = imgNoDisponible;
+        let fotoLocalUrl = imgNoDisponible;
     
         // Subir el logoLocal si existe
         if (producto.logoLocal && producto.logoLocal.file) {
