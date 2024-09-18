@@ -67,10 +67,11 @@ export default function UpdateProduct({
     instagram: 'No tengo',
     facebook: 'No tengo',
     web: 'No tengo',
-    texto: product.texto
+    texto: product.texto,
+    activo: product.activo
   });
-console.log(producto)
-
+  console.log(producto)
+  
    const ubicacionDropdownRef = useRef(null);
    const categoriaDropdownRef = useRef(null);
    const rubroDropdownRef = useRef(null)
@@ -97,10 +98,12 @@ console.log(producto)
 
   // Función para manejar cambios en los inputs del formulario del producto
   const handleChangeInput = (e) => {
-    const { name, value } = e.target;
+    const { name, type, checked, value } = e.target;
+    const inputValue = type === 'checkbox' ? checked : value;
+    
     setProducto((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: inputValue,
     }));
   };
 
@@ -728,25 +731,25 @@ console.log(producto)
                   />
                 </div>
               </div>
-              {/* destacados */}
-              {/* <div className="flex gap-2 mb-4">
-                <input
-                  onChange={handleChangeInput}
-                  type="checkbox"
-                  name="destacados"
-                  id="destacadosUpdate"
-                  checked={producto.destacados}
-                />
-                <label
-                  htmlFor="destacadosUpdate"
-                  className="block text-sm font-medium text-gray-900"
-                >
-                  Producto Destacado
-                </label>
-              </div> */}
+             
+          {/* activos */}
+            <div className="flex gap-2 mb-4">
+              <input
+                onChange={handleChangeInput}
+                type="checkbox"
+                name="activo"
+                id="activo"
+                checked={producto.activo}
+              />
+              <label
+                htmlFor="activo"
+                className="block text-sm font-medium text-gray-900"
+              >
+                Local activo
+              </label>
+            </div>
 
               {/* Subir Archivo */}
-              {/* <UploadImage imagenes={imagenes} updateImages={handleUpdateImages} handleRemoveImage={handleRemoveImage} /> */}
               <UploadImage localData={images} updateLocalData={handleUpdateImages} id={producto._id}/>
 
               {/* Guardar cambios */}
