@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
-import { imgNoDisponible } from '@/src/app/Constants/constantes';
+import { imgNoDisponible } from '../../../app/Constants/constantes';
 
 export default function AgregarImagen ({ localData, updateLocalData }) {
   console.log(localData)

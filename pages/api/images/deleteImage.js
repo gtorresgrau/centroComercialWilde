@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import Local from '../../../src/models/locales';
-import { imgNoDisponible } from '../../app/Constants/constantes'
+import { imgNoDisponible } from '../../../src/app/Constants/constantes'
 
 
 cloudinary.config({

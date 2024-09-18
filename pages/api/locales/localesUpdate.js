@@ -1,6 +1,6 @@
 import { connectDB } from '../../../server/utils/mongodb';
 import Local from '../../../src/models/locales';
-import { imgNoDisponible } from '../../app/Constants/constantes'
+import { imgNoDisponible } from '../../../src/app/Constants/constantes'
 
 // Controlador para el método PUT
 async function handlePut(req, res) {
