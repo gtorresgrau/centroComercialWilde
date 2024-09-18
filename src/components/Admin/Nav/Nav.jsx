@@ -142,7 +142,7 @@ export default function Nav( {handleSelectSection} ) {
                     d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z"
                   />
                 </svg>
-                <span className="ml-3 text-gray-200 ">Productos</span>
+                <span className="ml-3 text-gray-200 ">Locales</span>
               </a>
             </li>
             {/* Productos Destacados  */}

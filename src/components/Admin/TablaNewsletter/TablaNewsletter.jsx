@@ -208,7 +208,7 @@ const TablaNewsletter = () => {
             <tbody>
               <tr className="text-center">
                 <td colSpan="2" className="py-10">
-                  <span className="text-gray-500 font-semibold">No hay productos</span>
+                  <span className="text-gray-500 font-semibold">No hay locales</span>
                 </td>
               </tr>
             </tbody>
