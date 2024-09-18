@@ -116,7 +116,7 @@ const handleArchivoSeleccionado = async (e, tipo) => {
 };
 
   const handleEliminarArchivo = async (tipo) => {
-        updateLocalData({ ...localData, [tipo]: '' });
+        updateLocalData({ ...localData, [tipo]: imgNoDisponible });
   };
   
 
