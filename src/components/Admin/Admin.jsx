@@ -11,6 +11,7 @@ import axios from "axios";
 import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
 import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
+import { imgNoDisponible } from '../../app/Constants/constantes'
 
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,6 +114,9 @@ export default function Admin() {
         // Función para eliminar imagen
         const eliminarImagen = async (url, tipo) => {
           console.log(url, tipo);
+          if (url=== imgNoDisponible){
+            return
+          }
           const path = decodeURIComponent(url.replace(/\/v\d+\//, '/').split('/image/upload/')[1].replace(/\.[^/.]+$/, ''));
           console.log(path);
           return axios.delete('/api/images/deleteImage', {

@@ -6,6 +6,8 @@ import AgregarImagen from './AgregarImagen';
 import Swal from 'sweetalert2';
 import Loading from '../../Loading/Loading';
 import axios from 'axios';
+import { imgNoDisponible } from '../../../app/Constants/constantes'
+
 
 
 export default function AddProduct({
@@ -42,7 +44,6 @@ export default function AddProduct({
         texto: null
       });
 
-      const imgNoDisponible = 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp'
       // Filtrar las imágenes que existen para pasarle a UploadImage
       const images = {
         logoLocal: producto.logoLocal || imgNoDisponible,

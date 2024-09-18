@@ -1,5 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 import Local from '../../../src/models/locales';
+import { imgNoDisponible } from '../../app/Constants/constantes'
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -26,7 +28,7 @@ export default async function handler(req, res) {
            // Actualizamos solo la propiedad específica en la base de datos
            const updateResult = await Local.findByIdAndUpdate(
             id, 
-            { $set: { [tipo]: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1726043257/NoDisponible_jrzbvh.webp' } },
+            { $set: { [tipo]: imgNoDisponible } },
             { new: true } // Devuelve el documento actualizado
         );
         console.log(updateResult)
