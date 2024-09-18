@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Button, styled } from '@mui/material';
@@ -6,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { imgNoDisponible } from '@/src/app/Constants/constantes';
 
 export default function UploadImage({ localData, updateLocalData,id }) {
   console.log(localData)
@@ -233,45 +235,60 @@ export default function UploadImage({ localData, updateLocalData,id }) {
       <div className="relative pb-[50px] bg-white mt-[20px] rounded-md">
         <div className="grid grid-cols-2 gap-4">
           {console.log(archivos)}
-          {archivos.map((archivo, index) => (
-            archivo.preview && (
-              <div key={index} className="relative shadow-md rounded-lg">
-                <h4>{archivo.name === 'logoLocal' ? 'Logo del local' : 'Foto del local'}</h4>
-                <img
-                  src={archivo.preview}
-                  alt={archivo.name}
-                  className="w-full object-cover cursor-pointer h-36 max-w-full rounded-lg"
-                  onClick={() => handleVerArchivo(archivo)}
-                  loading="lazy"
-                />
-                {archivo.preview.split('/').pop().split('.')[0] !== 'NoDisponible_jrzbvh' && (
+          {archivos.map((archivo, index) => {
+  // Verificación para comprobar si la imagen es "NoDisponible"
+  const isNoDisponible = (
+    (typeof archivo.preview === 'string' && archivo.preview === imgNoDisponible) 
+  );
+  
+  return (
+    archivo.preview && (
+      <div key={index} className="relative shadow-md rounded-lg">
+        <h4>{archivo.name === 'logoLocal' ? 'Logo del local' : 'Foto del local'}</h4>
 
-                  <button
-                  type="button"
-                  aria-label="eliminar archivo"
-                  onClick={() => handleEliminarArchivo(archivo.name)}
-                  className="absolute top-1 right-1 cursor-pointer bg-gray-300 text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg text-sm w-6 h-6 inline-flex items-center justify-center"
-                  >
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                    >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                      />
-                  </svg>
-                </button>
-                    )}
-              </div>
-            )
-          ))}
+        {/* Verifica si archivo.preview es un string o un objeto */}
+        <img
+          src={typeof archivo.preview === 'string' ? archivo.preview : archivo.preview.preview}
+          alt={archivo.name}
+          className={`w-full object-cover h-36 max-w-full rounded-lg ${!isNoDisponible ? 'cursor-pointer' : ''}`}
+          onClick={() => {
+            if (!isNoDisponible) {
+              handleVerArchivo(archivo);
+            }
+          }}
+          loading="lazy"
+        />
+
+        {/* Verificación de archivo.preview y si no es imagen por defecto */}
+        {!isNoDisponible && (
+          <button
+            type="button"
+            aria-label="eliminar archivo"
+            onClick={() => handleEliminarArchivo(archivo.name)}
+            className="absolute top-1 right-1 cursor-pointer bg-gray-300 text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg text-sm w-6 h-6 inline-flex items-center justify-center"
+          >
+            <svg
+              className="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+          </button>
+        )}
+      </div>
+    )
+  );
+})}
+
         </div>
       </div>
     </div>
