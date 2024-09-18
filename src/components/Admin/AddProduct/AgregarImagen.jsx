@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Button, styled } from '@mui/material';
@@ -5,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import { imgNoDisponible } from '@/src/app/Constants/constantes';
 
 export default function AgregarImagen ({ localData, updateLocalData }) {
   console.log(localData)
@@ -67,31 +68,7 @@ export default function AgregarImagen ({ localData, updateLocalData }) {
       return !isDefault;  // Si es imagen por defecto, devuelve false; si no, devuelve true
     }
     return false;
-  });
-  
-
-
-//   const submitUpdateImage = async (file,tipo,id) => {
-//      const formData = new FormData();
-//      formData.set('file', file);
-//      formData.set('tipo', tipo);
-//      formData.set('id', id);
-//     console.log(file,tipo, id)
-//     try {
-//         const res = await axios.post('/api/images/postImage', formData);
-
-//         const data = res.data;
-//         console.log(data, 'data');
-//         return data;
-//     } catch (error) {
-//         console.error('Error uploading image:', error);
-//         return { error: 'Failed to upload image' };
-//     }
-// };
-
-
-
-  
+  });  
 
 
 const handleArchivoSeleccionado = async (e, tipo) => {
@@ -193,7 +170,14 @@ const handleArchivoSeleccionado = async (e, tipo) => {
 
       <div className="relative pb-[50px] bg-white mt-[20px] rounded-md">
   <div className="grid grid-cols-2 gap-4">
-    {archivos.map((archivo, index) => (
+  {archivos.map((archivo, index) => {
+    // Verificación para comprobar si la imagen es "NoDisponible"
+    const isNoDisponible = (
+      (typeof archivo.preview === 'string' && archivo.preview === imgNoDisponible) ||
+      (typeof archivo.preview.preview === 'string' && archivo.preview.preview=== imgNoDisponible)
+    );
+
+    return (
       archivo.preview && (
         <div key={index} className="relative shadow-md rounded-lg">
           <h4>{archivo.name === 'logoLocal' ? 'Logo del local' : 'Foto del local'}</h4>
@@ -202,17 +186,17 @@ const handleArchivoSeleccionado = async (e, tipo) => {
           <img
             src={typeof archivo.preview === 'string' ? archivo.preview : archivo.preview.preview}
             alt={archivo.name}
-            className="w-full object-cover cursor-pointer h-36 max-w-full rounded-lg"
-            onClick={() => handleVerArchivo(typeof archivo.preview === 'string' ? archivo.preview : archivo.preview.preview)}
+            className={`w-full object-cover h-36 max-w-full rounded-lg ${!isNoDisponible ? 'cursor-pointer' : ''}`}
+            onClick={() => {
+              if (!isNoDisponible) {
+                handleVerArchivo(typeof archivo.preview === 'string' ? archivo.preview : archivo.preview.preview);
+              }
+            }}
             loading="lazy"
           />
-          {console.log(archivo.preview.preview)}
 
           {/* Verificación de archivo.preview y si no es imagen por defecto */}
-          {(
-            (typeof archivo.preview === 'string' && archivo.preview.split('/').pop().split('.')[0] !== 'NoDisponible_jrzbvh') ||
-            (typeof archivo.preview.preview === 'string' && archivo.preview.preview.split('/').pop().split('.')[0] !== 'NoDisponible_jrzbvh')
-          ) && (
+          {!isNoDisponible && (
             <button
               type="button"
               aria-label="eliminar archivo"
@@ -238,7 +222,9 @@ const handleArchivoSeleccionado = async (e, tipo) => {
           )}
         </div>
       )
-    ))}
+    );
+})}
+
   </div>
 </div>
 
