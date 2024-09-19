@@ -7,49 +7,29 @@ import axios from 'axios';
 
 const useProducts = () => {
   const path = usePathname()
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [userSorteo, setUserSorteo] = useState([]);
   const [userSorteoCHW, setUserSorteoCHW] = useState([]);
   const [userSorteoNoCHW, setUserSorteoNoCHW] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const [categories, setCategories] = useState([]);
-  // const [brands, setBrands] = useState([]);
-  // const [vehiculos, setVehiculos] = useState([]);
-  // const [allDestacados, setAllDestacados] = useState([]);
-
-  // const [selectedCategories, setSelectedCategories] = useState([]);
-  // const [selectedBrands, setSelectedBrands] = useState([]);
-  // const [selectedVehiculos, setSelectedVehiculos] = useState([]);
-
-
-  // const [showAllCategories, setShowAllCategories] = useState(false);
-  // const [showAllBrands, setShowAllBrands] = useState(false);
-  // const [showAllVehiculos, setShowAllVehiculos] = useState(false);
-
-
-  // const [selectedProduct, setSelectedProduct] = useState(null);
-  // const [totalPages, setTotalPages] = useState(1);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [isLoading, setIsLoading] = useState(true);
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const fetchProducts = async () => {
-    // const params = new URLSearchParams(searchParams.toString());
-    const res = await axios.get(`/api/locales/locales`);
-    //console.log(res.data.locales)
-    const data = await res.data;
-    setProducts(data.locales || []);
-    // setTotalPages(data.totalPage || 1);
-    // setCategories(data.totalCategories || []);
-    // setBrands(data.totalBrands || []);
-    // setVehiculos(data.totalVehiculos || []);
-    // setAllDestacados(data.allproductosDestacados || []);
-    // setIsLoading(false);
-  };
+  // const fetchProducts = async () => {
+  //   // const params = new URLSearchParams(searchParams.toString());
+  //   const res = await axios.get(`/api/locales/locales`);
+  //   //console.log(res.data.locales)
+  //   const data = await res.data;
+  //   setProducts(data.locales || []);
+  //   // setTotalPages(data.totalPage || 1);
+  //   // setCategories(data.totalCategories || []);
+  //   // setBrands(data.totalBrands || []);
+  //   // setVehiculos(data.totalVehiculos || []);
+  //   // setAllDestacados(data.allproductosDestacados || []);
+  //   // setIsLoading(false);
+  // };
   const fetchSorteos = async () => {
     // const params = new URLSearchParams(searchParams.toString());
     const res = await axios.get(`/api/sorteos`);
@@ -69,7 +49,7 @@ const useProducts = () => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    // fetchProducts();
     fetchSorteos();
   }, [searchParams]);
 
@@ -174,7 +154,7 @@ const useProducts = () => {
     : router.push(`/?${params.toString()}#productos`);
   };
   return {
-    products,
+    // products,
     userSorteo,
     userSorteoNoCHW,
     userSorteoCHW,
@@ -205,7 +185,7 @@ const useProducts = () => {
     // handleShowAllVehiculos,
     // closeModal,
     // handleProductSelect,
-    fetchProducts,
+    // fetchProducts,
     fetchSorteos,
   };
 };

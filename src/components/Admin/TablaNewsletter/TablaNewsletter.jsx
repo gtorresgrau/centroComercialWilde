@@ -90,13 +90,13 @@ const TablaNewsletter = () => {
 
   return (
     <div className="text-center">
-      <h1 className="text-2xl font-bold mb-5">Newsletter Emails</h1>
+      <h1 className="text-2xl text-gray-100 font-bold mb-5">Newsletter Emails</h1>
       <div className='flex justify-end mb-2'>
         <button
           onClick={openModal}
           type="button"
           aria-label="agregar producto"
-          className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
+          className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
         >
           Iniciar campaña
         </button>
@@ -111,7 +111,7 @@ const TablaNewsletter = () => {
           className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50"
         >
           <div className="relative p-4 w-full max-w-2xl max-h-full">
-            <div className="relative bg-white rounded-lg shadow">
+            <div className="relative bg-gray-100 rounded-lg shadow">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900">
                   Enviar Correos Masivos
@@ -149,7 +149,7 @@ const TablaNewsletter = () => {
                     type="text"
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="mt-1 block w-full rounded-md pl-2 border-gray-300 shadow-sm focus:border-gray-300 focus:border focus:shadow-md"
                     placeholder="Ingresa el asunto"
                   />
                 </div>
@@ -160,7 +160,7 @@ const TablaNewsletter = () => {
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                    className="mt-1 pl-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-300 focus:border focus:shadow-md"
                     placeholder="Escribe tu mensaje"
                     rows="4"
                   />
@@ -171,14 +171,14 @@ const TablaNewsletter = () => {
                 <button
                   onClick={handleSendEmails}
                   type="button"
-                  className="items-center text-white border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
+                  className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
                 >
                   Enviar correos
                 </button>
                 <button
                   onClick={closeModal}
                   type="button"
-                  className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-bgpurple  hover:bg-gray-100 hover:text-bgpurple"
+                  className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-gray-100 rounded-lg border border-bgpurple  hover:bg-gray-100 hover:text-bgpurple"
                 >
                   Cancelar
                 </button>
@@ -208,7 +208,7 @@ const TablaNewsletter = () => {
             <tbody>
               <tr className="text-center">
                 <td colSpan="2" className="py-10">
-                  <span className="text-gray-500 font-semibold">No hay locales</span>
+                  <span className="text-gray-500 font-semibold">No hay emails suscritos a la newsletter.</span>
                 </td>
               </tr>
             </tbody>
