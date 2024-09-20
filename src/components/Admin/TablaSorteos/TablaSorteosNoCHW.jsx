@@ -8,6 +8,7 @@ import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import RuletaAdmin from '../RuletaAdmin';
 import { MdDelete } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 const TablaSorteosNoCHW = () => {
   const [news, setNews] = useState([]);
@@ -83,10 +84,22 @@ const TablaSorteosNoCHW = () => {
 
   const handleDeleteUser = async (id) => {
     try {
+      Swal.fire({
+        icon: 'info',
+        title: '¿Está seguro que quiere eliminar el usuario?',
+        showCancelButton: true,
+        showConfirmButton: true,
+        customClass: {
+          confirmButton: 'bg-primary text-white hover:bg-green',
+          cancelButton: 'bg-red text-white hover:bg-green',
+        },
+      }).then(async(result) => {
+        if (result.isConfirmed) {
         const response = await axios.delete(`/api/sorteos/${id}`);        
         if (response.status === 200 || response.status === 204) {
             toast.success('Inscripción eliminada con éxito');
-        } 
+        } }
+      })
     } catch (error) {
         console.error('Error al eliminar la inscripción 2:', error.response ? error.response.data : error.message);
         toast.error('Error al eliminar la inscripción');
@@ -102,7 +115,7 @@ const TablaSorteosNoCHW = () => {
             Iniciar campaña
         </button>
       </div>
-      <RuletaAdmin userSorteoCHW={userSorteoCHW} userSorteoNoCHW={userSorteoNoCHW}/>
+      <RuletaAdmin userSorteoCHW={userSorteoCHW} userSorteoNoCHW={userSorteoNoCHW} userSorteos/>
       
       {/* Modal */}
       {isModalOpen && (

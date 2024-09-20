@@ -11,6 +11,7 @@ import axios from "axios";
 import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
 import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
+import TablaSorteosEventos from "./TablaSorteos/TablaSorteosNoCHW";
 import { imgNoDisponible } from '../../app/Constants/constantes'
 
 export default function Admin() {
@@ -19,6 +20,7 @@ export default function Admin() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [section, setSection] = useState('Productos');
+  const [userSorteo, setUserSorteo] = useState('')
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredLocales, setFilteredLocales] = useState([]);
@@ -169,6 +171,16 @@ export default function Admin() {
   
   const handleSelectSection = (section) => {
     setSection(section);
+    // Set userSorteo based on the section selected
+    if (section === 'SorteoCHW') {
+      setUserSorteo('true');
+    } else if (section === 'SorteoNoCHW') {
+      setUserSorteo('false');
+    } else if (section === 'SorteoEventos') {
+      setUserSorteo('all');
+    } else {
+      setUserSorteo(''); // Reset or set default for other sections
+    }
   };
 
   // Determina los locales que se muestran en la página actual
@@ -268,12 +280,17 @@ export default function Admin() {
           )}
           {section === 'SorteoCHW' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteosCHW />
+              <TablaSorteosCHW userSorteos='true'/>
             </div>
           )}
           {section === 'SorteoNoCHW' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteosNoCHW />
+              <TablaSorteosNoCHW userSorteos='false'/>
+            </div>
+          )}
+         {section === 'SorteoEventos' && (
+            <div className="mx-auto max-w-screen-xl lg:px-12">
+              <TablaSorteosEventos userSorteos='all'/>
             </div>
           )}
           {section === 'DescargarCSV' && (

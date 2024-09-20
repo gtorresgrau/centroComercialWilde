@@ -2,48 +2,44 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 
-const RuletaAdmin = ({userSorteoCHW, userSorteoNoCHW}) => {
+const RuletaAdmin = ({ userSorteoCHW, userSorteoNoCHW, userSorteos }) => {
+  const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+  const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
 
-const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-//console.log('userSorteoCHW:',userSorteoCHW);
-//console.log('userSorteoNoCHW:',userSorteoNoCHW);
+  const torres = {
+    R: { torre: [1, 3, 4, 14, 17, 18, 21, 22, 23, 24, 25, 28, 29, 32, 33, 35, 36, 38, 39, 44], pisos: 11, deptos: ['A', 'B', 'C', 'D'] },
+    M: { torre: [5, 6, 8, 9, 11, 12, 13, 15, 19, 20, 26, 27, 30, 31, 40, 42, 43, 45, 46, 47, 48], pisos: 10, deptos: ['A', 'B', 'C', 'D'] },
+    V: { torre: [2, 7, 10, 16, 34, 37, 41], pisos: 6, deptos: ['A', 'B', 'C', 'D'] }
+  };
 
-const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
+  const calles = ['Avenida_Rivadavia', 'Avenida_9_de_Julio', 'Avenida_Corrientes', 'Calle_Florida', 'Avenida_Belgrano', 'Avenida_de_Mayo', 'Calle_Lavalle', 'Avenida_Santa_Fe', 'Avenida_Callao', 'Avenida_Libertador', 'Calle_Reconquista', 'Calle_Esmeralda', 'Calle_Alsina', 'Avenida_Córdoba', 'Avenida_Pueyrredón'];
+  const localidades = ['La_Plata', 'Mar_del_Plata', 'Bahía_Blanca', 'San_Nicolás', 'Tandil', 'Olavarría', 'San_Isidro', 'Lomas_de_Zamora', 'Lanús', 'Avellaneda', 'Quilmes', 'Morón', 'San_Fernando', 'Tres_de_Febrero', 'Vicente_López'];
 
-const torres = {
-  R: { torre: [1, 3, 4, 14, 17, 18, 21, 22, 23, 24, 25, 28, 29, 32, 33, 35, 36, 38, 39, 44], pisos: 11, deptos: ['A', 'B', 'C', 'D'] },
-  M: { torre: [5, 6, 8, 9, 11, 12, 13, 15, 19, 20, 26, 27, 30, 31, 40, 42, 43, 45, 46, 47, 48], pisos: 10, deptos: ['A', 'B', 'C', 'D'] },
-  V: { torre: [2, 7, 10, 16, 34, 37, 41], pisos: 6, deptos: ['A', 'B', 'C', 'D'] }
-};
+  const sortResults = (vivoCHW) => {
+    const resultados = [];
+    while (resultados.length < 4) {
+      const torre = vivoCHW ? generateRandomNumber(1, 48) : calles[generateRandomNumber(0, calles.length - 1)];
+      let cantPisos;
 
-const calles = ['Avenida_Rivadavia', 'Avenida_9_de_Julio', 'Avenida_Corrientes', 'Calle_Florida', 'Avenida_Belgrano', 'Avenida_de_Mayo', 'Calle_Lavalle', 'Avenida_Santa_Fe', 'Avenida_Callao', 'Avenida_Libertador', 'Calle_Reconquista', 'Calle_Esmeralda', 'Calle_Alsina', 'Avenida_Córdoba', 'Avenida_Pueyrredón'];
-const localidades = ['La_Plata', 'Mar_del_Plata', 'Bahía_Blanca', 'San_Nicolás', 'Tandil', 'Olavarría', 'San_Isidro', 'Lomas_de_Zamora', 'Lanús', 'Avellaneda', 'Quilmes', 'Morón', 'San_Fernando', 'Tres_de_Febrero', 'Vicente_López'];
+      if (torres.R.torre.includes(torre)) {
+        cantPisos = torres.R.pisos;
+      } else if (torres.M.torre.includes(torre)) {
+        cantPisos = torres.M.pisos;
+      } else {
+        cantPisos = torres.V.pisos;
+      }
 
-const sortResults = (vivoCHW) => {
-  const resultados = [];
-  while (resultados.length < 4) {
-    const torre = vivoCHW?generateRandomNumber(1, 48):calles[generateRandomNumber(0, calles.length - 1)]
-    let cantPisos;
+      const piso = vivoCHW ? generateRandomNumber(1, cantPisos) : generateRandomNumber(1, 6000);
+      const depto = vivoCHW ? torres.R.deptos[generateRandomNumber(0, 3)] : localidades[generateRandomNumber(0, localidades.length - 1)];
+      const resultado = `Torre ${torre} Piso ${piso} Depto ${depto}`;
 
-    if (torres.R.torre.includes(torre)) {
-      cantPisos = torres.R.pisos;
-    } else if (torres.M.torre.includes(torre)) {
-      cantPisos = torres.M.pisos;
-    } else {
-      cantPisos = torres.V.pisos;
+      if (!resultados.includes(resultado)) {
+        resultados.push(resultado);
+      }
     }
-
-    const piso = vivoCHW?generateRandomNumber(1, cantPisos):generateRandomNumber(1, 6000)
-    const depto = vivoCHW?torres.R.deptos[generateRandomNumber(0, 3)]:localidades[generateRandomNumber(0, localidades.length - 1)]
-    const resultado = `Torre ${torre} Piso ${piso} Depto ${depto}`;
-
-    if (!resultados.includes(resultado)) {
-      resultados.push(resultado);
-    }
-  }
-  return resultados;
-};
+    return resultados;
+  };
 
   const [ganadores, setGanadores] = useState([]);
   const [suplentes, setSuplentes] = useState([]);
@@ -62,7 +58,6 @@ const sortResults = (vivoCHW) => {
       origin: { y: 1.3 },
     });
   };
-
 
   const loadResults = (index, resultados) => {
     if (index < resultados.length) {
@@ -98,10 +93,36 @@ const sortResults = (vivoCHW) => {
       }, 350);
     }
   };
+  console.log('userSorteos:',userSorteos);
 
   const handleSortear = () => {
+    let resultados = [];
+    console.log('userSorteos:',userSorteos);
     
-    const resultados = shuffleArray(vivoCHW ? userSorteoCHW : userSorteoNoCHW).slice(0, 4); // Mezcla y selecciona 4 usuarios
+    // Logic to select the correct array based on userSorteo value
+    if (userSorteos === 'all') {
+      // Check if both arrays are defined and not empty
+      if (userSorteoCHW?.length && userSorteoNoCHW?.length) {
+        resultados = shuffleArray([...userSorteoCHW, ...userSorteoNoCHW]).slice(0, 4);
+      }
+    } else if (userSorteos === 'true') {
+      // Ensure userSorteoCHW is defined and has length
+      if (userSorteoCHW?.length) {
+        resultados = shuffleArray(userSorteoCHW).slice(0, 4);
+      }
+    } else if (userSorteos === 'false') {
+      // Ensure userSorteoNoCHW is defined and has length
+      if (userSorteoNoCHW?.length) {
+        resultados = shuffleArray(userSorteoNoCHW).slice(0, 4);
+      }
+    }
+  
+    // If no valid results were found, log an error and prevent further execution
+    if (resultados.length === 0) {
+      console.error("No valid results found for the current userSorteo.");
+      return;
+    }
+  
     setLoading(true);
     setGanadores([]);
     setSuplentes([]);
@@ -112,34 +133,34 @@ const sortResults = (vivoCHW) => {
   const renderResult = (result, index) => {
     if (vivoCHW) {
       return (
-        <div key={index} className={`grid grid-cols-3 items-center min-h-[60px]`}>
-          <div className={`grid grid-cols-2 gap-2 text-center`}>
-            <p className='font-bold'>Torre</p>
+        <div key={index} className="grid grid-cols-3 items-center min-h-[60px]">
+          <div className="grid grid-cols-2 gap-2 text-center">
+            <p className="font-bold">Torre</p>
             <p>{result.torre}</p>
           </div>
-          <div className={`grid grid-cols-2 gap-2 text-center`}>
-            <p className='font-bold'>Piso</p>
+          <div className="grid grid-cols-2 gap-2 text-center">
+            <p className="font-bold">Piso</p>
             <p>{result.piso}</p>
           </div>
-          <div className={`grid grid-cols-2 gap-2 text-center`}>
-            <p className='font-bold'>Depto</p>
+          <div className="grid grid-cols-2 gap-2 text-center">
+            <p className="font-bold">Depto</p>
             <p>{result.depto}</p>
           </div>
         </div>
       );
     } else {
       return (
-        <div key={index} className='grid grid-cols-3 items-center min-h-[60px]'>
-          <div className='grid grid-cols-2 gap-2 text-center items-center'>
-            <span className='font-bold'>Nombre</span>
+        <div key={index} className="grid grid-cols-3 items-center min-h-[60px]">
+          <div className="grid grid-cols-2 gap-2 text-center items-center">
+            <span className="font-bold">Nombre</span>
             <small>{result.nombre}</small>
           </div>
-          <div className='grid grid-cols-2 gap-2 text-center items-center'>
-            <p className='font-bold'>Apellido</p>
+          <div className="grid grid-cols-2 gap-2 text-center items-center">
+            <p className="font-bold">Apellido</p>
             <small>{result.apellido}</small>
           </div>
-          <div className='grid grid-cols-2 gap-2 text-center items-center'>
-            <p className='font-bold'>Celular</p>
+          <div className="grid grid-cols-2 gap-2 text-center items-center">
+            <p className="font-bold">Celular</p>
             <small>{result.celular}</small>
           </div>
         </div>
@@ -147,50 +168,50 @@ const sortResults = (vivoCHW) => {
     }
   };
 
-  const handleVivoCHW = () => {
-    setVivoCHW(!vivoCHW);
-  };
+  // const handleVivoCHW = () => {
+  //   setVivoCHW(!vivoCHW);
+  // };
+
   return (
-    <section id='ruleta' className='bg-bgpink px-4 text-center'>
-      <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #9C27B0, #1E1E1E)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
-        SORTEO DE EXPENSAS PARA CHW
+    <section id="ruleta" className="bg-bgpink px-4 text-center">
+      <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #f22b55, #f5b46a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+        Administrar Sorteo
       </h1>
-      <span className='text-center text-xs md:text-base'>
-        El sorteo se realiza con este mismo sistema desde la administración del Centro Comercial Wilde para los departamentos del Complejo Habitacional Wilde.
-      </span><br/>
-      <span className='text-center text-xs md:text-base'>
-        ¡Ya hay varios ganadores, y vos podés ser el próximo! <strong>¡Anotate fácil y rápido!</strong>
-      </span>
-      <button onClick={handleVivoCHW} className='min-w-[150px] bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-2 border border-lightgrehover:border-transparent rounded m-4 md:my-0'>{!vivoCHW?'Vivo dentro Complejo Habitacion Wilde':'Vivo afuera del Complejo Habitacion Wilde'}</button>
-      <article className='flex justify-around items-center mt-4'>
-        <div className="items-center mx-auto max-w-2xl px-1  lg:max-w-7xl lg:px-4">
-          <div className='mb-4 md:min-h-[100px] md:min-w-[600px] w-full'>
-            <div className='flex flex-col md:flex-row items-center text-center'>
-              <div>
-                <button className="min-w-[150px] bg-transparent hover:bg-purple text-purple font-semibold hover:text-white py-3 px-2 border border-lightgrehover:border-transparent rounded m-4 md:my-0" onClick={handleSortear} disabled={loading}>
-                  {loading && loadingIndex < 4 ? 'SORTEANDO...' : 'SORTEAR'}
-                </button>
-              </div>
-              <div className="flex flex-col lg:flex-row gap-4 w-full">
-                <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple rounded'>
-                  <div className='px-2 py-4'>
-                    <h2><strong>GANADORES</strong></h2>
-                    {ganadores.map((ganador, index) => renderResult(ganador, index))}
-                    {loading && loadingIndex < 2 && renderResult(randomDisplay)}
-                  </div>
-                </div>
-                <div className='min-h-[178px] w-full xs:min-w-[320px] sm:min-w-[370px] border border-purple'>
-                  <div className='rounded px-2 py-4'>
-                    <h2><strong>SUPLENTES</strong></h2>
-                    {suplentes.map((suplente, index) => renderResult(suplente, index))}
-                    {loading && loadingIndex > 1 && loadingIndex < 4 && renderResult(randomDisplay)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+      {/* <div className="w-full py-2 text-center">
+        <button onClick={handleVivoCHW} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all">
+          Modo {vivoCHW ? 'Vivo CHW' : 'Vivo No CHW'}
+        </button>
+      </div> */}
+
+      <div className="flex flex-col items-center justify-center gap-2 py-4">
+        <button
+          onClick={handleSortear}
+          disabled={loading}
+          className={`w-full bg-gradient-to-tr from-yellow-500 to-orange-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}
+        >
+          {loading ? `Sorteando ganador ${loadingIndex} de 4` : 'Realizar Sorteo'}
+        </button>
+
+        <p className="font-semibold text-lg">{loading && `Ganadores actuales: ${ganadores.length}`}</p>
+        <p className="text-md">{randomDisplay}</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-6">
+        <div className="bg-white rounded-lg p-4 shadow-md">
+          <h2 className="text-xl font-bold mb-4">Ganadores</h2>
+          {ganadores.length > 0
+            ? ganadores.map((result, index) => renderResult(result, index))
+            : <p>No hay ganadores aún</p>}
         </div>
-      </article>
+
+        <div className="bg-white rounded-lg p-4 shadow-md">
+          <h2 className="text-xl font-bold mb-4">Suplentes</h2>
+          {suplentes.length > 0
+            ? suplentes.map((result, index) => renderResult(result, index))
+            : <p>No hay suplentes aún</p>}
+        </div>
+      </div>
     </section>
   );
 };

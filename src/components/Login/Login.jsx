@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { FaSpinner } from 'react-icons/fa';
 import { handleAuthError } from '../../Utils/handleErrorsFirebase';
 import { setInLocalStorage } from '../..//Hooks/localStorage';
@@ -17,6 +17,7 @@ const Login = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const path = usePathname()
   const { register, handleSubmit, formState: { errors } } = useForm(); // Usa el hook useForm
 
   const onSubmit = async (data) => {
@@ -28,7 +29,9 @@ const Login = () => {
     } catch (error) {
       handleAuthError(error.code);
     } finally {
-      setLoading(false);
+      if(path !== '/Login'){
+        setLoading(false);
+      }
     }
   };
 
