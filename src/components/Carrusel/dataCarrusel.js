@@ -10,7 +10,6 @@ export const dataCarrusel = [
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430288/optica_jlehje.webp' },
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430288/neon_rfcj3o.webp' },
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430287/marino_wymt9x.webp' },
-    { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430286/mandragora_maxoo7.webp' },
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430285/lafolie_aclp9d.webp' },
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430285/fym_dgrh1k.webp' },
     { imgSrc: 'https://res.cloudinary.com/dkiiq9feu/image/upload/v1723430285/giselle_yvsw7w.webp' },
