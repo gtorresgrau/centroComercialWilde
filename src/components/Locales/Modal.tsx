@@ -6,6 +6,7 @@ import RedesSociales from '../Socials/RedesSociales'
 import Loading from '../Loading/Loading'
 import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
+import ContactoSorteo from '../Sorteo/contactoSorteo'
 
 
 export default function Modal({ product, onClose }: any) {
@@ -29,7 +30,7 @@ export default function Modal({ product, onClose }: any) {
         await navigator.share({
           title: `Detalles del local: ${local}`,
           text: `Visita el local ${local}, ubicado ${sector}. ${fraseUsuario ? fraseUsuario + ' ' : ''}${frase ? frase : ''}`,
-          url: url.replace('#', ''), // La URL actual sin el hash del local
+          url: url.replace('#', 'local/'), // La URL actual sin el hash del local
         });
         //console.log('Contenido compartido exitosamente');
       } catch (error) {
@@ -83,18 +84,25 @@ export default function Modal({ product, onClose }: any) {
                         :(<><p className="text-sm text-gray-500 pt-2">El local {local} esta ubicado {sector}, en el local número {n_local}. El horario de atención es de {horarios} hs. {frase} </p></>)}
                   </div>
                   <div className="items-center flex justify-center mt-4">
-
-                    <RedesSociales
-                        instagram={instagram}
-                        facebook={facebook}
-                        contact={celular}
-                        linea={linea}
-                        email={email}
-                        web={web}
-                        handleShare={handleShare}
-                        showShareButton={true}
-                    />
-
+                    {local.includes('Sorteo')
+                      ? (
+                        <>
+                          <ContactoSorteo />         
+                          <button className="bg-slate-300 text-black font-medium mx-4 w-8 h-8 rounded-lg transition-transform transform hover:scale-110" onClick={handleShare}>
+                            <ShareIcon />
+                          </button>
+                        </>)
+                      : <RedesSociales
+                          instagram={instagram}
+                          facebook={facebook}
+                          contact={celular}
+                          linea={linea}
+                          email={email}
+                          web={web}
+                          handleShare={handleShare}
+                          showShareButton={true}
+                          />
+                      }
                 </div>
                 </Dialog.Panel>
               </Transition.Child>

@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */"use client";
 import { useEffect, useState } from 'react';
-import RedesSociales from '../../components/Socials/RedesSociales';
-import Loading from '../../components/Loading/Loading';
+import RedesSociales from '../../../components/Socials/RedesSociales';
+import Loading from '../../../components/Loading/Loading';
 import ShareIcon from '@mui/icons-material/Share';
-import PageCardSkeleton from '../../components/CardSkeleton/PageCardSkeleton'; // Import the skeleton
+import PageCardSkeleton from '../../../components/CardSkeleton/PageCardSkeleton'; // Import the skeleton
+import ContactoSorteo from '@/src/components/Sorteo/contactoSorteo';
 
 export default function LocalPage({ params }) {
   const [imageLoaded, setImageLoaded] = useState(true);
@@ -96,16 +97,29 @@ export default function LocalPage({ params }) {
                 </p>
               )}
             </div>
-            <div className="flex flex-wrap items-center justify-center mt-6 space-x-4">
-              <RedesSociales
-                instagram={instagram}
-                facebook={facebook}
-                contact={celular}
-                linea={linea}
-                email={email}
-                web={web}
-              />
+            <div className="flex items-center justify-center mt-6 gap-4">
+              {local.includes('Sorteo') ? (
+                <div className='flex items-center justify-center mt-6 gap-4 align-middle'>
+                  <ContactoSorteo />         
+                  <button className="bg-slate-300 text-black font-medium w-12 h-12 rounded-full transition-transform transform hover:scale-110 mb-2"
+                    onClick={handleShare}>
+                    <ShareIcon />
+                  </button>
+                </div>
+              ) : (
+                <RedesSociales
+                  instagram={instagram}
+                  facebook={facebook}
+                  contact={celular}
+                  linea={linea}
+                  email={email}
+                  web={web}
+                  handleShare={handleShare}
+                  showShareButton={true}
+                />
+              )}
             </div>
+
           </div>
         </div>
       </div>
