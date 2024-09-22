@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 
-const RuletaAdmin = ({ userSorteoCHW, userSorteoNoCHW, userSorteos }) => {
+const RuletaAdmin = ({ userSorteo }) => {
   const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
@@ -93,29 +93,13 @@ const RuletaAdmin = ({ userSorteoCHW, userSorteoNoCHW, userSorteos }) => {
       }, 350);
     }
   };
-  console.log('userSorteos:',userSorteos);
 
   const handleSortear = () => {
     let resultados = [];
-    console.log('userSorteos:',userSorteos);
     
-    // Logic to select the correct array based on userSorteo value
-    if (userSorteos === 'all') {
-      // Check if both arrays are defined and not empty
-      if (userSorteoCHW?.length && userSorteoNoCHW?.length) {
-        resultados = shuffleArray([...userSorteoCHW, ...userSorteoNoCHW]).slice(0, 4);
-      }
-    } else if (userSorteos === 'true') {
-      // Ensure userSorteoCHW is defined and has length
-      if (userSorteoCHW?.length) {
-        resultados = shuffleArray(userSorteoCHW).slice(0, 4);
-      }
-    } else if (userSorteos === 'false') {
-      // Ensure userSorteoNoCHW is defined and has length
-      if (userSorteoNoCHW?.length) {
-        resultados = shuffleArray(userSorteoNoCHW).slice(0, 4);
-      }
-    }
+    resultados = shuffleArray(userSorteo).slice(0, 4);
+        console.log(resultados)
+      
   
     // If no valid results were found, log an error and prevent further execution
     if (resultados.length === 0) {
@@ -128,7 +112,7 @@ const RuletaAdmin = ({ userSorteoCHW, userSorteoNoCHW, userSorteos }) => {
     setSuplentes([]);
     setLoadingIndex(0);
     loadResults(0, resultados);
-  };
+  }
 
   const renderResult = (result, index) => {
     if (vivoCHW) {
