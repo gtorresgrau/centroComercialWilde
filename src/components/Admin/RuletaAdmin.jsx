@@ -162,7 +162,6 @@ const RuletaAdmin = ({ userSorteo }) => {
         <button onClick={handleSortear} disabled={loading} className={`w-full bg-gradient-to-tr from-primary to-violet-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}>
           {loading ? `Sorteando ganador ${loadingIndex} de 4` : 'Realizar Sorteo'}
         </button>
-
         <p className="font-semibold text-lg">{loading && `Ganadores actuales: ${ganadores.length}`}</p>
         <p className="text-md">{loading?randomDisplay:''}</p>
       </div>
