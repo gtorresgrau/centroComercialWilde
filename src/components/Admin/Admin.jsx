@@ -11,7 +11,7 @@ import axios from "axios";
 import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
 import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
-import TablaSorteosEventos from "./TablaSorteos/TablaSorteosNoCHW";
+import TablaSorteosEventos from "./TablaSorteos/TablaSorteosEventos";
 import { imgNoDisponible } from '../../app/Constants/constantes'
 
 export default function Admin() {
@@ -168,7 +168,7 @@ export default function Admin() {
     }
   };
   
-  
+  //selecciona la seccion
   const handleSelectSection = (section) => {
     setSection(section);
     // Set userSorteo based on the section selected
@@ -280,22 +280,17 @@ export default function Admin() {
           )}
           {section === 'SorteoCHW' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteosCHW userSorteos='true'/>
+              <TablaSorteosCHW userSorteos={userSorteo}/>
             </div>
           )}
           {section === 'SorteoNoCHW' && (
             <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteosNoCHW userSorteos='false'/>
+              <TablaSorteosNoCHW userSorteos={userSorteo}/>
             </div>
           )}
          {section === 'SorteoEventos' && (
-            <div className="mx-auto max-w-screen-xl lg:px-12">
-              <TablaSorteosEventos userSorteos='all'/>
-            </div>
-          )}
-          {section === 'DescargarCSV' && (
-            <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
-              {/* <DownloadCSVButton /> */}
+           <div className="mx-auto max-w-screen-xl lg:px-12">
+              <TablaSorteosEventos userSorteos={userSorteo}/>
             </div>
           )}
         </article>
