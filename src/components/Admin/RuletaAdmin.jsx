@@ -152,33 +152,19 @@ const RuletaAdmin = ({ userSorteo }) => {
     }
   };
 
-  // const handleVivoCHW = () => {
-  //   setVivoCHW(!vivoCHW);
-  // };
-
   return (
     <section id="ruleta" className="bg-bgpink px-4 text-center">
       <h1 className="text-2xl md:text-4xl font-bold tracking-tight text-gray-900 py-4" style={{ background: 'linear-gradient(to right, #f22b55, #f5b46a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
         Administrar Sorteo
       </h1>
 
-      {/* <div className="w-full py-2 text-center">
-        <button onClick={handleVivoCHW} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-all">
-          Modo {vivoCHW ? 'Vivo CHW' : 'Vivo No CHW'}
-        </button>
-      </div> */}
-
       <div className="flex flex-col items-center justify-center gap-2 py-4">
-        <button
-          onClick={handleSortear}
-          disabled={loading}
-          className={`w-full bg-gradient-to-tr from-yellow-400 to-amber-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}
-        >
+        <button onClick={handleSortear} disabled={loading} className={`w-full bg-gradient-to-tr from-primary to-violet-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}>
           {loading ? `Sorteando ganador ${loadingIndex} de 4` : 'Realizar Sorteo'}
         </button>
 
         <p className="font-semibold text-lg">{loading && `Ganadores actuales: ${ganadores.length}`}</p>
-        <p className="text-md">{randomDisplay}</p>
+        <p className="text-md">{loading?randomDisplay:''}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-6">
