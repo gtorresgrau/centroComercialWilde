@@ -172,7 +172,7 @@ const RuletaAdmin = ({ userSorteo }) => {
         <button
           onClick={handleSortear}
           disabled={loading}
-          className={`w-full bg-gradient-to-tr from-yellow-500 to-orange-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}
+          className={`w-full bg-gradient-to-tr from-yellow-400 to-amber-500 hover:bg-gradient-to-bl text-white font-bold py-2 px-4 rounded-lg ${loading && 'opacity-50'}`}
         >
           {loading ? `Sorteando ganador ${loadingIndex} de 4` : 'Realizar Sorteo'}
         </button>
