@@ -191,7 +191,7 @@ const ContactoSorteo = () => {
                                                         </div>
                                                         <div className="">
                                                             <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
-                                                            ?'Depto':'Calle'}</label>
+                                                            ?'Depto':'Localidad'}</label>
                                                             <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue('depto', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'A - D':'Wilde'} />
                                                             {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
                                                         </div>
