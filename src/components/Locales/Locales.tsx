@@ -83,6 +83,12 @@ const Locales = () => {
     setPage(value);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setPage(1);
+  };
+  
+
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
       <article className="mx-auto max-w-4xl mt-8 pt-4 pb-4 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
@@ -90,13 +96,7 @@ const Locales = () => {
           <div className="col-span-8">
             <div className="items-center mb-4 p-4 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] rounded">
               <h2 className="text-lg text-gray-500">Buscador</h2>
-              <input
-                type="text"
-                placeholder="Buscar...(Nombre, Rubro, etc...)"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm"
-              />
+              <input type="text" placeholder="Buscar...(Nombre, Rubro, etc...)" value={searchQuery} onChange={e => handleSearchChange(e)} className="rounded-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2 sm:text-sm" />
             </div>
             <div className="flex justify-center mt-4">
               <button onClick={isSorted ? () => shuffleLocales(locale) : sortLocalesAlphabetically} className="px-4 py-2 bg-bgpurple hover:bg-bgpink hover:text-bgpurple text-white rounded-lg shadow">

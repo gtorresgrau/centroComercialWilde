@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 const TablaSorteosEventos = ({userSorteos}) => {
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const {userSorteo} = useProducts(userSorteos)
   
   useEffect(() => {
@@ -65,12 +66,19 @@ const TablaSorteosEventos = ({userSorteos}) => {
     }
 };
 
+const filteredUsers = userSorteo.filter((user) =>
+  `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  user.dni?.toString().includes(searchTerm) ||
+  user.email?.toLowerCase().includes(searchTerm)
+);
+
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
       <h1 className="text-2xl font-bold mb-5 text-secondary ">Sorteos eventos </h1>
       <RuletaAdmin userSorteo={userSorteo}/>
-
+      <h2 className='text-secondary pt-2'>BUSCADOR</h2>
+      <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
       {/* tabla de usuarios */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
@@ -90,7 +98,7 @@ const TablaSorteosEventos = ({userSorteos}) => {
               </th>
             </tr>
           </thead>
-          {!userSorteo.length ? (
+          {!filteredUsers.length ? (
             <tbody>
               <tr className="text-center">
                 <td colSpan="2" className="py-10">
@@ -100,7 +108,7 @@ const TablaSorteosEventos = ({userSorteos}) => {
             </tbody>
           ) : (
             <tbody>
-              {userSorteo.map((user, index) => (
+              {filteredUsers.map((user, index) => (
                 <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
