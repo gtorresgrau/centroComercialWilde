@@ -15,6 +15,7 @@ const ContactoSorteo = () => {
         handleSubmit,
         watch,
         reset,
+        setValue,
         formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: {
@@ -78,42 +79,34 @@ const ContactoSorteo = () => {
 
     const onSubmit = async (data) => {
         const { email, nombre } = data;
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    
-        if (!email.match(emailPattern)) {
-            console.error('Correo electrónico no válido');
-            alertError(email);
-        } else {
-            try {
-                alertLoading();
-                const response = await axios.post('/api/sorteos', {
-                    ...data,
-                    sorteo: 'sorteo',
-                });
-                Swal.close();
-                if (response.status === 200) {
-                    alert(nombre);
-                    reset();
-                    setIsOpen(false);
-                }
-                const responseNews = await axios.post('/api/newsletter/newsletters', {
-                    newsletter:email,
-                });
-                if (responseNews.status === 200) {
-                    console.log('Se suscribio correctamente');
-                }
-            } catch (error) {
-                Swal.close();
-                if (error.response && error.response.status === 400) {
-                    console.error('Error:', error.response.data.message);
-                    alreadyExist(error.response.data.message); 
-                } else {
-                    console.error('Error:', error.response ? error.response.data : error.message);
-                    alertError('Ocurrió un error. Intente nuevamente.');
-                }
-    
+        try {
+            alertLoading();
+            const response = await axios.post('/api/sorteos', {
+                ...data,
+                sorteo: 'sorteo',
+            });
+            Swal.close();
+            if (response.status === 200) {
+                alert(nombre);
+                reset();
                 setIsOpen(false);
             }
+            const responseNews = await axios.post('/api/newsletter/newsletters', {
+                newsletter:email,
+            });
+            if (responseNews.status === 200) {
+                console.log('Se suscribio correctamente');
+            }
+        } catch (error) {
+            Swal.close();
+           if (error.response && error.response.status === 400) {
+                console.error('Error:', error.response.data.message);
+                alreadyExist(error.response.data.message); 
+            } else {
+                console.error('Error:', error.response ? error.response.data : error.message);
+                alertError('Ocurrió un error. Intente nuevamente.');
+            }
+            setIsOpen(false);
         }
     };
     
@@ -183,41 +176,26 @@ const ContactoSorteo = () => {
                                                 <input id="chw" {...register("chw")} type='checkbox' />
                                                 <label htmlFor="chw" className="inline-block text-sm font-medium text-gray-900 ">Soy del Complejo Habitacional Wilde</label>
                                             </div>
-                                            {chw
-                                                ? <div className='flex gap-4 align-middle items-center justify-center text-center'>
+                                            <div className='flex gap-4 align-middle items-center justify-center text-center'>
                                                         <div className="">
-                                                            <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Torre</label>
-                                                            <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue('torre', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="1 a 48" />
+                                                            <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
+                                                            ?'Torre':'Calle'}</label>
+                                                            <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue('torre', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'1 - 48':'Pino'} />
                                                             {errors.torre && <p className="text-red">Este campo es obligatorio</p>}
                                                         </div>
                                                         <div className="">
-                                                            <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Piso</label>
-                                                            <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue('piso', e.target.value.toUpperCase())  })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="1 a 14" />
+                                                            <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
+                                                            ?'Piso':'Altura'}</label>
+                                                            <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue('piso', e.target.value.toUpperCase())})} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'1 - 11':'2610'} />
                                                             {errors.piso && <p className="text-red">Este campo es obligatorio</p>}
                                                         </div>
                                                         <div className="">
-                                                            <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Depto</label>
-                                                            <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue('depto', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="A a D" />
+                                                            <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
+                                                            ?'Depto':'Calle'}</label>
+                                                            <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue('depto', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'A - D':'Wilde'} />
                                                             {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
                                                         </div>
                                                   </div>
-                                                : <div className='flex gap-4 align-middle items-center justify-center text-center'>
-                                                    <div className="">
-                                                        <label htmlFor="calle" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Calle</label>
-                                                        <input id="calle" {...register("torre", { required: true, onChange: (e) => setValue('calle', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Pino" />
-                                                        {errors.torre && <p className="text-red">Este campo es obligatorio</p>}
-                                                    </div>
-                                                    <div className="">
-                                                        <label htmlFor="altura" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Altura</label>
-                                                        <input id="altura" {...register("piso", { required: true, onChange: (e) => setValue('piso', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="2610" />
-                                                        {errors.piso && <p className="text-red">Este campo es obligatorio</p>}
-                                                    </div>
-                                                    <div className="">
-                                                        <label htmlFor="localidad" className="inline-block mb-2 text-sm font-medium text-gray-900 ">Localidad</label>
-                                                        <input id="localidad" {...register("depto", { required: true, onChange: (e) => setValue('depto', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Wilde" />
-                                                        {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
-                                                    </div>
-                                                  </div>}
                                             <div className="flex items-center">
                                                 <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
                                                 <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los <a href="#" className="text-blue-600 hover:underline">términos y condiciones</a></label>
