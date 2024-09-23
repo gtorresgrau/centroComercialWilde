@@ -16,6 +16,7 @@ const ContactoSorteo = () => {
         watch,
         reset,
         setValue,
+        getValues,
         formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: {
@@ -81,6 +82,7 @@ const ContactoSorteo = () => {
         const { email, nombre } = data;
         try {
             alertLoading();
+            console.log('data:',data)
             const response = await axios.post('/api/sorteos', {
                 ...data,
                 sorteo: 'sorteo',
@@ -101,9 +103,11 @@ const ContactoSorteo = () => {
             Swal.close();
            if (error.response && error.response.status === 400) {
                 console.error('Error:', error.response.data.message);
+                reset({calle:'',torre:'',piso:'',depto:''})
                 alreadyExist(error.response.data.message); 
             } else {
                 console.error('Error:', error.response ? error.response.data : error.message);
+                reset({calle:'',torre:'',piso:'',depto:''})
                 alertError('Ocurrió un error. Intente nuevamente.');
             }
             setIsOpen(false);
@@ -176,34 +180,170 @@ const ContactoSorteo = () => {
                                                 <input id="chw" {...register("chw")} type='checkbox' />
                                                 <label htmlFor="chw" className="inline-block text-sm font-medium text-gray-900 ">Soy del Complejo Habitacional Wilde</label>
                                             </div>
-                                            <div className='flex gap-4 align-middle items-center justify-center text-center'>
-                                                        <div className="">
-                                                            <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
-                                                            ?'Torre':'Calle'}</label>
-                                                            <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue('torre', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'1 - 48':'Pino'} />
-                                                            {errors.torre && <p className="text-red">Este campo es obligatorio</p>}
-                                                        </div>
-                                                        <div className="">
-                                                            <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
-                                                            ?'Piso':'Altura'}</label>
-                                                            <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue('piso', e.target.value.toUpperCase())})} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'1 - 11':'2610'} />
-                                                            {errors.piso && <p className="text-red">Este campo es obligatorio</p>}
-                                                        </div>
-                                                        <div className="">
-                                                            <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900 ">{chw
-                                                            ?'Depto':'Localidad'}</label>
-                                                            <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue('depto', e.target.value.toUpperCase()) })} type="text" required className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase" placeholder={chw?'A - D':'Wilde'} />
-                                                            {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
-                                                        </div>
-                                                  </div>
+                                            {chw ? (
+                                                <div className="flex gap-4 align-middle items-center justify-center text-center">
+                                                    <div>
+                                                        <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900">Torre</label>
+                                                        <input
+                                                            id="torre"
+                                                            {...register("torre", {
+                                                            required: true,
+                                                            onChange: (e) => setValue("torre", e.target.value.toUpperCase()),
+                                                            })}
+                                                            type="text"
+                                                            required
+                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            placeholder="1 - 48"
+                                                        />
+                                                        {errors.torre && <p className="text-red">Este campo es obligatorio</p>}
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                            Piso
+                                                        </label>
+                                                        <input
+                                                            id="piso"
+                                                            {...register("piso", {
+                                                            required: true,
+                                                            onChange: (e) => setValue("piso", e.target.value.toUpperCase()),
+                                                            })}
+                                                            type="text"
+                                                            required
+                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            placeholder="1 - 11"
+                                                        />
+                                                        {errors.piso && <p className="text-red">Este campo es obligatorio</p>}
+                                                    </div>
+                                                    <div>
+                                                        <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                            Depto
+                                                        </label>
+                                                        <input
+                                                            id="depto"
+                                                            {...register("depto", {
+                                                            required: true,
+                                                            onChange: (e) => setValue("depto", e.target.value.toUpperCase()),
+                                                            })}
+                                                            type="text"
+                                                            required
+                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            placeholder="A - D"
+                                                        />
+                                                        {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
+                                                    </div>
+                                                </div>
+                                                ) : (
+                                                <div className="flex flex-col gap-4">
+                                                    {/* Input para Calle */}
+                                                    <div>
+                                                    <label htmlFor="calle" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Calle
+                                                    </label>
+                                                    <input
+                                                        id="calle"
+                                                        {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="San Martin"
+                                                    />
+                                                    </div>
+                                                    <div>
+                                                    <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Torre (Opcional)
+                                                    </label>
+                                                    <input
+                                                        id="torre"
+                                                        {...register("torre",{ onChange: (e) => setValue("torre", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="A1"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Piso */}
+                                                    <div>
+                                                    <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Piso (Opcional)
+                                                    </label>
+                                                    <input
+                                                        id="piso"
+                                                        {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="7"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Depto */}
+                                                    <div>
+                                                    <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Depto (Opcional)
+                                                    </label>
+                                                    <input
+                                                        id="depto"
+                                                        {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="1"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Altura */}
+                                                    <div>
+                                                    <label htmlFor="altura" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Altura
+                                                    </label>
+                                                    <input
+                                                        id="altura"
+                                                        {...register("altura", { required: true, onChange: (e) => setValue("altura", e.target.value.toUpperCase()) })}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="2610"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Localidad */}
+                                                    <div>
+                                                    <label htmlFor="localidad" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                        Localidad
+                                                    </label>
+                                                    <input
+                                                        id="localidad"
+                                                        {...register("localidad", { required: true, onChange: (e) => setValue("localidad", e.target.value.toUpperCase()) })}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        placeholder="Wilde"
+                                                    />
+                                                    </div>
+                                                </div>
+                                                )}
+
                                             <div className="flex items-center">
                                                 <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
                                                 <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los términos y condiciones arriba mencionados</label>
                                                 {errors.aceptar && <p className="text-red ml-2">Este campo es obligatorio</p>}
                                             </div>
-                                            <button type="submit" disabled={isDisabled} className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                            <button
+                                                type="submit"
+                                                disabled={isDisabled}
+                                                className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                onClick={() => {
+                                                    if (!chw) {
+                                                    const calle = getValues('calle') || '';
+                                                    const torre = getValues('torre') ? ` - Torre ${getValues('torre')}` : '';
+                                                    const piso = getValues('piso') ? ` - Piso ${getValues('piso')}` : '';
+                                                    const depto = getValues('depto') ? ` - Depto ${getValues('depto')}` : '';
+                                                    const direccionCompleta = `${calle}${torre}${piso}${depto}`;
+                                                    setValue('torre', direccionCompleta.toUpperCase());
+                                                    const altura = getValues('altura');
+                                                    setValue('piso', altura.toUpperCase());
+                                                    const localidad = getValues('localidad');
+                                                    setValue('depto', localidad.toUpperCase());
+                                                    }
+                                                }}
+                                                >
                                                 {isSubmitting ? "Enviando..." : "Anotarme"}
-                                            </button>
+                                                </button>
                                         </form>
                                     </div>
                                 </Dialog.Panel>
