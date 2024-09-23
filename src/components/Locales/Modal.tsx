@@ -42,9 +42,9 @@ export default function Modal({ product, onClose }: any) {
   };
 
   return (
-    <>
+    < >
       <Transition appear  show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative" style={{zIndex:100}} onClose={()=>onClose()}>
+        <Dialog as="div" className="relative z-10"  onClose={()=>onClose()}>
         <div className="fixed inset-0"></div>
           <Transition.Child
             as={Fragment}
