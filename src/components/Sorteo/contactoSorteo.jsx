@@ -140,11 +140,11 @@ const ContactoSorteo = () => {
                             <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{ color: 'gray' }} /></button>
-                                    <div className="py-3 lg:py-6 px-4 mx-auto max-w-screen-md">
+                                    <div className="py-1 lg:py-4 px-2 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                             <img className="h-48px w-48px lg:block" src='assets/logo/administracion.webp' alt="Sermar Logo" width={100} height={100} loading='lazy' aria-label='imagen de logo del ccw' />
-                                            <span className="mb-8 lg:mb-6 mt-6 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">Anotate para el sorteo de las expensas<br />
-                                            <small className="m-2 font-light text-sm text-center text-gray-500 dark:text-gray-400">* Se sortea 1 expensa para 2 departamentos por mes, completa tus datos para participar.</small></span>
+                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">SORTEOS<br /><small className="m-2 font-light text-sm text-center text-gray-500">* Se sortea 1 expensa para 2 departamentos por mes.<br/>* Se sortea 1 orden de compra para 2 usuarios por mes.<br/>* Sorteos especiales para dias festivos.<br/></small></p>
+                                            <p className='m-2 font-light text-center text-gray-500 text-xs'>Completa tus datos para participar. El correo se añade al Newsletter, Para mayores de 18años y 1 participante por vivienda.</p>
                                         </div>
                                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                                             <div>
@@ -198,7 +198,7 @@ const ContactoSorteo = () => {
                                                   </div>
                                             <div className="flex items-center">
                                                 <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
-                                                <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los <a href="#" className="text-blue-600 hover:underline">términos y condiciones</a></label>
+                                                <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los términos y condiciones arriba mencionados</label>
                                                 {errors.aceptar && <p className="text-red ml-2">Este campo es obligatorio</p>}
                                             </div>
                                             <button type="submit" disabled={isDisabled} className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
