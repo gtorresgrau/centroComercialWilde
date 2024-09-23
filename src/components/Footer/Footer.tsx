@@ -30,7 +30,7 @@ const Footer = () => {
                 <div className="mt-24 grid grid-cols-1 gap-y-10 gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
                     {/* COLUMN-1 */}
                     <div className='flex flex-col col-span-6 items-center '>
-                        <img className="lg:block rounded-xl" src='assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
+                        <img className="lg:block rounded-xl" src='/assets/logo/administracion2.webp' alt="Centro Comercial Logo" aria-label="Logo centro comercial" width={100} height={100} />
                         <h3 className='text-center text-white text-lg font-medium leading-6 mb-4 lg:mb-6 mt-6'>Que encuentres todo lo que deseas, <br />es nuestra pasión</h3>
                         <RedesSociales instagram={instagram} facebook={facebook} contact={celular} linea={linea} email={email} showShareButton={false} handleShare={() => {}}/>
                     </div>
@@ -52,7 +52,7 @@ const Footer = () => {
             <div className='pb-20 px-4 flex-col md:flex-row' style={{ display: 'flex', justifyContent:'center', alignItems: 'center' }}>
                 <a href="https://programundo.dev">
                     <h3 className='text-center text-offwhite'>2023 - Creado por</h3>
-                    <img src='assets/footer/programundo.webp' alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} loading='lazy'/>
+                    <img src='/assets/footer/programundo.webp' alt="Programundo" width={200} height={30}  style={{marginLeft: '10px' }} loading='lazy'/>
                 </a>
             </div>
         </footer>

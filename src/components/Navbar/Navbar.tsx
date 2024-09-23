@@ -107,7 +107,7 @@ const Navbar = () => {
             </div>
             <img
               className="block h-30px w-30px lg:hidden"
-              src="assets/logo/administracion.webp"
+              src="/assets/logo/administracion.webp"
               alt="Centro Comercial Logo"
               width={70}
               height={70}
@@ -116,7 +116,7 @@ const Navbar = () => {
             />
             <img
               className="hidden h-48px w-48px lg:block"
-              src="assets/logo/administracion.webp"
+              src="/assets/logo/administracion.webp"
               alt="Centro Comercial Logo"
               width={70}
               height={70}
