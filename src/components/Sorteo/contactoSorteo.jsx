@@ -294,12 +294,13 @@ const ContactoSorteo = () => {
                                                 disabled={isSubmitting}
                                                 className="w-full text-white bg-primary hover:bg-secondary uppercase font-medium rounded-lg text-sm px-5 py-2.5"
                                                 onClick={() => {
-                                                if (!errors && !chw) {
+                                                if (!chw) {
                                                     const calle = getValues('calle') || '';
                                                     const torre = getValues('torre') ? ` - Torre ${getValues('torre')}` : '';
                                                     const piso = getValues('piso') ? ` - Piso ${getValues('piso')}` : '';
                                                     const depto = getValues('depto') ? ` - Depto ${getValues('depto')}` : '';
                                                     const direccionCompleta = `${calle}${torre}${piso}${depto}`.trim();
+                                                    console.log('direccioncompleta:',direccionCompleta)
                                                     setValue('torre', direccionCompleta.toUpperCase());
 
                                                     const altura = getValues('altura');
