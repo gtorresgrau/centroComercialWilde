@@ -239,14 +239,24 @@ const ContactoSorteo = () => {
                                                         <input
                                                             id="torre"
                                                             {...register("torre", {
-                                                            required: true,
-                                                            onChange: (e) => setValue("torre", e.target.value.toUpperCase()),
+                                                                required: true,
+                                                                pattern: {
+                                                                    value: /^(?:[1-9]|[1-4][0-8])$/, // Agrega las barras para indicar que es una regex
+                                                                    message: "Debe ingresar un número del 1 al 48" // Mensaje de error personalizado
+                                                                },
+                                                                onChange: (e) => setValue("torre", e.target.value.toUpperCase()),
                                                             })}
+                                                            
                                                             type="text"
                                                             className={getInputClasses(errors.torre)}
                                                             placeholder="1 - 48"
                                                         />
-                                                        {errors.torre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                        {errors.torre && (
+                                                            <p className="text-red text-xs ml-1">
+                                                                {errors.torre.type === "required" 
+                                                                    ? "Este campo es obligatorio" 
+                                                                    : errors.torre.message}
+                                                            </p>)}
                                                     </div>
                                                     <div>
                                                         <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
@@ -256,30 +266,50 @@ const ContactoSorteo = () => {
                                                             id="piso"
                                                             {...register("piso", {
                                                             required: true,
+                                                            pattern: {
+                                                                value: /^(11|[1-9])$/, // Agrega las barras para indicar que es una regex
+                                                                message: "Debe ingresar un número del 1 al 11" // Mensaje de error personalizado
+                                                            },
                                                             onChange: (e) => setValue("piso", e.target.value.toUpperCase()),
                                                             })}
                                                             type="text"
                                                             className={getInputClasses(errors.piso)}
                                                             placeholder="1 - 11"
                                                         />
-                                                        {errors.piso && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                        {errors.piso && (
+                                                            <p className="text-red text-xs ml-1">
+                                                                {errors.piso.type === "required" 
+                                                                    ? "Este campo es obligatorio" 
+                                                                    : errors.piso.message}
+                                                            </p>)}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
-                                                        <p className='flex'>Depto <p className='text-red ml-2'>*</p></p>
-                                                        </label>
-                                                        <input
-                                                            id="depto"
-                                                            {...register("depto", {
-                                                            required: true,
-                                                            onChange: (e) => setValue("depto", e.target.value.toUpperCase()),
-                                                            })}
-                                                            type="text"
-                                                            className={getInputClasses(errors.depto)}
-                                                            placeholder="A - D"
-                                                        />
-                                                        {errors.depto && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
-                                                    </div>
+    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+        <p className='flex'>Depto <span className='text-red ml-2'>*</span></p>
+    </label>
+    <input
+        id="depto"
+        {...register("depto", {
+            required: true,
+            pattern: {
+                value: /^[abcdABCD]$/, // Regex para letras A, B, C o D en mayúsculas
+                message: "Debe ingresar una letra válida (A, B, C, D)" // Mensaje de error personalizado
+            },
+            onChange: (e) => setValue("depto", e.target.value.toUpperCase()), // Mantener mayúsculas
+        })}
+        type="text"
+        className={getInputClasses(errors.depto)}
+        placeholder="A - D" // Indicar que se aceptan solo letras mayúsculas
+    />
+    {errors.depto && (
+        <p className="text-red text-xs ml-1">
+            {errors.depto.type === "required" 
+                ? "Este campo es obligatorio" 
+                : errors.depto.message}
+        </p>
+    )}
+</div>
+
                                                 </div>
                                                 ) : (
                                                     
