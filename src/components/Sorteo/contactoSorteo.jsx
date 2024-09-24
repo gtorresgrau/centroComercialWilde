@@ -138,7 +138,7 @@ const ContactoSorteo = () => {
     // clase de input
     function getInputClasses(hasError) {
         return `relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300   focus:z-10 focus:outline-none sm:text-sm
-        ${hasError ? 'border-red' : 'border-gray-100 focus:border-indigo-500 focus:ring-indigo-500'}`;
+        ${hasError ? 'border-red' : 'border-gray-100 focus:border-primary focus:ring-primary'}`;
     }
     
     return (
@@ -150,7 +150,7 @@ const ContactoSorteo = () => {
             <Transition  className='z-20' appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
-                        <div className="fixed inset-0 bg-black bg-opacity-5" />
+                        <div className="fixed inset-0 bg-black bg-opacity-60" />
                     </Transition.Child>
                     <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center px-4 text-center">
@@ -160,17 +160,14 @@ const ContactoSorteo = () => {
                                     <div className="py-1 lg:py-4 px-2 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                             <img className="h-48px w-48px lg:block" src='assets/logo/administracion.webp' alt="Sermar Logo" width={100} height={100} loading='lazy' aria-label='imagen de logo del ccw' />
-                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">
-                                                SORTEOS
-                                                <br />
-                                                <ul className="m-3 mx-auto font-light text-sm text-start text-gray-600 list-disc ">
-                                                    <p className="block ml-4"><span className='font-semibold'>Expensas:</span> Se sortea 1 expensa para 2 departamentos cada mes.</p>
-                                                    <p className="block ml-4"><span className='font-semibold'>Orden de compra:</span> Se sortea 1 orden de compra para 2 usuarios cada mes.</p>
-                                                    <p className="block ml-4"><span className='font-semibold'>Sorteos adicionales</span>  en días festivos.</p>
-                                                </ul>
-                                            </p>
-                                            <strong className='m-2 font-light text-center text-gray-800 text-md'>Regístrate para participar.</strong>
-                                            <p className='m-2 font-light text-center text-gray-600 text-xs'>
+                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">SORTEOS</p>
+                                            <ul className="m-1 font-light text-sm text-start text-gray-800 list-disc ">
+                                                <li className="block ml-2 text-xs pb-1 text-gray-600" ><p className='text-gray-800 font-semibold'>Expensas:</p> Se sortea 1 expensa para 2 departamentos cada mes.</li>
+                                                <li className="block ml-2 text-xs pb-1 text-gray-600"><p className='text-gray-800 font-semibold'>Orden de compra:</p> Se sortea 1 orden de compra para 2 usuarios cada mes.</li>
+                                                <li className="block ml-2 text-xs pb-1 text-gray-600"><p className='text-gray-800 font-semibold'>Sorteos adicionales</p>  en días festivos.</li>
+                                            </ul>    
+                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl"><strong className='m-1 font-light text-center text-gray-800 text-md'>Regístrate para participar.</strong></p>
+                                            <p className='mx-auto font-light text-center px-2 md:px-6 text-gray-600 text-xs'>
                                             Al registrarte, tu correo electrónico será suscrito automáticamente a nuestro boletín de noticias. La participación está limitada a mayores de 18 años, con un máximo de un participante por hogar.</p>
                                         </div>
                                         <br />
@@ -187,8 +184,6 @@ const ContactoSorteo = () => {
                                                     placeholder="Nombre..." />
                                                 {errors.nombre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
-
-
 
                                             {/* Apellido */}
                                             <div>
@@ -336,49 +331,7 @@ const ContactoSorteo = () => {
                                                         {errors.calle && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     
                                                     </div>
-
-                                                    {/* Torre */}
-                                                    <div>
-                                                    <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
-                                                        Torre (Opcional)
-                                                    </label>
-                                                    <input
-                                                        id="torre"
-                                                        {...register("torre",{ onChange: (e) => setValue(e.target.value.toUpperCase())})}
-                                                        type="text"
-                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
-                                                        placeholder="A1"
-                                                    />
-                                                    </div>
-
-                                                    {/* Input para Piso */}
-                                                    <div>
-                                                    <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
-                                                        Piso (Opcional)
-                                                    </label>
-                                                    <input
-                                                        id="piso"
-                                                        {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})}
-                                                        type="text"
-                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
-                                                        placeholder="7"
-                                                    />
-                                                    </div>
-
-                                                    {/* Input para Depto */}
-                                                    <div>
-                                                    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
-                                                        Depto (Opcional)
-                                                    </label>
-                                                    <input
-                                                        id="depto"
-                                                        {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})}
-                                                        type="text"
-                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
-                                                        placeholder="1"
-                                                    />
-                                                    </div>
-
+                                                    
                                                     {/* Input para Altura */}
                                                     <div>
                                                     <label htmlFor="altura" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
@@ -395,6 +348,47 @@ const ContactoSorteo = () => {
                                                     {errors.altura && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
 
+                                                    {/* Torre */}
+                                                    <div>
+                                                    <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        Torre <small>(Opcional)</small>
+                                                    </label>
+                                                    <input
+                                                        id="torre"
+                                                        {...register("torre",{ onChange: (e) => setValue(e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-primary"
+                                                        placeholder="A1"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Piso */}
+                                                    <div>
+                                                    <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        Piso <small>(Opcional)</small>
+                                                    </label>
+                                                    <input
+                                                        id="piso"
+                                                        {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-primary"
+                                                        placeholder="7"
+                                                    />
+                                                    </div>
+
+                                                    {/* Input para Depto */}
+                                                    <div>
+                                                    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        Depto <small>(Opcional)</small>
+                                                    </label>
+                                                    <input
+                                                        id="depto"
+                                                        {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})}
+                                                        type="text"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-primary"
+                                                        placeholder="1"
+                                                    />
+                                                    </div>
 
                                                     {/* Input para Localidad */}
                                                     <div>
@@ -421,7 +415,7 @@ const ContactoSorteo = () => {
                                             {/* Terminos y condiciones */}
                                             <div className="flex flex-col items-center">
                                                 <div>
-                                                    <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
+                                                    <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-primary focus:ring-2" />
                                                     <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los términos y condiciones arriba mencionados</label>
                                                 </div>
                                                 {errors.aceptar && <p className="text-red text-xs ml-1">Debes aceptar los términos y condiciones para continuar.</p>}
@@ -430,7 +424,7 @@ const ContactoSorteo = () => {
                                             {/* Submit */}
                                             <button
                                                 disabled={isDisabled}
-                                                className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                className="w-full text-white bg-primary hover:bg-secondary uppercase hover:text-primary hover:ring-primary hover:ring-1 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                                 onClick={() => {
                                                     if (!errors&&!chw) {
                                                     const calle = getValues('calle') || '';
