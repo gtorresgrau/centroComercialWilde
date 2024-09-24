@@ -125,7 +125,7 @@ const ContactoSorteo = () => {
     const path =usePathname();
     const padTop = path === '/ruleta' || path !== '/' ? 'pt-2 pb-4' : '';
 
-    const isDisabled = !watch('nombre') || !watch('apellido') || !watch('dni') || !watch('email') || !watch('celular') || isSubmitting || !watch("aceptar");
+    const isDisabled = isSubmitting || !watch("aceptar");
 
     const closeModal = () => {
         setIsOpen(false);
@@ -182,7 +182,6 @@ const ContactoSorteo = () => {
                                                 <label htmlFor="nombre" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Nombre <p className='text-red ml-2'>*</p></p></label>
                                                 <input id="nombre" {...register("nombre", { required: true })} 
                                                     type="text" 
-                                                    required 
                                                     className={getInputClasses(errors.nombre)} 
                                                     placeholder="Nombre..." />
                                                 {errors.nombre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
@@ -197,7 +196,6 @@ const ContactoSorteo = () => {
                                                     id="apellido" 
                                                     {...register("apellido", { required: true })} 
                                                     type="text" 
-                                                    required 
                                                     className={getInputClasses(errors.apellido)} 
                                                     placeholder="Apellido..." />
                                                 {errors.apellido && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
@@ -206,21 +204,21 @@ const ContactoSorteo = () => {
                                             {/* DNI */}
                                             <div>
                                                 <label htmlFor="dni" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>DNI <p className='text-red ml-2'>*</p></p></label>
-                                                <input id="dni" {...register("dni", { required: true })} type="number" required className={getInputClasses(errors.dni)} placeholder="12345678" />
+                                                <input id="dni" {...register("dni", { required: true })} type="number"  className={getInputClasses(errors.dni)} placeholder="12345678" />
                                                 {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
 
                                             {/* Celular */}
                                             <div>
                                                 <label htmlFor="celular" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>Celular <p className='text-red ml-2'>*</p></p></label>
-                                                <input id="celular" {...register("celular", { required: true })} type="number" required className={getInputClasses(errors.celular)} placeholder="115345678" />
+                                                <input id="celular" {...register("celular", { required: true })} type="number"  className={getInputClasses(errors.celular)} placeholder="115345678" />
                                                 {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
 
                                             {/* Email */}
                                             <div>
                                                 <label htmlFor="email" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Tu Email <p className='text-red ml-2'>*</p></p></label>
-                                                <input id="email" {...register("email", { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })} type="email" required className={getInputClasses(errors.email)} placeholder="tu_email@email.com" />
+                                                <input id="email" {...register("email", { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })} type="email"  className={getInputClasses(errors.email)} placeholder="tu_email@email.com" />
                                                 {errors.email && <p className="text-red text-xs ml-1">Correo electrónico no válido</p>}
                                             </div>
                                              <br />   
@@ -245,7 +243,6 @@ const ContactoSorteo = () => {
                                                             onChange: (e) => setValue("torre", e.target.value.toUpperCase()),
                                                             })}
                                                             type="text"
-                                                            required
                                                             className={getInputClasses(errors.torre)}
                                                             placeholder="1 - 48"
                                                         />
@@ -262,7 +259,6 @@ const ContactoSorteo = () => {
                                                             onChange: (e) => setValue("piso", e.target.value.toUpperCase()),
                                                             })}
                                                             type="text"
-                                                            required
                                                             className={getInputClasses(errors.piso)}
                                                             placeholder="1 - 11"
                                                         />
@@ -279,7 +275,6 @@ const ContactoSorteo = () => {
                                                             onChange: (e) => setValue("depto", e.target.value.toUpperCase()),
                                                             })}
                                                             type="text"
-                                                            required
                                                             className={getInputClasses(errors.depto)}
                                                             placeholder="A - D"
                                                         />
@@ -298,7 +293,6 @@ const ContactoSorteo = () => {
                                                         id="calle"
                                                         type="text"
                                                         {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})}
-                                                        
                                                         className={getInputClasses(errors.calle)}
                                                         placeholder="San Martin"
                                                     />
@@ -311,7 +305,7 @@ const ContactoSorteo = () => {
                                                     </label>
                                                     <input
                                                         id="torre"
-                                                        {...register("torre",{ onChange: (e) => setValue("torre", e.target.value.toUpperCase())})}
+                                                        {...register("torre",{ onChange: (e) => setValue(e.target.value.toUpperCase())})}
                                                         type="text"
                                                         className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
                                                         placeholder="A1"
@@ -396,7 +390,7 @@ const ContactoSorteo = () => {
                                                 disabled={isDisabled}
                                                 className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                                 onClick={() => {
-                                                    if (!chw) {
+                                                    if (!errors&&!chw) {
                                                     const calle = getValues('calle') || '';
                                                     const torre = getValues('torre') ? ` - Torre ${getValues('torre')}` : '';
                                                     const piso = getValues('piso') ? ` - Piso ${getValues('piso')}` : '';
