@@ -26,11 +26,16 @@ const ContactoSorteo = () => {
             email: '',
             celular:'',
             chw: false,
+            calle:'',
+            altura:'',
+            localidad:'',
             torre: '',
             piso: '',
             depto: '',
             aceptar: false,
-        }
+        },
+        mode: 'onChange'
+
     });
 
     const alert = (nombre) => {
@@ -82,7 +87,6 @@ const ContactoSorteo = () => {
         const { email, nombre } = data;
         try {
             alertLoading();
-            console.log('data:',data)
             const response = await axios.post('/api/sorteos', {
                 ...data,
                 sorteo: 'sorteo',
@@ -97,7 +101,7 @@ const ContactoSorteo = () => {
                 newsletter:email,
             });
             if (responseNews.status === 200) {
-                console.log('Se suscribio correctamente');
+                return
             }
         } catch (error) {
             Swal.close();
@@ -105,6 +109,8 @@ const ContactoSorteo = () => {
                 console.error('Error:', error.response.data.message);
                 reset({calle:'',torre:'',piso:'',depto:''})
                 alreadyExist(error.response.data.message); 
+            } else if (error.response && error.response.status === 409) {
+                return
             } else {
                 console.error('Error:', error.response ? error.response.data : error.message);
                 reset({calle:'',torre:'',piso:'',depto:''})
@@ -119,7 +125,7 @@ const ContactoSorteo = () => {
     const path =usePathname();
     const padTop = path === '/ruleta' || path !== '/' ? 'pt-2 pb-4' : '';
 
-    const isDisabled = isSubmitting || Object.values(watch()).some((value) => value === '') || !watch("aceptar");
+    const isDisabled = !watch('nombre') || !watch('apellido') || !watch('dni') || !watch('email') || !watch('celular') || isSubmitting || !watch("aceptar");
 
     const closeModal = () => {
         setIsOpen(false);
@@ -128,12 +134,18 @@ const ContactoSorteo = () => {
     const openModal = () => {
         setIsOpen(true);
     };
+
+    function getInputClasses(hasError) {
+        return `relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300   focus:z-10 focus:outline-none sm:text-sm
+        ${hasError ? 'border-red' : 'border-gray-100 focus:border-indigo-500 focus:ring-indigo-500'}`;
+    }
     
     return (
         <section >
             <article className={`inset-y-0 right-0 flex flex-col items-center pr-2 sm:static sm:inset-auto md:ml-6 sm:pr-0 ${padTop}`}>
-                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} >Anotate YA!</button>
+                <button className={`hover:bg-transparent bg-purple hover:text-purple font-semibold text-white py-3 px-4 border font  hover:border-transparentrounded cursor-pointer rounded-full`} onClick={openModal} >Anotate YA!</button>
             </article>
+            {isOpen && (
             <Transition  className='z-20' appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
@@ -147,43 +159,85 @@ const ContactoSorteo = () => {
                                     <div className="py-1 lg:py-4 px-2 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
                                             <img className="h-48px w-48px lg:block" src='assets/logo/administracion.webp' alt="Sermar Logo" width={100} height={100} loading='lazy' aria-label='imagen de logo del ccw' />
-                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">SORTEOS<br /><small className="m-2 font-light text-sm text-center text-gray-500">* Se sortea 1 expensa para 2 departamentos por mes.<br/>* Se sortea 1 orden de compra para 2 usuarios por mes.<br/>* Sorteos especiales para dias festivos.<br/></small></p>
-                                            <p className='m-2 font-light text-center text-gray-500 text-xs'>Completa tus datos para participar. El correo se añade al Newsletter, Para mayores de 18años y 1 participante por vivienda.</p>
+                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">
+                                                SORTEOS
+                                                <br />
+                                                <ul className="m-3 mx-auto font-light text-sm text-start text-gray-600 list-disc ">
+                                                    <p className="block ml-4"><span className='font-semibold'>Expensas:</span> Se sortea 1 expensa para 2 departamentos cada mes.</p>
+                                                    <p className="block ml-4"><span className='font-semibold'>Orden de compra:</span> Se sortea 1 orden de compra para 2 usuarios cada mes.</p>
+                                                    <p className="block ml-4"><span className='font-semibold'>Sorteos adicionales</span>  en días festivos.</p>
+                                                </ul>
+                                            </p>
+                                            <strong className='m-2 font-light text-center text-gray-800 text-md'>Regístrate para participar.</strong>
+                                            <p className='m-2 font-light text-center text-gray-600 text-xs'>
+                                            Al registrarte, tu correo electrónico será suscrito automáticamente a nuestro boletín de noticias. La participación está limitada a mayores de 18 años, con un máximo de un participante por hogar.</p>
                                         </div>
-                                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-                                            <div>
-                                                <label htmlFor="nombre" className="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
-                                                <input id="nombre" {...register("nombre", { required: true })} type="text" required className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Nombre..." />
-                                                {errors.nombre && <p className="text-red">Este campo es obligatorio</p>}
+                                        <br />
+                                        <hr /><br />
+                                        {/* Formulario */}
+                                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                                            
+                                            {/* Nombre */}
+                                            <div className=''>
+                                                <label htmlFor="nombre" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Nombre <p className='text-red ml-2'>*</p></p></label>
+                                                <input id="nombre" {...register("nombre", { required: true })} 
+                                                    type="text" 
+                                                    required 
+                                                    className={getInputClasses(errors.nombre)} 
+                                                    placeholder="Nombre..." />
+                                                {errors.nombre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
+
+
+
+                                            {/* Apellido */}
                                             <div>
-                                                <label htmlFor="apellido" className="block mb-2 text-sm font-medium text-gray-900 ">Apellido</label>
-                                                <input id="apellido" {...register("apellido", { required: true })} type="text" required className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Apellido..." />
-                                                {errors.apellido && <p className="text-red">Este campo es obligatorio</p>}
+                                                <label htmlFor="apellido" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Apellido <p className='text-red ml-2'>*</p></p></label>
+                                                <input 
+                                                    id="apellido" 
+                                                    {...register("apellido", { required: true })} 
+                                                    type="text" 
+                                                    required 
+                                                    className={getInputClasses(errors.apellido)} 
+                                                    placeholder="Apellido..." />
+                                                {errors.apellido && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
+
+                                            {/* DNI */}
                                             <div>
-                                                <label htmlFor="dni" className="block mb-2 text-sm font-medium text-gray-900">DNI</label>
-                                                <input id="dni" {...register("dni", { required: true })} type="number" required className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="12345678" />
-                                                {errors.dni && <p className="text-red">Este campo es obligatorio</p>}
+                                                <label htmlFor="dni" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>DNI <p className='text-red ml-2'>*</p></p></label>
+                                                <input id="dni" {...register("dni", { required: true })} type="number" required className={getInputClasses(errors.dni)} placeholder="12345678" />
+                                                {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
+
+                                            {/* Celular */}
                                             <div>
-                                                <label htmlFor="celular" className="block mb-2 text-sm font-medium text-gray-900">Celular</label>
-                                                <input id="celular" {...register("celular", { required: true })} type="number" required className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="115345678" />
-                                                {errors.dni && <p className="text-red">Este campo es obligatorio</p>}
+                                                <label htmlFor="celular" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>Celular <p className='text-red ml-2'>*</p></p></label>
+                                                <input id="celular" {...register("celular", { required: true })} type="number" required className={getInputClasses(errors.celular)} placeholder="115345678" />
+                                                {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
+
+                                            {/* Email */}
                                             <div>
-                                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Tu Email</label>
-                                                <input id="email" {...register("email", { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })} type="email" required className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="tu_email@email.com" />
-                                                {errors.email && <p className="text-red">Correo electrónico no válido</p>}
+                                                <label htmlFor="email" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Tu Email <p className='text-red ml-2'>*</p></p></label>
+                                                <input id="email" {...register("email", { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })} type="email" required className={getInputClasses(errors.email)} placeholder="tu_email@email.com" />
+                                                {errors.email && <p className="text-red text-xs ml-1">Correo electrónico no válido</p>}
                                             </div>
+                                             <br />   
+                                            <hr />
+                                            {/* Toggle SI chw - No chw */}
                                             <div className='flex items-center space-x-2 align-middle'>
                                                 <input id="chw" {...register("chw")} type='checkbox' />
                                                 <label htmlFor="chw" className="inline-block text-sm font-medium text-gray-900 ">Soy del Complejo Habitacional Wilde</label>
                                             </div>
+
+
                                             {chw ? (
-                                                <div className="flex gap-4 align-middle items-center justify-center text-center">
+                                                <div className="flex gap-4 align-middle items-start justify-center text-start">
                                                     <div>
-                                                        <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900">Torre</label>
+                                                        <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        <p className='flex'>Torre <p className='text-red ml-2'>*</p></p>
+                                                            </label>
                                                         <input
                                                             id="torre"
                                                             {...register("torre", {
@@ -192,14 +246,14 @@ const ContactoSorteo = () => {
                                                             })}
                                                             type="text"
                                                             required
-                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            className={getInputClasses(errors.torre)}
                                                             placeholder="1 - 48"
                                                         />
-                                                        {errors.torre && <p className="text-red">Este campo es obligatorio</p>}
+                                                        {errors.torre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900">
-                                                            Piso
+                                                        <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        <p className='flex'>Piso <p className='text-red ml-2'>*</p></p>
                                                         </label>
                                                         <input
                                                             id="piso"
@@ -209,14 +263,14 @@ const ContactoSorteo = () => {
                                                             })}
                                                             type="text"
                                                             required
-                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            className={getInputClasses(errors.piso)}
                                                             placeholder="1 - 11"
                                                         />
-                                                        {errors.piso && <p className="text-red">Este campo es obligatorio</p>}
+                                                        {errors.piso && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900">
-                                                            Depto
+                                                        <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        <p className='flex'>Depto <p className='text-red ml-2'>*</p></p>
                                                         </label>
                                                         <input
                                                             id="depto"
@@ -226,107 +280,121 @@ const ContactoSorteo = () => {
                                                             })}
                                                             type="text"
                                                             required
-                                                            className="relative block w-24 appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm uppercase"
+                                                            className={getInputClasses(errors.depto)}
                                                             placeholder="A - D"
                                                         />
-                                                        {errors.depto && <p className="text-red">Este campo es obligatorio</p>}
+                                                        {errors.depto && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
                                                 </div>
                                                 ) : (
+                                                    
                                                 <div className="flex flex-col gap-4">
                                                     {/* Input para Calle */}
                                                     <div>
-                                                    <label htmlFor="calle" className="inline-block mb-2 text-sm font-medium text-gray-900">
-                                                        Calle
+                                                    <label htmlFor="calle" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                        <p className='flex'>Calle <p className='text-red ml-2'>*</p></p>
                                                     </label>
                                                     <input
                                                         id="calle"
-                                                        {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})}
+                                                        
+                                                        className={getInputClasses(errors.calle)}
                                                         placeholder="San Martin"
                                                     />
+                                                        {errors.calle && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                    
                                                     </div>
                                                     <div>
-                                                    <label htmlFor="torre" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                    <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         Torre (Opcional)
                                                     </label>
                                                     <input
                                                         id="torre"
                                                         {...register("torre",{ onChange: (e) => setValue("torre", e.target.value.toUpperCase())})}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
                                                         placeholder="A1"
                                                     />
                                                     </div>
 
                                                     {/* Input para Piso */}
                                                     <div>
-                                                    <label htmlFor="piso" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                    <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         Piso (Opcional)
                                                     </label>
                                                     <input
                                                         id="piso"
                                                         {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
                                                         placeholder="7"
                                                     />
                                                     </div>
 
                                                     {/* Input para Depto */}
                                                     <div>
-                                                    <label htmlFor="depto" className="inline-block mb-2 text-sm font-medium text-gray-900">
+                                                    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         Depto (Opcional)
                                                     </label>
                                                     <input
                                                         id="depto"
                                                         {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        className="relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300  focus:z-10  sm:text-sm focus:border-indigo-500"
                                                         placeholder="1"
                                                     />
                                                     </div>
 
                                                     {/* Input para Altura */}
                                                     <div>
-                                                    <label htmlFor="altura" className="inline-block mb-2 text-sm font-medium text-gray-900">
-                                                        Altura
+                                                    <label htmlFor="altura" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                    <p className='flex'>Altura <p className='text-red ml-2'>*</p></p>
+
                                                     </label>
                                                     <input
                                                         id="altura"
                                                         {...register("altura", { required: true, onChange: (e) => setValue("altura", e.target.value.toUpperCase()) })}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        className={getInputClasses(errors.calle)}
                                                         placeholder="2610"
                                                     />
+                                                    {errors.altura && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
+
 
                                                     {/* Input para Localidad */}
                                                     <div>
-                                                    <label htmlFor="localidad" className="inline-block mb-2 text-sm font-medium text-gray-900">
-                                                        Localidad
+                                                    <label htmlFor="localidad" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                    <p className='flex'>Localidad <p className='text-red ml-2'>*</p></p>
                                                     </label>
                                                     <input
                                                         id="localidad"
                                                         {...register("localidad", { required: true, onChange: (e) => setValue("localidad", e.target.value.toUpperCase()) })}
                                                         type="text"
-                                                        className="relative block w-full appearance-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                        className={getInputClasses(errors.calle)}
                                                         placeholder="Wilde"
                                                     />
+                                                    {errors.localidad && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     </div>
+
                                                 </div>
                                                 )}
 
-                                            <div className="flex items-center">
-                                                <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
-                                                <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los términos y condiciones arriba mencionados</label>
-                                                {errors.aceptar && <p className="text-red ml-2">Este campo es obligatorio</p>}
+                                        <p className="text-xs text-gray-500">Los campos marcados con (*) son obligatorios.</p>
+                                            <hr />
+
+                                            <div className="flex flex-col items-center">
+                                                <div>
+                                                    <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
+                                                    <label htmlFor="aceptar" className="ml-2 text-sm font-medium text-gray-900 ">Acepto los términos y condiciones arriba mencionados</label>
+                                                </div>
+                                                {errors.aceptar && <p className="text-red text-xs ml-1">Debes aceptar los términos y condiciones para continuar.</p>}
                                             </div>
+
                                             <button
-                                                type="submit"
                                                 disabled={isDisabled}
-                                                className="w-full text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                                                 onClick={() => {
                                                     if (!chw) {
                                                     const calle = getValues('calle') || '';
@@ -345,13 +413,16 @@ const ContactoSorteo = () => {
                                                 {isSubmitting ? "Enviando..." : "Anotarme"}
                                                 </button>
                                         </form>
+
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
                 </Dialog>
-            </Transition>
+            </Transition>)
+            }
+
         </section>
     );
 };
