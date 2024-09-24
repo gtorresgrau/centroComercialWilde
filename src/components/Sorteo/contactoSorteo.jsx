@@ -135,6 +135,7 @@ const ContactoSorteo = () => {
         setIsOpen(true);
     };
 
+    // clase de input
     function getInputClasses(hasError) {
         return `relative block w-full appearance-none rounded-md border px-3 py-2 mb-1 text-gray-900 shadow-sm placeholder-gray-300   focus:z-10 focus:outline-none sm:text-sm
         ${hasError ? 'border-red' : 'border-gray-100 focus:border-indigo-500 focus:ring-indigo-500'}`;
@@ -232,6 +233,8 @@ const ContactoSorteo = () => {
 
                                             {chw ? (
                                                 <div className="flex gap-4 align-middle items-start justify-center text-start">
+
+                                                    {/* Torre */}
                                                     <div>
                                                         <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         <p className='flex'>Torre <p className='text-red ml-2'>*</p></p>
@@ -258,6 +261,8 @@ const ContactoSorteo = () => {
                                                                     : errors.torre.message}
                                                             </p>)}
                                                     </div>
+
+                                                    {/* Piso */}
                                                     <div>
                                                         <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         <p className='flex'>Piso <p className='text-red ml-2'>*</p></p>
@@ -283,32 +288,34 @@ const ContactoSorteo = () => {
                                                                     : errors.piso.message}
                                                             </p>)}
                                                     </div>
+
+                                                    {/* Depto */}
                                                     <div>
-    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
-        <p className='flex'>Depto <span className='text-red ml-2'>*</span></p>
-    </label>
-    <input
-        id="depto"
-        {...register("depto", {
-            required: true,
-            pattern: {
-                value: /^[abcdABCD]$/, // Regex para letras A, B, C o D en mayúsculas
-                message: "Debe ingresar una letra válida (A, B, C, D)" // Mensaje de error personalizado
-            },
-            onChange: (e) => setValue("depto", e.target.value.toUpperCase()), // Mantener mayúsculas
-        })}
-        type="text"
-        className={getInputClasses(errors.depto)}
-        placeholder="A - D" // Indicar que se aceptan solo letras mayúsculas
-    />
-    {errors.depto && (
-        <p className="text-red text-xs ml-1">
-            {errors.depto.type === "required" 
-                ? "Este campo es obligatorio" 
-                : errors.depto.message}
-        </p>
-    )}
-</div>
+                                                        <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
+                                                            <p className='flex'>Depto <span className='text-red ml-2'>*</span></p>
+                                                        </label>
+                                                        <input
+                                                            id="depto"
+                                                            {...register("depto", {
+                                                                required: true,
+                                                                pattern: {
+                                                                    value: /^[abcdABCD]$/, // Regex para letras A, B, C o D en mayúsculas
+                                                                    message: "Debe ingresar una letra válida (A, B, C, D)" // Mensaje de error personalizado
+                                                                },
+                                                                onChange: (e) => setValue("depto", e.target.value.toUpperCase()), // Mantener mayúsculas
+                                                            })}
+                                                            type="text"
+                                                            className={getInputClasses(errors.depto)}
+                                                            placeholder="A - D" // Indicar que se aceptan solo letras mayúsculas
+                                                        />
+                                                        {errors.depto && (
+                                                            <p className="text-red text-xs ml-1">
+                                                                {errors.depto.type === "required" 
+                                                                    ? "Este campo es obligatorio" 
+                                                                    : errors.depto.message}
+                                                            </p>
+                                                        )}
+                                                    </div>
 
                                                 </div>
                                                 ) : (
@@ -329,6 +336,8 @@ const ContactoSorteo = () => {
                                                         {errors.calle && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                     
                                                     </div>
+
+                                                    {/* Torre */}
                                                     <div>
                                                     <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">
                                                         Torre (Opcional)
@@ -405,9 +414,11 @@ const ContactoSorteo = () => {
                                                 </div>
                                                 )}
 
-                                        <p className="text-xs text-gray-500">Los campos marcados con (*) son obligatorios.</p>
+                                            <p className="text-xs text-gray-500">Los campos marcados con (*) son obligatorios.</p>
+
                                             <hr />
 
+                                            {/* Terminos y condiciones */}
                                             <div className="flex flex-col items-center">
                                                 <div>
                                                     <input id="aceptar" {...register("aceptar", { required: true })} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" />
@@ -416,6 +427,7 @@ const ContactoSorteo = () => {
                                                 {errors.aceptar && <p className="text-red text-xs ml-1">Debes aceptar los términos y condiciones para continuar.</p>}
                                             </div>
 
+                                            {/* Submit */}
                                             <button
                                                 disabled={isDisabled}
                                                 className="w-full text-white bg-blue-500 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -435,7 +447,7 @@ const ContactoSorteo = () => {
                                                 }}
                                                 >
                                                 {isSubmitting ? "Enviando..." : "Anotarme"}
-                                                </button>
+                                            </button>
                                         </form>
 
                                     </div>
