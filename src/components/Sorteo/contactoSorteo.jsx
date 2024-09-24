@@ -177,31 +177,31 @@ const ContactoSorteo = () => {
                                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                             {/* Nombre */}
                                             <div className=''>
-                                                <label htmlFor="nombre" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Nombre <p className='text-red ml-2'>*</p></p></label>
+                                                <label htmlFor="nombre" className="flex mb-1 ml-1 text-sm font-medium text-gray-900 "><p>Nombre</p><p className='text-red ml-2'>*</p></label>
                                                 <input id="nombre" {...register("nombre", { required: true })} type="text" className={getInputClasses(errors.nombre)}   placeholder="Nombre..." />
                                                 {errors.nombre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
                                             {/* Apellido */}
                                             <div>
-                                                <label htmlFor="apellido" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Apellido <p className='text-red ml-2'>*</p></p></label>
+                                                <label htmlFor="apellido" className="flex mb-1 ml-1 text-sm font-medium text-gray-900 "><p>Apellido</p><p className='text-red ml-2'>*</p></label>
                                                 <input id="apellido" {...register("apellido", { required: true })} type="text" className={getInputClasses(errors.apellido)} placeholder="Apellido..." />
                                                 {errors.apellido && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
                                             {/* DNI */}
                                             <div>
-                                                <label htmlFor="dni" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>DNI <p className='text-red ml-2'>*</p></p></label>
+                                                <label htmlFor="dni" className="flex mb-1 ml-1 text-sm font-medium text-gray-900"><p>DNI</p><p className='text-red ml-2'>*</p></label>
                                                 <input id="dni" {...register("dni", { required: true })} type="number"  className={getInputClasses(errors.dni)} placeholder="12345678" />
                                                 {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
                                             {/* Celular */}
                                             <div>
-                                                <label htmlFor="celular" className="block mb-1 ml-1 text-sm font-medium text-gray-900"><p className='flex'>Celular <p className='text-red ml-2'>*</p></p></label>
+                                                <label htmlFor="celular" className="flex mb-1 ml-1 text-sm font-medium text-gray-900"><p>Celular</p><p className='text-red ml-2'>*</p></label>
                                                 <input id="celular" {...register("celular", { required: true })} type="number"  className={getInputClasses(errors.celular)} placeholder="115345678" />
                                                 {errors.dni && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                             </div>
                                             {/* Email */}
                                             <div>
-                                                <label htmlFor="email" className="block mb-1 ml-1 text-sm font-medium text-gray-900 "><p className='flex'>Tu Email <p className='text-red ml-2'>*</p></p></label>
+                                                <label htmlFor="email" className="flex mb-1 ml-1 text-sm font-medium text-gray-900 "><p>Tu Email</p><p className='text-red ml-2'>*</p></label>
                                                 <input id="email" {...register("email", { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })} type="email"  className={getInputClasses(errors.email)} placeholder="tu_email@email.com" />
                                                 {errors.email && <p className="text-red text-xs ml-1">Correo electrónico no válido</p>}
                                             </div>
@@ -216,36 +216,36 @@ const ContactoSorteo = () => {
                                                 <div className="flex gap-4">
                                                 {/* Torre */}
                                                 <div>
-                                                    <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Torre *</label>
-                                                    <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue("torre", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.torre)} />
-                                                    {errors.torre && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                    <label htmlFor="torre" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Torre <p className='text-red ml-2'>*</p></label>
+                                                    <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue("torre", e.target.value.toUpperCase()), pattern: {value: /^(?:[1-9]|[1-4][0-8])$/, message: "Debe ingresar un número del 1 al 48"}})} type="text" className={getInputClasses(errors.torre)} placeholder="1-48"/>
+                                                    {errors.torre && (<p className="text-red text-xs ml-1">{errors.torre.type === "required" ? "Este campo es obligatorio" : errors.torre.message}</p>)}
                                                 </div>
                                                 {/* Piso */}
                                                 <div>
-                                                    <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Piso *</label>
-                                                    <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue("piso", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.piso)} />
-                                                    {errors.piso && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                    <label htmlFor="piso" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Piso<p className='text-red ml-2'>*</p></label>
+                                                    <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue("piso", e.target.value.toUpperCase()),pattern: {value: /^(11|[1-9])$/, message: "Debe ingresar un número del 1 al 11" } })} type="text" className={getInputClasses(errors.piso)} placeholder="1-11"/>
+                                                    {errors.piso && (<p className="text-red text-xs ml-1">{errors.piso.type === "required" ? "Este campo es obligatorio"  : errors.piso.message}</p>)}
                                                 </div>
                                                 {/* Depto */}
                                                 <div>
-                                                    <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Depto *</label>
-                                                    <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue("depto", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.depto)} />
-                                                    {errors.depto && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
+                                                    <label htmlFor="depto" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Depto<p className='text-red ml-2'>*</p></label>
+                                                    <input id="depto" {...register("depto", { required: true, onChange: (e) => setValue("depto", e.target.value.toUpperCase()),pattern: { value: /^[abcdABCD]$/, message: "Debe ingresar una letra válida (A, B, C, D)"} })} type="text" className={getInputClasses(errors.depto)} placeholder="A-B-C-D"/>
+                                                    {errors.depto && (<p className="text-red text-xs ml-1">{errors.depto.type === "required" ? "Este campo es obligatorio" : errors.depto.message} </p>)}
                                                 </div>
                                                 </div>
                                             ) : (
                                             <div className="flex flex-col gap-4">
                                                 {/* Calle */}
                                                 <div>
-                                                    <label htmlFor="calle" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Calle *</label>
-                                                    <input id="calle" {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.calle)} />
+                                                    <label htmlFor="calle" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Calle <p className='text-red ml-2'>*</p></label>
+                                                    <input id="calle" {...register("calle", { required: true, onChange: (e) => setValue("calle", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.calle)} placeholder="FIERRO"/>
                                                     {errors.calle && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                 </div>
 
                                                 {/* Altura */}
                                                 <div>
-                                                    <label htmlFor="altura" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Altura *</label>
-                                                    <input id="altura"  {...register("altura", { required: true, onChange: (e) => setValue("altura", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.altura)} />
+                                                    <label htmlFor="altura" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Altura <p className='text-red ml-2'>*</p></label>
+                                                    <input id="altura"  {...register("altura", { required: true, onChange: (e) => setValue("altura", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.altura)} placeholder="184"/>
                                                     {errors.altura && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                 </div>
 
@@ -253,31 +253,31 @@ const ContactoSorteo = () => {
                                                 <div className="flex gap-4">
                                                     {/* Torre */}
                                                     <div>
-                                                        <label htmlFor="torre" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Torre <small>(Opcional)</small></label>
-                                                        <input id="torre" {...register("torre",{ onChange: (e) => setValue("torre", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.torre)} />
+                                                        <label htmlFor="torre" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Torre <small>(Opcional)</small></label>
+                                                        <input id="torre" {...register("torre",{ onChange: (e) => setValue("torre", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.torre)} placeholder="A1"/>
                                                     </div>
                                                     {/* Piso */}
                                                     <div>
-                                                        <label htmlFor="piso" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Piso <small>(Opcional)</small></label>
-                                                        <input id="piso" {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.piso)} />
+                                                        <label htmlFor="piso" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Piso <small>(Opcional)</small></label>
+                                                        <input id="piso" {...register("piso",{ onChange: (e) => setValue("piso", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.piso)} placeholder="7"/>
                                                     </div>
                                                     {/* Depto */}
                                                     <div>
-                                                        <label htmlFor="depto" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Depto <small>(Opcional)</small></label>
-                                                        <input id="depto" {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.depto)} />
+                                                        <label htmlFor="depto" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Depto <small>(Opcional)</small></label>
+                                                        <input id="depto" {...register("depto",{ onChange: (e) => setValue("depto", e.target.value.toUpperCase())})} type="text" className={getInputClasses(errors.depto)} placeholder="6"/>
                                                     </div>
                                                 </div>
                                                 
                                                 {/* Localidad */}
                                                 <div>
-                                                    <label htmlFor="localidad" className="block mb-1 ml-1 text-sm font-medium text-gray-900">Localidad *</label>
-                                                    <input id="localidad" {...register("localidad", { required: true, onChange: (e) => setValue("localidad", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.localidad)} />
+                                                    <label htmlFor="localidad" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Localidad <p className='text-red ml-2'>*</p></label>
+                                                    <input id="localidad" {...register("localidad", { required: true, onChange: (e) => setValue("localidad", e.target.value.toUpperCase()) })} type="text" className={getInputClasses(errors.localidad)} placeholder="WILDE"/>
                                                     {errors.localidad && <p className="text-red text-xs ml-1">Este campo es obligatorio</p>}
                                                 </div>
                                             </div>
                                             )}
 
-                                            <p className="text-xs text-gray-500">Los campos marcados con (*) son obligatorios.</p>
+                                            <p className="text-xs text-gray-500">Los campos marcados con (<span className='text-red'>*</span>) son obligatorios.</p>
                                             <hr />
 
                                             {/* Terminos y condiciones */}
