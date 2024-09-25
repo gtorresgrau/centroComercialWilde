@@ -45,6 +45,17 @@ const Newsletter = () => {
         });  
     };
 
+    const alertNews = (message:string) => {
+        Swal.fire({
+        text: `${message}`,
+        icon: "error",
+        confirmButtonText: "Ok",
+        customClass: {
+            confirmButton: 'bg-primary text-white hover:bg-blue-700',
+        },
+        });  
+    };
+
     const handleClick = () => {
         //('News:',inputValues.newsletter)
     }
@@ -54,30 +65,37 @@ const Newsletter = () => {
         setInputValues(prevState => ({ ...prevState, [name]: value }));
     }
         // FORM SUBMIT
-        const handleSubmit = async (event:any) => {
-            event.preventDefault();
-            try {
-                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                if (!inputValues.newsletter.match(emailPattern)) {
-                    console.error('Correo electrónico no válido');
-                    alertError();
-                }else{
-                    alertLoading();
-                    const response = await axios.post('/api/newsletter/newsletters', inputValues);
-                    //console.log('Response received: ', response.data);
-                    Swal.close();
-                    if (response.status === 200) {
-                        alert();
-                        setInputValues({
-                            newsletter: '',
-                        });
-                    }
-                };
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        try {
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            if (!inputValues.newsletter.match(emailPattern)) {
+                console.error('Correo electrónico no válido');
+                alertError();  
+                return; 
             }
-            catch (error) {
-                console.error('Error:', error);
+
+            alertLoading(); 
+            const response = await axios.post('/api/newsletter/newsletters', inputValues);
+            console.log('Response received: ', response);
+            Swal.close(); 
+
+            if (response.status === 200) {
+            alert(); 
+            setInputValues({
+                newsletter: '',  
+            });
+            } else if (response.status === 409) {
+                alertNews(response.data.message); 
             }
+
+        } catch (error) {
+            Swal.close(); 
+            console.error('Error:', error);
+            alertError(); 
         }
+    };
 
     return (
         <section id="newsletter" className='-mt-32 relative z-5'>
