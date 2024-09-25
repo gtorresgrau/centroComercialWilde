@@ -93,7 +93,7 @@ const Newsletter = () => {
         } catch (error:any) {
             Swal.close(); 
             console.error('Error:', error);
-            alertNews(error.data.message); 
+            alertNews(error.response.data.message); 
         }
     };
 
