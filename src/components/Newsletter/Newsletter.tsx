@@ -90,10 +90,10 @@ const Newsletter = () => {
                 alertNews(response.data.message); 
             }
 
-        } catch (error) {
+        } catch (error:any) {
             Swal.close(); 
             console.error('Error:', error);
-            alertError(); 
+            alertNews(error.data.message); 
         }
     };
 
