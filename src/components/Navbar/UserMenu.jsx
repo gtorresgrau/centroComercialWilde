@@ -13,7 +13,7 @@ const UserMenu = ({user,toggleDropdown,isDropdownOpen,handleLogOut}) => {
   return (
     <>
             {user ? (
-              <div className="relative z-50">
+              <div className="relative z-20">
                 <button className="inline-flex items-center w-8 h-8 justify-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl" onClick={toggleDropdown} title={user.displayName} aria-label="menu usuario">
                   {user.photoURL ? (
                     <img src={user.photoURL} alt={user.displayName} className="rounded-full w-8 h-8" title={user.displayName} loading='lazy'/>

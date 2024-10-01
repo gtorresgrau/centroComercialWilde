@@ -25,7 +25,7 @@
 .balloon {
   position: absolute;
   bottom: 45%; /* Cambiado para hacer que la pelota rebote desde la parte inferior */
-  left: 10%;
+  left: 15%;
   padding: 50px 25px;
   background-color: #732c80;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
@@ -35,4 +35,13 @@
   border-radius: 50%;
   cursor: pointer;
   animation: wobbleBalloon 2s ease-in-out infinite;
+  z-index: 0;
+  bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .balloon {
+    z-index: 10;
+    bottom: 50%;
+  }
 }
