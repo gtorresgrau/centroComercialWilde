@@ -223,7 +223,7 @@ const ContactoSorteo = () => {
                                                 {/* Piso */}
                                                 <div>
                                                     <label htmlFor="piso" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Piso<p className='text-red ml-2'>*</p></label>
-                                                    <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue("piso", e.target.value.toUpperCase()),pattern: {value: /^(1[0-1]|[0-9])$/, message: "Debe ingresar un número del 0 al 11" } })} type="text" className={getInputClasses(errors.piso)} placeholder="0-11"/>
+                                                    <input id="piso" {...register("piso", { required: true, onChange: (e) => setValue("piso", e.target.value.toUpperCase()),pattern: {value: /^(1[0-1]|[0-9])$/, message: "Ingrese del 0 al 11. Planta Baja = 0" } })} type="text" className={getInputClasses(errors.piso)} placeholder="0-11"/>
                                                     {errors.piso && (<p className="text-red text-xs ml-1">{errors.piso.type === "required" ? "Este campo es obligatorio"  : errors.piso.message}</p>)}
                                                 </div>
                                                 {/* Depto */}
@@ -278,6 +278,7 @@ const ContactoSorteo = () => {
                                             )}
 
                                             <p className="text-xs text-gray-500">Los campos marcados con (<span className='text-red'>*</span>) son obligatorios.</p>
+                                            <p>Para Planta Baja colocar <span className='text-red'>0</span> </p>
                                             <hr />
 
                                             {/* Terminos y condiciones */}
