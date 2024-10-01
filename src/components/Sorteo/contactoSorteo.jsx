@@ -217,7 +217,7 @@ const ContactoSorteo = () => {
                                                 {/* Torre */}
                                                 <div>
                                                     <label htmlFor="torre" className="flex mb-1 ml-1 text-sm font-medium text-gray-900">Torre <p className='text-red ml-2'>*</p></label>
-                                                    <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue("torre", e.target.value.toUpperCase()), pattern: {value: /^(?:[1-9]|[1-4][0-8])$/, message: "Debe ingresar un número del 1 al 48"}})} type="text" className={getInputClasses(errors.torre)} placeholder="1-48"/>
+                                                    <input id="torre" {...register("torre", { required: true, onChange: (e) => setValue("torre", e.target.value.toUpperCase()), pattern: {value: /^([1-9]|[1-3][0-9]|4[0-8])$/, message: "Debe ingresar un número del 1 al 48"}})} type="text" className={getInputClasses(errors.torre)} placeholder="1-48"/>
                                                     {errors.torre && (<p className="text-red text-xs ml-1">{errors.torre.type === "required" ? "Este campo es obligatorio" : errors.torre.message}</p>)}
                                                 </div>
                                                 {/* Piso */}
