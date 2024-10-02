@@ -165,14 +165,14 @@ const ContactoSorteo = () => {
                                             <div className="min-w-[290px] max-w-[300px]">
                                                 <h3 className="mb-2 font-semibold text-start text-primary text-sm">Todos los meses</h3>
                                                 <ul className=" mb-2 font-light text-sm text-start text-gray-800 list-disc min-w-[290px]">
-                                                    <li className="block text-xs pb-1 text-gray-600" ><p className='text-gray-900 font-semibold'>Expensas:</p> Se sortean 2 expensas para 2 departamentos cada mes.</li>
+                                                    <li className="block text-xs pb-1 text-gray-600" ><p className='text-gray-900 font-semibold'>Expensas:</p> Se sortean 2 expensas para 2 departamentos cada mes. valido para las personas que viven dentro del Complejo Habitacional Wilde</li>
                                                 </ul>
                                             </div>
                                             <div className="min-w-[290px] max-w-[300px]">
                                                 <h3 className="mb-2 font-semibold text-start text-primary text-sm">Ocaciones especiales</h3>
                                                 <ul className="mb-2 font-light text-sm text-start text-gray-800 list-disc">
-                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Orden de compra:</p> Se sortea 1 orden de compra para 2 usuarios.</li>
-                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Sorteos adicionales</p>  en días festivos.</li>
+                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Orden de compra:</p> Se sortea 1 orden de compra para 2 usuarios. Valido para todos los usuarios que se registren.</li>
+                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Sorteos adicionales</p>  en días festivos. Valido para todos los usuarios que se registren.</li>
                                                 </ul> 
                                             </div>
                                             <div className="min-w-[290px] max-w-[300px]">
