@@ -160,16 +160,26 @@ const ContactoSorteo = () => {
                                     <button type="button" onClick={closeModal} className="absolute top-5 right-6 "><IoClose size={32} style={{ color: 'gray' }} /></button>
                                     <div className="py-1 lg:py-4 px-2 mx-auto max-w-screen-md">
                                         <div className="flex flex-col items-center">
-                                            <img className="h-48px w-48px lg:block" src='assets/logo/administracion.webp' alt="Sermar Logo" width={100} height={100} loading='lazy' aria-label='imagen de logo del ccw' />
-                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">SORTEOS</p>
-                                            <ul className="m-1 font-light text-sm text-start text-gray-800 list-disc ">
-                                                <li className="block ml-2 text-xs pb-1 text-gray-600" ><p className='text-gray-800 font-semibold'>Expensas:</p> Se sortea 1 expensa para 2 departamentos cada mes.</li>
-                                                <li className="block ml-2 text-xs pb-1 text-gray-600"><p className='text-gray-800 font-semibold'>Orden de compra:</p> Se sortea 1 orden de compra para 2 usuarios cada mes.</li>
-                                                <li className="block ml-2 text-xs pb-1 text-gray-600"><p className='text-gray-800 font-semibold'>Sorteos adicionales</p>  en días festivos.</li>
-                                            </ul>    
-                                            <p className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl"><strong className='m-1 font-light text-center text-gray-800 text-md'>Regístrate para participar.</strong></p>
-                                            <p className='mx-auto font-light text-center px-2 md:px-6 text-gray-600 text-xs'>
+                                            <img className="h-24 w-24 lg:block" src='assets/logo/administracion.webp' alt="Sermar Logo" width={96} height={96} loading='lazy' aria-label='imagen de logo del ccw' title='imagen de logo del ccw' />
+                                            <h2 className="mb-2 lg:mb-4 mt-4 font-bold text-center text-primary sm:text-xl">SORTEOS</h2>
+                                            <div className="min-w-[290px] max-w-[300px]">
+                                                <h3 className="mb-2 font-semibold text-start text-primary text-sm">Todos los meses</h3>
+                                                <ul className=" mb-2 font-light text-sm text-start text-gray-800 list-disc min-w-[290px]">
+                                                    <li className="block text-xs pb-1 text-gray-600" ><p className='text-gray-900 font-semibold'>Expensas:</p> Se sortean 2 expensas para 2 departamentos cada mes.</li>
+                                                </ul>
+                                            </div>
+                                            <div className="min-w-[290px] max-w-[300px]">
+                                                <h3 className="mb-2 font-semibold text-start text-primary text-sm">Ocaciones especiales</h3>
+                                                <ul className="mb-2 font-light text-sm text-start text-gray-800 list-disc">
+                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Orden de compra:</p> Se sortea 1 orden de compra para 2 usuarios.</li>
+                                                    <li className="block text-xs pb-1 text-gray-600"><p className='text-gray-900 font-semibold'>Sorteos adicionales</p>  en días festivos.</li>
+                                                </ul> 
+                                            </div>
+                                            <div className="min-w-[290px] max-w-[300px]">
+                                                <h3 className="mb-2 lg:mb-4 font-bold text-center text-primary sm:text-xl"><strong className='mb-1 font-semibold text-start text-primary text-sm'>Regístrate para participar.</strong></h3>
+                                                <p className='mx-auto font-light text-start px-2 md:px-6 text-gray-600 text-xs '>
                                             Al registrarte, tu correo electrónico será suscrito automáticamente a nuestro boletín de noticias. La participación está limitada a mayores de 18 años, con un máximo de un participante por hogar.</p>
+                                            </div>   
                                         </div>
                                         <br />
                                         <hr /><br />
