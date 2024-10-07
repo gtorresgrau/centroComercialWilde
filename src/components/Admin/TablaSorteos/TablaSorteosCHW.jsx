@@ -112,7 +112,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
               </tr>
             </thead>
             {/* {!filteredUsers.length ? ( */}
-            {paginatedLocales.length ? (
+            {!paginatedLocales.length ? (
               <tbody>
                 <tr className="text-center">
                   <td colSpan="2" className="py-10">
@@ -122,7 +122,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
               </tbody>
             ) : (
               <tbody>
-                {paginatedLocales.map((product, index) => (
+                {paginatedLocales.map((user, index) => (
                 // {filteredUsers.map((user, index) => (
                   <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>

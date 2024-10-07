@@ -93,7 +93,7 @@ const filteredUsers = userSorteo.filter((user) =>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Localidad/Depto</th>
               <th className="px-1 py-1 md:px-4 md:py-3 border-b">Acc</th>
               <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
-                <p className='font-bold'>All</p>
+                <p className='font-bold'>All</p>              
                 <Checkbox email="select-all" handleCheckboxChange={handleSelectAll} isChecked={selectAll} />
               </th>
             </tr>
@@ -120,7 +120,7 @@ const filteredUsers = userSorteo.filter((user) =>
                     <td className="px-1 py-4 md:px-4 md:py-2 border-b text-end">
                       <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteUser(user._id)}/>
                     </td>
-                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-end items-end">
+                    <td className="px-1 py-4 md:px-4 md:py-3 border-b text-center items-center">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)}/>
                     </td>
                 </tr>
