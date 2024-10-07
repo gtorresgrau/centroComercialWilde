@@ -85,7 +85,8 @@ const TablaSorteosNoCHW = ({ userSorteos }) => {
   const filteredUsers = userSorteo.filter((user) =>
     `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.dni?.toString().includes(searchTerm) ||
-    user.email?.toLowerCase().includes(searchTerm)
+    user.email?.toLowerCase().includes(searchTerm)||
+    user.celular?.toLowerCase().includes(searchTerm)
   );
 
   const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados

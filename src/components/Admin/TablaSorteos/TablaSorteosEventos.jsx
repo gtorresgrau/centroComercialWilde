@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../Checkbox/Checkbox';
 import useProducts from '../../../Hooks/useProducts';
+import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import RuletaAdmin from '../RuletaAdmin';
@@ -14,16 +15,29 @@ const TablaSorteosEventos = ({userSorteos}) => {
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const {userSorteo} = useProducts(userSorteos)
+  const { userSorteo = [] } = useProducts(userSorteos);
+  const [page, setPage] = useState(1);
+  const localPage = 9; // Número de locales por página
+
+  // Handle pagination page change
+  const handleChange = (event, value) => {
+     setPage(value); // Cambia de página
+  };
   
   useEffect(() => {
-    // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
-    if (selectedEmails.length === userSorteo.length) {
+    if (userSorteo && selectedEmails.length === userSorteo.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
     }
-  }, [selectedEmails]);
+  }, [selectedEmails, userSorteo]);
+
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredUsers.length / localPage);
+    if (page > totalPages) {
+      setPage(1); // Reset to first page if the page number exceeds total pages
+    }
+  }, [userSorteo.length, searchTerm, page]);
 
   const handleCheckboxChange = (email) => {
     setSelectedEmails(prev =>
@@ -69,8 +83,12 @@ const TablaSorteosEventos = ({userSorteos}) => {
 const filteredUsers = userSorteo.filter((user) =>
   `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
   user.dni?.toString().includes(searchTerm) ||
-  user.email?.toLowerCase().includes(searchTerm)
+  user.email?.toLowerCase().includes(searchTerm)||
+  user.celular?.toLowerCase().includes(searchTerm)
 );
+
+const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
+const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);  // Determina los locales que se muestran en la página actual
 
   return (
     <Suspense fallback={<Loading />}>
@@ -81,6 +99,8 @@ const filteredUsers = userSorteo.filter((user) =>
       <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
       {/* tabla de usuarios */}
       <div className="overflow-x-auto">
+      <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center" 
+          sx={{'& .MuiPaginationItem-root': {color: 'white'},'& .Mui-selected': { backgroundColor: 'secondary',color: 'black'}}}/>
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
           <thead>
             <tr className='bg-slate-300 text-sm md:text-base'>
@@ -98,7 +118,7 @@ const filteredUsers = userSorteo.filter((user) =>
               </th>
             </tr>
           </thead>
-          {!filteredUsers.length ? (
+          {!paginatedUsers.length ? (
             <tbody>
               <tr className="text-center">
                 <td colSpan="2" className="py-10">
@@ -108,7 +128,7 @@ const filteredUsers = userSorteo.filter((user) =>
             </tbody>
           ) : (
             <tbody>
-              {filteredUsers.map((user, index) => (
+              {paginatedUsers.map((user, index) => (
                 <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
