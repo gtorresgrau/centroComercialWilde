@@ -19,14 +19,10 @@ const TablaSorteosCHW = ({userSorteos}) => {
   const [page, setPage] = useState(1);
   const localPage = 9; // Número de locales por página
 
-  
+  // Handle pagination page change
   const handleChange = (event, value) => {
     setPage(value); // Cambia de página
   };
-  
-  const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
-  // Determina los locales que se muestran en la página actual
-  const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);
 
   useEffect(() => {
     if (selectedEmails.length === userSorteo.length) {
@@ -35,6 +31,14 @@ const TablaSorteosCHW = ({userSorteos}) => {
       setSelectAll(false);
     }
   }, [selectedEmails]);
+
+  // Update page state if filtered users decrease and exceed page count
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredUsers.length / localPage);
+    if (page > totalPages) {
+      setPage(1); // Reset to first page if the page number exceeds total pages
+    }
+  }, [filteredUsers.length, page]);
 
   const handleCheckboxChange = (email) => {
     setSelectedEmails(prev =>
@@ -64,20 +68,20 @@ const TablaSorteosCHW = ({userSorteos}) => {
         customClass: {
           confirmButton: 'bg-primary text-white hover:bg-green',
           cancelButton: 'bg-red text-white hover:bg-green',
-
         },
       }).then(async(result) => {
         if (result.isConfirmed) {
-        const response = await axios.delete(`/api/sorteos/${id}`);        
-        if (response.status === 200 || response.status === 204) {
+          const response = await axios.delete(`/api/sorteos/${id}`);        
+          if (response.status === 200 || response.status === 204) {
             toast.success('Inscripción eliminada con éxito');
-        }}
-      })
+          }
+        }
+      });
     } catch (error) {
-        console.error('Error al eliminar la inscripción 2:', error.response ? error.response.data : error.message);
+        console.error('Error al eliminar la inscripción:', error.response ? error.response.data : error.message);
         toast.error('Error al eliminar la inscripción');
     }
-};
+  };
 
   const filteredUsers = userSorteo.filter((user) =>
     `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -85,15 +89,19 @@ const TablaSorteosCHW = ({userSorteos}) => {
     user.email?.toLowerCase().includes(searchTerm)
   );
 
+  const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
+  const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);  // Determina los locales que se muestran en la página actual
+
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
         <h1 className="text-2xl font-bold mb-5 text-secondary uppercase">Sorteos CHW</h1>
-        <RuletaAdmin userSorteo={userSorteo}/>
+        <RuletaAdmin userSorteo={userSorteo} />
+        
         <h2 className='text-secondary pt-2'>BUSCADOR</h2>
-        <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
+        <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="overflow-x-auto">
-        <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-2 align-middle self-center"/>
+          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center"/>
           <table className="min-w-full bg-white border border-gray-300 shadow-xl">
             <thead>
               <tr className='bg-slate-300 text-sm md:text-base'>
@@ -111,11 +119,10 @@ const TablaSorteosCHW = ({userSorteos}) => {
                 </th>
               </tr>
             </thead>
-            {/* {!filteredUsers.length ? ( */}
             {!paginatedUsers.length ? (
               <tbody>
                 <tr className="text-center">
-                  <td colSpan="2" className="py-10">
+                  <td colSpan="9" className="py-10">
                     <span className="text-gray-500 font-semibold">No hay inscripciones</span>
                   </td>
                 </tr>
@@ -123,7 +130,6 @@ const TablaSorteosCHW = ({userSorteos}) => {
             ) : (
               <tbody>
                 {paginatedUsers.map((user, index) => (
-                // {filteredUsers.map((user, index) => (
                   <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
@@ -133,7 +139,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.piso}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.depto}</td>
                     <td className="px-1 py-4 md:px-4 md:py-2 border-b text-end">
-                      <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteUser(user._id)}/>
+                      <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteUser(user._id)} />
                     </td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b text-center items-center">
                       <Checkbox email={user.email} handleCheckboxChange={handleCheckboxChange} isChecked={selectedEmails.includes(user.email)} />
@@ -144,6 +150,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
             )}
           </table>
         </div>
+
         <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       </section>
     </Suspense>
