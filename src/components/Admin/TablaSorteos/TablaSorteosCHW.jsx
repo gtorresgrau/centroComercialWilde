@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../Checkbox/Checkbox';
 import useProducts from '../../../Hooks/useProducts';
+import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import RuletaAdmin from '../RuletaAdmin';
@@ -15,6 +16,18 @@ const TablaSorteosCHW = ({userSorteos}) => {
   const [selectAll, setSelectAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const { userSorteo } = useProducts(userSorteos);
+  const [filteredLocales, setFilteredLocales] = useState([]);
+  const [page, setPage] = useState(1);
+  const localPage = 9; // Número de locales por página
+
+  
+  const handleChange = (event, value) => {
+    setPage(value); // Cambia de página
+  };
+  
+  const pages = Math.ceil(filteredLocales.length / localPage); // Total de páginas basado en los locales filtrados
+  // Determina los locales que se muestran en la página actual
+  const paginatedLocales = filteredLocales.slice((page - 1) * localPage, page * localPage);
 
   useEffect(() => {
     if (selectedEmails.length === userSorteo.length) {
@@ -80,6 +93,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
         <h2 className='text-secondary pt-2'>BUSCADOR</h2>
         <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
         <div className="overflow-x-auto">
+        <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-2 align-middle self-center"/>
           <table className="min-w-full bg-white border border-gray-300 shadow-xl">
             <thead>
               <tr className='bg-slate-300 text-sm md:text-base'>
@@ -97,7 +111,8 @@ const TablaSorteosCHW = ({userSorteos}) => {
                 </th>
               </tr>
             </thead>
-            {!filteredUsers.length ? (
+            {/* {!filteredUsers.length ? ( */}
+            {paginatedLocales.length ? (
               <tbody>
                 <tr className="text-center">
                   <td colSpan="2" className="py-10">
@@ -107,7 +122,8 @@ const TablaSorteosCHW = ({userSorteos}) => {
               </tbody>
             ) : (
               <tbody>
-                {filteredUsers.map((user, index) => (
+                {paginatedLocales.map((product, index) => (
+                // {filteredUsers.map((user, index) => (
                   <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.dni}</td>
