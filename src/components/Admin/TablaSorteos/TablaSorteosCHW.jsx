@@ -91,19 +91,16 @@ const TablaSorteosCHW = ({userSorteos}) => {
   const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
   const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);  // Determina los locales que se muestran en la página actual
 
-  console.log('filteredUsers:', filteredUsers)
-  console.log('paginatedUsers:', paginatedUsers)
-
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
         <h1 className="text-2xl font-bold mb-5 text-secondary uppercase">Sorteos CHW</h1>
         <RuletaAdmin userSorteo={userSorteo} />
-        
         <h2 className='text-secondary pt-2'>BUSCADOR</h2>
         <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="overflow-x-auto">
-          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center"/>
+          <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center" 
+          sx={{'& .MuiPaginationItem-root': {color: 'white'},'& .Mui-selected': { backgroundColor: 'secondary',color: 'black'}}}/>
           <table className="min-w-full bg-white border border-gray-300 shadow-xl">
             <thead>
               <tr className='bg-slate-300 text-sm md:text-base'>
