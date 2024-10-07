@@ -15,7 +15,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const { userSorteo } = useProducts(userSorteos);
+  const { userSorteo = [] } = useProducts(userSorteos);
   const [page, setPage] = useState(1);
   const localPage = 9; // Número de locales por página
 
@@ -25,20 +25,19 @@ const TablaSorteosCHW = ({userSorteos}) => {
   };
 
   useEffect(() => {
-    if (selectedEmails.length === userSorteo.length) {
+    if (userSorteo && selectedEmails.length === userSorteo.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
     }
-  }, [selectedEmails]);
+  }, [selectedEmails, userSorteo]);
 
-  // Update page state if filtered users decrease and exceed page count
   useEffect(() => {
     const totalPages = Math.ceil(filteredUsers.length / localPage);
     if (page > totalPages) {
       setPage(1); // Reset to first page if the page number exceeds total pages
     }
-  }, [filteredUsers.length, page]);
+  }, [userSorteo.length, searchTerm, page]);
 
   const handleCheckboxChange = (email) => {
     setSelectedEmails(prev =>
@@ -91,6 +90,9 @@ const TablaSorteosCHW = ({userSorteos}) => {
 
   const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
   const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);  // Determina los locales que se muestran en la página actual
+
+  console.log('filteredUsers:', filteredUsers)
+  console.log('paginatedUsers:', paginatedUsers)
 
   return (
     <Suspense fallback={<Loading />}>
