@@ -16,7 +16,6 @@ const TablaSorteosCHW = ({userSorteos}) => {
   const [selectAll, setSelectAll] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const { userSorteo } = useProducts(userSorteos);
-  const [filteredLocales, setFilteredLocales] = useState([]);
   const [page, setPage] = useState(1);
   const localPage = 9; // Número de locales por página
 
@@ -25,9 +24,9 @@ const TablaSorteosCHW = ({userSorteos}) => {
     setPage(value); // Cambia de página
   };
   
-  const pages = Math.ceil(filteredLocales.length / localPage); // Total de páginas basado en los locales filtrados
+  const pages = Math.ceil(filteredUsers.length / localPage); // Total de páginas basado en los locales filtrados
   // Determina los locales que se muestran en la página actual
-  const paginatedLocales = filteredLocales.slice((page - 1) * localPage, page * localPage);
+  const paginatedUsers = filteredUsers.slice((page - 1) * localPage, page * localPage);
 
   useEffect(() => {
     if (selectedEmails.length === userSorteo.length) {
@@ -85,6 +84,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
     user.dni?.toString().includes(searchTerm) ||
     user.email?.toLowerCase().includes(searchTerm)
   );
+
   return (
     <Suspense fallback={<Loading />}>
       <section className="text-center">
@@ -112,7 +112,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
               </tr>
             </thead>
             {/* {!filteredUsers.length ? ( */}
-            {!paginatedLocales.length ? (
+            {!paginatedUsers.length ? (
               <tbody>
                 <tr className="text-center">
                   <td colSpan="2" className="py-10">
@@ -122,7 +122,7 @@ const TablaSorteosCHW = ({userSorteos}) => {
               </tbody>
             ) : (
               <tbody>
-                {paginatedLocales.map((user, index) => (
+                {paginatedUsers.map((user, index) => (
                 // {filteredUsers.map((user, index) => (
                   <tr key={user._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
                     <td className="px-1 py-4 md:px-4 md:py-3 border-b">{user.nombre} {user.apellido}</td>
