@@ -1,5 +1,5 @@
 import React from 'react';
-import { Analytics } from '@vercel/analytics/react';
+// import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import '../styles/globals.css';
 import "aos/dist/aos.css";
@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
         <ClientLayout>
           {children}
         </ClientLayout>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   );
