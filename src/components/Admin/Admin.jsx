@@ -12,6 +12,7 @@ import TablaNewsletter from './TablaNewsletter/TablaNewsletter'
 import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
 import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
 import TablaSorteosEventos from "./TablaSorteos/TablaSorteosEventos";
+import TablaGanadores from "./TablaSorteos/TablaGanadores"
 import { imgNoDisponible } from '../../app/Constants/constantes'
 
 export default function Admin() {
@@ -291,6 +292,11 @@ export default function Admin() {
          {section === 'SorteoEventos' && (
            <div className="mx-auto max-w-screen-xl lg:px-12">
               <TablaSorteosEventos userSorteos={userSorteo}/>
+            </div>
+          )}
+          {section === 'Ganadores' && (
+           <div className="mx-auto max-w-screen-xl lg:px-12">
+              <TablaGanadores userSorteos={userSorteo}/>
             </div>
           )}
         </article>
