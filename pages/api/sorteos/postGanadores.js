@@ -4,8 +4,9 @@ import Ganador from '../../../src/models/ganadores';
 // Controlador para el método POST
 async function handlePost(req, res) {
     try {
-        const { nombre, dni, apellido, torre, CHW, actual  } = req.body;
-        if (!nombre || !apellido ||!dni ||!CHW || !torre ) {
+        const { nombre, dni, apellido } = req.body;
+        console.log('post:',req.body)
+        if (!nombre || !apellido ||!dni ) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
 

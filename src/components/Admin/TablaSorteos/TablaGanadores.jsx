@@ -8,7 +8,7 @@ import Pagination from '@mui/material/Pagination';
 import { ToastContainer } from "react-toastify";
 
 const GanadorPage = () => {
-    //const [ganadores, setGanadores] = useState([]);
+    const [ganadores, setGanadores] = useState([]);
     const [selectedNombres, setSelectedNombres] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
@@ -16,30 +16,30 @@ const GanadorPage = () => {
     const [ganadorActual, setGanadorActual] = useState([])
 
 
-    const ganadores = [
-        { nombre: 'Gonzalo', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'pepe', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'feli', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'dani', apellido: 'Torres Grau', torre: 9, CHW: true },
-    ];
+
+    // const ganadores = [
+    //     { nombre: 'Gonzalo', apellido: 'Torres Grau', torre: 9, CHW: true },
+    //     { nombre: 'pepe', apellido: 'Torres Grau', torre: 9, CHW: true },
+    //     { nombre: 'feli', apellido: 'Torres Grau', torre: 9, CHW: true },
+    //     { nombre: 'dani', apellido: 'Torres Grau', torre: 9, CHW: true },
+    // ];
 
     useEffect(() => {
-        //axios
-        //.get("/api/sorteos/getGanadores")
-        //.then((response) => {
-            //setGanadores(response.data);
-            //setLoading(false);
-        //})
-        //   .catch((error) => {
-        //     console.error("Error al obtener los ganadores", error);
-        //     setLoading(false);
-        //   });
+        axios
+        .get("/api/sorteos/getGanadores")
+        .then((response) => {
+            setGanadores(response.data.data);
+        })
+          .catch((error) => {
+            console.error("Error al obtener los ganadores", error);
+          });
     }, []);
 
     const handleChange = (event, value) => {
         setPage(value);
     };
-
+    console.log('ganadores:', ganadores);
+    
     const filteredUsers = ganadores.filter((user) =>
         `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.torre?.toLowerCase().includes(searchTerm)
@@ -47,17 +47,18 @@ const GanadorPage = () => {
 
     const handleCheckboxChange = (ganador) => {
         setSelectedNombres((prev) => {
-            const exists = prev.some(
-                (item) => item.nombre === ganador.nombre && item.torre === ganador.torre
-            );
+            const exists = prev.some((item) => item._id === ganador._id);
+    
             return exists
-                ? prev.filter(
-                      (item) => item.nombre !== ganador.nombre || item.torre !== ganador.torre
-                  )
-                : [...prev, ganador];
+                ? prev.filter((item) => item._id !== ganador._id) // Remove by ID
+                : [...prev, ganador]; // Add new ganador
         });
     
-        console.log(ganador);
+        // Debugging: Log the updated state
+        setSelectedNombres((updated) => {
+            console.log("Updated Selected Nombres:", updated);
+            return updated;
+        });
     };
 
     const handleGuardar = () => {

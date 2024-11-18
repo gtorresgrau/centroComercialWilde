@@ -11,11 +11,13 @@ const GanadoresSchema = new mongoose.Schema({
     },
     torre: {
         type: String,
+    },
+    dni: {
+        type: String,
         required: true,
     },
     CHW:{
         type: Boolean,
-        required: true
     },
     actual:{
         type: Boolean,

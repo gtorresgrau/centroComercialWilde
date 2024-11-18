@@ -8,7 +8,7 @@ const GanadorForm = () => {
 
   const alert = (nombre) => {
     Swal.fire({
-        title: `${nombre}, te anotaste correctamente.`,
+        title: `${nombre},se anoto correctamente.`,
         icon: 'success',
         confirmButtonText: 'Ok',
         customClass: {
@@ -52,7 +52,6 @@ const alertLoading = () => {
         if (response.status === 200) {
             alert(nombre);
             reset();
-            setIsOpen(false);
         }
     } catch (error) {
         Swal.close();
@@ -67,7 +66,6 @@ const alertLoading = () => {
             reset()
             alertError('Ocurrió un error. Intente nuevamente.');
         }
-        setIsOpen(false);
     }
   };
 
@@ -109,12 +107,22 @@ const alertLoading = () => {
           <label htmlFor="torre" className="block text-primary mb-2 mx-4">Torre</label>
           <input
             id="torre"
-            {...register("torre", { required: "La torre es obligatoria" })}
-            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primary max-w-[300px]"
+            {...register("torre")}
+            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primary max-w-[150px]"
             type="text"
           />
           {errors.torre && (
             <p className="text-red text-sm mt-1">{errors.torre.message}</p>
+          )}
+          <label htmlFor="dni" className="block text-primary mb-2 mx-4">DNI</label>
+          <input
+            id="dni"
+            {...register("dni")}
+            className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primary max-w-[150px]"
+            type="text"
+          />
+          {errors.torre && (
+            <p className="text-red text-sm mt-1">{errors.dni.message}</p>
           )}
         </div>
 
