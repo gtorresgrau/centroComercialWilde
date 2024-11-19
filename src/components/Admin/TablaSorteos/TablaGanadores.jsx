@@ -11,7 +11,6 @@ const GanadorPage = () => {
     const [selectedNombres, setSelectedNombres] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
-    const [pages, setPages] = useState(1);
     const itemsPerPage = 10;
 
 
@@ -23,33 +22,32 @@ const GanadorPage = () => {
     ];
 
     useEffect(() => {
-        // if (process.env.NODE_ENV === "development") {
-        //     setGanadores(ganadores2);
-        // } else {
-        //     axios
-        //         .get("/api/sorteos/getGanadores")
-        //         .then((response) => {
-        //             setGanadores(response.data.data);
-        //         })
-        //         .catch((error) => {
-        //             console.error("Error al obtener los ganadores", error);
-        //         });
-        // }
-        setGanadores(ganadores2);
-        const inicialSelected = ganadores2.filter((ganador) => ganador.actual);
+        if (process.env.NODE_ENV === "development") {
+            setGanadores(ganadores2);
+        } else {
+            axios
+                .get("/api/sorteos/getGanadores")
+                .then((response) => {
+                    setGanadores(response.data.data);
+                })
+                .catch((error) => {
+                    console.error("Error al obtener los ganadores", error);
+                });
+        }
+        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
         setSelectedNombres(inicialSelected);
     }, []);
 
     const handleChange = (event, value) => {
         setPage(value);
     };
-    console.log('ganadores:', ganadores);
+    //console.log('ganadores:', ganadores);
     
     const filteredUsers = ganadores.filter((user) =>
         `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.torre?.toString().includes(searchTerm)
     );
-    console.log('filtered:',filteredUsers)
+    //console.log('filtered:',filteredUsers)
 
     const handleCheckboxChange = (ganador) => {
         setGanadores((prevGanadores) =>
@@ -86,7 +84,7 @@ const GanadorPage = () => {
 
     const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
     const paginatedGanadores = filteredUsers.slice((page - 1) * itemsPerPage, page * itemsPerPage);
-    console.log('paginated:',paginatedGanadores)
+    //console.log('paginated:',paginatedGanadores)
 
 
   return (
