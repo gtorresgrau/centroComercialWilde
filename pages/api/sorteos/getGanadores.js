@@ -2,17 +2,26 @@ import { connectDB } from '../../../server/utils/mongodb';
 import Ganador from '../../../src/models/ganadores';
 
 // Controlador para el método GET
-async function handleGet(req, res) {
+export default async function handler(req, res) {
     try {
-        const sorteos = await Ganador.find(filtro);
-        return res.status(200).json({ sorteos });
+        // Ensure database connection
+        await connectDB();
+
+        // Check HTTP method
+        if (req.method !== 'GET') {
+            return res.status(405).json({ message: 'Method Not Allowed' });
+        }
+
+        // Fetch data
+        const data = await Ganador.find();
+
+        // Return successful response
+        return res.status(200).json({ data });
     } catch (error) {
-        console.error('Error al obtener los ganadores:', error);
+        // Log error details for debugging
+        console.error('Error in GET /sorteos:', error);
+
+        // Return generic error message
         return res.status(500).json({ message: 'Error al obtener los ganadores' });
     }
-}
-
-export default async function handler(req, res) {
-    await connectDB();
-    return handleGet(req, res);
 }

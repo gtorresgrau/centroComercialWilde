@@ -2,69 +2,90 @@ import React, { Suspense, useEffect, useState } from "react";
 import Loading from '../../Loading/Loading';
 import GanadorForm from "../../Forms/GanadorForm";
 import MostrarGanadores from './MostrarGanadores';
-import Checkbox from '../Checkbox/Checkbox';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
 import { ToastContainer } from "react-toastify";
 
 const GanadorPage = () => {
-    //const [ganadores, setGanadores] = useState([]);
+    const [ganadores, setGanadores] = useState([]);
     const [selectedNombres, setSelectedNombres] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(1);
-    const [pages, setPages] = useState(10);
-    const [ganadorActual, setGanadorActual] = useState([])
+    const itemsPerPage = 10;
 
 
-    const ganadores = [
-        { nombre: 'Gonzalo', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'pepe', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'feli', apellido: 'Torres Grau', torre: 9, CHW: true },
-        { nombre: 'dani', apellido: 'Torres Grau', torre: 9, CHW: true },
+    const ganadores2 = [
+        { nombre: 'Gonzalo', apellido: 'Torres Grau', torre: 9, CHW: true, actual: true, _id:1 },
+        { nombre: 'pepe', apellido: 'Torres Grau', torre: 9, CHW: true, actual: false, _id:2 },
+        { nombre: 'feli', apellido: 'Torres Grau', torre: 9, CHW: true, actual: true, _id:3 },
+        { nombre: 'dani', apellido: 'Torres Grau', torre: 9, CHW: true, actual: true, _id:4 },
     ];
 
     useEffect(() => {
-        //axios
-        //.get("/api/sorteos/getGanadores")
-        //.then((response) => {
-            //setGanadores(response.data);
-            //setLoading(false);
-        //})
-        //   .catch((error) => {
-        //     console.error("Error al obtener los ganadores", error);
-        //     setLoading(false);
-        //   });
+        if (process.env.NODE_ENV === "development") {
+            setGanadores(ganadores2);
+        } else {
+            axios
+                .get("/api/sorteos/getGanadores")
+                .then((response) => {
+                    setGanadores(response.data.data);
+                })
+                .catch((error) => {
+                    console.error("Error al obtener los ganadores", error);
+                });
+        }
+        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
+        setSelectedNombres(inicialSelected);
     }, []);
 
     const handleChange = (event, value) => {
         setPage(value);
     };
-
+    //console.log('ganadores:', ganadores);
+    
     const filteredUsers = ganadores.filter((user) =>
         `${user.nombre} ${user.apellido}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.torre?.toLowerCase().includes(searchTerm)
+        user.torre?.toString().includes(searchTerm)
     );
+    //console.log('filtered:',filteredUsers)
 
     const handleCheckboxChange = (ganador) => {
-        setSelectedNombres((prev) => {
-            const exists = prev.some(
-                (item) => item.nombre === ganador.nombre && item.torre === ganador.torre
-            );
-            return exists
-                ? prev.filter(
-                      (item) => item.nombre !== ganador.nombre || item.torre !== ganador.torre
-                  )
-                : [...prev, ganador];
-        });
+        setGanadores((prevGanadores) =>
+            prevGanadores.map((item) =>
+                item._id === ganador._id
+                    ? { ...item, actual: !item.actual } // Alterna el valor de `actual`
+                    : item
+            )
+        );
     
-        console.log(ganador);
+        setSelectedNombres((prevSelected) => {
+            const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
+            return isAlreadySelected
+                ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
+                : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
+        });
     };
 
-    const handleGuardar = () => {
-        console.log("Ganadores guardados:", selectedNombres);
+    const handleGuardar = async () => {
+        const ganadoresActualizados = ganadores.map((ganador) => ({
+            ...ganador,
+            actual: selectedNombres.some((item) => item._id === ganador._id),
+        }));
+    
+        try {
+            await axios.post('/api/sorteos/updateGanadores', ganadoresActualizados); // Supongamos que tu API permite actualizar múltiples ganadores
+            console.log("Ganadores actualizados en el servidor:", ganadoresActualizados);
+            setGanadores(ganadoresActualizados);
+        } catch (error) {
+            console.error("Error al actualizar los ganadores:", error);
+        }
     };
+    
 
-    const paginatedGanadores = filteredUsers.slice((page - 1) * pages, page * pages);  // Determina los locales que se muestran en la página actual
+    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+    const paginatedGanadores = filteredUsers.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+    //console.log('paginated:',paginatedGanadores)
+
 
   return (
         <Suspense fallback={<Loading />}>
@@ -77,9 +98,10 @@ const GanadorPage = () => {
                 <h2 className='text-secondary pt-2'>BUSCADOR</h2>
                 <input type="text" placeholder="Buscar por nombre, DNI o email" className="my-4 p-2 border border-gray-300 rounded w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
                 <div className="overflow-x-auto">
-                <Pagination count={pages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center"
+                <Pagination count={totalPages} page={page} onChange={handleChange} color="secondary" siblingCount={0} className="m-4 self-center"
                 sx={{'& .MuiPaginationItem-root': {color: 'white'},'& .Mui-selected': { backgroundColor: 'secondary',color: 'black'}}}/>
-                <table className="min-w-full bg-white border border-gray-300 shadow-xl">
+                <table className="min-w-full bg-white border border-gray-300 shadow-xl overflow-hidden md:table-fixed">
+
                     <thead>
                         <tr>
                             <th className="px-4 py-2 border">Nombre</th>
@@ -98,7 +120,12 @@ const GanadorPage = () => {
                                 <td className="px-4 py-2 border">{ganador.torre}</td>
                                 <td className="px-4 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
                                 <td className="px-1 py-4 md:px-4 md:py-3 border-b items-center text-center">
-                                    <input type="checkbox" className="" onChange={() => handleCheckboxChange(ganador)} aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`}/>
+                                    <input
+                                        type="checkbox"
+                                        checked={ganador.actual}
+                                        onChange={() => handleCheckboxChange(ganador)}
+                                        aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`}
+                                    />
                                 </td>
                             </tr>
                         ))}
