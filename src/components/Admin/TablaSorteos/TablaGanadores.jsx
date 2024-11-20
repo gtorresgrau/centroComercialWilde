@@ -34,7 +34,7 @@ const GanadorPage = () => {
                     console.error("Error al obtener los ganadores", error);
                 });
         }
-        const inicialSelected = ganadores2.filter((ganador) => ganador.actual);
+        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
         setSelectedNombres(inicialSelected);
     }, []);
 
@@ -72,12 +72,23 @@ const GanadorPage = () => {
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
     
+        // Verificar si hay cambios reales
+        const hayCambios = ganadores.some((ganador, index) =>
+            ganadoresActualizados[index].actual !== ganador.actual
+        );
+    
+        if (!hayCambios) {
+            console.log("No hay cambios para guardar.");
+            return;
+        }
+    
         try {
-            await axios.post('/api/sorteos/checkGanadores', ganadoresActualizados); // Supongamos que tu API permite actualizar múltiples ganadores
-            console.log("Ganadores actualizados en el servidor:", ganadoresActualizados);
-            setGanadores(ganadoresActualizados);
+            const response = await axios.post('/api/sorteos/checkGanadores', ganadoresActualizados);
+            console.log("Ganadores actualizados en el servidor:", response.data);
+            setGanadores(ganadoresActualizados); // Actualizar el estado solo si se guardaron correctamente
         } catch (error) {
             console.error("Error al actualizar los ganadores:", error);
+            alert("Hubo un error al guardar los cambios. Por favor, inténtalo nuevamente.");
         }
     };
     

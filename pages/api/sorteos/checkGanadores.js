@@ -4,13 +4,29 @@ import Ganador from '../../../src/models/ganadores';
 // Controlador para el método PUT
 async function handlePut(req, res) {
     try {
-        const { id } = req.query;
-        const updatedData = req.body;
-        const updatedSorteo = await Ganador.findByIdAndUpdate(id, updatedData, { new: true, runValidators: true });
-        if (!updatedSorteo) {
-            return res.status(404).json({ error: 'ganador no encontrado' });
+        const { id } = req.query; // Se espera que el ID venga en la query
+        const updatedData = req.body; // Datos enviados en el cuerpo de la solicitud
+
+        // Verificar que el cuerpo no esté vacío
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ error: 'No se proporcionaron datos para actualizar' });
         }
-        return res.status(200).json({ message: 'ganador actualizado con éxito', actual: updatedSorteo });
+
+        // Buscar y actualizar el ganador por su ID
+        const updatedGanador = await Ganador.findByIdAndUpdate(
+            id,
+            updatedData,
+            { new: true, runValidators: true } // Retorna el documento actualizado y aplica validaciones
+        );
+
+        if (!updatedGanador) {
+            return res.status(404).json({ error: 'Ganador no encontrado' });
+        }
+
+        return res.status(200).json({
+            message: 'Ganador actualizado con éxito',
+            data: updatedGanador,
+        });
     } catch (error) {
         console.error('Error al actualizar al ganador:', error);
         return res.status(500).json({ error: 'Error al actualizar al ganador' });
