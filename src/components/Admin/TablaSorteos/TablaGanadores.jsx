@@ -79,17 +79,11 @@ const GanadorPage = () => {
             ...ganador,
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
-    
-        // Verificar si hay cambios reales comparando campo `actual` de cada ganador
-        const hayCambios = ganadores.some((ganador) => {
-            const ganadorActualizado = ganadoresActualizados.find(item => item._id === ganador._id);
-            return ganador.actual !== ganadorActualizado.actual;
-        });
 
         console.log("2-Ganadores antes de actualizar:", ganadores);
         console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
         
-        if (!hayCambios) {
+        if (ganadores.length === selectedNombres.length) {
             console.log("No hay cambios para guardar.");
             return;
         }
