@@ -74,6 +74,7 @@ const GanadorPage = () => {
     };
 
     const handleGuardar = async () => {
+        // Actualizar los valores de `actual` en función de `selectedNombres`
         const ganadoresActualizados = ganadores.map((ganador) => ({
             ...ganador,
             actual: selectedNombres.some((item) => item._id === ganador._id),
@@ -81,7 +82,7 @@ const GanadorPage = () => {
     
         // Verificar si hay cambios reales
         const hayCambios = ganadores.some((ganador, index) =>
-            ganadoresActualizados[index].actual !== ganador.actual
+            ganador.actual !== ganadoresActualizados[index].actual
         );
     
         if (!hayCambios) {
@@ -92,12 +93,16 @@ const GanadorPage = () => {
         try {
             const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
             console.log("Ganadores actualizados en el servidor:", response.data);
-            setGanadores(ganadoresActualizados); // Actualizar el estado solo si se guardaron correctamente
+    
+            // Si la actualización en el servidor es exitosa, sincronizar el estado
+            setGanadores(ganadoresActualizados);
+            alert("Los cambios se han guardado correctamente.");
         } catch (error) {
             console.error("Error al actualizar los ganadores:", error);
             alert("Hubo un error al guardar los cambios. Por favor, inténtalo nuevamente.");
         }
     };
+    
     
 
     const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
