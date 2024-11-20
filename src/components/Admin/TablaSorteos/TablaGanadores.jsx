@@ -56,35 +56,33 @@ const GanadorPage = () => {
     //console.log('filtered:',filteredUsers)
 
     const handleCheckboxChange = (ganador) => {
-        setGanadores((prevGanadores) =>
-            prevGanadores.map((item) =>
-                item._id === ganador._id
-                    ? { ...item, actual: !item.actual } // Alterna el valor de `actual`
-                    : item
-            )
-        );
-    
         setSelectedNombres((prevSelected) => {
             const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
-            console.log('isAlreadySelected:',isAlreadySelected)
             return isAlreadySelected
                 ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
                 : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
         });
+        console.log("1-Ganadores antes de actualizar:", ganadores);
+        console.log("1-Selected Nombres antes de actualizar:", selectedNombres);
+
     };
 
     const handleGuardar = async () => {
-        // Actualizar los valores de `actual` en función de `selectedNombres`
+        // Crear un nuevo array de ganadores actualizado según `selectedNombres`
         const ganadoresActualizados = ganadores.map((ganador) => ({
             ...ganador,
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
     
-        // Verificar si hay cambios reales
-        const hayCambios = ganadores.some((ganador, index) =>
-            ganador.actual !== ganadoresActualizados[index].actual
-        );
-    
+        // Verificar si hay cambios reales comparando campo `actual` de cada ganador
+        const hayCambios = ganadores.some((ganador) => {
+            const ganadorActualizado = ganadoresActualizados.find(item => item._id === ganador._id);
+            return ganador.actual !== ganadorActualizado.actual;
+        });
+
+        console.log("2-Ganadores antes de actualizar:", ganadores);
+        console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
+        
         if (!hayCambios) {
             console.log("No hay cambios para guardar.");
             return;
