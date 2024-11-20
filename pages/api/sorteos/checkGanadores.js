@@ -6,7 +6,8 @@ async function handlePut(req, res) {
     try {
         const { id } = req.query; // Se espera que el ID venga en la query
         const updatedData = req.body; // Datos enviados en el cuerpo de la solicitud
-
+        console.log('data en back:',req.body)
+        
         // Verificar que el cuerpo no esté vacío
         if (!updatedData || Object.keys(updatedData).length === 0) {
             return res.status(400).json({ error: 'No se proporcionaron datos para actualizar' });
