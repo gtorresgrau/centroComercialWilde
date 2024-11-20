@@ -14,27 +14,27 @@ async function handlePut(req, res) {
             return res.status(400).json({ error: 'Only "actual" field can be updated' });
         }
 
-        // Ensure the updatedData only includes the "actual" field
-        const filteredData = { actual: updatedData.actual };
+        // Iterate over the array and update the "actual" field of each user
+        const updatedUsers = users.map(user => {
+            if (updatedData.id === user._id) {
+                return { ...user, actual: updatedData.actual }; // Update the "actual" field
+            }
+            return user; // Keep the user as is if no update
+        });
 
-        // Find and update the winner by ID
-        const updatedGanador = await Ganador.findByIdAndUpdate(
-            id,
-            filteredData, // Only update the "actual" field
-            { new: true, runValidators: true } // Returns the updated document and applies validation
-        );
+        console.log('Updated users:', updatedUsers);
 
-        if (!updatedGanador) {
-            return res.status(404).json({ error: 'Winner not found' });
-        }
+        // Optionally, save the updated users in the database here if needed:
+        // For example: await Ganador.updateMany({ _id: { $in: updatedUsers.map(u => u._id) } }, updatedUsers);
 
         return res.status(200).json({
-            message: 'Winner updated successfully',
-            data: updatedGanador,
+            message: 'Users updated successfully',
+            data: updatedUsers
         });
+
     } catch (error) {
-        console.error('Error updating winner:', error);
-        return res.status(500).json({ error: 'Error updating winner' });
+        console.error('Error updating users:', error);
+        return res.status(500).json({ error: 'Error updating users' });
     }
 }
 
