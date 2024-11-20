@@ -9,18 +9,18 @@ async function handlePut(req, res) {
 
         console.log('data en back:', req.body);
 
-        // Verifying the body is not empty
-        if (!updatedData || Object.keys(updatedData).length === 0) {
-            return res.status(400).json({ error: 'No data provided for update' });
+        // Verifying that "actual" is the only field to update
+        if (!updatedData.hasOwnProperty('actual')) {
+            return res.status(400).json({ error: 'Only "actual" field can be updated' });
         }
 
-        // Remove the _id field from updatedData if it's present (to avoid the update error)
-        delete updatedData._id;
+        // Ensure the updatedData only includes the "actual" field
+        const filteredData = { actual: updatedData.actual };
 
         // Find and update the winner by ID
         const updatedGanador = await Ganador.findByIdAndUpdate(
             id,
-            updatedData,
+            filteredData, // Only update the "actual" field
             { new: true, runValidators: true } // Returns the updated document and applies validation
         );
 
@@ -37,6 +37,7 @@ async function handlePut(req, res) {
         return res.status(500).json({ error: 'Error updating winner' });
     }
 }
+
 
 
 // Controlador para el método DELETE
