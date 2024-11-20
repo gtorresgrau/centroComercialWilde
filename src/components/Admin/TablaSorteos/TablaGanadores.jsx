@@ -24,19 +24,25 @@ const GanadorPage = () => {
     useEffect(() => {
         if (process.env.NODE_ENV === "development") {
             setGanadores(ganadores2);
+            const inicialSelected = ganadores2.filter((ganador) => ganador.actual);
+            setSelectedNombres(inicialSelected);
         } else {
             axios
                 .get("/api/sorteos/getGanadores")
                 .then((response) => {
-                    setGanadores(response.data.data);
+                    const ganadoresCargados = response.data.data;
+                    setGanadores(ganadoresCargados);
+    
+                    // Filtrar y establecer los nombres seleccionados después de cargar
+                    const inicialSelected = ganadoresCargados.filter((ganador) => ganador.actual);
+                    setSelectedNombres(inicialSelected);
                 })
                 .catch((error) => {
                     console.error("Error al obtener los ganadores", error);
                 });
         }
-        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
-        setSelectedNombres(inicialSelected);
-    }, []);
+    }, []); // Solo se ejecuta una vez al montar el componente
+    
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -60,6 +66,7 @@ const GanadorPage = () => {
     
         setSelectedNombres((prevSelected) => {
             const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
+            console.log('isAlreadySelected:',isAlreadySelected)
             return isAlreadySelected
                 ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
                 : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
@@ -83,7 +90,7 @@ const GanadorPage = () => {
         }
     
         try {
-            const response = await axios.post('/api/sorteos/checkGanadores', ganadoresActualizados);
+            const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
             console.log("Ganadores actualizados en el servidor:", response.data);
             setGanadores(ganadoresActualizados); // Actualizar el estado solo si se guardaron correctamente
         } catch (error) {
