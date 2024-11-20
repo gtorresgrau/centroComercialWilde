@@ -4,35 +4,40 @@ import Ganador from '../../../src/models/ganadores';
 // Controlador para el método PUT
 async function handlePut(req, res) {
     try {
-        const { id } = req.query; // Se espera que el ID venga en la query
-        const updatedData = req.body; // Datos enviados en el cuerpo de la solicitud
-        console.log('data en back:',req.body)
-        
-        // Verificar que el cuerpo no esté vacío
+        const { id } = req.query; // Expecting the ID in the query
+        const updatedData = req.body; // Data sent in the request body
+
+        console.log('data en back:', req.body);
+
+        // Verifying the body is not empty
         if (!updatedData || Object.keys(updatedData).length === 0) {
-            return res.status(400).json({ error: 'No se proporcionaron datos para actualizar' });
+            return res.status(400).json({ error: 'No data provided for update' });
         }
 
-        // Buscar y actualizar el ganador por su ID
+        // Remove the _id field from updatedData if it's present (to avoid the update error)
+        delete updatedData._id;
+
+        // Find and update the winner by ID
         const updatedGanador = await Ganador.findByIdAndUpdate(
             id,
             updatedData,
-            { new: true, runValidators: true } // Retorna el documento actualizado y aplica validaciones
+            { new: true, runValidators: true } // Returns the updated document and applies validation
         );
 
         if (!updatedGanador) {
-            return res.status(404).json({ error: 'Ganador no encontrado' });
+            return res.status(404).json({ error: 'Winner not found' });
         }
 
         return res.status(200).json({
-            message: 'Ganador actualizado con éxito',
+            message: 'Winner updated successfully',
             data: updatedGanador,
         });
     } catch (error) {
-        console.error('Error al actualizar al ganador:', error);
-        return res.status(500).json({ error: 'Error al actualizar al ganador' });
+        console.error('Error updating winner:', error);
+        return res.status(500).json({ error: 'Error updating winner' });
     }
 }
+
 
 // Controlador para el método DELETE
 async function handleDelete(req, res) {
