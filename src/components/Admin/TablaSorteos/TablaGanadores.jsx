@@ -34,7 +34,7 @@ const GanadorPage = () => {
                     console.error("Error al obtener los ganadores", error);
                 });
         }
-        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
+        const inicialSelected = ganadores2.filter((ganador) => ganador.actual);
         setSelectedNombres(inicialSelected);
     }, []);
 
@@ -73,7 +73,7 @@ const GanadorPage = () => {
         }));
     
         try {
-            await axios.post('/api/sorteos/updateGanadores', ganadoresActualizados); // Supongamos que tu API permite actualizar múltiples ganadores
+            await axios.post('/api/sorteos/checkGanadores', ganadoresActualizados); // Supongamos que tu API permite actualizar múltiples ganadores
             console.log("Ganadores actualizados en el servidor:", ganadoresActualizados);
             setGanadores(ganadoresActualizados);
         } catch (error) {

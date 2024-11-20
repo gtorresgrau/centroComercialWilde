@@ -10,7 +10,7 @@ async function handlePut(req, res) {
         if (!updatedSorteo) {
             return res.status(404).json({ error: 'ganador no encontrado' });
         }
-        return res.status(200).json({ message: 'ganador actualizado con éxito', sorteo: updatedSorteo });
+        return res.status(200).json({ message: 'ganador actualizado con éxito', actual: updatedSorteo });
     } catch (error) {
         console.error('Error al actualizar al ganador:', error);
         return res.status(500).json({ error: 'Error al actualizar al ganador' });

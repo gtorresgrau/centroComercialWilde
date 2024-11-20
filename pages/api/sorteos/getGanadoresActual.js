@@ -4,7 +4,10 @@ import Ganador from '../../../src/models/ganadores';
 // Controlador para el método GET
 async function handleGet(req, res) {
     const { actual } = req.query; // Obtiene el valor del query param `actual`
-    
+    if (req.method !== 'GET') {
+        return res.status(405).json({ message: 'Method Not Allowed' });
+    }
+
     try {
         // Filtra por ganadores donde el campo `actual` sea true
         const sorteos = await Ganador.find({ actual: true });
