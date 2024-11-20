@@ -56,15 +56,21 @@ const GanadorPage = () => {
     //console.log('filtered:',filteredUsers)
 
     const handleCheckboxChange = (ganador) => {
+        setGanadores((prevGanadores) =>
+            prevGanadores.map((item) =>
+                item._id === ganador._id
+                    ? { ...item, actual: !item.actual } // Alterna el valor de actual
+                    : item
+            )
+        );
+    
         setSelectedNombres((prevSelected) => {
             const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
+            console.log('isAlreadySelected:',isAlreadySelected)
             return isAlreadySelected
                 ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
                 : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
         });
-        console.log("1-Ganadores antes de actualizar:", ganadores);
-        console.log("1-Selected Nombres antes de actualizar:", selectedNombres);
-
     };
 
     const handleGuardar = async () => {
