@@ -4,7 +4,7 @@ import GanadorForm from "../../Forms/GanadorForm";
 import MostrarGanadores from './MostrarGanadores';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { MdDelete } from "react-icons/md";
 
 const GanadorPage = () => {
