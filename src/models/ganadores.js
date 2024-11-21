@@ -12,6 +12,9 @@ const GanadoresSchema = new mongoose.Schema({
     torre: {
         type: String,
     },
+    localidad:{
+        type:String,
+    },
     dni: {
         type: String,
         required: true,

@@ -4,7 +4,9 @@ import GanadorForm from "../../Forms/GanadorForm";
 import MostrarGanadores from './MostrarGanadores';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const GanadorPage = () => {
     const [ganadores, setGanadores] = useState([]);
@@ -24,19 +26,25 @@ const GanadorPage = () => {
     useEffect(() => {
         if (process.env.NODE_ENV === "development") {
             setGanadores(ganadores2);
+            const inicialSelected = ganadores2.filter((ganador) => ganador.actual);
+            setSelectedNombres(inicialSelected);
         } else {
             axios
                 .get("/api/sorteos/getGanadores")
                 .then((response) => {
-                    setGanadores(response.data.data);
+                    const ganadoresCargados = response.data.data;
+                    setGanadores(ganadoresCargados);
+    
+                    // Filtrar y establecer los nombres seleccionados después de cargar
+                    const inicialSelected = ganadoresCargados.filter((ganador) => ganador.actual);
+                    setSelectedNombres(inicialSelected);
                 })
                 .catch((error) => {
                     console.error("Error al obtener los ganadores", error);
                 });
         }
-        const inicialSelected = ganadores.filter((ganador) => ganador.actual);
-        setSelectedNombres(inicialSelected);
-    }, []);
+    }, []); // Solo se ejecuta una vez al montar el componente
+    
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -53,13 +61,14 @@ const GanadorPage = () => {
         setGanadores((prevGanadores) =>
             prevGanadores.map((item) =>
                 item._id === ganador._id
-                    ? { ...item, actual: !item.actual } // Alterna el valor de `actual`
+                    ? { ...item, actual: !item.actual } // Alterna el valor de actual
                     : item
             )
         );
     
         setSelectedNombres((prevSelected) => {
             const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
+            //console.log('isAlreadySelected:',isAlreadySelected)
             return isAlreadySelected
                 ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
                 : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
@@ -67,17 +76,55 @@ const GanadorPage = () => {
     };
 
     const handleGuardar = async () => {
+        // Crear un nuevo array de ganadores actualizado según `selectedNombres`
         const ganadoresActualizados = ganadores.map((ganador) => ({
             ...ganador,
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
+
+        //console.log("2-Ganadores antes de actualizar:", ganadores);
+        //console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
+        
+        if (ganadores.length === selectedNombres.length) {
+            console.log("No hay cambios para guardar.");
+            return;
+        }
     
         try {
-            await axios.post('/api/sorteos/updateGanadores', ganadoresActualizados); // Supongamos que tu API permite actualizar múltiples ganadores
-            console.log("Ganadores actualizados en el servidor:", ganadoresActualizados);
+            const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
+            //console.log("Ganadores actualizados en el servidor:", response.data);
+    
+            // Si la actualización en el servidor es exitosa, sincronizar el estado
             setGanadores(ganadoresActualizados);
+            toast.success("Los cambios se han guardado correctamente.");
         } catch (error) {
             console.error("Error al actualizar los ganadores:", error);
+            toast.error("Hubo un error al guardar los cambios. Por favor, inténtalo nuevamente.");
+        }
+    };
+    
+    const handleDeleteGanador = async (id) => {
+        try {
+            Swal.fire({
+                icon: 'info',
+                title: '¿Está seguro que quiere eliminar al ganador?',
+                showCancelButton: true,
+                showConfirmButton: true,
+                customClass: {
+                    confirmButton: 'bg-primary text-white hover:bg-green',
+                    cancelButton: 'bg-red text-white hover:bg-green',
+                },
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await axios.delete(`/api/sorteos/checkGanadores?id=${id}`);        
+                    if (response.status === 200 || response.status === 204) {
+                        toast.success('Ganador eliminado con éxito');
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error al eliminar al ganador:', error.response ? error.response.data : error.message);
+            toast.error('Error al eliminar al ganador');
         }
     };
     
@@ -106,9 +153,12 @@ const GanadorPage = () => {
                         <tr>
                             <th className="px-4 py-2 border">Nombre</th>
                             <th className="px-4 py-2 border">Apellido</th>
-                            <th className="px-4 py-2 border">Torre</th>
-                            <th className="px-4 py-2 border">CHW</th>
-                            <th className="px-1 py-1 md:px-4 md:py-3 border-b">Ganadores</th>
+                            <th className="px-2 py-2 border">DNI</th>
+                            <th className="px-2 py-2 border">CHW</th>
+                            <th className="px-2 py-2 border">Torre</th>
+                            <th className="px-4 py-2 border">Localidad</th>
+                            <th className="px-2 py-2 border">Ganadores</th>
+                            <th className="px-2 py-2 border">Acc</th>
                         </tr>
                     </thead>
                     {paginatedGanadores.length ? (
@@ -117,15 +167,20 @@ const GanadorPage = () => {
                             <tr key={index} className="bg-white hover:bg-gray-100">
                                 <td className="px-4 py-2 border">{ganador.nombre}</td>
                                 <td className="px-4 py-2 border">{ganador.apellido}</td>
-                                <td className="px-4 py-2 border">{ganador.torre}</td>
-                                <td className="px-4 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
-                                <td className="px-1 py-4 md:px-4 md:py-3 border-b items-center text-center">
+                                <td className="px-4 py-2 border">{ganador.dni}</td>
+                                <td className="px-2 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
+                                <td className="px-2 py-2 border">{ganador.torre}</td>
+                                <td className="px-4 py-2 border">{ganador.localidad}</td>
+                                <td className="px-2 py-2 border items-center text-center">
                                     <input
                                         type="checkbox"
                                         checked={ganador.actual}
                                         onChange={() => handleCheckboxChange(ganador)}
                                         aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`}
                                     />
+                                </td>
+                                <td className="px-2 py-2 border items-center text-center">
+                                    <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteGanador(ganador._id)} />
                                 </td>
                             </tr>
                         ))}

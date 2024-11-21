@@ -13,7 +13,7 @@ const MostrarGanadores = ({ selectedGanadores, handleGuardar }) => {
                                 <div className="bg-primary text-white rounded-full h-10 w-10 flex items-center justify-center font-semibold">{ganador.nombre[0]}</div>
                                 <div className="flex items-center gap-2">
                                     <p className="font-medium text-gray-800">Felicidades <span className="text-primary font-bold text-lg">{ganador.nombre}</span></p>
-                                    <p className="text-sm text-gray-600">Torre {ganador.torre}</p>
+                                    <p className="text-sm text-gray-600">{ganador.CHW?`Torre ${ganador.torre}`:`de ${ganador.localidad}`}</p>
                                 </div>
                             </div>
                         </li>

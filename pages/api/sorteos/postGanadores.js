@@ -5,8 +5,11 @@ import Ganador from '../../../src/models/ganadores';
 async function handlePost(req, res) {
     try {
         const { nombre, dni, apellido } = req.body;
-        console.log('post:',req.body)
-        if (!nombre || !apellido ||!dni ) {
+        if (req.method !== 'POST') {
+            return res.status(405).json({ message: 'Method Not Allowed' });
+        }
+
+        if (!nombre || !apellido || !dni ) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
 
