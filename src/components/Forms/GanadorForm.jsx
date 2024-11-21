@@ -102,6 +102,20 @@ const alertLoading = () => {
           )}
         </div>
 
+        {/* DNI */}
+        <div className="mb-4 flex items-center justify-between">
+          <label htmlFor="dni" className="block text-primary mb-2 mx-4">DNI</label>
+            <input
+              id="dni"
+              {...register("dni")}
+              className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primary max-w-[300px]"
+              type="text"
+              />
+            {errors.torre && (
+              <p className="text-red text-sm mt-1">{errors.dni.message}</p>
+            )}
+        </div>
+
         {/* Torre */}
         <div className="mb-4 flex items-center justify-between">
           <label htmlFor="torre" className="block text-primary mb-2 mx-4">Torre</label>
@@ -114,18 +128,17 @@ const alertLoading = () => {
           {errors.torre && (
             <p className="text-red text-sm mt-1">{errors.torre.message}</p>
           )}
-          <label htmlFor="dni" className="block text-primary mb-2 mx-4">DNI</label>
+          <label htmlFor="localidad" className="block text-primary mb-2 mx-4">Localidad</label>
           <input
-            id="dni"
-            {...register("dni")}
+            id="localidad"
+            {...register("localidad")}
             className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primary max-w-[150px]"
             type="text"
           />
-          {errors.torre && (
-            <p className="text-red text-sm mt-1">{errors.dni.message}</p>
+          {errors.localidad && (
+            <p className="text-red text-sm mt-1">{errors.localidad.message}</p>
           )}
         </div>
-
         {/* CHW */}
         <div className="flex justify-evenly">
             <div className="mb-6">

@@ -127,8 +127,9 @@ const GanadorPage = () => {
                         <tr>
                             <th className="px-4 py-2 border">Nombre</th>
                             <th className="px-4 py-2 border">Apellido</th>
-                            <th className="px-4 py-2 border">Torre</th>
                             <th className="px-4 py-2 border">CHW</th>
+                            <th className="px-4 py-2 border">Torre</th>
+                            <th className="px-4 py-2 border">Localidad</th>
                             <th className="px-1 py-1 md:px-4 md:py-3 border-b">Ganadores</th>
                         </tr>
                     </thead>
@@ -138,8 +139,9 @@ const GanadorPage = () => {
                             <tr key={index} className="bg-white hover:bg-gray-100">
                                 <td className="px-4 py-2 border">{ganador.nombre}</td>
                                 <td className="px-4 py-2 border">{ganador.apellido}</td>
-                                <td className="px-4 py-2 border">{ganador.torre}</td>
                                 <td className="px-4 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
+                                <td className="px-4 py-2 border">{ganador.torre}</td>
+                                <td className="px-4 py-2 border">{ganador.localidad}</td>
                                 <td className="px-1 py-4 md:px-4 md:py-3 border-b items-center text-center">
                                     <input
                                         type="checkbox"

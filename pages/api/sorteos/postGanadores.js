@@ -9,7 +9,7 @@ async function handlePost(req, res) {
             return res.status(405).json({ message: 'Method Not Allowed' });
         }
 
-        if (!nombre || !apellido ||!dni ) {
+        if (!nombre || !apellido || !dni ) {
             return res.status(400).json({ error: 'Todos los campos obligatorios deben ser completados' });
         }
 
