@@ -152,6 +152,7 @@ const GanadorPage = () => {
                         <tr>
                             <th className="px-4 py-2 border">Nombre</th>
                             <th className="px-4 py-2 border">Apellido</th>
+                            <th className="px-2 py-2 border">DNI</th>
                             <th className="px-2 py-2 border">CHW</th>
                             <th className="px-2 py-2 border">Torre</th>
                             <th className="px-4 py-2 border">Localidad</th>
@@ -165,6 +166,7 @@ const GanadorPage = () => {
                             <tr key={index} className="bg-white hover:bg-gray-100">
                                 <td className="px-4 py-2 border">{ganador.nombre}</td>
                                 <td className="px-4 py-2 border">{ganador.apellido}</td>
+                                <td className="px-4 py-2 border">{ganador.dni}</td>
                                 <td className="px-2 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
                                 <td className="px-2 py-2 border">{ganador.torre}</td>
                                 <td className="px-4 py-2 border">{ganador.localidad}</td>
