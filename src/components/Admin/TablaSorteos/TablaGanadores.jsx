@@ -107,7 +107,7 @@ const GanadorPage = () => {
         try {
             Swal.fire({
                 icon: 'info',
-                title: '¿Está seguro que quiere eliminar el usuario?',
+                title: '¿Está seguro que quiere eliminar al ganador?',
                 showCancelButton: true,
                 showConfirmButton: true,
                 customClass: {
@@ -118,13 +118,13 @@ const GanadorPage = () => {
                 if (result.isConfirmed) {
                     const response = await axios.delete(`/api/sorteos/checkGanadores?id=${id}`);        
                     if (response.status === 200 || response.status === 204) {
-                        toast.success('Inscripción eliminada con éxito');
+                        toast.success('Ganador eliminado con éxito');
                     }
                 }
             });
         } catch (error) {
-            console.error('Error al eliminar la inscripción:', error.response ? error.response.data : error.message);
-            toast.error('Error al eliminar la inscripción');
+            console.error('Error al eliminar al ganador:', error.response ? error.response.data : error.message);
+            toast.error('Error al eliminar al ganador');
         }
     };
     
