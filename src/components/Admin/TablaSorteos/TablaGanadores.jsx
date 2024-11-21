@@ -68,7 +68,7 @@ const GanadorPage = () => {
     
         setSelectedNombres((prevSelected) => {
             const isAlreadySelected = prevSelected.some((item) => item._id === ganador._id);
-            console.log('isAlreadySelected:',isAlreadySelected)
+            //console.log('isAlreadySelected:',isAlreadySelected)
             return isAlreadySelected
                 ? prevSelected.filter((item) => item._id !== ganador._id) // Si estaba seleccionado, lo quita
                 : [...prevSelected, { ...ganador, actual: !ganador.actual }]; // Si no, lo añade
@@ -82,8 +82,8 @@ const GanadorPage = () => {
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
 
-        console.log("2-Ganadores antes de actualizar:", ganadores);
-        console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
+        //console.log("2-Ganadores antes de actualizar:", ganadores);
+        //console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
         
         if (ganadores.length === selectedNombres.length) {
             console.log("No hay cambios para guardar.");
@@ -92,14 +92,14 @@ const GanadorPage = () => {
     
         try {
             const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
-            console.log("Ganadores actualizados en el servidor:", response.data);
+            //console.log("Ganadores actualizados en el servidor:", response.data);
     
             // Si la actualización en el servidor es exitosa, sincronizar el estado
             setGanadores(ganadoresActualizados);
-            alert("Los cambios se han guardado correctamente.");
+            toast.success("Los cambios se han guardado correctamente.");
         } catch (error) {
             console.error("Error al actualizar los ganadores:", error);
-            alert("Hubo un error al guardar los cambios. Por favor, inténtalo nuevamente.");
+            toast.error("Hubo un error al guardar los cambios. Por favor, inténtalo nuevamente.");
         }
     };
     
