@@ -5,6 +5,7 @@ import MostrarGanadores from './MostrarGanadores';
 import axios from "axios";
 import Pagination from '@mui/material/Pagination';
 import { ToastContainer } from "react-toastify";
+import { MdDelete } from "react-icons/md";
 
 const GanadorPage = () => {
     const [ganadores, setGanadores] = useState([]);
@@ -101,6 +102,30 @@ const GanadorPage = () => {
         }
     };
     
+    const handleDeleteGanador = async (id) => {
+        try {
+          Swal.fire({
+            icon: 'info',
+            title: '¿Está seguro que quiere eliminar el usuario?',
+            showCancelButton: true,
+            showConfirmButton: true,
+            customClass: {
+              confirmButton: 'bg-primary text-white hover:bg-green',
+              cancelButton: 'bg-red text-white hover:bg-green',
+            },
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+              const response = await axios.delete(`/api/checkGanadores/${id}`);        
+              if (response.status === 200 || response.status === 204) {
+                toast.success('Ganador eliminada con éxito');
+              }
+            }
+          });
+        } catch (error) {
+            console.error('Error al eliminar al ganador:', error.response ? error.response.data : error.message);
+            toast.error('Error al eliminar al ganador');
+        }
+      };
     
 
     const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
@@ -127,10 +152,11 @@ const GanadorPage = () => {
                         <tr>
                             <th className="px-4 py-2 border">Nombre</th>
                             <th className="px-4 py-2 border">Apellido</th>
-                            <th className="px-4 py-2 border">CHW</th>
-                            <th className="px-4 py-2 border">Torre</th>
+                            <th className="px-2 py-2 border">CHW</th>
+                            <th className="px-2 py-2 border">Torre</th>
                             <th className="px-4 py-2 border">Localidad</th>
-                            <th className="px-1 py-1 md:px-4 md:py-3 border-b">Ganadores</th>
+                            <th className="px-2 py-2 border">Ganadores</th>
+                            <th className="px-2 py-2 border">Acc</th>
                         </tr>
                     </thead>
                     {paginatedGanadores.length ? (
@@ -139,16 +165,19 @@ const GanadorPage = () => {
                             <tr key={index} className="bg-white hover:bg-gray-100">
                                 <td className="px-4 py-2 border">{ganador.nombre}</td>
                                 <td className="px-4 py-2 border">{ganador.apellido}</td>
-                                <td className="px-4 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
-                                <td className="px-4 py-2 border">{ganador.torre}</td>
+                                <td className="px-2 py-2 border">{ganador.CHW ? "Sí" : "No"}</td>
+                                <td className="px-2 py-2 border">{ganador.torre}</td>
                                 <td className="px-4 py-2 border">{ganador.localidad}</td>
-                                <td className="px-1 py-4 md:px-4 md:py-3 border-b items-center text-center">
+                                <td className="px-2 py-2 border items-center text-center">
                                     <input
                                         type="checkbox"
                                         checked={ganador.actual}
                                         onChange={() => handleCheckboxChange(ganador)}
                                         aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`}
                                     />
+                                </td>
+                                <td className="px-2 py-2 border items-center text-center">
+                                    <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteGanador(ganador._id)} />
                                 </td>
                             </tr>
                         ))}

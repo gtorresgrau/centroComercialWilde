@@ -55,8 +55,8 @@ async function handlePut(req, res) {
 // Controlador para el método DELETE
 async function handleDelete(req, res) {
     try {
-        const { dni } = req.query;
-        const deletedSorteo = await Ganador.findByIdAndDelete(dni);
+        const { _id } = req.query;
+        const deletedSorteo = await Ganador.findByIdAndDelete(_id);
         if (!deletedSorteo) {
             return res.status(404).json({ error: 'ganador no encontrado' });
         }
