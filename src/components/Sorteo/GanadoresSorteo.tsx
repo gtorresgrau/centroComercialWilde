@@ -49,8 +49,7 @@ export default function GanadoresSorteo() {
         {confettiActive && <Confetti width={windowDimensions.width} height={windowDimensions.height} />}
         <h2 className="text-4xl font-bold text-primary text-center mb-8">¡Felicidades a los Ganadores!</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {!ganadores.length
-            ?<Loading/>
+            {!ganadores ?<Loading/>
             :ganadores.map((ganador, index) => (
             <motion.div
                 key={index}
