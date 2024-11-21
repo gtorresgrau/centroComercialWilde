@@ -1,40 +1,42 @@
 import { connectDB } from '../../../server/utils/mongodb';
 import Ganador from '../../../src/models/ganadores';
 
-// Controlador para el método PUT
 async function handlePut(req, res) {
     try {
-        const updatedData = req.body; // Data sent in the request body
+        const updatedData = req.body; // Array de usuarios con datos actualizados
 
-        console.log('Data in request body:', req.body);
-
-        // Fetch the users from the database
-        const users = await Ganador.find({}); // Replace with the appropriate query to fetch users
-        console.log('user en back:', users)
-
-        // Check if the users array is retrieved
-        if (!users || users.length === 0) {
-            return res.status(404).json({ error: 'No users found to update' });
+        if (!Array.isArray(updatedData) || updatedData.length === 0) {
+            return res.status(400).json({ error: 'No data provided or invalid format' });
         }
 
-        // Iterate over the array and update the "actual" field of each user
-        const updatedUsers = users.map(user => {
-            if (updatedData._id === user._id.toString()) {
-                return { ...user._id, actual: updatedData.actual }; // Update the "actual" field
+        console.log('Data in request body:', updatedData);
 
+        // Obtener los usuarios de la base de datos
+        const users = await Ganador.find({});
+        console.log('Users in DB:', users);
+
+        if (!users || users.length === 0) {
+            return res.status(404).json({ error: 'No users found in the database' });
+        }
+
+        // Crear una lista de promesas para actualizar los usuarios
+        const updatePromises = updatedData.map(data => {
+            const userToUpdate = users.find(user => user._id.toString() === data._id);
+
+            if (userToUpdate) {
+                return Ganador.findByIdAndUpdate(
+                    data._id, // ID del usuario
+                    { actual: data.actual }, // Campo a actualizar
+                    { new: true } // Retornar el documento actualizado
+                );
             }
-            console.log('user:',user)
-            return user; // Keep the user as is if no update
+            return null;
         });
 
-        console.log('Updated users:', updatedUsers);
+        // Ejecutar las actualizaciones y filtrar resultados nulos
+        const updatedUsers = (await Promise.all(updatePromises)).filter(Boolean);
 
-        // Save the updated users in the database
-        await Promise.all(
-            updatedUsers.map(user =>
-                Ganador.findByIdAndUpdate(user._id, { actual: user.actual }, { new: true })
-            )
-        );
+        console.log('Updated users:', updatedUsers);
 
         return res.status(200).json({
             message: 'Users updated successfully',
@@ -45,6 +47,7 @@ async function handlePut(req, res) {
         return res.status(500).json({ error: 'Error updating users' });
     }
 }
+
 
 
 
