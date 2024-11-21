@@ -6,6 +6,7 @@ import axios from "axios";
 import Pagination from '@mui/material/Pagination';
 import { toast, ToastContainer } from "react-toastify";
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const GanadorPage = () => {
     const [ganadores, setGanadores] = useState([]);
