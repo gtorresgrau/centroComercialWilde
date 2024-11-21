@@ -7,31 +7,43 @@ async function handlePut(req, res) {
         const { id } = req.query; // Expecting the ID in the query
         const updatedData = req.body; // Data sent in the request body
 
-        console.log('data en back:', req.body);
+        console.log('Data in request body:', req.body);
+
+        // Fetch the users from the database
+        const users = await Ganador.find({}); // Replace with the appropriate query to fetch users
+
+        // Check if the users array is retrieved
+        if (!users || users.length === 0) {
+            return res.status(404).json({ error: 'No users found to update' });
+        }
 
         // Iterate over the array and update the "actual" field of each user
         const updatedUsers = users.map(user => {
-            if (updatedData._id === user._id) {
-                return { ...user, actual: updatedData.actual }; // Update the "actual" field
+            if (updatedData._id === user._id.toString()) {
+                return { ...user._doc, actual: updatedData.actual }; // Update the "actual" field
             }
             return user; // Keep the user as is if no update
         });
 
         console.log('Updated users:', updatedUsers);
 
-        // Optionally, save the updated users in the database here if needed:
-        // For example: await Ganador.updateMany({ _id: { $in: updatedUsers.map(u => u._id) } }, updatedUsers);
+        // Save the updated users in the database
+        await Promise.all(
+            updatedUsers.map(user =>
+                Ganador.findByIdAndUpdate(user._id, { actual: user.actual }, { new: true })
+            )
+        );
 
         return res.status(200).json({
             message: 'Users updated successfully',
-            data: updatedUsers
+            data: updatedUsers,
         });
-
     } catch (error) {
         console.error('Error updating users:', error);
         return res.status(500).json({ error: 'Error updating users' });
     }
 }
+
 
 
 
