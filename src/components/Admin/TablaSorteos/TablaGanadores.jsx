@@ -116,7 +116,7 @@ const GanadorPage = () => {
             },
           }).then(async(result) => {
             if (result.isConfirmed) {
-              const response = await axios.delete(`/api/checkGanadores/${id}`);        
+              const response = await axios.delete(`/api/sorteos/checkGanadores`, _id);        
               if (response.status === 200 || response.status === 204) {
                 toast.success('Ganador eliminada con éxito');
               }
