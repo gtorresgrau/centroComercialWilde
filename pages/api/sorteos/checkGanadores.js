@@ -55,10 +55,10 @@ async function handlePut(req, res) {
 // Controlador para el método DELETE
 async function handleDelete(req, res) {
     try {
-        
-        const { _id } = req.body;
-        console.log('id en back:', _id)
-        const deletedSorteo = await Ganador.findByIdAndDelete(_id);
+        const { id } = req.query;
+        console.log('id en back:', id);
+
+        const deletedSorteo = await Ganador.findByIdAndDelete(id);
         if (!deletedSorteo) {
             return res.status(404).json({ error: 'ganador no encontrado' });
         }
@@ -68,6 +68,7 @@ async function handleDelete(req, res) {
         return res.status(500).json({ error: 'Error al eliminar al ganador' });
     }
 }
+
 
 export default async function handler(req, res) {
     await connectDB();
