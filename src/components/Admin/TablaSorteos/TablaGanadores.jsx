@@ -103,7 +103,7 @@ const GanadorPage = () => {
         }
     };
     
-    const handleDeleteGanador = async (id) => {
+    const handleDeleteGanador = async (_id) => {
         try {
           Swal.fire({
             icon: 'info',
