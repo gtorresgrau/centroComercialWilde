@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { userinfo } from '../../components/../app/Constants/userinfo';
 import Carrusel from '../Carrusel/Carrusel';
 import s from './globo.module.css';
 
 const Banner = () => {
+    const [backgroundUrl, setBackgroundUrl] = useState('/assets/banner/background.webp');
+
     const handleBalloonClick = () => {
         window.location.href = '#sorteo';
     };
+    
+    useEffect(() => {
+        const fetchBackground = async () => {
+            try {
+                const response = await fetch('/api/get-banner-background'); // Endpoint para obtener la URL
+                const data = await response.json();
+                setBackgroundUrl(data.backgroundUrl || '/assets/banner/background.webp');
+            } catch (error) {
+                console.error('Error al obtener la URL del fondo:', error);
+            }
+        };
+    
+        fetchBackground();
+    }, []);
+    
 
     return (
-        <section className="banner-image relative">
+        <section className="relative"
+                 style={{
+                    backgroundImage: `url(${backgroundUrl})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                }}> 
             <article className="items-center relative pb-6 lg:h-screen">
                 <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
                     <div className="text-center">

@@ -13,6 +13,7 @@ import TablaSorteosCHW from './TablaSorteos/TablaSorteosCHW'
 import TablaSorteosNoCHW from "./TablaSorteos/TablaSorteosNoCHW";
 import TablaSorteosEventos from "./TablaSorteos/TablaSorteosEventos";
 import TablaGanadores from "./TablaSorteos/TablaGanadores"
+import UpdateBgBanner from './UpdateBgBanner/UpdateBgBanner'
 import { imgNoDisponible } from '../../app/Constants/constantes'
 
 export default function Admin() {
@@ -299,6 +300,12 @@ export default function Admin() {
               <TablaGanadores userSorteos={userSorteo}/>
             </div>
           )}
+          {section === 'BannerHome' && (
+           <div className="mx-auto max-w-screen-xl lg:px-12">
+              <UpdateBgBanner userSorteos={userSorteo}/>
+            </div>
+          )}
+          
         </article>
       </div>
     </Suspense>
