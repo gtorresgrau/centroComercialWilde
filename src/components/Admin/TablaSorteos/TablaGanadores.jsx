@@ -104,6 +104,7 @@ const GanadorPage = () => {
     };
     
     const handleDeleteGanador = async (_id) => {
+        console.log('_id en front:', _id)
         try {
           Swal.fire({
             icon: 'info',
