@@ -4,13 +4,13 @@ import Ganador from '../../../src/models/ganadores';
 // Controlador para el método PUT
 async function handlePut(req, res) {
     try {
-        const { id } = req.query; // Expecting the ID in the query
         const updatedData = req.body; // Data sent in the request body
 
         console.log('Data in request body:', req.body);
 
         // Fetch the users from the database
         const users = await Ganador.find({}); // Replace with the appropriate query to fetch users
+        console.log('user en back:', users)
 
         // Check if the users array is retrieved
         if (!users || users.length === 0) {
@@ -20,8 +20,10 @@ async function handlePut(req, res) {
         // Iterate over the array and update the "actual" field of each user
         const updatedUsers = users.map(user => {
             if (updatedData._id === user._id.toString()) {
-                return { ...user._doc, actual: updatedData.actual }; // Update the "actual" field
+                return { ...user._id, actual: updatedData.actual }; // Update the "actual" field
+
             }
+            console.log('user:',user)
             return user; // Keep the user as is if no update
         });
 
