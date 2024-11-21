@@ -9,14 +9,9 @@ async function handlePut(req, res) {
 
         console.log('data en back:', req.body);
 
-        // Verifying that "actual" is the only field to update
-        if (!updatedData.hasOwnProperty('actual')) {
-            return res.status(400).json({ error: 'Only "actual" field can be updated' });
-        }
-
         // Iterate over the array and update the "actual" field of each user
         const updatedUsers = users.map(user => {
-            if (updatedData.id === user._id) {
+            if (updatedData._id === user._id) {
                 return { ...user, actual: updatedData.actual }; // Update the "actual" field
             }
             return user; // Keep the user as is if no update
