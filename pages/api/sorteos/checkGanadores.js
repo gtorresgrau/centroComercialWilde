@@ -56,9 +56,9 @@ async function handlePut(req, res) {
 async function handleDelete(req, res) {
     try {
         
-        const { _id } = req.query;
-        console.log('id en back:',_id)
-        const deletedSorteo = await Ganador.findByIdAndDelete(_id.toString());
+        const { _id } = req.body;
+        console.log('id en back:', _id)
+        const deletedSorteo = await Ganador.findByIdAndDelete(_id);
         if (!deletedSorteo) {
             return res.status(404).json({ error: 'ganador no encontrado' });
         }
