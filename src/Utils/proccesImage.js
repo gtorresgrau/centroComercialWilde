@@ -18,7 +18,7 @@ const processImages = (imageFiles) => {
               canvas.width = 1024;
               canvas.height = 731;
 
-              const aspectRatio = 7 / 5;
+              const aspectRatio = 16 / 9;
               const side = Math.min(img.width, img.height / aspectRatio);
               const offsetX = (img.width - side * aspectRatio) / 2;
               const offsetY = (img.height - side) / 2;
