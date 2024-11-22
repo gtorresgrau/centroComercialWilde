@@ -201,6 +201,14 @@ export default function Nav( {handleSelectSection} ) {
                 <span className="ml-3 text-gray-200 ">Ganadores</span>
               </Link>
             </li>
+            {/* <li>
+              <Link href="#" className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-primary-hover group" onClick={() => {handleSelectSection("BannerHome"); toggleMenu()}}>
+                <svg className="flex-shrink-0 w-5 h-5 text-gray-400 " aria-label='Ganadores del Sorteo' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8.736 1.043a1.5 1.5 0 0 0-1.472 1.272L6.07 5.5H2.25a1.5 1.5 0 0 0-1.035 2.598l3.072 3.07-1.286 5.144a1.5 1.5 0 0 0 2.318 1.616L10 15.734l4.681 2.194a1.5 1.5 0 0 0 2.318-1.616l-1.286-5.144 3.072-3.07A1.5 1.5 0 0 0 17.75 5.5h-3.82l-1.195-3.185a1.5 1.5 0 0 0-1.472-1.272A9.471 9.471 0 0 0 10 1a9.471 9.471 0 0 0-1.264.043ZM7.5 9.5h5a1 1 0 0 1 0 2h-5a1 1 0 0 1 0-2Z" />
+                </svg>
+                <span className="ml-3 text-gray-200 ">BannerHome</span>
+              </Link>
+            </li> */}
             {/* Descargar CSV */}
             <li>
               {/* <DownloadCSVButton toggleMenu={toggleMenu} /> */}

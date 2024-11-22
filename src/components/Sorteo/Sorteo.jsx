@@ -1,7 +1,9 @@
 import React from 'react';
 import ContactoSorteo from './contactoSorteo';
+//import SorteoGanadores from './SorteoGanadores';
 import Link from 'next/link';
 import './sorteo.css';
+import GanadoresSorteo from './GanadoresSorteo';
 
 const Sorteo = () => {
   
@@ -44,6 +46,10 @@ const Sorteo = () => {
             </div>
             </article>
           </article>
+        </div>
+        <div className="flex items-center justify-center">
+          {/* <SorteoGanadores /> */}
+            <GanadoresSorteo/>
         </div>
       </div>
     </section>
