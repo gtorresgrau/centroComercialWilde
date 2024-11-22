@@ -1,7 +1,7 @@
 "use client"
 
 import axios from 'axios';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { TrophyIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
@@ -24,19 +24,20 @@ export default function GanadoresSorteo() {
     // { nombre: 'Romina',  torre: '9', CHW: true, actual: true, localidad:'wilde'  },
 ]); // Estado tipado como array de Ganador
 
-  useEffect(() => {
-    const { innerWidth: width, innerHeight: height } = window;
-    setWindowDimensions({ width, height });
+  // useEffect(() => {
+  //   const { innerWidth: width, innerHeight: height } = window;
+  //   setWindowDimensions({ width, height });
 
-    const timer = setTimeout(() => setConfettiActive(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  //   const timer = setTimeout(() => setConfettiActive(false), 5000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   useEffect(() => {
     axios
       .get("/api/sorteos/getGanadoresActual")
       .then((response) => {
-        const ganadoresCargados: Ganador[] = response.data.data; // Tipar explícitamente la respuesta
+        const ganadoresCargados: Ganador[] = response.data; // Tipar explícitamente la respuesta
+        //console.log('ganadores:', ganadoresCargados)
         setGanadores(ganadoresCargados);
       })
       .catch((error) => {
@@ -48,7 +49,7 @@ export default function GanadoresSorteo() {
         <div className=" bg-secondary p-4">
         {confettiActive && <Confetti width={windowDimensions.width} height={windowDimensions.height} />}
         <h2 className="text-4xl font-bold text-primary text-center mb-8">¡Felicidades a los Ganadores!</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center items-center">
             {!ganadores ?<Loading/>
             :ganadores.map((ganador, index) => (
             <motion.div
