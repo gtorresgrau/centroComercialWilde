@@ -59,7 +59,7 @@ export default function GanadoresSorteo() {
                 transition={{ delay: index * 0.2 }}
                 className="bg-white rounded-lg shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:rotate-1"
             >
-                <p className="text-center text-gray-600 mt-2">🎉 ¡Ganaste el sorteo! 🎉</p>
+                <p className="text-center text-gray-600 mt-2">{ganador.CHW?`🎉 ¡Ganaste 1 Expensas! 🎉`:`🎉 ¡Ganaste 1 Orden de Compra! 🎉`}</p>
                 <div className="flex items-center justify-center my-4">
                 <TrophyIcon className="text-primary w-12 h-12" aria-hidden="true" />
                 </div>
