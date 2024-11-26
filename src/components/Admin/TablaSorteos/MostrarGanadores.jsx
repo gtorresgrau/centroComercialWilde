@@ -2,8 +2,8 @@ import React from "react";
 
 const MostrarGanadores = ({ selectedGanadores, handleGuardar }) => {
     return (
-        <div className="flex items-center justify-center bg-primary p-4 ">
-            <div className="w-full max-w-md p-6 bg-secondary rounded-lg shadow-lg min-h-[415px]">
+        <div className="flex items-center justify-center bg-primary p-4">
+            <div className="w-full max-w-md p-6 bg-secondary rounded-lg shadow-lg min-h-[520px]">
                 <h2 className="text-xl font-bold mb-4 text-primary uppercase">Ganadores Seleccionados</h2>
                 {selectedGanadores.length > 0 ? (
                     <ul>
