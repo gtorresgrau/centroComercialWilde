@@ -84,13 +84,6 @@ const GanadorPage = () => {
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
 
-        //console.log("2-Ganadores antes de actualizar:", ganadores);
-        //console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
-        
-        if (ganadores.length === selectedNombres.length) {
-            console.log("No hay cambios para guardar.");
-            return;
-        }
     
         try {
             const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
