@@ -42,6 +42,15 @@
 @media (min-width: 768px) {
   .balloon {
     z-index: 10;
-    bottom: 50%;
+    bottom: 30%;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .balloon {
+    z-index: 10;
+    scale: 50%;
+    bottom: -20%;
   }
 }

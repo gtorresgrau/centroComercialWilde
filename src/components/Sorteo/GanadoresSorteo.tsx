@@ -13,15 +13,17 @@ interface Ganador {
   localidad: string;
   CHW: boolean;
   actual:boolean;
+  especial:boolean;
+  nombreSorteo:String;
 }
 
 export default function GanadoresSorteo() {
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
   const [confettiActive, setConfettiActive] = useState(true);
   const [ganadores, setGanadores] = useState<Ganador[]>([
-    // { nombre: 'Gonzalo', torre: '9', CHW: true, actual: true,localidad:'wilde'  },
-    // { nombre: 'Felipe',  torre: '9', CHW: true, actual: false, localidad:'wilde' },
-    // { nombre: 'Romina',  torre: '9', CHW: true, actual: true, localidad:'wilde'  },
+    // { nombre: 'Gonzalo', torre: '9', CHW: true, actual: true,localidad:'wilde', especial:true, nombreSorteo:''  },
+    // { nombre: 'Felipe',  torre: '9', CHW: true, actual: false, localidad:'wilde',especial:false, nombreSorteo:'' },
+    // { nombre: 'Romina',  torre: '9', CHW: true, actual: true, localidad:'wilde', especial:true, nombreSorteo:'Navidad'  },
 ]); // Estado tipado como array de Ganador
 
   // useEffect(() => {
@@ -59,7 +61,11 @@ export default function GanadoresSorteo() {
                 transition={{ delay: index * 0.2 }}
                 className="bg-white rounded-lg shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:rotate-1"
             >
-                <p className="text-center text-gray-600 mt-2">{ganador.CHW?`🎉 ¡Ganaste 1 Expensas! 🎉`:`🎉 ¡Ganaste 1 Orden de Compra! 🎉`}</p>
+              {ganador.especial?(
+                  <p className="text-center text-gray-600 mt-2">🎉 ¡Ganaste! Sorteo {ganador.nombreSorteo} 🎉`</p>
+                ):(
+                  <p className="text-center text-gray-600 mt-2">{ganador.CHW?`🎉 ¡Ganaste 1 Expensas! 🎉`:`🎉 ¡Ganaste 1 Orden de Compra! 🎉`}</p>
+                )}
                 <div className="flex items-center justify-center my-4">
                 <TrophyIcon className="text-primary w-12 h-12" aria-hidden="true" />
                 </div>

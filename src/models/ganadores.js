@@ -24,6 +24,12 @@ const GanadoresSchema = new mongoose.Schema({
     },
     actual:{
         type: Boolean,
+    },
+    especial:{
+        type: Boolean,
+    },
+    nombreSorteo:{
+        type:String,
     }
 });
 

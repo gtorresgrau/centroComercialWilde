@@ -21,6 +21,7 @@ const GanadorPage = () => {
         { nombre: 'pepe', apellido: 'Torres Grau', torre: 9, CHW: true, actual: false, _id:2 },
         { nombre: 'feli', apellido: 'Torres Grau', torre: 9, CHW: true, actual: true, _id:3 },
         { nombre: 'dani', apellido: 'Torres Grau', torre: 9, CHW: true, actual: true, _id:4 },
+        { nombre: 'Eduardo', apellido: 'Torres', torre: "", CHW: false, actual: true, especial:true, nombreSorteo:'Navidad', localidad:'Bernal', _id:4 },
     ];
 
     useEffect(() => {
@@ -75,6 +76,7 @@ const GanadorPage = () => {
         });
     };
 
+
     const handleGuardar = async () => {
         // Crear un nuevo array de ganadores actualizado según `selectedNombres`
         const ganadoresActualizados = ganadores.map((ganador) => ({
@@ -82,13 +84,6 @@ const GanadorPage = () => {
             actual: selectedNombres.some((item) => item._id === ganador._id),
         }));
 
-        //console.log("2-Ganadores antes de actualizar:", ganadores);
-        //console.log("2-Selected Nombres antes de actualizar:", selectedNombres);
-        
-        if (ganadores.length === selectedNombres.length) {
-            console.log("No hay cambios para guardar.");
-            return;
-        }
     
         try {
             const response = await axios.put('/api/sorteos/checkGanadores', ganadoresActualizados);
@@ -158,6 +153,7 @@ const GanadorPage = () => {
                             <th className="px-2 py-2 border">Torre</th>
                             <th className="px-4 py-2 border">Localidad</th>
                             <th className="px-2 py-2 border">Ganadores</th>
+                            <th className="px-2 py-2 border">Especial</th>
                             <th className="px-2 py-2 border">Acc</th>
                         </tr>
                     </thead>
@@ -172,13 +168,9 @@ const GanadorPage = () => {
                                 <td className="px-2 py-2 border">{ganador.torre}</td>
                                 <td className="px-4 py-2 border">{ganador.localidad}</td>
                                 <td className="px-2 py-2 border items-center text-center">
-                                    <input
-                                        type="checkbox"
-                                        checked={ganador.actual}
-                                        onChange={() => handleCheckboxChange(ganador)}
-                                        aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`}
-                                    />
+                                    <input type="checkbox" checked={ganador.actual} onChange={() => handleCheckboxChange(ganador)} aria-label={`Select ganador ${ganador.nombre} ${ganador.apellido}`} />
                                 </td>
+                                <td className={`px-4 py-2 border ${ganador.especial?'text-green':''}`}>{ganador.especial?'Sorteo Especial':'Sorteo Mensual'}</td>
                                 <td className="px-2 py-2 border items-center text-center">
                                     <MdDelete className='text-red w-full cursor-pointer' onClick={() => handleDeleteGanador(ganador._id)} />
                                 </td>
