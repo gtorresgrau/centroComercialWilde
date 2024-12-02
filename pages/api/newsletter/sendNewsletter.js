@@ -102,8 +102,9 @@ export default async function handler(req, res) {
               to: email,
               subject: `${subject}`,
               html: `
+                <a href="https://centrocomercialwilde.com" title='centro comercial wilde'> CENTRO COMERCIAL WILDE <h1> </a>
                 <p>${message}</p>
-                ${embeddedImageTag}
+                <a href="https://centrocomercialwilde.com" title='centro comercial wilde'> ${embeddedImageTag}</a>
               `,
               attachments: attachments,
             });
