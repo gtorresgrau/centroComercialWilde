@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       }
 
       let embeddedImageTag = '';
-      let attachment = null;
+      let attachments = [];
 
       if (files.image) {
         const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'application/pdf'];
@@ -61,18 +61,27 @@ export default async function handler(req, res) {
 
         const filePath = files.image[0].filepath;
         const fileContent = fs.readFileSync(filePath);
-        const base64Image = fileContent.toString('base64');
         const mimeType = files.image[0].mimetype;
+        const fileName = files.image[0].originalFilename;
 
-        // Imagen embebida en el cuerpo del correo
-        embeddedImageTag = `<img src="data:${mimeType};base64,${base64Image}" alt="Embedded Image" style="max-width: 100%; height: auto;">`;
+        // Imagen embebida (CID para Gmail)
+        const cid = 'embedded-image@example.com'; // Debe ser único
+        embeddedImageTag = `<p><b>Imagen embebida:</b></p><img src="cid:${cid}" alt="Embedded Image" style="max-width: 100%; height: auto;">`;
 
-        // Archivo como adjunto
-        attachment = {
-          filename: files.image[0].originalFilename,
-          content: fileContent,
-          contentType: mimeType,
-        };
+        // Agregar como adjunto (Gmail requiere Content-ID para imágenes embebidas)
+        attachments = [
+          {
+            filename: fileName,
+            content: fileContent,
+            contentType: mimeType,
+            cid: cid, // Necesario para vincular la imagen al CID en el cuerpo
+          },
+          {
+            filename: fileName,
+            content: fileContent,
+            contentType: mimeType,
+          },
+        ];
       }
 
       const transporter = nodemailer.createTransport({
@@ -94,14 +103,9 @@ export default async function handler(req, res) {
               subject: `${subject}`,
               html: `
                 <p>${message}</p>
-                <p>Imagen embebida:</p>
                 ${embeddedImageTag}
               `,
-              attachments: attachment ? [attachment] : [],
-              headers: {
-                'Content-Type': 'text/html; charset=utf-8',
-                'Content-Transfer-Encoding': 'base64',
-              },
+              attachments: attachments,
             });
           })
         );
