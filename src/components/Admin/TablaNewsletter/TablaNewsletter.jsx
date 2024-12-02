@@ -22,7 +22,7 @@ const TablaNewsletter = () => {
       try {
         const newsData = await getNewsletter();
         setNews(newsData.emails);
-        setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
+        //setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
         //console.log(newsData.emails);
       } catch (error) {
         console.error('Error fetching newsletter:', error);
