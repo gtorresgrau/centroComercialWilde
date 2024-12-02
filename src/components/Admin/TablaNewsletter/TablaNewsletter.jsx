@@ -7,27 +7,32 @@ import getNewsletter from '../../../../server/utils/fetchsNewsletter/getNewslett
 import axios from 'axios';
 
 const TablaNewsletter = () => {
-  const [news, setNews] = useState([]);
+  //const [news, setNews] = useState([]);
   const [selectedEmails, setSelectedEmails] = useState([]);
+  const [image, setImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [selectAll, setSelectAll] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const newsData = await getNewsletter();
-        setNews(newsData.emails);
-        //console.log(newsData.emails);
-      } catch (error) {
-        console.error('Error fetching newsletter:', error);
-        toast.error('Error al obtener los correos');
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       //const newsData = await getNewsletter();
+  //       // setNews(newsData.emails);
+  //       setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
+  //       //console.log(newsData.emails);
+  //     } catch (error) {
+  //       console.error('Error fetching newsletter:', error);
+  //       toast.error('Error al obtener los correos');
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
+
+  const news = ([{_id:"1",email:'gonzalotorresgrau@gmail.com'},{_id:"2",email:'laplatagtg@gmail.com'},{_id:"3",email:'gtorresgrau@buenosaires.gob.ar'}])
+  //console.log('news:', news)
 
   useEffect(() => {
     // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
@@ -69,19 +74,20 @@ const TablaNewsletter = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('subject', subject);
+    formData.append('message', message);
+    formData.append('emails', JSON.stringify(selectedEmails));
+    if (image) formData.append('image', image);
+    
     try {
-      //console.log(subject,message,selectedEmails)
-       const response = await axios.post('/api/newsletter/sendNewsletter', {
-         subject,
-         message,
-         emails: selectedEmails
-       });
+      const response = await axios.post('/api/newsletter/sendNewsletter', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       if (response.status === 200) {
-         toast.success('Correos enviados exitosamente');
-         closeModal();
-       } else {
-         throw new Error('Error al enviar los correos');
-       }
+        toast.success('Correos enviados exitosamente');
+        closeModal();
+      }
     } catch (error) {
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
@@ -165,6 +171,28 @@ const TablaNewsletter = () => {
                     rows="4"
                   />
                 </div>
+                <div>
+                    <label className="block text-left text-sm font-medium text-gray-700">
+                      Imagen (opcional)
+                    </label>
+                    <div className="flex items-center gap-4 mt-1">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                        className="block w-full text-sm text-gray-900 border-gray-300 rounded-md"
+                      />
+                      {image && (
+                        <button
+                          onClick={() => setImage(null)}
+                          type="button"
+                          className="text-red bg-red-500 hover:bg-red-600 active:bg-red-700 font-medium rounded-lg text-xs px-4 py-2"
+                        >
+                          Eliminar
+                        </button>
+                      )}
+                    </div>
+                  </div>
               </div>
               
               <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
@@ -215,16 +243,19 @@ const TablaNewsletter = () => {
           ) : (
             <tbody>
               {news.map((email, index) => (
+                <>
+                {/* {console.log(email)} */}
                 <tr key={email._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
-                  <td className="px-1 py-1 md:px-4 md:py-3 border-b">{email.email}</td>
+                  <td className="px-1 py-1 md:px-4 md:py-3 border-b ">{email.email}</td>
                   <td className="px-1 py-1 md:px-4 md:py-3 border-b text-end items-center">
                     <Checkbox
                       email={email.email}
                       handleCheckboxChange={handleCheckboxChange}
                       isChecked={selectedEmails.includes(email.email)}
-                    />
+                      />
                   </td>
                 </tr>
+                      </>
               ))}
             </tbody>
           )}
