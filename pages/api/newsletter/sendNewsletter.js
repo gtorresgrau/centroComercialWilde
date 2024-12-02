@@ -9,7 +9,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  console.log('Request Method:', req.method);
+  //console.log('Request Method:', req.method);
 
   // Handling OPTIONS request for CORS
   if (req.method === 'OPTIONS') {
@@ -36,11 +36,11 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Error procesando el formulario' });
       }
 
-      console.log('Files:', files);
+      //console.log('Files:', files);
       
       // Extract fields
       const { subject, message, emails } = fields;
-      console.log('Fields:', fields);
+      //console.log('Fields:', fields);
 
       // Validate required fields
       if (!subject || !message || !emails) {
@@ -62,14 +62,14 @@ export default async function handler(req, res) {
       let attachment = null;
       const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'application/pdf'];
       if (files.image) {
-          console.log(files.image[0].filepath);
+          //console.log(files.image[0].filepath);
         if (!validTypes.includes(files.image[0].mimetype)) {
-          console.log('Uploaded file type:', files.image[0].mimetype);
+          //console.log('Uploaded file type:', files.image[0].mimetype);
           return res.status(400).json({ error: 'Invalid file type' });
         }
 
         if (files.image[0].size > 5 * 1024 * 1024) {
-          console.log('Uploaded file size:', files.image[0].size);
+          //console.log('Uploaded file size:', files.image[0].size);
           return res.status(400).json({ error: 'File size exceeds limit' });
         }
 

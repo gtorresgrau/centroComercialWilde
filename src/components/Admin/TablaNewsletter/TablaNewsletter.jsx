@@ -17,23 +17,23 @@ const TablaNewsletter = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(false)
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       //const newsData = await getNewsletter();
-  //       // setNews(newsData.emails);
-  //       setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
-  //       //console.log(newsData.emails);
-  //     } catch (error) {
-  //       console.error('Error fetching newsletter:', error);
-  //       toast.error('Error al obtener los correos');
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const newsData = await getNewsletter();
+        setNews(newsData.emails);
+        setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
+        //console.log(newsData.emails);
+      } catch (error) {
+        console.error('Error fetching newsletter:', error);
+        toast.error('Error al obtener los correos');
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
-  const news = ([{_id:"1",email:'gonzalotorresgrau@gmail.com'},{_id:"2",email:'laplatagtg@gmail.com'},{_id:"3",email:'gtorresgrau@buenosaires.gob.ar'}])
+  //const news = ([{_id:"1",email:'gonzalotorresgrau@gmail.com'},{_id:"2",email:'laplatagtg@gmail.com'},{_id:"3",email:'gtorresgrau@buenosaires.gob.ar'}])
   //console.log('news:', news)
 
   useEffect(() => {
