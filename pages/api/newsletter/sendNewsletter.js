@@ -65,8 +65,8 @@ export default async function handler(req, res) {
         const fileName = files.image[0].originalFilename;
 
         // Imagen embebida (CID para Gmail)
-        const cid = 'embedded-image@example.com'; // Debe ser único
-        embeddedImageTag = `<p><b>Imagen embebida:</b></p><img src="cid:${cid}" alt="Embedded Image" style="max-width: 100%; height: auto;">`;
+        const cid = 'ccw-image-embed'; // Debe ser único
+        embeddedImageTag = `<img src="cid:${cid}" alt="Imagen" style="max-width: 100%; height: auto;">`;
 
         // Agregar como adjunto (Gmail requiere Content-ID para imágenes embebidas)
         attachments = [

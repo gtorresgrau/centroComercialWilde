@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,6 +6,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import getNewsletter from '../../../../server/utils/fetchsNewsletter/getNewsletter';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
+import Pagination from '@mui/material/Pagination';
 
 const TablaNewsletter = () => {
   const [news, setNews] = useState([]);
@@ -15,15 +16,16 @@ const TablaNewsletter = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [selectAll, setSelectAll] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Para el buscador
+  const [page, setPage] = useState(1); // Página actual
+  const itemsPerPage = 10; // Número de elementos por página
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const newsData = await getNewsletter();
         setNews(newsData.emails);
-        //setNews(['gonzalotorresgrau@gmail.com','laplatagtg@gmail.com','gtorresgrau@buenosaires.gob.ar'])
-        //console.log(newsData.emails);
       } catch (error) {
         console.error('Error fetching newsletter:', error);
         toast.error('Error al obtener los correos');
@@ -33,11 +35,7 @@ const TablaNewsletter = () => {
     fetchData();
   }, []);
 
-  //const news = ([{_id:"1",email:'gonzalotorresgrau@gmail.com'},{_id:"2",email:'laplatagtg@gmail.com'},{_id:"3",email:'gtorresgrau@buenosaires.gob.ar'}])
-  //console.log('news:', news)
-
   useEffect(() => {
-    // Actualiza el estado `selectAll` basado en los correos electrónicos seleccionados
     if (selectedEmails.length === news.length) {
       setSelectAll(true);
     } else {
@@ -54,9 +52,9 @@ const TablaNewsletter = () => {
   };
 
   const handleCheckboxChange = (email) => {
-    setSelectedEmails(prev =>
+    setSelectedEmails((prev) =>
       prev.includes(email)
-        ? prev.filter(item => item !== email)
+        ? prev.filter((item) => item !== email)
         : [...prev, email]
     );
   };
@@ -65,18 +63,19 @@ const TablaNewsletter = () => {
     if (selectAll) {
       setSelectedEmails([]);
     } else {
-      setSelectedEmails(news.map(item => item.email));
+      setSelectedEmails(filteredEmails.map((item) => item.email));
     }
     setSelectAll(!selectAll);
   };
 
   const handleSendEmails = async () => {
-    setLoading(true)
+    setLoading(true);
     if (!subject || !message || selectedEmails.length === 0) {
       toast.error('Por favor completa todos los campos y selecciona al menos un email.');
+      setLoading(false);
       return;
     }
-  
+
     const formData = new FormData();
     formData.append('subject', subject);
     formData.append('message', message);
@@ -84,39 +83,64 @@ const TablaNewsletter = () => {
     if (image) {
       formData.append('image', image);
     }
-  
+
     try {
       const response = await axios.post('/api/newsletter/sendNewsletter', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       if (response.status === 200) {
         toast.success('Correos enviados exitosamente');
-        setLoading(false)
         closeModal();
-        setSelectedEmails([]); // Clear selected emails after sending
+        setSelectedEmails([]);
       }
-      setLoading(false)
     } catch (error) {
-      setLoading(false)
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // Filtro de correos basado en el término de búsqueda
+  const filteredEmails = news.filter((email) =>
+    email.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Lógica de paginación
+  const totalPages = Math.ceil(filteredEmails.length / itemsPerPage);
+  const paginatedEmails = filteredEmails.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
   };
 
   return (
     <div className="text-center">
       <h1 className="text-2xl text-gray-100 font-bold mb-5">Newsletter Emails</h1>
-      <div className='flex justify-end mb-2'>
+      
+      <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Buscar correo..."
+          className="mb-2 md:mb-0 p-2 border border-gray-300 rounded w-full md:w-1/3"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <button
           onClick={openModal}
           type="button"
-          aria-label="agregar producto"
-          className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
+          className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2"
         >
           Iniciar campaña
         </button>
       </div>
-      
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={handlePageChange}
+        color="primary"
+        className="mt-4 flex justify-center"
+      />
       {/* Modal */}
       {isModalOpen && (
         <div
@@ -126,98 +150,58 @@ const TablaNewsletter = () => {
           className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50"
         >
           <div className="relative p-4 w-full max-w-2xl max-h-full">
+            {/* Modal Content */}
             <div className="relative bg-gray-100 rounded-lg shadow">
-              <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Enviar Correos Masivos
-                </h3>
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-xl font-semibold text-gray-900">Enviar Correos Masivos</h3>
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                  className="text-gray-400 hover:bg-gray-200 rounded-lg text-sm w-8 h-8 flex justify-center items-center"
                 >
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                    />
-                  </svg>
                   <span className="sr-only">Close modal</span>
+                  ×
                 </button>
               </div>
-              
-              <div className="p-4 md:p-5 space-y-4">
-                <div>
-                  <label className="block text-left text-sm font-medium text-gray-700">
-                    Asunto
-                  </label>
-                  <input
-                    type="text"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    className="mt-1 block w-full rounded-md pl-2 border-gray-300 shadow-sm focus:border-gray-300 focus:border focus:shadow-md"
-                    placeholder="Ingresa el asunto"
-                  />
-                </div>
-                <div>
-                  <label className="block text-left text-sm font-medium text-gray-700">
-                    Mensaje
-                  </label>
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="mt-1 pl-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-300 focus:border focus:shadow-md"
-                    placeholder="Escribe tu mensaje"
-                    rows="4"
-                  />
-                </div>
-                <div>
-                    <label className="block text-left text-sm font-medium text-gray-700">
-                      Imagen (opcional)
-                    </label>
-                    <div className="flex items-center gap-4 mt-1">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                        className="block w-full text-sm text-gray-900 border-gray-300 rounded-md"
-                      />
-                      {image && (
-                        <button
-                          onClick={() => setImage(null)}
-                          type="button"
-                          className="text-red bg-red-500 hover:bg-red-600 active:bg-red-700 font-medium rounded-lg text-xs px-4 py-2"
-                        >
-                          Eliminar
-                        </button>
-                      )}
-                    </div>
-                  </div>
+
+              {/* Formulario */}
+              <div className="p-4 space-y-4">
+                <input
+                  type="text"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder="Asunto"
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Mensaje"
+                  rows="4"
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  className="block w-full"
+                />
               </div>
-              
-              <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                {loading?<Loading/>:
+
+              <div className="flex justify-end p-4 border-t">
+                {loading ? <Loading /> : (
                   <button
                     onClick={handleSendEmails}
                     type="button"
-                    className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
+                    className="text-white bg-blue-500 hover:bg-blue-600 px-5 py-2 rounded"
                   >
-                    Enviar correos
+                    Enviar
                   </button>
-                }
+                )}
                 <button
                   onClick={closeModal}
                   type="button"
-                  className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-gray-100 rounded-lg border border-bgpurple  hover:bg-gray-100 hover:text-bgpurple"
+                  className="ml-2 text-gray-700 border px-4 py-2 rounded"
                 >
                   Cancelar
                 </button>
@@ -230,11 +214,10 @@ const TablaNewsletter = () => {
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 shadow-xl">
           <thead>
-            <tr className='bg-slate-300 text-sm md:text-base'>
-            <th className="px-1 py-1 md:px-4 md:py-3 border-b">Email</th>
-
-              <th className="flex gap-2 justify-end px-1 py-1 md:px-4 md:py-3 border-b items-center">
-                <p className='font-normal'> Seleccionar todos</p>
+            <tr className="bg-slate-300">
+              <th className="px-4 py-2">Email</th>
+              <th className="px-4 py-2 flex justify-end items-center">
+                <span>Seleccionar todos</span>
                 <Checkbox
                   email="select-all"
                   handleCheckboxChange={handleSelectAll}
@@ -243,23 +226,12 @@ const TablaNewsletter = () => {
               </th>
             </tr>
           </thead>
-          {!news.length ? (
-            <tbody>
-              <tr className="text-center">
-                <td colSpan="2" className="py-10">
-                  <span className="text-gray-500 font-semibold">No hay emails suscritos a la newsletter.</span>
-                </td>
-              </tr>
-            </tbody>
-          ) : (
-            <tbody>
-              {news.map((email, index) => (
-                <tr
-                  key={email._id}
-                  className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}
-                >
-                  <td className="px-1 py-1 md:px-4 md:py-3 border-b">{email.email}</td>
-                  <td className="px-1 py-1 md:px-4 md:py-3 border-b text-end items-center">
+          <tbody>
+            {paginatedEmails.length ? (
+              paginatedEmails.map((email) => (
+                <tr key={email._id} className="border-b">
+                  <td className="px-4 py-2">{email.email}</td>
+                  <td className="px-4 py-2 flex justify-end">
                     <Checkbox
                       email={email.email}
                       handleCheckboxChange={handleCheckboxChange}
@@ -267,22 +239,28 @@ const TablaNewsletter = () => {
                     />
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          )}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="2" className="text-center py-4">
+                  No hay resultados.
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+
+      {/* Paginador */}
+      <Pagination
+        count={totalPages}
+        page={page}
+        onChange={handlePageChange}
+        color="primary"
+        className="mt-4 flex justify-center"
       />
+
+      <ToastContainer />
     </div>
   );
 };
