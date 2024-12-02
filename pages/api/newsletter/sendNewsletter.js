@@ -47,8 +47,10 @@ export default async function handler(req, res) {
       }
 
       let embeddedImageTag = '';
+      let attachment = null;
+
       if (files.image) {
-        const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+        const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'application/pdf'];
         if (!validTypes.includes(files.image[0].mimetype)) {
           return res.status(400).json({ error: 'Invalid file type' });
         }
@@ -60,8 +62,17 @@ export default async function handler(req, res) {
         const filePath = files.image[0].filepath;
         const fileContent = fs.readFileSync(filePath);
         const base64Image = fileContent.toString('base64');
+        const mimeType = files.image[0].mimetype;
 
-        embeddedImageTag = `<img src="data:${files.image[0].mimetype};base64,${base64Image}" alt="Embedded Image" style="max-width: 100%; height: auto;">`;
+        // Imagen embebida en el cuerpo del correo
+        embeddedImageTag = `<img src="data:${mimeType};base64,${base64Image}" alt="Embedded Image" style="max-width: 100%; height: auto;">`;
+
+        // Archivo como adjunto
+        attachment = {
+          filename: files.image[0].originalFilename,
+          content: fileContent,
+          contentType: mimeType,
+        };
       }
 
       const transporter = nodemailer.createTransport({
@@ -83,8 +94,14 @@ export default async function handler(req, res) {
               subject: `${subject}`,
               html: `
                 <p>${message}</p>
+                <p>Imagen embebida:</p>
                 ${embeddedImageTag}
               `,
+              attachments: attachment ? [attachment] : [],
+              headers: {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Content-Transfer-Encoding': 'base64',
+              },
             });
           })
         );
