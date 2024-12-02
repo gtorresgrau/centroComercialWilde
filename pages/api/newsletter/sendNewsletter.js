@@ -36,11 +36,11 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Error procesando el formulario' });
       }
 
-      console.log('Fields:', fields);
       console.log('Files:', files);
-
+      
       // Extract fields
       const { subject, message, emails } = fields;
+      console.log('Fields:', fields);
 
       // Validate required fields
       if (!subject || !message || !emails) {
@@ -60,23 +60,27 @@ export default async function handler(req, res) {
 
       // Handle file attachment
       let attachment = null;
+      const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'application/pdf'];
       if (files.image) {
-        const validTypes = ['image/jpeg', 'image/png'];
-        if (!validTypes.includes(files.image.mimetype)) {
+          console.log(files.image[0].filepath);
+        if (!validTypes.includes(files.image[0].mimetype)) {
+          console.log('Uploaded file type:', files.image[0].mimetype);
           return res.status(400).json({ error: 'Invalid file type' });
         }
 
-        if (files.image.size > 5 * 1024 * 1024) {
+        if (files.image[0].size > 5 * 1024 * 1024) {
+          console.log('Uploaded file size:', files.image[0].size);
           return res.status(400).json({ error: 'File size exceeds limit' });
         }
 
         // Read file content
-        const filePath = files.image.filepath;
+        const filePath = files.image[0].filepath;
         const fileContent = fs.readFileSync(filePath);
+        
         attachment = {
-          filename: files.image.originalFilename,
+          filename: files.image[0].originalFilename,
           content: fileContent,
-          contentType: files.image.mimetype,
+          contentType: files.image[0].mimetype,
         };
       }
 
@@ -98,7 +102,7 @@ export default async function handler(req, res) {
             await transporter.sendMail({
               from: process.env.SENDER,
               to: email,
-              subject,
+              subject:`${subject}`,
               html: `<p>${message}</p>`,
               attachments: attachment ? [attachment] : [],
             });
@@ -106,10 +110,15 @@ export default async function handler(req, res) {
         );
 
         // Clean up the uploaded file if it exists
-        if (files.image) {
-          fs.unlink(files.image.filepath, (err) => {
-            if (err) console.error('Error deleting temporary file:', err);
+        if (files.image && files.image[0] && files.image[0].filepath) {
+          const filePath = files.image[0].filepath;
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error('Error deleting temporary file:', err);
+            }
           });
+        } else {
+          console.error('No file found or invalid file path.');
         }
 
         res.status(200).json({ message: 'Correos enviados exitosamente' });

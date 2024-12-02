@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '../Checkbox/Checkbox';
 import getNewsletter from '../../../../server/utils/fetchsNewsletter/getNewsletter';
 import axios from 'axios';
+import Loading from '../../Loading/Loading';
 
 const TablaNewsletter = () => {
   //const [news, setNews] = useState([]);
@@ -14,6 +15,7 @@ const TablaNewsletter = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [selectAll, setSelectAll] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -69,6 +71,7 @@ const TablaNewsletter = () => {
   };
 
   const handleSendEmails = async () => {
+    setLoading(true)
     if (!subject || !message || selectedEmails.length === 0) {
       toast.error('Por favor completa todos los campos y selecciona al menos un email.');
       return;
@@ -88,10 +91,13 @@ const TablaNewsletter = () => {
       });
       if (response.status === 200) {
         toast.success('Correos enviados exitosamente');
+        setLoading(false)
         closeModal();
         setSelectedEmails([]); // Clear selected emails after sending
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.error('Error sending emails:', error);
       toast.error('Error al enviar los correos');
     }
@@ -199,13 +205,15 @@ const TablaNewsletter = () => {
               </div>
               
               <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                <button
-                  onClick={handleSendEmails}
-                  type="button"
-                  className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
-                >
-                  Enviar correos
-                </button>
+                {loading?<Loading/>:
+                  <button
+                    onClick={handleSendEmails}
+                    type="button"
+                    className="items-center text-gray-100 border bg-primary hover:bg-[#612c67] active:bg-[#9c47a5] font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2 text-center "
+                  >
+                    Enviar correos
+                  </button>
+                }
                 <button
                   onClick={closeModal}
                   type="button"
