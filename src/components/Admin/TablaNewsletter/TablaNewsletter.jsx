@@ -73,13 +73,15 @@ const TablaNewsletter = () => {
       toast.error('Por favor completa todos los campos y selecciona al menos un email.');
       return;
     }
-
+  
     const formData = new FormData();
     formData.append('subject', subject);
     formData.append('message', message);
     formData.append('emails', JSON.stringify(selectedEmails));
-    if (image) formData.append('image', image);
-    
+    if (image) {
+      formData.append('image', image);
+    }
+  
     try {
       const response = await axios.post('/api/newsletter/sendNewsletter', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -87,6 +89,7 @@ const TablaNewsletter = () => {
       if (response.status === 200) {
         toast.success('Correos enviados exitosamente');
         closeModal();
+        setSelectedEmails([]); // Clear selected emails after sending
       }
     } catch (error) {
       console.error('Error sending emails:', error);
@@ -243,19 +246,19 @@ const TablaNewsletter = () => {
           ) : (
             <tbody>
               {news.map((email, index) => (
-                <>
-                {/* {console.log(email)} */}
-                <tr key={email._id} className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
-                  <td className="px-1 py-1 md:px-4 md:py-3 border-b ">{email.email}</td>
+                <tr
+                  key={email._id}
+                  className={`text-sm md:text-base ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}
+                >
+                  <td className="px-1 py-1 md:px-4 md:py-3 border-b">{email.email}</td>
                   <td className="px-1 py-1 md:px-4 md:py-3 border-b text-end items-center">
                     <Checkbox
                       email={email.email}
                       handleCheckboxChange={handleCheckboxChange}
                       isChecked={selectedEmails.includes(email.email)}
-                      />
+                    />
                   </td>
                 </tr>
-                      </>
               ))}
             </tbody>
           )}
