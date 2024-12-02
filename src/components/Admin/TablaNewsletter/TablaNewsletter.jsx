@@ -8,7 +8,7 @@ import axios from 'axios';
 import Loading from '../../Loading/Loading';
 
 const TablaNewsletter = () => {
-  //const [news, setNews] = useState([]);
+  const [news, setNews] = useState([]);
   const [selectedEmails, setSelectedEmails] = useState([]);
   const [image, setImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
