@@ -64,17 +64,17 @@ export default async function handler(req, res) {
         const mimeType = files.image[0].mimetype;
         const fileName = files.image[0].originalFilename;
 
-        // Imagen embebida (CID para Gmail)
-        const cid = 'ccw-image-embed'; // Debe ser único
+        // Embedded image (CID for Gmail)
+        const cid = 'ccw-image-embed'; // Must be unique
         embeddedImageTag = `<img src="cid:${cid}" alt="Imagen" style="max-width: 100%; height: auto;">`;
 
-        // Agregar como adjunto (Gmail requiere Content-ID para imágenes embebidas)
+        // Add as attachment (Gmail requires Content-ID for embedded images)
         attachments = [
           {
             filename: fileName,
             content: fileContent,
             contentType: mimeType,
-            cid: cid, // Necesario para vincular la imagen al CID en el cuerpo
+            cid: cid, // Required to link the image to the CID in the body
           },
           {
             filename: fileName,
@@ -94,22 +94,39 @@ export default async function handler(req, res) {
         },
       });
 
-      try {
+      async function sendEmailBatch(batch) {
         await Promise.all(
-          emailList.map(async (email) => {
+          batch.map(async (email) => {
             await transporter.sendMail({
               from: process.env.SENDER,
               to: email,
-              subject: `${subject}`,
+              subject: subject,
               html: `
-                <a href="https://centrocomercialwilde.com" title='centro comercial wilde'> CENTRO COMERCIAL WILDE <h1> </a>
+                <h1>CENTRO COMERCIAL WILDE</h1>
                 <p>${message}</p>
-                <a href="https://centrocomercialwilde.com" title='centro comercial wilde'> ${embeddedImageTag}</a>
+                ${embeddedImageTag}
               `,
               attachments: attachments,
             });
           })
         );
+      }
+
+      // Cálculo del tamaño de la tanda basado en tu fórmula
+      const batchSize = Math.max(Math.floor(emailList.length / 3 / 2), 1); // Dividir por 3, luego por 2
+      const emailBatches = [];
+      for (let i = 0; i < emailList.length; i += batchSize) {
+        emailBatches.push(emailList.slice(i, i + batchSize));
+      }
+
+      try {
+        for (let i = 0; i < emailBatches.length; i++) {
+          await sendEmailBatch(emailBatches[i]);
+          if (i < emailBatches.length - 1) {
+            console.log(`Esperando 1.5 minutos antes de la siguiente tanda...`);
+            await new Promise((resolve) => setTimeout(resolve, 90000)); // 2 minutos
+          }
+        }
 
         if (files.image && files.image[0] && files.image[0].filepath) {
           const filePath = files.image[0].filepath;
@@ -120,7 +137,7 @@ export default async function handler(req, res) {
           });
         }
 
-        res.status(200).json({ message: 'Correos enviados exitosamente' });
+        res.status(200).json({ message: 'Correos enviados exitosamente en tandas' });
       } catch (error) {
         console.error('Error sending email:', error);
         res.status(500).json({ error: 'Error al enviar los correos' });
