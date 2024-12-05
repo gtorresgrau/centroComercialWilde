@@ -7,6 +7,7 @@ import getNewsletter from '../../../../server/utils/fetchsNewsletter/getNewslett
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import Pagination from '@mui/material/Pagination';
+import * as XLSX from 'xlsx';
 
 const TablaNewsletter = () => {
   const [news, setNews] = useState([]);
@@ -76,6 +77,8 @@ const TablaNewsletter = () => {
       return;
     }
 
+
+
     const formData = new FormData();
     formData.append('subject', subject);
     formData.append('message', message);
@@ -114,6 +117,28 @@ const TablaNewsletter = () => {
     setPage(value);
   };
 
+  const handleDownloadExcel = () => {
+    const date = new Date().toISOString().split('T')[0];
+    const fileName = `newsletter_${date}.xlsx`;
+
+    // Split emails into groups of 50
+    const emailGroups = [];
+    for (let i = 0; i < news.length; i += 50) {
+      emailGroups.push(news.slice(i, i + 50));
+    }
+
+    // Create workbook and sheets
+    const workbook = XLSX.utils.book_new();
+    emailGroups.forEach((group, index) => {
+      const sheetData = group.map((item, i) => ({ Nro: i + 1, Email: item.email }));
+      const sheet = XLSX.utils.json_to_sheet(sheetData);
+      XLSX.utils.book_append_sheet(workbook, sheet, `Hoja ${index + 1}`);
+    });
+
+    // Write and download Excel file
+    XLSX.writeFile(workbook, fileName);
+  };
+  
   return (
     <div className="text-center">
       <h1 className="text-2xl text-gray-100 font-bold mb-5">Newsletter Emails</h1>
@@ -133,6 +158,13 @@ const TablaNewsletter = () => {
         >
           Iniciar campaña
         </button>
+        <button
+            onClick={handleDownloadExcel}
+            type="button"
+            className="items-center text-gray-100 border bg-green-500 hover:bg-green-600 active:bg-green-700 font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2"
+          >
+            Descargar Excel
+          </button>
       </div>
       <Pagination
         count={totalPages}
