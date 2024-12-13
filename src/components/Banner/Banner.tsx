@@ -7,6 +7,7 @@ const Banner = () => {
     const [backgroundUrl, setBackgroundUrl] = useState('/assets/banner/background.webp');
     const [estiloBg, setEstiloBg] = useState('');
     const [loading, setLoading] = useState(true);
+    const [isFallbackDesign, setIsFallbackDesign] = useState(false); // Estado para manejar el diseño alternativo
 
     // Function to handle the balloon click
     const handleBalloonClick = useCallback(() => {
@@ -26,15 +27,18 @@ const Banner = () => {
             if (backgroundUrl && backgroundUrl !== '/assets/banner/background.webp') {
                 setEstiloBg('bg-black opacity-70');
                 setBackgroundUrl(backgroundUrl);
-                setLoading(false)
+                setIsFallbackDesign(false); // Usamos el diseño original
+                setLoading(false);
             } else {
                 setEstiloBg('');
                 setBackgroundUrl('/assets/banner/background.webp');
-                setLoading(false)
+                setIsFallbackDesign(true); // Usamos el diseño alternativo
+                setLoading(false);
             }
         } catch (error) {
             console.error('Error al obtener la URL del fondo:', error);
             setBackgroundUrl('/assets/banner/background.webp');
+            setIsFallbackDesign(true); // Si falla, se utiliza el diseño alternativo
         } finally {
             setLoading(false); // Always stop the loading process
         }
@@ -44,8 +48,41 @@ const Banner = () => {
         fetchBackgroundImage();
     }, []); // Only run on component mount
 
-    return (
-        <section className="relative" style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover',}} >
+    // Diseño alternativo
+    const renderStandardDesign = () => (
+<section 
+    className="relative" 
+    style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+>
+    <article className="items-center relative pb-6 md:h-screen">
+        <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
+            <div className="text-center">
+                <div className="relative inline-block p-4 rounded-lg bg-black bg-opacity-20">
+                    <h1
+                        className="text-3xl sm:text-5xl font-bold tracking-tight sm:my-6 md:my-2 xl:my-6 text-white"
+                        style={{
+                            background: 'linear-gradient(to right, #9C27B0, #1E1E1E)',
+                            WebkitBackgroundClip: 'text',
+                            color: 'transparent',
+                            textShadow: '0px 0px 2px rgba(255, 255, 255, 0.8)', // Sombra de texto más fuerte
+                        }}
+                    >
+                        {userinfo.banner.title}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div className={`${s.balloon} cursor-pointer z-10`} onClick={handleBalloonClick}>
+            SORTEO
+        </div>
+    </article>
+</section>
+
+    );
+
+    // Diseño estándar
+    const renderFallbackDesign = () => (
+        <section className="relative" style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
             <article className="items-center relative pb-6 md:h-screen">
                 <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
                     <div className="text-center">
@@ -68,10 +105,12 @@ const Banner = () => {
                 </div>
 
                 {/* Conditionally render Carrusel only after loading and if hide is false */}
-                {!loading && backgroundUrl.includes('/assets/banner/background.webp') && <Carrusel />}
+                 <Carrusel />
             </article>
         </section>
     );
+
+    return isFallbackDesign ? renderFallbackDesign() : renderStandardDesign();
 };
 
 export default Banner;
