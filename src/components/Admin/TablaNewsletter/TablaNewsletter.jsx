@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 
 const TablaNewsletter = () => {
   const [news, setNews] = useState([]);
-  const [selectedEmails, setSelectedEmails] = useState([]);
+  const [selectedEmails, setSelectedEmails] = useState(new Set());
   const [image, setImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState('');
@@ -54,11 +54,15 @@ const TablaNewsletter = () => {
 
   const handleCheckboxChange = (email) => {
     setSelectedEmails((prev) =>
-      prev.includes(email)
-        ? prev.filter((item) => item !== email)
-        : [...prev, email]
+      prev.has(email)
+        ? new Set([...prev].filter((item) => item !== email))
+        : new Set(prev.add(email))
     );
   };
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchTerm]);
 
   const handleSelectAll = () => {
     if (selectAll) {
@@ -77,6 +81,14 @@ const TablaNewsletter = () => {
       return;
     }
 
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file && file.size < 5 * 1024 * 1024) { // Example: limit to 5MB
+        setImage(file);
+      } else {
+        toast.error('El archivo es demasiado grande.');
+      }
+    };
 
 
     const formData = new FormData();
@@ -159,12 +171,13 @@ const TablaNewsletter = () => {
           Iniciar campaña
         </button>
         <button
-            onClick={handleDownloadExcel}
-            type="button"
-            className="items-center text-gray-100 border bg-green-500 hover:bg-green-600 active:bg-green-700 font-medium rounded-lg h-10 text-xs xs:text-sm px-5 py-2"
-          >
-            Descargar Excel
-          </button>
+          onClick={handleDownloadExcel}
+          type="button"
+          aria-label="Descargar correos en formato Excel"
+          className="items-center text-gray-100 ..."
+        >
+          Descargar Excel
+        </button>
       </div>
       <Pagination
         count={totalPages}
