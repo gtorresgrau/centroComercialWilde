@@ -23,17 +23,19 @@ const TablaNewsletter = () => {
   const itemsPerPage = 10; // Número de elementos por página
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchData = async () => {
       try {
-        const newsData = await getNewsletter();
+        const newsData = await getNewsletter(controller.signal);
         setNews(newsData.emails);
       } catch (error) {
-        console.error('Error fetching newsletter:', error);
-        toast.error('Error al obtener los correos');
+        if (error.name !== 'AbortError') {
+          toast.error('Error al obtener los correos');
+        }
       }
     };
-
     fetchData();
+    return () => controller.abort();
   }, []);
 
   useEffect(() => {
