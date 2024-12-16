@@ -18,38 +18,36 @@ const Locales = () => {
 
   // Ref para prevenir ejecución múltiple
   const isInitialized = useRef(false);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const loadLocales = async () => {
+      if (isInitialized.current) return; // Evita múltiples ejecuciones
+      isInitialized.current = true;
+  
       try {
         const fetchedLocales = await fetchLocales();
         setLocale(fetchedLocales);
-        shuffleLocales(fetchedLocales); // Mezclar inicialmente
+        shuffleLocales(fetchedLocales);
         setLoading(false);
-
-        // Chequeo de hash en URL
-        if (!isInitialized.current) {
-          const hash = window.location.hash;
-          if (hash) {
-            const localId = hash.replace('#', '').replace(/_/g, ' ');
-            const targetLocal = fetchedLocales.find(
-              (local: { local: string }) => local.local === localId
-            );
-            if (targetLocal) {
-              setSelectedLocal(targetLocal);
-              open(); // Abre el modal si hay hash válido
-            }
-          }
-          isInitialized.current = true; // Marcar como inicializado
+  
+        const hash = window.location.hash;
+        if (hash) {
+          const localId = hash.replace('#', '').replace(/_/g, ' ');
+          const targetLocal = fetchedLocales.find(
+            (local:any) => local.local === localId
+          );
+          if (targetLocal) setSelectedLocal(targetLocal);
         }
       } catch (error) {
         console.error('Error al cargar los locales:', error);
         setLoading(false);
       }
     };
-
+  
     loadLocales();
   }, []);
+  
 
   // Función para mezclar locales
   const shuffleLocales = (localesList: Local[]) => {
@@ -91,9 +89,26 @@ const Locales = () => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setPage(1);
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    // Debounce para evitar actualizaciones inmediatas
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    debounceTimeout.current = setTimeout(() => {
+      setPage(1);
+    }, 300);
   };
+  
+  useEffect(() => {
+    // Limpiar el timeout al desmontar el componente
+    return () => {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, []);
 
   return (
     <section id="locales" className="mx-auto max-w-2xl pb-8 px-4 sm:pt-20 sm:pb-10 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -127,12 +142,10 @@ const Locales = () => {
         )}
       </article>
       <article className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8" data-aos="fade-right">
-        {loading ? (
-          Array.from({ length: localPage }).map((_, index) => <CardSkeleton key={index} />)
-        ) : locales.length === 0 ? (
-          <div>No se encontraron locales.</div>
-        ) : (
-          locales.slice((page - 1) * localPage, page * localPage).map((product, index) => (
+      {loading 
+        ? ( new Array(localPage).fill(null).map((_, index) => <CardSkeleton key={index} />)) 
+        : locales.length === 0 ? ( <div>No se encontraron locales.</div>) 
+        : (locales.slice((page - 1) * localPage, page * localPage).map((product, index) => (
             <Card key={index} product={product} onOpen={() => setSelectedLocal(product)} />
           ))
         )}

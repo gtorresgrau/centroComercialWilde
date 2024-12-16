@@ -5,8 +5,6 @@ import s from './globo.module.css';
 
 const Banner = () => {
     const [backgroundUrl, setBackgroundUrl] = useState('/assets/banner/background.webp');
-    const [estiloBg, setEstiloBg] = useState('');
-    const [loading, setLoading] = useState(true);
     const [isFallbackDesign, setIsFallbackDesign] = useState(false); // Estado para manejar el diseño alternativo
 
     // Function to handle the balloon click
@@ -25,23 +23,17 @@ const Banner = () => {
 
             // Handle if the background URL is valid or needs to fall back
             if (backgroundUrl && backgroundUrl !== '/assets/banner/background.webp') {
-                setEstiloBg('bg-black opacity-70');
                 setBackgroundUrl(backgroundUrl);
                 setIsFallbackDesign(false); // Usamos el diseño original
-                setLoading(false);
             } else {
-                setEstiloBg('');
                 setBackgroundUrl('/assets/banner/background.webp');
                 setIsFallbackDesign(true); // Usamos el diseño alternativo
-                setLoading(false);
             }
         } catch (error) {
             console.error('Error al obtener la URL del fondo:', error);
             setBackgroundUrl('/assets/banner/background.webp');
             setIsFallbackDesign(true); // Si falla, se utiliza el diseño alternativo
-        } finally {
-            setLoading(false); // Always stop the loading process
-        }
+        } 
     };
 
     useEffect(() => {
