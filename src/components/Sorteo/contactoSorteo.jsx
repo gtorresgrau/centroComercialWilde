@@ -87,7 +87,7 @@ const ContactoSorteo = () => {
         const { email, nombre } = data;
         try {
             alertLoading();
-            console.log('data:',data)
+            //console.log('data:',data)
             const response = await axios.post('/api/sorteos', {
                 ...data,
                 sorteo: 'sorteo',
@@ -311,7 +311,7 @@ const ContactoSorteo = () => {
                                                     const piso = getValues('piso') ? ` - Piso ${getValues('piso')}` : '';
                                                     const depto = getValues('depto') ? ` - Depto ${getValues('depto')}` : '';
                                                     const direccionCompleta = `${calle}${torre}${piso}${depto}`.trim();
-                                                    console.log('direccioncompleta:',direccionCompleta)
+                                                    //console.log('direccioncompleta:',direccionCompleta)
                                                     setValue('torre', direccionCompleta.toUpperCase());
 
                                                     const altura = getValues('altura');

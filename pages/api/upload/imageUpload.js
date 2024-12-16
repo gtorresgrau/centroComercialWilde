@@ -20,8 +20,8 @@ cloudinary.v2.api.resources({ max_results: 1 }, (error, result) => {
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        console.log('Headers recibidos:', req.headers);
-        console.log('Body recibido:', req.body);
+        //console.log('Headers recibidos:', req.headers);
+        //console.log('Body recibido:', req.body);
 
         const form = new Formidable({
             multiples: false,
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
                 return res.status(500).json({ error: 'Error al procesar la imagen.' });
             }
         
-            console.log('Archivos procesados por Formidable:', files); // Depuración
+            //console.log('Archivos procesados por Formidable:', files); // Depuración
             const file = files.file && files.file[0]?.filepath; // Acceder al primer archivo
         
             if (!file) {

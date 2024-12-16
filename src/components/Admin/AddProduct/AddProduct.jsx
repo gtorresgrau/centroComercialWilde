@@ -55,7 +55,7 @@ export default function AddProduct({
     const fetchSelectAdmin = async () => {
       const res = await axios.get('/api/locales/selectAdmin');
       const { categorias, rubros, ubicaciones } = res.data;
-      console.log(categorias)
+      //console.log(categorias)
       setCategorias(categorias)
       setUbicaciones(ubicaciones)
       setRubros(rubros)
@@ -100,8 +100,8 @@ export default function AddProduct({
   };
 
   const handleUpdateImages = (newImages) => {
-    console.log('Tipo de newImages:', typeof newImages);
-    console.log('newImages:', newImages);
+    //console.log('Tipo de newImages:', typeof newImages);
+    //console.log('newImages:', newImages);
   
     setProducto((prevState) => ({
       ...prevState,
@@ -159,23 +159,23 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
     container.innerHTML = `<h2><strong>AGUARDE</strong></h2><br/><p> se está creando el producto</p>`;
     container.appendChild(loadingElement);
 
-    console.log(producto)
+    //(producto)
 
     const submitUpdateImage = async (file, tipo) => {
-      console.log(file,tipo)
+      //console.log(file,tipo)
       const formData = new FormData();
       formData.append('file', file);
       formData.append('tipo', tipo); // Carpeta en Cloudinary para organizar las imágenes
-    console.log(formData)
+    //console.log(formData)
       try {
         const response = await axios.post('/api/images/postImage', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        console.log(response.data)
+        //console.log(response.data)
         const { data } = response;
-        console.log(data)
+        //console.log(data)
         return data.preview; // URL segura de la imagen en Cloudinary
       } catch (error) {
         console.error('Error al subir la imagen:', error);
@@ -189,7 +189,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
     // Función para enviar el formulario actualizado del producto
     const submitAddProduct = async (e) => {
       e.preventDefault();
-      console.log(producto, 'submit');
+      //console.log(producto, 'submit');
     
       // Validación básica del campo nombre
       if (!producto.local.trim()) {
@@ -214,7 +214,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
         // Subir el logoLocal si existe
         if (producto.logoLocal && producto.logoLocal.file) {
           const logoResponse = await submitUpdateImage(producto.logoLocal.file, 'logoLocal');
-          console.log(logoResponse);
+          //console.log(logoResponse);
           if (logoResponse.error) {
             throw new Error('Error al subir el logo local');
           }
@@ -225,7 +225,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
             ...prevState,
             logoLocal: logoResponse,
           }));
-          console.log('logoLocal subido');
+          //console.log('logoLocal subido');
         }
     
         // Subir la fotoLocal si existe
@@ -241,7 +241,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
             ...prevState,
             fotoLocal: fotoResponse,
           }));
-          console.log('fotoLocal subido');
+          //console.log('fotoLocal subido');
         }
     
         // Agregar URLs de imágenes al objeto producto
@@ -251,7 +251,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
           fotoLocal: fotoLocalUrl,
         };
     
-        console.log(updatedProducto);
+        //console.log(updatedProducto);
     
         // Enviar el formulario actualizado al backend
         const res = await axios.post('/api/locales/localesAdd', updatedProducto);
@@ -269,7 +269,7 @@ const handleAgregarNuevaCategoria = (valorNuevo) => {
         toggleModal();
     
         // Manejar la respuesta si es necesario
-        console.log(data, 'dataaaaaa');
+        //console.log(data, 'dataaaaaa');
       } catch (error) {
         // Cerrar SweetAlert en caso de error
         Swal.fire({

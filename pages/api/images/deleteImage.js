@@ -13,16 +13,16 @@ export default async function handler(req, res) {
   if (req.method === 'DELETE') {
     try {
       const { file, id, tipo} = req.body;
-      console.log("ID de la imagen a eliminar:", id);
-      console.log(tipo)
-      console.log(file)
+     //console.log ("ID de la imagen a eliminar:", id);
+      //console.log(tipo)
+      //console.log(file)
       if (!file || typeof file !== 'string') {
         return res.status(400).json({ message: 'ID de archivo inválido o no proporcionado' });
       }
 
       // Lógica para eliminar la imagen en Cloudinary
       const result = await cloudinary.uploader.destroy(file); // Aquí debes pasar el ID público de la imagen  
-      console.log("Resultado de la eliminación:", result);
+      //console.log("Resultado de la eliminación:", result);
 
       if (result.result === 'ok') {
            // Actualizamos solo la propiedad específica en la base de datos
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
             { $set: { [tipo]: imgNoDisponible } },
             { new: true } // Devuelve el documento actualizado
         );
-        console.log(updateResult)
+        //console.log(updateResult)
         if (!updateResult) {
             return res.status(404).json({ error: 'Producto no encontrado para actualizar' });
         }

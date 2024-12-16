@@ -50,33 +50,16 @@ const Banner = () => {
 
     // Diseño alternativo
     const renderStandardDesign = () => (
-<section 
-    className="relative" 
-    style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
->
-    <article className="items-center relative pb-6 md:h-screen">
-        <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
-            <div className="text-center">
-                <div className="relative inline-block p-4 rounded-lg bg-black bg-opacity-20">
-                    <h1
-                        className="text-3xl sm:text-5xl font-bold tracking-tight sm:my-6 md:my-2 xl:my-6 text-white"
-                        style={{
-                            background: 'linear-gradient(to right, #9C27B0, #1E1E1E)',
-                            WebkitBackgroundClip: 'text',
-                            color: 'transparent',
-                            textShadow: '0px 0px 2px rgba(255, 255, 255, 0.8)', // Sombra de texto más fuerte
-                        }}
-                    >
-                        {userinfo.banner.title}
-                    </h1>
+    <section className="relative" style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+        <article className="items-center relative pb-6 md:h-screen">
+            <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
+                <div className="text-center">
+                    <h1 className="text-3xl sm:text-5xl font-extrabold text-stroke text-stroke-gray-600 tracking-tight sm:my-6 md:my-2 xl:my-6 text-white">{userinfo.banner.title}</h1>
                 </div>
             </div>
-        </div>
-        <div className={`${s.balloon} cursor-pointer z-10`} onClick={handleBalloonClick}>
-            SORTEO
-        </div>
-    </article>
-</section>
+            <div className={`${s.balloon} cursor-pointer z-10`} onClick={handleBalloonClick}>SORTEO</div>
+        </article>
+    </section>
 
     );
 

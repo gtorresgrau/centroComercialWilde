@@ -69,7 +69,7 @@ const UpdateBgBanner = () => {
         formData.append('file', selectedFile);
     
         setFileState((prevState) => ({ ...prevState, uploading: true }));
-        console.log("Archivo seleccionado para subir:", selectedFile);
+        //console.log("Archivo seleccionado para subir:", selectedFile);
 
         try {
             const response = await axios.post('/api/upload/imageUpload', formData, {

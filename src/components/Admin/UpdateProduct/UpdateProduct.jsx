@@ -70,7 +70,7 @@ export default function UpdateProduct({
     texto: product.texto,
     activo: product.activo
   });
-  console.log(producto)
+  //console.log(producto)
   
    const ubicacionDropdownRef = useRef(null);
    const categoriaDropdownRef = useRef(null);
@@ -108,8 +108,8 @@ export default function UpdateProduct({
   };
 
   const handleUpdateImages = (newImages) => {
-    console.log('Tipo de newImages:', typeof newImages);
-    console.log('newImages:', newImages);
+    //console.log('Tipo de newImages:', typeof newImages);
+    //console.log('newImages:', newImages);
   
     setProducto((prevState) => ({
       ...prevState,
@@ -197,7 +197,7 @@ export default function UpdateProduct({
       return;
     }
 
-    console.log('productoSubmit:',producto);
+    //console.log('productoSubmit:',producto);
     
     try {
       // Mostrar SweetAlert con loading

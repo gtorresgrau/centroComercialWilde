@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import { imgNoDisponible } from '../../../app/Constants/constantes';
 
 export default function AgregarImagen ({ localData, updateLocalData }) {
-  console.log(localData)
+  //console.log(localData)
   const [archivos, setArchivos] = useState([]);
 
 
@@ -33,7 +33,7 @@ export default function AgregarImagen ({ localData, updateLocalData }) {
     width: 1,
   });
 
-  console.log(archivos)
+  //console.log(archivos)
   const isLogoDisabled = archivos.some((archivo) => {
     if (archivo.name === 'logoLocal') {
       let previewURL = '';

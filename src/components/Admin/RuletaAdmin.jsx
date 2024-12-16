@@ -98,7 +98,7 @@ const RuletaAdmin = ({ userSorteo }) => {
     let resultados = [];
     
     resultados = shuffleArray(userSorteo).slice(0, 4);
-        console.log(resultados)
+        //console.log(resultados)
       
   
     // If no valid results were found, log an error and prevent further execution

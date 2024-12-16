@@ -1,5 +1,5 @@
 const processImages = (imageFiles) => {
-    console.log('Ajustando fotos para subir en processImages');
+    //('Ajustando fotos para subir en processImages');
   
     // Dimensiones deseadas de la imagen final (relación 2:1)
     const TARGET_WIDTH = 1866;  // 2:1 (1866px de ancho y 933px de alto)

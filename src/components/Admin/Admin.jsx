@@ -90,7 +90,7 @@ export default function Admin() {
   }, [isModalClose, isModalOpen]);
 
   const handleEliminarArchivos = async (producto) => {
-    console.log(producto);
+    //console.log(producto);
     try {
       const result = await Swal.fire({
         title: '¿Estás seguro?',
@@ -117,12 +117,12 @@ export default function Admin() {
   
         // Función para eliminar imagen
         const eliminarImagen = async (url, tipo) => {
-          console.log(url, tipo);
+          //console.log(url, tipo);
           if (url=== imgNoDisponible){
             return
           }
           const path = decodeURIComponent(url.replace(/\/v\d+\//, '/').split('/image/upload/')[1].replace(/\.[^/.]+$/, ''));
-          console.log(path);
+          //console.log(path);
           return axios.delete('/api/images/deleteImage', {
             data: { file: path, id: producto._id, tipo }
           });

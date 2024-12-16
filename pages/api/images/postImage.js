@@ -46,11 +46,11 @@ export default async function handler(req, res) {
       const response = await cloudinary.uploader.upload(imageFile.path, {
         folder: folder
       });
-      console.log(response)
+      //console.log(response)
       
       // Si hay un ID de producto, actualizamos el producto existente
       if (productId) {
-        console.log('aca')
+        //console.log('aca')
         const updateResult = await Local.findByIdAndUpdate(
           productId,
           { $set: { [tipo]: response.secure_url } },

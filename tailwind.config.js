@@ -111,5 +111,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [require('tailwindcss-text-stroke'),],
 }

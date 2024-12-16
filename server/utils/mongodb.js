@@ -13,7 +13,7 @@ if (!url) {
 export async function connectDB() {
   // Verifica si ya hay una conexión establecida
    if (mongoose.connection.readyState >= 1) {
-     console.log('Mongoose is already connected to DB');
+    // console.log('Mongoose is already connected to DB');
      return;
    }
 
@@ -23,7 +23,7 @@ export async function connectDB() {
       connectTimeoutMS: 10000, // Tiempo de espera antes de fallar la conexión
       serverSelectionTimeoutMS: 5000, // Tiempo de espera para seleccionar el servidor
     });
-    console.log('Mongoose connected to DB');
+    //console.log('Mongoose connected to DB');
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
   }
@@ -31,11 +31,11 @@ export async function connectDB() {
 
 // Escuchar eventos de conexión de mongoose
 mongoose.connection.on('connected', () => {
-  console.log('Mongoose connected to DB');
+  //console.log('Mongoose connected to DB');
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected from DB');
+  //console.log('Mongoose disconnected from DB');
 });
 
 mongoose.connection.on('error', (error) => {

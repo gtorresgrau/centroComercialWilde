@@ -12,7 +12,7 @@ async function handlePut(req, res) {
         if (!updatedData.logoLocal || updatedData.logoLocal === '') {
             updatedData.logoLocal = imgNoDisponible; // URL de la imagen por defecto
         }
-        console.log(updatedData,'updateData')
+        //console.log(updatedData,'updateData')
          const updatedLocal = await Local.findByIdAndUpdate(updatedData._id, updatedData, { new: true, runValidators: true });
          if (!updatedLocal) {
              return res.status(404).json({ error: 'Local no encontrado' });

@@ -40,11 +40,11 @@ const alertLoading = () => {
     });
 };
   const onSubmit = async (data) => {
-    console.log(data);
+    //console.log(data);
     const {nombre } = data;
     try {
         alertLoading();
-        console.log('data:',data)
+        //('data:',data)
         const response = await axios.post('/api/sorteos/postGanadores', {
             ...data,
         });
