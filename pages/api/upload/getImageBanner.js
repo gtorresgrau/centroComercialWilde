@@ -1,21 +1,26 @@
-import fs from 'fs';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 
-export default function handler(req, res) {
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+export default async function handler(req, res) {
     if (req.method === 'GET') {
-        // Ruta al archivo en el servidor
-        const imagePath = path.join(process.cwd(), 'public', 'uploads', 'nuevoBanner.webp');
+        try {
+            const resources = await cloudinary.api.resources_by_ids(['banners/nuevoBanner']);
 
-        // Comprobamos si el archivo existe
-        fs.access(imagePath, fs.constants.F_OK, (err) => {
-            if (err) {
-                // Si el archivo no existe, devolvemos la URL predeterminada
+            if (resources.resources.length > 0) {
+                const imageUrl = resources.resources[0].secure_url;
+                return res.status(200).json({ backgroundUrl: imageUrl });
+            } else {
                 return res.status(200).json({ backgroundUrl: '/assets/banner/background.webp' });
             }
-
-            // Si el archivo existe, devolvemos su URL
-            return res.status(200).json({ backgroundUrl: '/uploads/nuevoBanner.webp' });
-        });
+        } catch (error) {
+            console.error('Error al obtener la imagen de Cloudinary:', error);
+            return res.status(500).json({ error: 'Error al obtener la imagen de Cloudinary.' });
+        }
     } else {
         res.setHeader('Allow', ['GET']);
         res.status(405).end('Método no permitido.');

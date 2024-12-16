@@ -1,60 +1,62 @@
 import { Formidable } from 'formidable';
-import fs from 'fs';
-import path from 'path';
+import cloudinary from 'cloudinary';
 
 export const config = {
     api: {
-        bodyParser: false, // Disable default body parser for formidable
+        bodyParser: false, // Necesario para usar Formidable
     },
 };
 
+// Configuración de Cloudinary
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+cloudinary.v2.api.resources({ max_results: 1 }, (error, result) => {
+    if (error) console.error("Error conectando con Cloudinary:", error);
+    else console.log("Conexión exitosa con Cloudinary:", result);
+});
+
 export default async function handler(req, res) {
     if (req.method === 'POST') {
+        console.log('Headers recibidos:', req.headers);
+        console.log('Body recibido:', req.body);
+
         const form = new Formidable({
-            uploadDir: path.join(process.cwd(), '/public/uploads'),
-            keepExtensions: true,
-            multiples: false, // Asegúrate de que esté configurado para manejar un único archivo
-            allowEmptyFiles: false, // Asegúrate de que no se permitan archivos vacíos
+            multiples: false,
+            allowEmptyFiles: false,
         });
 
-        try {
-            form.parse(req, (err, fields, files) => {
-                if (err) {
-                    console.error('Error parsing the form:', err);
-                    return res.status(500).json({ error: 'Error parsing the form.' });
-                }
-
-                const file = files.file ? files.file[0] : null; // Asegúrate de acceder al primer archivo si es un array
-                if (!file) {
-                    return res.status(400).json({ error: 'No file uploaded.' });
-                }
-
-                // Depuración: Verificar las propiedades del archivo
-                console.log('Received file:', file);
-
-                const oldPath = file.filepath;
-                if (!oldPath) {
-                    console.error('File path is missing or invalid');
-                    return res.status(400).json({ error: 'Invalid file path.' });
-                }
-
-                const newPath = path.join(form.uploadDir, 'nuevoBanner.webp');
-                
-                try {
-                    // Renombrar/mover el archivo al destino final
-                    fs.renameSync(oldPath, newPath);
-                    res.status(200).json({ url: `/uploads/nuevoBanner.webp` });
-                } catch (renameError) {
-                    console.error('Error renaming the file:', renameError);
-                    res.status(500).json({ error: 'Error renaming the file.' });
-                }
-            });
-        } catch (error) {
-            console.error('Error processing file upload:', error);
-            res.status(500).json({ error: 'Internal server error during file upload.' });
-        }
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.error('Error al analizar el formulario:', err);
+                return res.status(500).json({ error: 'Error al procesar la imagen.' });
+            }
+        
+            console.log('Archivos procesados por Formidable:', files); // Depuración
+            const file = files.file && files.file[0]?.filepath; // Acceder al primer archivo
+        
+            if (!file) {
+                console.error('No se subió ningún archivo.');
+                return res.status(400).json({ error: 'No se subió ningún archivo.' });
+            }
+        
+            try {
+                const result = await cloudinary.v2.uploader.upload(file, {
+                    folder: 'banners',
+                    public_id: 'nuevoBanner',
+                    overwrite: true,
+                });
+                res.status(200).json({ url: result.secure_url });
+            } catch (uploadError) {
+                console.error('Error subiendo a Cloudinary:', uploadError);
+                res.status(500).json({ error: 'Error subiendo la imagen a Cloudinary.' });
+            }
+        });        
     } else {
         res.setHeader('Allow', ['POST']);
-        res.status(405).end('Method Not Allowed');
+        res.status(405).end('Método no permitido.');
     }
 }
+

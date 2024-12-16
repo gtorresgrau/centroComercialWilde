@@ -48,7 +48,14 @@ const UpdateBgBanner = () => {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
-        if (file) processImage(file);
+        if (file) {
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+            if (!validTypes.includes(file.type)) {
+                toast.error('Solo se permiten imágenes en formato JPEG, JPG, PNG o WEBP.');
+                return;
+            }
+            processImage(file);
+        }
     };
 
     const handleUpload = async () => {
@@ -57,37 +64,40 @@ const UpdateBgBanner = () => {
             toast.error('No hay ningún archivo para subir.');
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('file', selectedFile);
-
+    
         setFileState((prevState) => ({ ...prevState, uploading: true }));
+        console.log("Archivo seleccionado para subir:", selectedFile);
 
         try {
             const response = await axios.post('/api/upload/imageUpload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
+    
             toast.success('Archivo subido exitosamente.');
             setFileState((prevState) => ({
                 ...prevState,
                 hide: true,
+                preview: response.data.url, // Actualiza la URL al link de Cloudinary
             }));
-            console.log('File uploaded:', response.data.url);
         } catch (error) {
-            console.error('Upload error:', error);
+            console.error('Error al subir el archivo:', error);
             toast.error('Error al subir el archivo. Intenta nuevamente.');
         } finally {
             setFileState((prevState) => ({ ...prevState, uploading: false }));
         }
     };
+    
 
     const handleDelete = async () => {
         try {
-            const response = await fetch('/api/upload/deleteUploadedImage', {
-                method: 'DELETE',
+            const response = await axios.delete('/api/upload/deleteUploadedImage', {
+                data: { public_id: 'cloudinary_public_id' },
             });
-
-            if (response.ok) {
+    
+            if (response.status === 200) {
                 toast.success('La imagen se ha eliminado correctamente.');
                 setFileState({
                     selectedFile: null,
@@ -95,9 +105,6 @@ const UpdateBgBanner = () => {
                     uploading: false,
                     hide: false,
                 });
-            } else {
-                const data = await response.json();
-                toast.error(data.error || 'Error al eliminar la imagen.');
             }
         } catch (error) {
             console.error('Error al eliminar la imagen:', error);
