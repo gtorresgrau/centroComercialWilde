@@ -42,18 +42,28 @@ const Banner = () => {
 
     // Diseño alternativo
     const renderStandardDesign = () => (
-    <section className="relative" style={{ backgroundImage: `url(${backgroundUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-        <article className="items-center relative pb-6 md:h-screen">
-            <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
-                <div className="text-center">
-                <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight sm:my-6 md:my-2 xl:my-6 drop-shadow-lg shadow-primary">{userinfo.banner.title}</h1>
+        <section className="relative"
+            style={{
+                backgroundImage: `url(${backgroundUrl})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundAttachment: 'fixed', // Para efecto "parallax" opcional
+                height: '100vh', // Asegura que ocupe toda la altura de la pantalla
+            }}
+            >
+            <article className="items-center relative pb-6 h-screen">
+                <div className="mx-auto max-w-5xl pt-8 sm:py-12 md:py-4 xxl:py-12">
+                    <div className="text-center">
+                        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight sm:my-6 md:my-2 xl:my-6 drop-shadow-lg shadow-primary">
+                        {userinfo.banner.title}
+                        </h1>
+                    </div>
                 </div>
-            </div>
-            <div className={`${s.balloon} cursor-pointer z-10`} onClick={handleBalloonClick}>SORTEO</div>
-        </article>
-    </section>
-
-    );
+                <div className={`${s.balloon} cursor-pointer z-10`} onClick={handleBalloonClick} > SORTEO </div>
+            </article>
+        </section>
+        );
 
     // Diseño estándar
     const renderFallbackDesign = () => (
