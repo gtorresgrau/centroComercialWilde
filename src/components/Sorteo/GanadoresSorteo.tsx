@@ -70,7 +70,7 @@ export default function GanadoresSorteo() {
                 <TrophyIcon className="text-primary w-12 h-12" aria-hidden="true" />
                 </div>
                 <h2 className="text-2xl font-semibold text-primary text-center mb-2">{ganador.nombre}</h2>
-                <p className="text-lg text-gray-600 text-center">{ganador.CHW?`de la torre ${ganador.torre}`:`de ${ganador.localidad}`}</p>
+                <p className="text-lg text-gray-600 text-center">{ganador.CHW?`de la torre ${ganador.torre}`:ganador.localidad?`de ${ganador.localidad}`:''}</p>
             </motion.div>
             ))}
         </div>
